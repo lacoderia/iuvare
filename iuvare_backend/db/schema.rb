@@ -11,7 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220011917) do
+ActiveRecord::Schema.define(version: 20150226203148) do
+
+  create_table "invitations", force: true do |t|
+    t.integer  "user_id"
+    t.string   "recipient_name"
+    t.string   "recipient_email"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "request_states", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "requests", force: true do |t|
+    t.string   "source_name"
+    t.string   "source_email"
+    t.string   "source_text"
+    t.integer  "user_id"
+    t.boolean  "visible"
+    t.integer  "request_state_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "states", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "first_name"
@@ -37,6 +68,8 @@ ActiveRecord::Schema.define(version: 20150220011917) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "uid"
+    t.string   "picture"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

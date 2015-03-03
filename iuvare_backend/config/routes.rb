@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
+  resources :request_states
+
+  resources :requests do
+    member do
+      match 'get_pending', :via => [:post, :get]
+    end
+  end
+
+  resources :invitations do
+    member do
+      match 'send_with_token', :via => [:post, :get]
+    end
+  end
+
   devise_for :users
-  resources :users
+  resources :users 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
