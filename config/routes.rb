@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   resources :request_states
 
   resources :requests do
@@ -12,8 +13,15 @@ Rails.application.routes.draw do
       match 'send_with_token', :via => [:post, :get]
     end
   end
+  
+  devise_for :users, :controllers => {:registrations => "registrations"}#, :skip => [:registrations]
 
-  devise_for :users
+  devise_scope :user do
+    get 'logout', :to => "devise/sessions#destroy"
+    get 'signin', :to => "devise/sessions#new"
+    #get 'signup', :to => "devise/registrations#new"
+  end
+
   resources :users 
 
   # The priority is based upon order of creation: first created -> highest priority.
