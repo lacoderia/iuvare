@@ -14,12 +14,12 @@ Rails.application.routes.draw do
     end
   end
   
-  devise_for :users, :controllers => {:registrations => "registrations"}#, :skip => [:registrations]
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}#, :skip => [:registrations]
 
   devise_scope :user do
     get 'logout', :to => "devise/sessions#destroy"
-    get 'signin', :to => "devise/sessions#new"
-    #get 'signup', :to => "devise/registrations#new"
+    get 'login', :to => "devise/sessions#new"
+    get 'register', :to => "devise/registrations#new"
   end
 
   resources :users 
