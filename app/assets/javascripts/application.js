@@ -10,7 +10,20 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+// External scripts
+//= require bower_components/modernizr/modernizr
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require bower_components/angular/angular.min
+//= require bower_components/angular-resource/angular-resource.min
+
+// Application scripts
+//= require app
+
+// Controllers
+//= require controllers/rootController
+
+// Directives
+
+// Services
