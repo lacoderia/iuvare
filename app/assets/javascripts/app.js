@@ -4,4 +4,19 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource'])
+var iuvare = angular.module('iuvare', ['ngResource', 'ngRoute']);
+
+iuvare.config(function ($routeProvider, $locationProvider) {
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false}
+    );
+
+    $routeProvider
+        .when('/', {
+            templateUrl: '/assets/index.html'
+        })
+        .otherwise({ redirectTo: '/' });
+
+});
