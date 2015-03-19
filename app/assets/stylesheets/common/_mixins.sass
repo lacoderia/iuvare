@@ -1,3 +1,5 @@
+@import "bootstrap-compass"
+
 @function parseInt($n)
   @return $n / ($n * 0 + 1)
 
@@ -22,3 +24,103 @@
   @else
     #{$property}: $px
     #{$property}: $rem
+
+@mixin font-smoothing($value: antialiased)
+  @if $value == antialiased
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+  @else
+    -webkit-font-smoothing: subpixel-antialiased
+    -moz-osx-font-smoothing: auto
+
+@mixin  border-radius($radius)
+  border-top-right-radius: $radius
+  border-top-left-radius: $radius
+  border-bottom-right-radius: $radius
+  border-bottom-left-radius: $radius
+
+@mixin round-corners
+  +border-radius(3px)
+
+@function action-button-background-color($color)
+  @if $color == $color_purple_1
+    @return $color_purple_1
+
+  @return $color
+
+
+@function action-button-text-color($color)
+  @if $color == $color_purple_1
+    @return white
+
+  @return white
+
+@function action-button-hover-background-color($color)
+  @if $color == $color_purple_1
+    @return lighten($color-purple_1, 4%)
+
+  @return $color
+
+@function action-button-border-color($color)
+  @if $color == transparent
+    @return $color_gray_2
+
+  @return $color
+
+@mixin action-button($color)
+  +round-corners
+  box-sizing: border-box
+  display: inline-block
+  text-align: center
+  background-color: action-button-background-color($color)
+  border: 1px solid action-button-border-color($color)
+  color: action-button-text-color($color)
+  cursor: pointer
+
+  &.active
+    background-color: action-button-hover-background-color($color)
+    color: white !important
+    cursor: default
+    pointer-events: none
+  &:link
+    color: action-button-text-color($color)
+    text-decoration: none
+  &:focus
+    color: action-button-text-color($color)
+    text-decoration: none
+  &:hover
+    background-color: action-button-hover-background-color($color)
+    color: white
+    text-decoration: none
+  .icon-button
+    +rem(margin-right, 0.5rem)
+  &.size-extra-large
+    +rem(font-size, $large-font)
+    font-weight: 800
+    padding: 25px
+    width: 100%
+
+    .icon-button
+      +rem(font-size, 1.4rem)
+
+  &.size-large
+    +rem(font-size, 1.7rem)
+    padding: 10px 16px
+
+    .icon-button
+      +rem(font-size, 1.2rem)
+
+  &.size-medium
+    +rem(font-size, 1.5rem)
+    padding: 6px 12px
+
+    .icon-button
+      +rem(font-size, 0.8rem)
+
+  &.size-small
+    +rem(font-size, 0.8rem)
+    padding: 5px 10px
+
+    .icon-button
+      +rem(font-size, 1rem)

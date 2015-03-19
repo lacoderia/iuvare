@@ -2,9 +2,59 @@
 @import "common/variables"
 @import "common/mixins"
 
-// Import modules sytles
-@import "modules/public_top_nav"
+//Import typography
+@import "common/icomoon"
+@import "common/typography"
+
+// Import layout sytles
+@import "layout/footer"
+@import "layout/public_top_nav"
+
+// Import modules styles
+@import "modules/login"
 
 // Common styles
 body
   background-color: $bg_color
+  +font-smoothing
+  font-weight: 600
+  line-height: 24px
+  font-style: normal
+
+h2.section-title
+  font-weight: 400
+  +rem(font-size, 2.5rem)
+
+.action-button-fb
+  +action-button($color-blue_fb)
+
+.action-button-purple
+  +action-button($color_purple_1)
+
+.action-button-login
+  background-color: $color-blue_1
+  border: none
+  color: white
+  +rem(font-size, $large-font)
+  font-weight: 400
+  +rem(padding, 1.5rem)
+  text-transform: uppercase
+  width: 100%
+
+.form
+  input[type='text'], input[type='email'], input[type='password']
+    background-color: $color_gray_3
+    border: none
+    color: $color_gray_2
+    +rem(font-size, $medium-font)
+    font-weight: 600
+    height: 50px
+    +rem(padding, 0 2rem)
+
+.separator-gray
+  background-color: $color_gray_1
+  border: 0
+  height: 3px
+
+.wrapper-container
+  min-height: 500px
