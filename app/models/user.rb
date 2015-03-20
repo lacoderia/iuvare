@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
 
   def register token
     user = User.find_by_email(self.email)
-  	unless user
-      invitations = Invitation.where("recipient_email = ? AND token = ?", self.email, token)
+    unless user
+        invitations = Invitation.where("recipient_email = ? AND token = ?", self.email, token)
     	if invitations.size == 1
     		self.save
     	else

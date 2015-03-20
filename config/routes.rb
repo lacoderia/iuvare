@@ -1,14 +1,7 @@
 Rails.application.routes.draw do
 
 
-  resources :request_states
-
-  resources :requests do
-    member do
-      match 'get_pending', :via => [:post, :get]
-    end
-  end
-
+  resources :requests 
   resources :invitations do
     member do
       match 'send_with_token', :via => [:post, :get]

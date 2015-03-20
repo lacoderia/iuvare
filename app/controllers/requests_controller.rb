@@ -36,13 +36,6 @@ class RequestsController < ApplicationController
     respond_with(@request)
   end
 
-  #Recupera las solicitudes pendientes de un premier
-  #Recibe:
-  #user_id: ID del premier a quien se le solicita acceso
-  def get_pending
-    Request.get_pending(params[:user_id])
-  end
-
   private
     def set_request
       @request = Request.find(params[:id])

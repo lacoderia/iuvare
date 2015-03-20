@@ -1,7 +1,19 @@
 class Request < ActiveRecord::Base
-	
-	def self.get_pending(user_id)
-		state = RequestState.where(name: "pending")
-		@request_list = Request.where("user_id = ? and request_state_id = ? and visible = ?", user_id, state[0].id, true)
-	end
+  STATUSES = [
+    ['pending','pendiente'],
+    ['accepted','aceptado'],
+    ['rejected','rechazado'],
+  ]
+  
+  validates :status, inclusion: {in: STATUSES.map{ |pairs| pairs[0] } }
+  
+  scope :pending, -> { where(status: 'pending') }
+  scope :accepted, -> { where(status: 'accepted') }
+  scope :visible, -> { shere(visible: true) }
+
+  state_machine :status, :initial => 'pending' do
+    transition 'pending' => 'accepted', on: :accept
+    transition 'pending' => 'rejected', on: :reject
+  end
+ 
 end
