@@ -6,14 +6,10 @@ iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
     var signIn = function (credentials) {
 
         var loginServiceURL = '/users/sign_in.json';
-        var deferred = $q.defer();
-        var promise = deferred.promise;
 
-        $http.post(loginServiceURL,
-            credentials
-        );
-
-        promise.then(
+        $http.post(loginServiceURL, {
+            user: credentials
+        }).then(
             function(data){
                 console.log(data)
             },
@@ -46,7 +42,7 @@ iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
         );
 
     };
-    
+
     var isAuthenticated = function () {
         return true;
     };
