@@ -9,11 +9,21 @@
 // Import layout sytles
 @import "layout/footer"
 @import "layout/public_top_nav"
+@import "layout/inner_aside_nav"
 
 // Import modules styles
 @import "modules/login"
+@import "modules/cycle"
+@import "modules/network"
 
 // Common styles
+
+a
+  cursor: pointer
+
+a.disabled
+  cursor: default
+
 body
   background-color: $bg_color
   font-family: "CircularStd"
@@ -61,6 +71,19 @@ h2.section-title
     &.checked
       +action-button($color_purple_5)
 
+
+.section-container
+  background-color: white
+  +rem(margin, 2rem 0)
+  min-height: 500px
+  +rem(padding, 3rem 3.5rem)
+
+  h2.section-title
+    +rem(margin, 0 0 2rem)
+
+.section-content
+  +rem(margin, 2rem 0)
+
 .separator-gray
   background-color: $color_gray_1
   border: 0
@@ -73,6 +96,7 @@ h2.section-title
   +rem(font-size, 2rem)
   display: inline-block
   height: 40px
+  overflow: hidden
   width: 40px
 
 
