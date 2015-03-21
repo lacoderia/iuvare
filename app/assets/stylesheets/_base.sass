@@ -16,6 +16,7 @@
 // Common styles
 body
   background-color: $bg_color
+  font-family: "CircularStd"
   +font-smoothing
   font-weight: 600
   line-height: 24px
@@ -51,10 +52,39 @@ h2.section-title
     height: 50px
     +rem(padding, 0 2rem)
 
+  .login-switch
+    +action-button($color_purple_1)
+
+    input[type="radio"]
+      display: none
+
+    &.checked
+      +action-button($color_purple_2)
+
 .separator-gray
   background-color: $color_gray_1
   border: 0
   height: 3px
+
+.user-image
+  background-color: $color_gray_3
+  border: 1px solid white
+  +border-radius(50%)
+  color: $color_gray_2
+  +rem(font-size, 2rem)
+  display: inline-block
+  height: 40px
+  position: relative
+  width: 40px
+
+  :before
+    position: absolute
+
+
+  span.icon-user
+    display: inline-block
+    +rem(margin-top, 0.8rem)
+    vertical-align: sub
 
 .wrapper-container
   min-height: 500px
