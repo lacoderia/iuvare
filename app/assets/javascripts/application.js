@@ -23,8 +23,10 @@
 //= require app
 
 // Controllers
-//= require controllers/rootController
+//= require controllers/RootController
+//= require controllers/LoginController
 
 // Directives
 
 // Services
+//= require services/AuthService
