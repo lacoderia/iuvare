@@ -2,10 +2,10 @@
 
 iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
 
-    var loginServiceURL = '/users/sign_in';
 
     var signIn = function (credentials) {
 
+        var loginServiceURL = '/users/sign_in.json';
         var deferred = $q.defer();
         var promise = deferred.promise;
 
@@ -26,13 +26,12 @@ iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
 
     var signUp = function(user){
 
-        console.log(user)
-        /*var deferred = $q.defer();
+        var registerServiceURL = 'users.json';
+        var deferred = $q.defer();
         var promise = deferred.promise;
 
-        $http.post(loginServiceURL,
+        $http.post(registerServiceURL,
             {
-                token: $('meta[name=csrf-token]').attr('content'),
                 user: user
             }
         );
@@ -44,7 +43,7 @@ iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
             function(response){
                 console.log(response)
             }
-        );*/
+        );
 
     };
     
