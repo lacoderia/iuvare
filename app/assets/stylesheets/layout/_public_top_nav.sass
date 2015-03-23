@@ -1,31 +1,34 @@
 .top-nav
+  background-color: $color_purple_3
+  border-bottom: 10px solid $color_purple_1
   font-size: 0
-  +rem(margin, 0 auto)
-  padding: 0
 
-  h1
-    background-color: white
-    display: inline-block
-    +rem(margin, 0)
-    +rem(padding, 1.5rem 0)
-    text-align: center
-    width: 20%
+  .header-container
+    +rem(margin, 0 auto)
+    max-width: $screen-lg-max
 
-    img
+    h1
       display: inline-block
-      max-width: 200px
-      vertical-align: top
-      width: 100%
+      +rem(margin, 0)
+      +rem(padding, 3rem 0)
+      text-align: center
+      width: 20%
 
-  nav
-    background: $color-purple_1 url('/assets/bkg_header.png') no-repeat top left
-    display: inline-block
-    float: right
-    min-height: 92px
-    vertical-align: middle
-    width: 80%
+      img
+        display: inline-block
+        max-width: 200px
+        vertical-align: top
+        width: 100%
 
-    ul
-      +rem(font-size, 1rem)
-      list-style: none
-      margin: 0
+    nav
+      color: white
+      display: inline-block
+      float: right
+      min-height: 92px
+      vertical-align: middle
+      width: 80%
+
+      ul
+        +rem(font-size, 1rem)
+        list-style: none
+        margin: 0
