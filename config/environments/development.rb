@@ -1,12 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  ENV['ADDRESS'] = ""
-  ENV['HOST'] = "localhost:3000"
-  ENV['DOMAIN_NAME'] = ""
-  ENV['MAIL_USERNAME'] = ""
-  ENV['MAIL_PASSWORD'] = ""
-
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -40,19 +34,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  config.action_mailer.smtp_settings = {
-    address: ENV["ADDRESS"],
-    port: 587,
-    domain: ENV["DOMAIN_NAME"],
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["MAIL_USERNAME"],
-    password: ENV["MAIL_PASSWORD"]
-  }
-  # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => ENV["HOST"] }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
 end

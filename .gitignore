@@ -12,5 +12,17 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log/*
 /tmp
+coverage/
+profiles/
+
+#Local temp files
+/.sass-cache
+*.keep
+*.swp
+*.swn
+*.swm
+*.swo
+*.*~
+*~

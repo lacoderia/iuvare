@@ -11,9 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224230051) do
+ActiveRecord::Schema.define(version: 20150320002644) do
 
-  create_table "invitations", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "invitations", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "recipient_name"
     t.string   "recipient_email"
@@ -22,13 +25,7 @@ ActiveRecord::Schema.define(version: 20150224230051) do
     t.datetime "updated_at"
   end
 
-  create_table "request_states", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "requests", force: true do |t|
+  create_table "requests", force: :cascade do |t|
     t.string   "source_name"
     t.string   "source_email"
     t.string   "source_text"
@@ -37,9 +34,10 @@ ActiveRecord::Schema.define(version: 20150224230051) do
     t.integer  "request_state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "xango_id"
@@ -67,7 +65,9 @@ ActiveRecord::Schema.define(version: 20150224230051) do
     t.string   "picture"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "invitations", "users"
+  add_foreign_key "requests", "users"
 end
