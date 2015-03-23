@@ -6,7 +6,7 @@
 
 var iuvare = angular.module('iuvare', ['ngResource', 'ngRoute']);
 
-iuvare.config(function ($routeProvider, $locationProvider) {
+iuvare.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode({
         enabled: true,
@@ -22,4 +22,8 @@ iuvare.config(function ($routeProvider, $locationProvider) {
         })
         .otherwise({ redirectTo: '/' });
 
-});
+}]);
+
+iuvare.config(['$httpProvider', function($httpProvider){
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+}]);
