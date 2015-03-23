@@ -1,6 +1,6 @@
 json.success @success
 if @success
-	json.result "result"
+  json.result @user
 else
-	json.error @error
+  json.error @error
 end
