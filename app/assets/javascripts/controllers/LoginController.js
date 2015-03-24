@@ -20,12 +20,17 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "AuthService", fun
 
     // Object that holds new user parameters
     $scope.newUser = {
-        name: undefined,
+        firstName: undefined,
+        lastName: undefined,
         email: undefined,
         password: undefined,
         passwordConfirm: undefined,
         iuvareId: undefined,
-        xangoId: undefined
+        xangoId: undefined,
+        sponsorIuvareId: undefined,
+        sponsorXangoId: undefined,
+        placementIuvareId: undefined,
+        placementXangoId: undefined
     };
 
 

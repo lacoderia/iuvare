@@ -1,6 +1,6 @@
 'use strict';
 
-iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
+iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', function($http, $q, $state, SessionService){
 
 
     var signIn = function (credentials) {
@@ -11,7 +11,13 @@ iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
             user: credentials
         }).then(
             function(data){
-                console.log(data)
+                if(data){
+                    var result = data.data.result;
+                    if(result.id){
+                        SessionService.createSession(result.id, result.firstName, result.lastName, result.email, result.xangoId, result.iuvareId, result.sponsorXangoId, result.sponsorIuvareId, result.placementeXangoId, result.placementeIuvareId)
+                        $state.go('business');
+                    }
+                }
             },
             function(response){
                 console.log(response)
@@ -44,7 +50,7 @@ iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
     };
     
     var isAuthenticated = function () {
-        return true;
+        return (SessionService.getId())? true : false;
     };
 
     return{
