@@ -15,7 +15,8 @@
             <div class="signup-form" ng-if="isCurrentView(VIEW.SIGNUP)">
                 <form class="form">
                     <fieldset>
-                        <input type="text" placeholder="Nombre" ng-model="newUser.name" required="true">
+                        <input type="text" placeholder="Nombres" ng-model="newUser.firstName" required="true">
+                        <input type="text" placeholder="Appelidos" ng-model="newUser.lastName" required="true">
                         <input type="text" placeholder="Correo" ng-model="newUser.email" required="true">
                         <input type="password" placeholder="Password" ng-model="newUser.password" required="true">
                         <input type="password" placeholder="Confirmar password" ng-model="newUser.passwordConfirm" required="true">
