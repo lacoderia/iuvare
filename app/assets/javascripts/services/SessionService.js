@@ -1,3 +1,5 @@
-/**
- * Created by Owen on 19/03/15.
- */
+'use strict';
+
+iuvare.factory('SessionService', [function(){
+
+}]);
