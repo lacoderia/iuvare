@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', function($http, $q, $state, SessionService){
 

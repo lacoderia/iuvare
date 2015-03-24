@@ -17,7 +17,7 @@
 //= require jquery_ujs
 //= require bower_components/angular/angular.min
 //= require bower_components/angular-resource/angular-resource.min
-//= require bower_components/angular-route/angular-route.min.js
+//= require bower_components/ui-router/release/angular-ui-router.min
 
 // Application scripts
 //= require app
@@ -30,3 +30,4 @@
 
 // Services
 //= require services/AuthService
+//= require services/SessionService
