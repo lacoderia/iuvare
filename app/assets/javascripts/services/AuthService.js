@@ -42,7 +42,7 @@ iuvare.factory('AuthService', ['$http', '$q', function($http, $q){
         );
 
     };
-
+    
     var isAuthenticated = function () {
         return true;
     };
