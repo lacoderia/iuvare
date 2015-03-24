@@ -14,14 +14,14 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "AuthService", fun
 
     // Object that holds the username and password values
     $scope.credentials = {
-        iuvareId: undefined,
+        email: undefined,
         password: undefined
     };
 
     // Object that holds new user parameters
     $scope.newUser = {
         name: undefined,
-        mail: undefined,
+        email: undefined,
         password: undefined,
         passwordConfirm: undefined,
         iuvareId: undefined,
@@ -53,7 +53,6 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "AuthService", fun
     $scope.isCurrentView = function (view) {
         return (view == $scope.currentView);
     };
-
 
     $scope.initController();
 
