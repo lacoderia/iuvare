@@ -1,0 +1,13 @@
+<aside class="aside-nav" ng-controller="BusinessMenuController as businessMenuCtrl">
+    <div class="user-profile-info">
+        <div class="user-image">
+            <img src="/assets/rails.png">
+        </div>
+        <h3 class="user-name">{{ userName }}</h3>
+    </div>
+    <nav class="current-index">
+        <ul>
+            <li ng-class="{ 'selected':isCurrentSection(item.code) }" ng-repeat="item in NAV_ITEMS | orderBy:['order']"><a ui-sref="item.state" title="item.title">{{ item.title }}</a></li>
+        </ul>
+    </nav>
+</aside>

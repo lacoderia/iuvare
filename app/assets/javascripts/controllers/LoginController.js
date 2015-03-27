@@ -34,7 +34,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "AuthService", fun
     };
 
 
-    // Method no init the controller default state
+    // Method to init the controller's default state
     $scope.initController = function(){
         $scope.currentView = $scope.VIEW.SIGNIN;
     };

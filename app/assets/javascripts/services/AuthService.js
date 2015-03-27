@@ -12,9 +12,10 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
         }).then(
             function(data){
                 if(data){
+
                     var result = data.data.result;
                     if(result.id){
-                        SessionService.createSession(result.id, result.firstName, result.lastName, result.email, result.xangoId, result.iuvareId, result.sponsorXangoId, result.sponsorIuvareId, result.placementeXangoId, result.placementeIuvareId)
+                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
                         $state.go('business');
                     }
                 }

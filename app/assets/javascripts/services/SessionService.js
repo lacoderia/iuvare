@@ -33,7 +33,7 @@ iuvare.factory('SessionService', [function(){
     };
 
     var setId = function(id){
-        session.firstName = id;
+        session.id = id;
     };
 
     var getFirstName = function(){
