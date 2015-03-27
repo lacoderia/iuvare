@@ -24,10 +24,14 @@
 
 // Controllers
 //= require controllers/RootController
+//= require controllers/BusinessMenuController
+//= require controllers/CycleController
 //= require controllers/LoginController
+//= require controllers/WhyController
 
 // Directives
 
 // Services
 //= require services/AuthService
+//= require services/AsideMenuService
 //= require services/SessionService
