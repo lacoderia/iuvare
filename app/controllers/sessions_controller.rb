@@ -14,6 +14,17 @@ class SessionsController < Devise::SessionsController
     end
   end
 
+  def get
+    if current_user
+      @success = true
+      @user = current_user
+    else
+      @success = false
+      @error = "No has iniciado sesión."
+    end
+    render "get.json"
+  end
+
   def success
   	@success = true
   	render "create.json"
@@ -24,4 +35,5 @@ class SessionsController < Devise::SessionsController
   	@error = "El correo electrónico o la contraseña son incorrectos."
   	render "create.json", status: 500
   end
+
 end

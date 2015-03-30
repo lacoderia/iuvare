@@ -1,7 +1,7 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @requests = Request.all
@@ -22,7 +22,7 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
-    @request.save
+    @request.create_request
     respond_with(@request)
   end
 
@@ -36,12 +36,24 @@ class RequestsController < ApplicationController
     respond_with(@request)
   end
 
+  def accept
+    @request = Request.find(params[:id])
+    @request.accept_request
+    render "change_status.json"
+  end
+
+  def reject
+    @request = Request.find(params[:id])
+    @request.reject_request
+    render "change_status.json"
+  end
+
   private
     def set_request
       @request = Request.find(params[:id])
     end
 
     def request_params
-      params.require(:request).permit(:source_name, :source_email, :source_text, :user_id, :visible, :request_state_id)
+      params.require(:request).permit(:source_name, :source_email, :source_text, :user_id, :visible, :status)
     end
 end

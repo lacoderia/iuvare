@@ -1,10 +1,11 @@
 class IuvareMailer < ActionMailer::Base
   default from: "\"Iuvare\" <from@example.com>"
 
-  def invitation_mail(user_id, recipient_email, recipient_name)
-  	@user = User.find(user_id)
-  	@recipient = recipient_name
-  	mail(to: recipient_email, subject: "Te invitamos a registarte a iuvare.mx")
+  def send_invitation(invitation)
+  	@user = invitation.user.first_name
+  	@recipient = invitation.recipient_name
+  	@token = invitation.token
+  	mail(to: invitation.recipient_email, subject: "Te invitamos a formar parte de Iuvare")
   end
 
 end

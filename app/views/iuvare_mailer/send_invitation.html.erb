@@ -1,0 +1,6 @@
+<p>Hola <%= @recipient %>!</p>
+
+<p><%= @user %> te ha invitado a registrarte en Iuvare</p>
+
+<p>Para registrarte, haz click <a href='<%="http://#{ENV['HOST']}/register?token=#{@token}" %>'>aquí</a></p>
+
