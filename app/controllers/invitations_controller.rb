@@ -11,7 +11,7 @@ class InvitationsController < ApplicationController
   def show
     respond_with(@invitation)
   end
-
+  
   def new
     @invitation = Invitation.new
     respond_with(@invitation)
