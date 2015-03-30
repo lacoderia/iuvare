@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'ui.router']);
+var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStrap']);
 
 iuvare.constant('DEFAULT_VALUES',{
     BUSINESS_SUBSECTIONS_POSITION: {
@@ -16,11 +16,11 @@ iuvare.constant('DEFAULT_VALUES',{
 
     },
     BUSINESS_SUBSECTIONS: [
-        { order:1, code: 'CYCLE', title: 'Ciclo', state: 'cycle' },
-        { order:2, code: 'WHY', title: 'Por qué', state: 'why' },
-        { order:3, code: 'COLLAGE', title: 'Collage', state: 'collage' },
-        { order:4, code: 'PERSONALITY', title: 'Personalidad', state: 'personality' },
-        { order:5, code: 'PREFERENCES', title: 'Preferencias', state: 'preferences' }
+        { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
+        { order:2, code: 'WHY', title: 'Por qué', state: 'business.why' },
+        { order:3, code: 'COLLAGE', title: 'Collage', state: 'business.collage' },
+        { order:4, code: 'PERSONALITY', title: 'Personalidad', state: 'business.personality' },
+        { order:5, code: 'PREFERENCES', title: 'Preferencias', state: 'business.preferences' }
     ]
 });
 

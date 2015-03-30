@@ -7,7 +7,7 @@
     </div>
     <nav class="current-index">
         <ul>
-            <li ng-class="{ 'selected':isCurrentSection(item.code) }" ng-repeat="item in NAV_ITEMS | orderBy:['order']"><a ui-sref="item.state" title="item.title">{{ item.title }}</a></li>
+            <li ng-class="{ 'selected':isCurrentSection(item.code) }" ng-repeat="item in NAV_ITEMS | orderBy:['order']"><a ui-sref="{{ item.state }}" title="item.title">{{ item.title }}</a></li>
         </ul>
     </nav>
 </aside>
