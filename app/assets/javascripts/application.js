@@ -16,6 +16,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bower_components/angular/angular.min
+//= require bower_components/angular-strap/dist/angular-strap.min
+//= require bower_components/angular-strap/dist/angular-strap.tpl.js
 //= require bower_components/angular-resource/angular-resource.min
 //= require bower_components/ui-router/release/angular-ui-router.min
 
@@ -34,4 +36,5 @@
 // Services
 //= require services/AuthService
 //= require services/AsideMenuService
+//= require services/CycleService
 //= require services/SessionService
