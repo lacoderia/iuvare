@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', function($http, $q, $state, SessionService){
 
@@ -33,8 +33,8 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
         }
         var registerServiceURL = '/users.json';
         $http.post(registerServiceURL, {
-            token: 'cualquiercosa',
-            user: user
+                token: 'cualquiercosa',
+                user: user
         }).then(
             function(data){
                 if(data){
@@ -51,7 +51,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
             }
         );
     };
-
+    
     var isAuthenticated = function () {
         var isAuthenticated = false;
         if(SessionService.getId()){
