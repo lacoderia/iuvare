@@ -50,8 +50,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             redirectState: 'login',
             defaultState: 'login',
             authenticationRequired: false
-        })
-        .state('business',{
+        }).state('register',{
+            url: "/register",
+            templateUrl: '/assets/login.html',
+            redirectState: 'register',
+            defaultState: 'login',
+            authenticationRequired: false
+        }).state('business',{
             url: "/negocio",
             templateUrl: '/assets/business_partial.html',
             redirectState: 'business.cycle',
@@ -77,58 +82,35 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             authenticationRequired: true
         });
 
-    /*$stateProvider
-
-        .state({
-
-        })
-        .state('login',{
-            url: "/login",
-            templateUrl: '/assets/login.html',
-            redirectState: 'login',
-            defaultState: 'login',
-            authenticationRequired: false
-        })
-        .state('business',{
-            url: "/negocio",
-            templateUrl: '/assets/business_partial.html',
-            redirectState: 'business',
-            defaultState: 'home',
-            authenticationRequired: true,
-            children: [
-
-            ]
-        })
-        /*.state('business.cycle',{
-            url: "/negocio/ciclo",
-            templateUrl: '/assets/business_partial.cycle.html',
-            redirectState: 'business.cycle',
-            defaultState: 'home',
-            authenticationRequired: true
-        });
-
-    */
 }]);
 
-iuvare.run(['$rootScope', '$state', 'AuthService', function($rootScope, $state, AuthService){
+iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService', function($rootScope, $state, $location,  AuthService, SessionService){
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-
         if(toState.authenticationRequired){
-
-            //event.preventDefault();
+            event.preventDefault();
 
             if(!AuthService.isAuthenticated()){
-                if(toState.name != toState.redirectState){
-                    $state.go(toState.redirectState)
-                }
-            }else{
 
-                if(toState.name != toState.redirectState){
-                    $state.go(toState.redirectState)
-                }
+                AuthService.getCurrentSession().then(
+                    function(data){
+                        if(data){
+                            var result = data.data.result;
+                            if(result.id){
+                                SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
+                                $state.go(toState.redirectState);
+                            }
+                        }
+                    },
+                    function (response) {
+                        $state.go(toState.redirectState);
+                    }
+                );
+
+            }else{
+                $state.go(toState.redirectState);
+
             }
         }else{
-
             if(toState.name != toState.redirectState){
                 $state.go(toState.redirectState)
             }

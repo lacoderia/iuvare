@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('LoginController', ["$scope", "$rootScope", "AuthService", function($scope, $rootScope, AuthService){
+iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", function($scope, $rootScope, $location, AuthService){
 
     $scope.VIEW = {
         SIGNIN: 0,
@@ -33,10 +33,12 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "AuthService", fun
         placementXangoId: undefined
     };
 
+    $scope.invitationToken = undefined;
 
     // Method to init the controller's default state
     $scope.initController = function(){
-        $scope.currentView = $scope.VIEW.SIGNIN;
+        $scope.invitationToken = $location.search().token;
+        ($scope.invitationToken)? $scope.currentView = $scope.VIEW.SIGNUP : $scope.currentView = $scope.VIEW.SIGNIN;
     };
 
     // Method to authenticate a user
@@ -46,7 +48,11 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "AuthService", fun
 
     // Method to register a new user
     $scope.signup = function () {
-        AuthService.signUp($scope.newUser);
+        if($scope.invitationToken){
+            AuthService.signUp($scope.newUser, $scope.invitationToken);
+        }else{
+            console.log('NO TIENES TOKEN')
+        }
     };
 
     // Method no log out a user session
