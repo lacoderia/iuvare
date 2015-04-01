@@ -17,6 +17,7 @@ iuvare.controller('BusinessMenuController', ["$scope", "$rootScope", "AuthServic
 
     $scope.isCurrentSection = function (currentSection) {
         return (currentSection == $scope.currentSection.code);
+
     };
 
     $scope.initController();

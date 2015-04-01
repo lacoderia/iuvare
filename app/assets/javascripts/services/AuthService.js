@@ -16,7 +16,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
                     var result = data.data.result;
                     if(result.id){
                         SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
-                        $state.go('business');
+                        $state.go('business.cycle');
                     }
                 }
             },
@@ -31,8 +31,9 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
         user = {
             email: "jperez@xango.com", first_name: "Juan", iuvare_id: "5667", last_name: "Perez", password: "12345678", password_confirmation: "12345678", placement_iuvare_id: "3445", placement_xango_id: "3445", sponsor_iuvare_id: "456", sponsor_xango_id: "346", xango_id: "6768"
         }
-        var registerServiceURL = 'users.json';
+        var registerServiceURL = '/users.json';
         $http.post(registerServiceURL, {
+                token: 'cualquiercosa',
                 user: user
         }).then(
             function(data){
@@ -41,7 +42,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
                     var result = data.data.result;
                     if(result.id){
                         SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
-                        $state.go('business');
+                        $state.go('business.cycle');
                     }
                 }
             },
@@ -52,7 +53,23 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     };
     
     var isAuthenticated = function () {
-        return (SessionService.getId())? true : false;
+        var isAuthenticated = false;
+        if(SessionService.getId()){
+            isAuthenticated = true;
+        }else{
+            var sessionServiceURL = '/session.json';
+
+            $http.get(sessionServiceURL, {}).then(
+                function (data) {
+                    console.log(data)
+                },
+                function (response) {
+                    console.log(response)
+                }
+            );
+
+        }
+        return isAuthenticated;
     };
 
     return{

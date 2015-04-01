@@ -2,6 +2,12 @@
     <div class="arrow"></div>
     <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
     <div class="popover-content">
-        {{ downline }}
+        <div class="downline-cycle-container">
+            <span class="cycle" ng-repeat="cycle in downline.cyclesDetails" >
+            <span class="cycle-status" ng-class="{ 0:'icon-locked', 1:'' }[cycle.status]">
+                <span class="cycle-name" ng-if="cycle.status != 0">{{ cycle.number }}</span>
+            </span>
+        </span>
+        </div>
     </div>
 </div>

@@ -29,6 +29,7 @@
 //= require controllers/BusinessMenuController
 //= require controllers/CycleController
 //= require controllers/LoginController
+//= require controllers/NetworkController
 //= require controllers/WhyController
 
 // Directives
@@ -37,4 +38,6 @@
 //= require services/AuthService
 //= require services/AsideMenuService
 //= require services/CycleService
+//= require services/InvitationService
+//= require services/NetworkService
 //= require services/SessionService

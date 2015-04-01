@@ -9,19 +9,25 @@ var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStra
 iuvare.constant('DEFAULT_VALUES',{
     BUSINESS_SUBSECTIONS_POSITION: {
         CYCLE: 0,
-        WHY: 1,
-        COLLAGE: 2,
-        PERSONALITY: 3,
-        PREFERENCES: 4
+        NETWORK: 1,
+        WHY: 2,
+        COLLAGE: 3,
+        PERSONALITY: 4,
+        PREFERENCES: 5
 
     },
     BUSINESS_SUBSECTIONS: [
         { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-        { order:2, code: 'WHY', title: 'Por qué', state: 'business.why' },
-        { order:3, code: 'COLLAGE', title: 'Collage', state: 'business.collage' },
-        { order:4, code: 'PERSONALITY', title: 'Personalidad', state: 'business.personality' },
-        { order:5, code: 'PREFERENCES', title: 'Preferencias', state: 'business.preferences' }
-    ]
+        { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' },
+        { order:3, code: 'WHY', title: 'Por qué', state: 'business.why' },
+        { order:4, code: 'COLLAGE', title: 'Collage', state: 'business.collage' },
+        { order:5, code: 'PERSONALITY', title: 'Personalidad', state: 'business.personality' },
+        { order:6, code: 'PREFERENCES', title: 'Preferencias', state: 'business.preferences' }
+    ],
+    CYCLE_STATUS:{
+        0: 'Completado',
+        1: 'Ciclando'
+    }
 });
 
 iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -55,6 +61,12 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             url: "/ciclo",
             templateUrl: '/assets/business_partial.cycle.html',
             redirectState: 'business.cycle',
+            defaultState: 'login',
+            authenticationRequired: true
+        }).state('business.network',{
+            url: "/mi-red",
+            templateUrl: '/assets/business_partial.network.html',
+            redirectState: 'business.network',
             defaultState: 'login',
             authenticationRequired: true
         }).state('business.why',{
