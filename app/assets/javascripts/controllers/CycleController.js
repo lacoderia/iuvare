@@ -7,6 +7,7 @@
 
 iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "AsideMenuService", "CycleService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, AsideMenuService, CycleService, DEFAULT_VALUES){
 
+    $scope.CYCLE_STATUS = DEFAULT_VALUES.CYCLE_STATUS;
 
     $scope.downlines = [];
 

@@ -13,10 +13,35 @@
       +rem(padding, 1rem)
       vertical-align: top
 
+      .downline-cycle-container
+        text-align: center
+
+        .cycle
+          +border-radius(5px)
+          display: inline-block
+          color: $color_gray_1
+          background-color: $color-blue_fb
+          +rem(font-size, 1.5rem)
+          height: 30px
+          +rem(margin-right, 0.5rem)
+          vertical-align: top
+          width: 30px
+
+          &last-child
+            +rem(margin-right, 0)
+
+          span.cycle-status
+            vertical-align: sub
+
+          span.cycle-name
+            font-weight: bold
+
+
       .downline-cycle-status
         background-color: $color-gray_3
-        color: $color_gray_2
         +border-radius(20px)
+        color: $color_gray_2
+        cursor: pointer
         +rem(padding, 0.7rem 1rem)
 
       .downline-image
