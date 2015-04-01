@@ -20,8 +20,6 @@ class Request < ActiveRecord::Base
   end
  
   def create_request
-    self.status = "pending"
-    self.visible = true
     self.save
   end
 
