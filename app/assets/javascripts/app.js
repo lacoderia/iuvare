@@ -67,7 +67,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             templateUrl: '/assets/business_partial.cycle.html',
             redirectState: 'business.cycle',
             defaultState: 'login',
-            authenticationRequired: true
+            authenticationRequired: true,
         }).state('business.network',{
             url: "/mi-red",
             templateUrl: '/assets/business_partial.network.html',
@@ -85,37 +85,34 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
 }]);
 
 iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService', function($rootScope, $state, $location,  AuthService, SessionService){
+
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
         if(toState.authenticationRequired){
-            event.preventDefault();
 
             if(!AuthService.isAuthenticated()){
 
                 AuthService.getCurrentSession().then(
                     function(data){
-                        if(data){
+
+                        if(data.data.success){
                             var result = data.data.result;
-                            if(result.id){
-                                SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
-                                $state.go(toState.redirectState);
-                            }
+                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
+                        }else{
+                            event.preventDefault();
+                            $state.transitionTo(toState.defaultState);
                         }
                     },
-                    function (response) {
-                        $state.go(toState.redirectState);
+                    function(response){
+                        console.log(response);
+
+                        event.preventDefault();
+                        $state.transitionTo(toState.defaultState);
                     }
                 );
-
-            }else{
-                $state.go(toState.redirectState);
-
-            }
-        }else{
-            if(toState.name != toState.redirectState){
-                $state.go(toState.redirectState)
             }
         }
     });
+
 }]);
 
 iuvare.config(['$httpProvider', function($httpProvider){

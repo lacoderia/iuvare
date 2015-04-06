@@ -55,11 +55,6 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         }
     };
 
-    // Method no log out a user session
-    $scope.sigout = function () {
-
-    };
-
     // Method that returns if the parameter view is the current view
     $scope.isCurrentView = function (view) {
         return (view == $scope.currentView);
