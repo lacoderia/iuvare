@@ -1,4 +1,3 @@
-require 'securerandom'
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -37,6 +36,30 @@ class UsersController < ApplicationController
     respond_with(@user)
   end
 
+  def all
+    #logica de current_user y filtrado de socios
+    if current_user
+      @success = true
+      @downlines = User.all_downlines(current_user.id)
+    else
+      @success = false
+      @error = not_signed_error
+    end
+    render "downlines.json"
+  end
+
+  def cycle
+    #logica de current_user y filtrado de socios
+    if current_user
+      @success = true
+      @downlines = User.cycle_downlines(current_user.id)
+    else
+      @success = false
+      @error = not_signed_error
+    end
+    render "downlines.json"
+  end
+
   private
     def set_user
       @user = User.find(params[:id])
@@ -44,5 +67,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :sponsor_iuvare_id, :placement_xango_id, :placement_iuvare_id, :active, :payment_expiration, :xango_rank)
+    end
+
+    def not_signed_error
+      "Tu sesión es inválida o ya expiró. Vuelve a iniciar sesión e intenta de nuevo."
     end
 end
