@@ -16,9 +16,9 @@ Rails.application.routes.draw do
 
   resources :invitations
 
-  resources :users
-
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}#, :skip => [:registrations]
+
+  resources :users
 
   devise_scope :user do
     get 'logout', :to => "devise/sessions#destroy"
