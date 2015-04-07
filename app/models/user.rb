@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   	unless user
       invitations = Invitation.where("recipient_email = ? AND token = ?", self.email, token)
     	if invitations.size == 1
-        upline = User.find_by_placement_xango_id(self.placement_xango_id)
+        upline = User.find_by_xango_id(self.placement_xango_id)
         if upline
           self.upline_id = upline.id
           downline_no = upline.downlines.where("downline_position is not null").count
