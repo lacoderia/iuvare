@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   has_many :downlines, class_name: "User", foreign_key: "upline_id"
   has_many :invitations
 
-  scope :all_downlines, -> (id) {where("upline_id = ? and active = ?", id, true)}
-  scope :cycle_downlines, -> (id) {where("upline_id = ? and active = ? and downline_position is not null", id, true).order(:downline_position)}
+  scope :all_downlines, -> (id) {where("upline_id = ?", id)}
+  scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
 
   def register token
     user = User.find_by_email(self.email)

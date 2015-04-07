@@ -41,11 +41,12 @@ class UsersController < ApplicationController
     if current_user
       @success = true
       @downlines = User.all_downlines(current_user.id)
+      render "downlines.json"
     else
       @success = false
       @error = not_signed_error
+      render "downlines.json", status: 500
     end
-    render "downlines.json"
   end
 
   def cycle
@@ -53,11 +54,12 @@ class UsersController < ApplicationController
     if current_user
       @success = true
       @downlines = User.cycle_downlines(current_user.id)
+      render "downlines.json"
     else
       @success = false
       @error = not_signed_error
+      render "downlines.json", status: 500
     end
-    render "downlines.json"
   end
 
   private
