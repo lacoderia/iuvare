@@ -1,15 +1,20 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, 
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :upline, class_name: "User"
   has_many :downlines, class_name: "User", foreign_key: "upline_id"
   has_many :invitations
+  has_and_belongs_to_many :roles
 
   scope :all_downlines, -> (id) {where("upline_id = ?", id)}
   scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
+
+  def role?(role)
+    return !!self.roles.find_by_name(role)
+  end
 
   def register token
     user = User.find_by_email(self.email)

@@ -22,6 +22,8 @@ gem 'paperclip'
 gem 'bootstrap-sass'
 gem 'cancancan'
 
+gem 'activeadmin', github: 'activeadmin'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
