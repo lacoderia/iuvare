@@ -16,15 +16,29 @@
 //= require jquery
 //= require jquery_ujs
 //= require bower_components/angular/angular.min
+//= require bower_components/angular-strap/dist/angular-strap.min
+//= require bower_components/angular-strap/dist/angular-strap.tpl.js
 //= require bower_components/angular-resource/angular-resource.min
-//= require bower_components/angular-route/angular-route.min.js
+//= require bower_components/ui-router/release/angular-ui-router.min
 
 // Application scripts
 //= require app
 
 // Controllers
-//= require controllers/rootController
+//= require controllers/RootController
+//= require controllers/CycleController
+//= require controllers/GlobalMenuController
+//= require controllers/LoginController
+//= require controllers/NetworkController
+//= require controllers/SubmenuController
+//= require controllers/WhyController
 
 // Directives
 
 // Services
+//= require services/AuthService
+//= require services/NavigationService.js
+//= require services/CycleService
+//= require services/InvitationService
+//= require services/NetworkService
+//= require services/SessionService
