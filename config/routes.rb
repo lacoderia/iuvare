@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   end
 
   root :to => "display#index"
-  get "*path", :to => "display#index"
+  get "login", :to => "display#index"
+  get "negocio", :to => "display#index"
+  get "negocio/mi-red", :to => "display#index"
+  get "negocio/ciclo", :to => "display#index"
 
 end

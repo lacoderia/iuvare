@@ -1,0 +1,64 @@
+.top-nav
+  background-color: $color_purple_3
+  border-bottom: 10px solid $color_purple_1
+  font-size: 0
+
+  .header-container
+    +rem(margin, 0 auto)
+    max-width: $screen-lg-max
+
+    h1
+      display: inline-block
+      +rem(margin, 0)
+      +rem(padding, 3rem 0)
+      text-align: center
+      vertical-align: top
+      width: 20%
+
+      img
+        display: inline-block
+        max-width: 200px
+        vertical-align: top
+        width: 100%
+
+    nav
+      display: inline-block
+      min-height: 92px
+      vertical-align: top
+      width: 80%
+
+      ul
+        +border-radius(10px)
+        display: table
+        +rem(font-size, 1.5rem)
+        float: right
+        list-style: none
+        +rem(margin, 2.8rem 0)
+        overflow: hidden
+        padding: 0
+        max-width: 300px
+        text-align: right
+        width: 100%
+
+
+        li
+          background: linear-gradient(to bottom, $color-gray_1 0% ,$color-gray_3 46% ,white 95%)
+          border-right: 1px solid $color-gray_2
+          display: table-cell
+          text-align: center
+
+          &:last-child
+            border-right: none
+
+          a
+            color: $color-gray-2
+            display: inline-block
+            +rem(padding, 1rem 1.5rem)
+            text-decoration: none
+            vertical-align: middle
+
+          &.selected
+            background: linear-gradient(to bottom, #595655 0%, $color_gray_2 47%, #595655 100%)
+
+            a
+              color: $color_gray_1

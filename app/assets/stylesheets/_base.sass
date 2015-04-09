@@ -8,14 +8,25 @@
 
 // Import layout sytles
 @import "layout/footer"
-@import "layout/public_top_nav"
+@import "layout/top_nav"
+@import "layout/inner_aside_nav"
 
 // Import modules styles
 @import "modules/login"
+@import "modules/cycle"
+@import "modules/network"
 
 // Common styles
+
+a
+  cursor: pointer
+
+a.disabled
+  cursor: default
+
 body
   background-color: $bg_color
+  font-family: "CircularStd"
   +font-smoothing
   font-weight: 600
   line-height: 24px
@@ -24,6 +35,7 @@ body
 h2.section-title
   font-weight: 400
   +rem(font-size, 2.5rem)
+  text-transform: uppercase
 
 .action-button-fb
   +action-button($color-blue_fb)
@@ -32,7 +44,7 @@ h2.section-title
   +action-button($color_purple_1)
 
 .action-button-login
-  background-color: $color-blue_1
+  background-color: $color-blue_3
   border: none
   color: white
   +rem(font-size, $large-font)
@@ -42,6 +54,10 @@ h2.section-title
   width: 100%
 
 .form
+
+  input, button
+    +rem(margin, 0.5rem 0)
+
   input[type='text'], input[type='email'], input[type='password']
     background-color: $color_gray_3
     border: none
@@ -50,11 +66,53 @@ h2.section-title
     font-weight: 600
     height: 50px
     +rem(padding, 0 2rem)
+    width: 100%
+
+  .login-switch
+    +action-button($color_purple_1)
+
+    input[type="radio"]
+      display: none
+
+    &.checked
+      +action-button($color_purple_5)
+
+.form-container
+  +rem(padding, 4rem 16rem)
+
+
+.section-container
+  background-color: white
+  +rem(margin, 2rem 0)
+  min-height: 500px
+  +rem(padding, 3rem 3.5rem)
+
+  h2.section-title
+    +rem(margin, 0 0 2rem)
+
+.section-content
+  +rem(margin, 2rem 0)
 
 .separator-gray
   background-color: $color_gray_1
   border: 0
   height: 3px
+
+.user-image
+  background-color: $color_gray_3
+  +border-radius(50%)
+  color: $color_gray_2
+  +rem(font-size, 2rem)
+  display: inline-block
+  height: 40px
+  overflow: hidden
+  width: 40px
+
+
+  span.icon-user
+    display: inline-block
+    +rem(margin-top, 0.8rem)
+    vertical-align: sub
 
 .wrapper-container
   min-height: 500px
