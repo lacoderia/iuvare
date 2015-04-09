@@ -5,21 +5,21 @@
 
 'use strict';
 
-iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "AsideMenuService", "CycleService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, AsideMenuService, CycleService, DEFAULT_VALUES){
-
-    $scope.CYCLE_STATUS = DEFAULT_VALUES.CYCLE_STATUS;
+iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "CycleService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, CycleService, DEFAULT_VALUES){
 
     $scope.downlines = [];
 
 
     // Method to init the controller's default state
     $scope.initController = function(){
-        $scope.sectionTitle = DEFAULT_VALUES.BUSINESS_SUBSECTIONS[DEFAULT_VALUES.BUSINESS_SUBSECTIONS_POSITION.CYCLE].title;
-        AsideMenuService.setCurrentSection(DEFAULT_VALUES.BUSINESS_SUBSECTIONS_POSITION.CYCLE);
 
+        $scope.$emit('setCurrentSection');
+
+        // Obtenemos los downlines del usuario
         $scope.downlines = angular.copy(CycleService.getDownlines());
 
     };
 
     $scope.initController();
+
 }]);

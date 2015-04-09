@@ -7,23 +7,35 @@
 var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStrap']);
 
 iuvare.constant('DEFAULT_VALUES',{
-    BUSINESS_SUBSECTIONS_POSITION: {
-        CYCLE: 0,
-        NETWORK: 1,
-        WHY: 2,
-        COLLAGE: 3,
-        PERSONALITY: 4,
-        PREFERENCES: 5
-
-    },
-    BUSINESS_SUBSECTIONS: [
-        { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-        { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' },
-        { order:3, code: 'WHY', title: 'Por qué', state: 'business.why' },
-        { order:4, code: 'COLLAGE', title: 'Collage', state: 'business.collage' },
-        { order:5, code: 'PERSONALITY', title: 'Personalidad', state: 'business.personality' },
-        { order:6, code: 'PREFERENCES', title: 'Preferencias', state: 'business.preferences' }
+    SECTIONS: [
+        { order: 1, code: 'BUSINESS', title: 'Negocios', state: 'business.cycle',
+            subsections: [
+                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
+                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
+            ]
+        },
+        { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.cycle',
+            subsections: [
+                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
+                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
+            ]
+        },
+        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.cycle',
+            subsections: [
+                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
+                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
+            ]
+        }
     ],
+    SECTIONS_CODES: {
+        BUSINESS: 'BUSINESS',
+        SYSTEM: 'SYSTEM',
+        PROFILE: 'PROFILE'
+    },
+    SUBSECTIONS_CODES:{
+        CYCLE: 'CYCLE',
+        NETWORK: 'NETWORK'
+    },
     CYCLE_STATUS:{
         0: 'Completado',
         1: 'Ciclando'
@@ -61,24 +73,24 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             templateUrl: '/assets/business_partial.html',
             redirectState: 'business.cycle',
             defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: undefined,
             authenticationRequired: true
         }).state('business.cycle',{
             url: "/ciclo",
             templateUrl: '/assets/business_partial.cycle.html',
             redirectState: 'business.cycle',
             defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'CYCLE',
             authenticationRequired: true,
         }).state('business.network',{
             url: "/mi-red",
             templateUrl: '/assets/business_partial.network.html',
             redirectState: 'business.network',
             defaultState: 'login',
-            authenticationRequired: true
-        }).state('business.why',{
-            url: "/why",
-            templateUrl: '/assets/business_partial.why.html',
-            redirectState: 'business.why',
-            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'NETWORK',
             authenticationRequired: true
         });
 

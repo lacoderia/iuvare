@@ -26,17 +26,18 @@
 
 // Controllers
 //= require controllers/RootController
-//= require controllers/BusinessMenuController
 //= require controllers/CycleController
+//= require controllers/GlobalMenuController
 //= require controllers/LoginController
 //= require controllers/NetworkController
+//= require controllers/SubmenuController
 //= require controllers/WhyController
 
 // Directives
 
 // Services
 //= require services/AuthService
-//= require services/AsideMenuService
+//= require services/NavigationService.js
 //= require services/CycleService
 //= require services/InvitationService
 //= require services/NetworkService

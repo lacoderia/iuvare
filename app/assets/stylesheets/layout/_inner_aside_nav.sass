@@ -1,60 +1,69 @@
-.aside-nav
+.aside-nav-container
   background-color: $color-blue_fb
-  color: white
+  padding: 0 !important
+
   +rem(margin, 2rem 0 0 0)
-  padding: 0
 
-  .user-profile-info
-    +rem(margin-bottom, 2rem)
-    +rem(padding, 2rem)
-    text-align: center
+  .aside-nav
+    color: white
+    margin: 0
+    padding: 0
 
-    .user-name
-      +rem(margin, 0.8rem 0)
-      +rem(font-size, 1.5rem)
-      font-weight: bold
-      text-transform: uppercase
+    .user-profile-info
+      +rem(margin-bottom, 2rem)
+      +rem(padding, 2rem)
+      text-align: center
 
-  nav
-    ul
-      list-style: none
-      margin: 0
-      padding: 0
+      .user-name
+        +rem(margin, 0.8rem 0)
+        +rem(font-size, 1.5rem)
+        font-weight: bold
+        text-transform: uppercase
 
-      li
-        //border-top: 1px solid $color_gray_3
-        text-align: center
-        +rem(font-size, 1.4rem)
-        +rem(padding, 0rem 2rem)
-        position: relative
+    nav
+      ul
+        display: table
+        list-style: none
+        margin: 0
+        padding: 0
+        table-layout: fixed
+        width: 100%
 
-        a
-          color: white
-          display: inline-block
-          +rem(padding, 1rem 0rem)
-          text-decoration: none
+        li
+          display: table-cell
+          text-align: center
+          +rem(font-size, 1.6rem)
+          +rem(padding, 0rem 2rem)
+          position: relative
           width: 100%
 
-        &:first-child
           a
-            border-top: none
+            color: white
+            display: inline-block
+            +rem(padding, 1rem 0rem)
+            text-decoration: none
+            width: 100%
 
-        &:hover:not(.selected)
-          background-color: $color_blue_1
+          &:first-child
+            a
+              border-top: none
 
-        &.selected
-          background-color: $color_blue_3
-          font-weight: 800
+          &:hover:not(.selected)
+            background-color: $color_blue_1
 
-        &.selected:before
-          border-top: 10px solid transparent
-          border-bottom: 10px solid transparent
-          border-right: 10px solid $bg-color
-          content: ''
-          display: inline-block
-          height: 0px
-          position: absolute
-          right: 0
-          transform: translateY(-50%)
-          top: 50%
-          width: 0px
+          &.selected
+            background-color: $color_blue_3
+            font-weight: 800
+
+          &.selected:before
+            border-left: 10px solid transparent
+            border-right: 10px solid transparent
+            border-top: 10px solid $color_blue_3
+            content: ''
+            display: inline-block
+            height: 0px
+            position: absolute
+            right: 50%
+            transform: translateX(50%)
+            top: 100%
+            width: 0px

@@ -1,7 +1,10 @@
 <div ng-controller="NetworkController as networkCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <div class="section-content network-container">
+    <div class="section-content network-container" ng-if="!isInviteView()">
+        <div class="global-actions">
+            <button class="action-button-purple size-medium" ng-click="showInviteView()">Invitar</button>
+        </div>
         <div class="downline-search">
             <form class="form">
                 <input type="text" ng-model="downlineQueryFilter" placeholder="Buscar downline">
@@ -9,11 +12,6 @@
         </div>
         <table class="network-list">
             <tbody>
-                <tr class="network-table-global-actions">
-                    <td colspan="2">
-                        <button class="action-button-purple size-medium" ng-click="invite()">Invitar</button>
-                    </td>
-                </tr>
                 <tr ng-repeat="downline in downlines | filter:downlineQueryFilter">
                     <td class="downline-image">
                         <span class="user-image">
@@ -28,5 +26,19 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="section-content network-container" ng-if="isInviteView()">
+        <div class="form-container">
+            <form name="invitationForm" class="form">
+                <fieldset>
+                    <legend>Envia una invitación</legend>
+                    <input type="text" placeholder="Nombre del invitado" ng-model="invitation.email" ng-required="true">
+                    <input type="email" placeholder="Correo electrónico del invitado" ng-model="invitation.email" ng-required="true">
+                </fieldset>
+                <fieldset>
+                    <button class="action-button-login" ng-click="invite()">Enviar</button>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </div>

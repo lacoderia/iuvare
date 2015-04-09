@@ -8,7 +8,7 @@
 
 // Import layout sytles
 @import "layout/footer"
-@import "layout/public_top_nav"
+@import "layout/top_nav"
 @import "layout/inner_aside_nav"
 
 // Import modules styles
@@ -35,6 +35,7 @@ body
 h2.section-title
   font-weight: 400
   +rem(font-size, 2.5rem)
+  text-transform: uppercase
 
 .action-button-fb
   +action-button($color-blue_fb)
@@ -53,6 +54,10 @@ h2.section-title
   width: 100%
 
 .form
+
+  input, button
+    +rem(margin, 0.5rem 0)
+
   input[type='text'], input[type='email'], input[type='password']
     background-color: $color_gray_3
     border: none
@@ -61,6 +66,7 @@ h2.section-title
     font-weight: 600
     height: 50px
     +rem(padding, 0 2rem)
+    width: 100%
 
   .login-switch
     +action-button($color_purple_1)
@@ -70,6 +76,9 @@ h2.section-title
 
     &.checked
       +action-button($color_purple_5)
+
+.form-container
+  +rem(padding, 4rem 16rem)
 
 
 .section-container

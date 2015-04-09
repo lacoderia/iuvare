@@ -5,18 +5,20 @@
 
 'use strict';
 
-iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "AsideMenuService", "NetworkService", "InvitationService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, AsideMenuService, NetworkService, InvitationService, DEFAULT_VALUES){
+iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "NavigationService", "NetworkService", "InvitationService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, NavigationService, NetworkService, InvitationService, DEFAULT_VALUES){
 
     $scope.downlines = [];
-
     $scope.downlineQueryFilter = undefined;
 
+    // Variables privadas
+    var showInvite = false;
 
     // Method to init the controller's default state
     $scope.initController = function(){
-        $scope.sectionTitle = DEFAULT_VALUES.BUSINESS_SUBSECTIONS[DEFAULT_VALUES.BUSINESS_SUBSECTIONS_POSITION.NETWORK].title;
-        AsideMenuService.setCurrentSection(DEFAULT_VALUES.BUSINESS_SUBSECTIONS_POSITION.NETWORK);
 
+        $scope.$emit('setCurrentSection');
+
+        // Obtenemos los downlines del usuario
         $scope.downlines = angular.copy(NetworkService.getAllDownlines());
 
     };
@@ -31,5 +33,18 @@ iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "
         InvitationService.sendInvitation(invitation);
     };
 
+    $scope.isInviteView = function(){
+        return showInvite;
+    };
+
+    $scope.showInviteView = function () {
+        showInvite = true;
+    };
+
+    $scope.hideInviteView = function () {
+        showInvite = false;
+    };
+
     $scope.initController();
+
 }]);
