@@ -1,0 +1,80 @@
+.downline-container
+
+  ul.downline-tree
+    list-style: none
+    +rem(margin, 4rem 0)
+    padding: 0
+    text-align: center
+    width: 100%
+
+    li
+      display: inline-block
+      +rem(margin, 0 2rem)
+      +rem(padding, 1rem)
+      vertical-align: top
+
+      .downline-cycle-container
+        text-align: center
+
+        .cycle
+          +border-radius(5px)
+          display: inline-block
+          color: $color_gray_1
+          background-color: $color-blue_fb
+          +rem(font-size, 1.5rem)
+          height: 30px
+          +rem(margin-right, 0.5rem)
+          vertical-align: top
+          width: 30px
+
+          &:last-child
+            +rem(margin-right, 0)
+
+          span.cycle-status
+            vertical-align: sub
+
+          span.cycle-name
+            font-weight: bold
+
+
+      .downline-cycle-status
+        background-color: $color-gray_3
+        +border-radius(20px)
+        color: $color_gray_2
+        cursor: pointer
+        +rem(padding, 0.7rem 1rem)
+
+      .downline-image
+        background-color: $color_gray_3
+        +border-radius(50%)
+        color: $color_gray_2
+        display: table
+        height: 100px
+        +rem(font-size, 6rem)
+        +rem(margin, 0 auto)
+        overflow: hidden
+        +rem(padding, 0.5rem)
+        text-align: center
+        width: 100px
+
+        span
+          display: table-cell
+          text-align: center
+          vertical-align: middle
+
+        .image-container
+          background: red
+          +border-radius(50%)
+          display: inline-block
+          height: 95px
+          overflow: hidden
+          width: 95px
+
+        img
+          max-width: 95px
+          width: 100%
+
+      .downline-name
+        +rem(font-size, 1.5rem)
+        +rem(margin, 1rem)
+

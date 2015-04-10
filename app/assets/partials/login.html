@@ -1,22 +1,45 @@
-<div class="login-wrapper row">
+<div class="login-wrapper row" ng-controller="LoginController as loginCtrl">
     <div class="col-lg-12">
         <div class="login-container">
             <h2 class="section-title">Socio</h2>
             <hr class="separator-gray">
-            <div class="login-buttons">
-                <a href="" class="action-button-fb size-large" title="SigIn with Facebook"><span class="icon-facebook"></span> Sign in with Facebook</a>
+            <div>
+                <form class="form login-switch-container">
+                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentView(VIEW.SIGNIN) }"><input type="radio" ng-model="currentView" value="{{ VIEW.SIGNIN }}">Ingresar</label>
+                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentView(VIEW.SIGNUP) }"><input type="radio" ng-model="currentView" value="{{ VIEW.SIGNUP }}">Registrarse</label>
+                </form>
             </div>
             <div class="user-image">
                 <span class="icon-user"></span>
             </div>
-            <div class="login-form">
+            <div class="signup-form" ng-if="isCurrentView(VIEW.SIGNUP)">
                 <form class="form">
                     <fieldset>
-                        <input type="text" placeholder="ID Iuvare" required="true">
-                        <input type="password" placeholder="Password" required="true">
+                        <input type="text" placeholder="Nombres" ng-model="newUser.firstName" required="true">
+                        <input type="text" placeholder="Appelidos" ng-model="newUser.lastName" required="true">
+                        <input type="text" placeholder="Correo electrónico" ng-model="newUser.email" required="true">
+                        <input type="password" placeholder="Password" ng-model="newUser.password" required="true">
+                        <input type="password" placeholder="Confirmar password" ng-model="newUser.passwordConfirm" required="true">
+                        <input type="text" placeholder="ID Iuvare" ng-model="newUser.iuvareId" required="true">
+                        <input type="text" placeholder="ID Xango" ng-model="newUser.xangoId" required="true">
+                        <input type="text" placeholder="ID Iuvare del patrocinador" ng-model="newUser.sponsorIuvareId" required="true">
+                        <input type="text" placeholder="ID Xango del patrocinador" ng-model="newUser.sponsorXangoId" required="true">
+                        <input type="text" placeholder="ID Colocación de Iuvare" ng-model="newUser.placementIuvareId" required="true">
+                        <input type="text" placeholder="ID Colocación de Xango" ng-model="newUser.placementXangoId" required="true">
                     </fieldset>
                     <fieldset>
-                        <button class="action-button-login">Login</button>
+                        <button class="action-button-login" ng-click="signup()">Registrar</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="login-form" ng-if="isCurrentView(VIEW.SIGNIN)">
+                <form name="loginForm" class="form">
+                    <fieldset>
+                        <input type="text" placeholder="Correo electrónico" ng-model="credentials.email" ng-required="true">
+                        <input type="password" placeholder="Password" ng-model="credentials.password" ng-required="true">
+                    </fieldset>
+                    <fieldset>
+                        <button class="action-button-login" ng-click="signin()">Login</button>
                     </fieldset>
                 </form>
             </div>
