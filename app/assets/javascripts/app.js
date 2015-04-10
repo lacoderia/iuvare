@@ -100,15 +100,13 @@ iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService'
 
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
         if(toState.authenticationRequired){
-
             if(!AuthService.isAuthenticated()){
 
                 AuthService.getCurrentSession().then(
                     function(data){
-
                         if(data.data.success){
                             var result = data.data.result;
-                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
+                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
                         }else{
                             event.preventDefault();
                             $state.transitionTo(toState.defaultState);
@@ -123,6 +121,7 @@ iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService'
                 );
             }
         }
+
     });
 
 }]);

@@ -34,7 +34,7 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthServ
     };
 
     var initController = function(){
-        $scope.userName = (SessionService.getFirstName() || SessionService.getLastName()) ? SessionService.getFirstName() + " " + SessionService.getLastName() : 'Usuario';
+
     };
 
     initController();

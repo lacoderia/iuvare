@@ -42,7 +42,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     };
 
     // Method to authenticate a user
-    $scope.sigin = function () {
+    $scope.signin = function () {
         AuthService.signIn($scope.credentials);
     };
 

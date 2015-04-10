@@ -15,12 +15,12 @@
                 <tr ng-repeat="downline in downlines | filter:downlineQueryFilter">
                     <td class="downline-image">
                         <span class="user-image">
-                            <span class="icon-user" ng-if="!downline.image"></span>
-                            <div class="image-container"><img ng-src="{{ downline.image }}" alt="{{ downline.name }}" ng-if="downline.image"></div>
+                            <span class="icon-user" ng-if="!downline.getPicture()"></span>
+                            <div class="image-container"><img ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}" ng-if="downline.getPicture()"></div>
                         </span>
                     </td>
                     <td>
-                        <span class="downline-name">{{ downline.name }}</span>
+                        <span class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</span>
                         <span class="downline-status">Estatus</span>
                     </td>
                 </tr>
@@ -32,8 +32,8 @@
             <form name="invitationForm" class="form">
                 <fieldset>
                     <legend>Envia una invitación</legend>
-                    <input type="text" placeholder="Nombre del invitado" ng-model="invitation.email" ng-required="true">
-                    <input type="email" placeholder="Correo electrónico del invitado" ng-model="invitation.email" ng-required="true">
+                    <input type="text" placeholder="Nombre del invitado" ng-model="invitation.recipient_name" ng-required="true">
+                    <input type="email" placeholder="Correo electrónico del invitado" ng-model="invitation.recipient_email" ng-required="true">
                 </fieldset>
                 <fieldset>
                     <button class="action-button-login" ng-click="invite()">Enviar</button>

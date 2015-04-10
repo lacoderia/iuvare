@@ -52,7 +52,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     };
     
     var isAuthenticated = function () {
-        return (SessionService.getId())? true : false;
+        return (SessionService.$get())? true : false;
     };
 
     return{

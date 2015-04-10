@@ -22,7 +22,6 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get 'logout', :to => "devise/sessions#destroy"
-    #get 'login', :to => "devise/sessions#new"
     get 'register', :to => "devise/registrations#new"
     get 'session', :to => "sessions#get"
   end

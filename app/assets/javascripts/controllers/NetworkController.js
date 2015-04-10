@@ -5,10 +5,11 @@
 
 'use strict';
 
-iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "NavigationService", "NetworkService", "InvitationService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, NavigationService, NetworkService, InvitationService, DEFAULT_VALUES){
+iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "NavigationService", "NetworkService", "InvitationService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, NavigationService, NetworkService, InvitationService, SessionService, DEFAULT_VALUES){
 
     $scope.downlines = [];
     $scope.downlineQueryFilter = undefined;
+    $scope.sectionTitle = undefined;
 
     // Variables privadas
     var showInvite = false;
@@ -18,14 +19,22 @@ iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "
 
         $scope.$emit('setCurrentSection');
 
+        $scope.sectionTitle = $scope.currentSubsection.title;
+
         // Obtenemos los downlines del usuario
-        $scope.downlines = angular.copy(NetworkService.getAllDownlines());
+        NetworkService.getAllDownlines().then(
+            function(downlineList){
+                $scope.downlines = downlineList;
+            }
+        );
+
+        console.log()
 
     };
 
     $scope.invite = function () {
         var invitation = {
-            user_id: 1,
+            user_id: SessionService.getId(),
             recipient_name: 'Luis Sánchez',
             recipient_email: 'luis.sanchez.franco@gmail.com'
         };

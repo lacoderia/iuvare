@@ -41,4 +41,5 @@
 //= require services/CycleService
 //= require services/InvitationService
 //= require services/NetworkService
+//= require services/UserService
 //= require services/SessionService
