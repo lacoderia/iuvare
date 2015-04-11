@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  username: postgres
+  password: dimival
+
+development:
+  <<: *default
+  database: iuvare_development
+
+test:
+  <<: *default
+  database: iuvare_testing
+
+production:
+  <<: *default
+  database: iuvare_production
