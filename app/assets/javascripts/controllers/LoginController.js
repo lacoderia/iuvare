@@ -34,6 +34,8 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     };
 
     $scope.invitationToken = undefined;
+    $scope.loginFormMessage = '';
+    $scope.signupFormMessage = '';
 
     // Method to init the controller's default state
     $scope.initController = function(){
@@ -42,14 +44,25 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     };
 
     // Method to authenticate a user
-    $scope.signin = function () {
-        AuthService.signIn($scope.credentials);
+    $scope.signIn = function () {
+        AuthService.signIn($scope.credentials)
+            .then(
+                function(loginFormMessage) {
+                    $scope.loginFormMessage = loginFormMessage;
+                }
+            );
     };
 
     // Method to register a new user
-    $scope.signup = function () {
+    $scope.signUp = function () {
         if($scope.invitationToken){
-            AuthService.signUp($scope.newUser, $scope.invitationToken);
+            AuthService.signUp($scope.newUser, $scope.invitationToken)
+                .then(
+                function(signupFormMessage) {
+                    $scope.signupFormMessage = signupFormMessage;
+                }
+            );
+
         }else{
             console.log('NO TIENES TOKEN')
         }

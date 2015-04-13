@@ -2,12 +2,9 @@
 
 iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', function($http, $q, $state, SessionService){
 
-
     var signIn = function (credentials) {
 
-        var loginServiceURL = '/users/sign_in.json';
-
-        $http.post(loginServiceURL, {
+        return $http.post('/users/sign_in.json', {
             user: credentials
         }).then(
             function(data){
@@ -21,10 +18,9 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
                 }
             },
             function(response){
-                console.log(response)
+                return response.data.error;
             }
         );
-
     };
 
     var signUp = function(user, token){

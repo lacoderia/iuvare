@@ -129,3 +129,26 @@ iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService'
 iuvare.config(['$httpProvider', function($httpProvider){
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 }]);
+
+/*
+    Directivas menores
+ */
+
+iuvare.directive('pwCheck', function() {
+    return {
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=pwCheck"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.pwCheck = function(modelValue) {
+                return modelValue == scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+                ngModel.$validate();
+            });
+        }
+    };
+});

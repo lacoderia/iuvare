@@ -13,33 +13,78 @@
                 <span class="icon-user"></span>
             </div>
             <div class="signup-form" ng-if="isCurrentView(VIEW.SIGNUP)">
-                <form class="form">
+                <form novalidate name="signupForm" class="form">
                     <fieldset>
-                        <input type="text" placeholder="Nombres" ng-model="newUser.firstName" required="true">
-                        <input type="text" placeholder="Appelidos" ng-model="newUser.lastName" required="true">
-                        <input type="text" placeholder="Correo electrónico" ng-model="newUser.email" required="true">
-                        <input type="password" placeholder="Password" ng-model="newUser.password" required="true">
-                        <input type="password" placeholder="Confirmar password" ng-model="newUser.passwordConfirm" required="true">
-                        <input type="text" placeholder="ID Iuvare" ng-model="newUser.iuvareId" required="true">
-                        <input type="text" placeholder="ID Xango" ng-model="newUser.xangoId" required="true">
-                        <input type="text" placeholder="ID Iuvare del patrocinador" ng-model="newUser.sponsorIuvareId" required="true">
-                        <input type="text" placeholder="ID Xango del patrocinador" ng-model="newUser.sponsorXangoId" required="true">
-                        <input type="text" placeholder="ID Colocación de Iuvare" ng-model="newUser.placementIuvareId" required="true">
-                        <input type="text" placeholder="ID Colocación de Xango" ng-model="newUser.placementXangoId" required="true">
+                        <span>{{ signupFormMessage }}</span>
+                        <input type="text" placeholder="Nombres" name="signupFirstName" ng-model="newUser.firstName" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupFirstName.$touched">
+                            <span ng-show="signupForm.signupFirstName.$error.required">El nombre es requerido.</span>
+                        </div>
+                        <input type="text" placeholder="Apellidos" name="signupLastName" ng-model="newUser.lastName" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupLastName.$touched">
+                            <span ng-show="signupForm.signupLastName.$error.required">Los apellidos son requeridos.</span>
+                        </div>
+                        <input type="text" placeholder="Correo electrónico" name="signupEmail" ng-model="newUser.email" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupEmail.$touched">
+                            <span ng-show="signupForm.signupEmail.$error.required">El correo electrónico es requerido.</span>
+                            <span ng-show="signupForm.signupEmail.$error.email">El correo electrónico no es válido.</span>
+                        </div>
+                        <input type="password" placeholder="Password" name="signupPassword" ng-model="newUser.password" minlength="7" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupPassword.$touched">
+                            <div ng-show="signupForm.signupPassword.$error.required">El password es requerido.</div>
+                            <div ng-show="signupForm.signupPassword.$error.minlength">El password debe tener una longitud mínima de 7 caracteres.</div>
+                        </div>
+                        <input type="password" placeholder="Confirmar password" name="signupConfirmation" ng-model="newUser.passwordConfirm" pw-check="newUser.password" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupConfirmation.$touched">
+                            <div ng-show="signupForm.signupConfirmation.$error.required">La confirmación del password es requerida.</div>
+                            <div ng-show="signupForm.signupConfirmation.$error.pwCheck && !signupForm.signupConfirmation.$error.required">El password y la confirmación deben ser iguales.</div>
+                        </div>
+                        <input type="text" placeholder="ID Iuvare" name="signupIuvareId" ng-model="newUser.iuvareId" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupIuvareId.$touched">
+                            <span ng-show="signupForm.signupIuvareId.$error.required">El ID Iuvare es requerido.</span>
+                        </div>
+                        <input type="text" placeholder="ID Xango" name="signupXangoId" ng-model="newUser.xangoId" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupXangoId.$touched">
+                            <span ng-show="signupForm.signupXangoId.$error.required">El ID Xango es requerido.</span>
+                        </div>
+                        <input type="text" placeholder="ID Iuvare del patrocinador" name="signupIuvareSponsorId" ng-model="newUser.sponsorIuvareId" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupIuvareSponsorId.$touched">
+                            <span ng-show="signupForm.signupIuvareSponsorId.$error.required">El ID Iuvare del patrocinador es requerido.</span>
+                        </div>
+                        <input type="text" placeholder="ID Xango del patrocinador" name="signupXangoSponsorId" ng-model="newUser.sponsorXangoId" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupXangoSponsorId.$touched">
+                            <span ng-show="signupForm.signupXangoSponsorId.$error.required">El ID Xango del patrocinador es requerido.</span>
+                        </div>
+                        <input type="text" placeholder="ID Colocación de Iuvare" name="signupIuvarePlacementId" ng-model="newUser.placementIuvareId" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupIuvarePlacementId.$touched">
+                            <span ng-show="signupForm.signupIuvarePlacementId.$error.required">El ID Colocación de Iuvare es requerido.</span>
+                        </div>
+                        <input type="text" placeholder="ID Colocación de Xango" name="signupXangoPlacementId" ng-model="newUser.placementXangoId" required>
+                        <div ng-show="signupForm.$submitted || signupForm.signupXangoPlacementId.$touched">
+                            <span ng-show="signupForm.signupXangoPlacementId.$error.required">El ID Colocación de Xango es requerido.</span>
+                        </div>
                     </fieldset>
                     <fieldset>
-                        <button class="action-button-login" ng-click="signup()">Registrar</button>
+                        <button class="action-button-login" ng-click="signUp()">Registrar</button>
                     </fieldset>
                 </form>
             </div>
             <div class="login-form" ng-if="isCurrentView(VIEW.SIGNIN)">
-                <form name="loginForm" class="form">
+                <form novalidate name="loginForm" class="form">
                     <fieldset>
-                        <input type="text" placeholder="Correo electrónico" ng-model="credentials.email" ng-required="true">
-                        <input type="password" placeholder="Password" ng-model="credentials.password" ng-required="true">
+                        <span>{{ loginFormMessage }}</span>
+                        <input type="email" placeholder="Correo electrónico" name="loginEmail" ng-model="credentials.email" required>
+                        <div ng-show="loginForm.$submitted || loginForm.loginEmail.$touched">
+                            <span ng-show="loginForm.loginEmail.$error.required">El correo electrónico es requerido.</span>
+                            <span ng-show="loginForm.loginEmail.$error.email">El correo electrónico no es válido.</span>
+                        </div>
+                        <input type="password" placeholder="Password" name="loginPassword" ng-model="credentials.password" required>
+                        <div ng-show="loginForm.$submitted || loginForm.loginPassword.$touched">
+                            <div ng-show="loginForm.loginPassword.$error.required">El password es requerido.</div>
+                        </div>
                     </fieldset>
                     <fieldset>
-                        <button class="action-button-login" ng-click="signin()">Login</button>
+                        <button class="action-button-login" ng-click="signIn()">Login</button>
                     </fieldset>
                 </form>
             </div>
