@@ -12,8 +12,8 @@
             <div class="user-image">
                 <span class="icon-user"></span>
             </div>
-            <div class="signup-form" ng-if="isCurrentView(VIEW.SIGNUP)">
-                <form novalidate name="signupForm" class="form">
+            <div class="signup-form" ng-show="isCurrentView(VIEW.SIGNUP)">
+                <form novalidate name="signupForm" class="form" ng-submit="signUp()">
                     <fieldset>
                         <span>{{ signupFormMessage }}</span>
                         <input type="text" placeholder="Nombres" name="signupFirstName" ng-model="newUser.firstName" required>
@@ -29,10 +29,10 @@
                             <span ng-show="signupForm.signupEmail.$error.required">El correo electrónico es requerido.</span>
                             <span ng-show="signupForm.signupEmail.$error.email">El correo electrónico no es válido.</span>
                         </div>
-                        <input type="password" placeholder="Password" name="signupPassword" ng-model="newUser.password" minlength="7" required>
+                        <input type="password" placeholder="Password" name="signupPassword" ng-model="newUser.password" minlength="8" required>
                         <div ng-show="signupForm.$submitted || signupForm.signupPassword.$touched">
                             <div ng-show="signupForm.signupPassword.$error.required">El password es requerido.</div>
-                            <div ng-show="signupForm.signupPassword.$error.minlength">El password debe tener una longitud mínima de 7 caracteres.</div>
+                            <div ng-show="signupForm.signupPassword.$error.minlength">El password debe tener una longitud mínima de 8 caracteres.</div>
                         </div>
                         <input type="password" placeholder="Confirmar password" name="signupConfirmation" ng-model="newUser.passwordConfirm" pw-check="newUser.password" required>
                         <div ng-show="signupForm.$submitted || signupForm.signupConfirmation.$touched">
@@ -65,12 +65,12 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <button class="action-button-login" ng-click="signUp()">Registrar</button>
+                        <button class="action-button-login">Registrar</button>
                     </fieldset>
                 </form>
             </div>
-            <div class="login-form" ng-if="isCurrentView(VIEW.SIGNIN)">
-                <form novalidate name="loginForm" class="form">
+            <div class="login-form" ng-show="isCurrentView(VIEW.SIGNIN)">
+                <form novalidate name="loginForm" class="form" ng-submit="signIn()">
                     <fieldset>
                         <span>{{ loginFormMessage }}</span>
                         <input type="email" placeholder="Correo electrónico" name="loginEmail" ng-model="credentials.email" required>
@@ -84,7 +84,7 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <button class="action-button-login" ng-click="signIn()">Login</button>
+                        <button class="action-button-login">Login</button>
                     </fieldset>
                 </form>
             </div>

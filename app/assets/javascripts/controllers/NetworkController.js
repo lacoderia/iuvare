@@ -33,13 +33,15 @@ iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "
     };
 
     $scope.invite = function () {
-        var invitation = {
-            user_id: SessionService.getId(),
-            recipient_name: 'Luis Sánchez',
-            recipient_email: 'luis.sanchez.franco@gmail.com'
-        };
+        if ($scope.invitationForm.$valid) {
+            var invitation = {
+                user_id: SessionService.$get().getId(),
+                recipient_name: $scope.invitation.recipient_name,
+                recipient_email: $scope.invitation.recipient_email
+            };
 
-        InvitationService.sendInvitation(invitation);
+            InvitationService.sendInvitation(invitation);
+        }
     };
 
     $scope.isInviteView = function(){

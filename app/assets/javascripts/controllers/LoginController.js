@@ -45,26 +45,44 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
 
     // Method to authenticate a user
     $scope.signIn = function () {
-        AuthService.signIn($scope.credentials)
-            .then(
+        if($scope.loginForm.$valid){
+            AuthService.signIn($scope.credentials)
+                .then(
                 function(loginFormMessage) {
                     $scope.loginFormMessage = loginFormMessage;
                 }
             );
+        }
     };
 
     // Method to register a new user
     $scope.signUp = function () {
         if($scope.invitationToken){
-            AuthService.signUp($scope.newUser, $scope.invitationToken)
-                .then(
-                function(signupFormMessage) {
-                    $scope.signupFormMessage = signupFormMessage;
-                }
-            );
+            if($scope.signupForm.$valid){
 
+                var user = {
+                    first_name: $scope.newUser.firstName,
+                    last_name: $scope.newUser.lastName,
+                    email: $scope.newUser.email,
+                    password: $scope.newUser.password,
+                    password_confirmation: $scope.newUser.passwordConfirm,
+                    xango_id: $scope.newUser.xangoId,
+                    iuvare_id: $scope.newUser.iuvareId,
+                    sponsor_xango_id: $scope.newUser.sponsorXangoId,
+                    sponsor_iuvare_id: $scope.newUser.sponsorIuvareId,
+                    placement_xango_id: $scope.newUser.placementXangoId,
+                    placement_iuvare_id: $scope.newUser.placementIuvareId
+                };
+
+                AuthService.signUp(user, $scope.invitationToken)
+                    .then(
+                    function(signupFormMessage) {
+                        $scope.signupFormMessage = signupFormMessage;
+                    }
+                );
+            }
         }else{
-            console.log('NO TIENES TOKEN')
+            $scope.signupFormMessage = 'Para poder registrarte es necesario que recibas una invitación previa.';
         }
     };
 
