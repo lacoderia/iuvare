@@ -132,6 +132,9 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                 .then(
                 function(requestFormMessage) {
                     $scope.requestFormMessage = requestFormMessage;
+                    $scope.request = angular.copy(originalRequest);
+                    $scope.requestForm.$setPristine();
+                    $scope.requestForm.$setUntouched();
                 }
             );
         }
