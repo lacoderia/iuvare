@@ -1,12 +1,5 @@
 module TestingSupport
   module DeviseHelpers
-    
-   #def login_as(user)
-   #   visit(new_user_session_path)
-   #   fill_in 'user_email', with: user.email
-   #   fill_in 'user_password', with: user.password
-   #   click_button 'Log in'
-   #end
 
     def login_with_service user
       with_rack_test_driver do
@@ -29,6 +22,17 @@ module TestingSupport
     def get_session
       visit("/session.json")
       return page
+    end
+
+    def login_as_admin admin
+      visit(new_admin_user_session_path)
+      fill_in 'admin_user_email', with: admin.email
+      fill_in 'admin_user_password', with: admin.password
+      click_button 'Login'
+    end
+
+    def logout_as_admin
+       visit(destroy_admin_user_session_path)
     end
 
   end
