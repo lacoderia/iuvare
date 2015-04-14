@@ -1,0 +1,46 @@
+.network-container
+  .global-actions
+    text-align: right
+
+  .downline-search
+    +rem(margin, 1.5rem 0)
+
+    input
+      width: 100%
+
+  .network-list
+    border: 1px solid $color-gray_3
+    color: $color-gray_2
+    width: 100%
+
+    td
+      +rem(padding, 1.4rem 0)
+      vertical-align: middle
+
+    td.downline-image
+      text-align: center
+      width: 80px
+
+    tr
+      border-bottom: 1px solid $color-gray_3
+
+    tr.network-table-global-actions
+      background-color: $color_gray_1
+
+      td
+        +rem(padding-right, 1rem)
+        text-align: right
+
+    .downline-name
+      display: block
+      +rem(font-size, 1.8rem)
+
+    .downline-status
+      background-color: $color-gray_3
+      +border-radius(5px)
+      color: $color_gray_2
+      cursor: pointer
+      display: inline-block
+      +rem(margin-top, 0.3rem)
+      +rem(padding, 0.2rem 1rem)
+

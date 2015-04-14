@@ -1,0 +1,26 @@
+<div ng-controller="CycleController as cycleCtrl">
+    <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <div class="section-content downline-container">
+        <ul class="downline-tree">
+            <li>
+                <div class="downline-image">
+                    <span class="icon-user"></span>
+                </div>
+                <h3 class="downline-name">Benjamín Hernández</h3>
+                <span class="downline-cycle-status">Ciclo 2 | Completado</span>
+            </li>
+        </ul>
+
+        <ul class="downline-tree">
+            <li ng-repeat="downline in downlines">
+                <div class="downline-image">
+                    <span class="icon-user" ng-if="!downline.image"></span>
+                    <div class="image-container"><img ng-src="{{ downline.image }}" alt="{{ downline.name }}" ng-if="downline.image"></div>
+                </div>
+                <h3 class="downline-name">{{ downline.name }}</h3>
+                <span class="downline-cycle-status" title="Avance" data-auto-close="1" data-template="/assets/modules/_downline_cycle_popover.html" bs-popover>{{ downline.currentCycle.name }} | {{ CYCLE_STATUS[downline.currentCycle.status] }}</span>
+            </li>
+        </ul>
+    </div>
+</div>

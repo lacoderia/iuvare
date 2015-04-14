@@ -1,0 +1,44 @@
+<div ng-controller="NetworkController as networkCtrl">
+    <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <div class="section-content network-container" ng-if="!isInviteView()">
+        <div class="global-actions">
+            <button class="action-button-purple size-medium" ng-click="showInviteView()">Invitar</button>
+        </div>
+        <div class="downline-search">
+            <form class="form">
+                <input type="text" ng-model="downlineQueryFilter" placeholder="Buscar downline">
+            </form>
+        </div>
+        <table class="network-list">
+            <tbody>
+                <tr ng-repeat="downline in downlines | filter:downlineQueryFilter">
+                    <td class="downline-image">
+                        <span class="user-image">
+                            <span class="icon-user" ng-if="!downline.getPicture()"></span>
+                            <div class="image-container"><img ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}" ng-if="downline.getPicture()"></div>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</span>
+                        <span class="downline-status">Estatus</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="section-content network-container" ng-if="isInviteView()">
+        <div class="form-container">
+            <form name="invitationForm" class="form">
+                <fieldset>
+                    <legend>Envia una invitación</legend>
+                    <input type="text" placeholder="Nombre del invitado" ng-model="invitation.recipient_name" ng-required="true">
+                    <input type="email" placeholder="Correo electrónico del invitado" ng-model="invitation.recipient_email" ng-required="true">
+                </fieldset>
+                <fieldset>
+                    <button class="action-button-login" ng-click="invite()">Enviar</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

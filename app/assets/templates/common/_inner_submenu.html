@@ -1,0 +1,7 @@
+<aside class="aside-nav" ng-controller="SubmenuController as submenuCtrl">
+    <nav class="current-index">
+        <ul>
+            <li ng-class="{ 'selected':isCurrentSubsection(item.code) }" ng-repeat="item in subsections | orderBy:['order']"><a ui-sref="{{ item.state }}" title="item.title">{{ item.title }}</a></li>
+        </ul>
+    </nav>
+</aside>
