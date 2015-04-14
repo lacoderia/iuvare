@@ -105,7 +105,7 @@
                         <div ng-show="requestForm.$submitted || requestForm.requestName.$touched">
                             <span ng-show="requestForm.requestName.$error.required">El nombre es requerido.</span>
                         </div>
-                        <input type="text" placeholder="Correo electrónico" name="requestEmail" ng-model="request.email" required>
+                        <input type="email" placeholder="Correo electrónico" name="requestEmail" ng-model="request.email" required>
                         <div ng-show="requestForm.$submitted || requestForm.requestEmail.$touched">
                             <span ng-show="requestForm.requestEmail.$error.required">El correo electrónico es requerido.</span>
                             <span ng-show="requestForm.requestEmail.$error.email">El correo electrónico no es válido.</span>

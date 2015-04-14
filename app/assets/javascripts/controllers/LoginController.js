@@ -34,7 +34,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         placementXangoId: undefined
     };
 
-    // Object that holds new user parameters
+    // Object that holds new request parameters
     $scope.request = {
         premier: undefined,
         name: undefined,
@@ -42,12 +42,12 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         message: undefined
     };
 
+    var originalRequest = angular.copy($scope.request);
+
     // Array that holds the premiers listing
     $scope.premierDropdown = [];
     $scope.premiers = [
-        {id: 1, name:'Ricardo Rosas'},
-        {id: 2, name:'Ricardo Rosas'},
-        {id: 3, name:'Ricardo Rosas'}
+        {id: 1, name:'Rodrigo García'}
     ];
 
     angular.forEach($scope.premiers, function (premier, index) {
