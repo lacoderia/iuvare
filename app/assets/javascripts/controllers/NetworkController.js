@@ -24,7 +24,7 @@ iuvare.controller('NetworkController', ["$scope", "$rootScope", "AuthService", "
         // Obtenemos los downlines del usuario
         NetworkService.getAllDownlines().then(
             function(downlineList){
-                //$scope.downlines = downlineList;
+                $scope.downlines = downlineList;
             }
         );
 

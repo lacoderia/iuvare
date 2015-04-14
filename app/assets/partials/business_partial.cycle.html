@@ -28,6 +28,22 @@
                         <span class="icon-user"></span>
                     </div>
                     <a class="action-button action-button-purple size-medium">Asignar</a>
+                    <div class="downline-list" style="display: none;">
+                        <div class="downline-search">
+                            <form class="form">
+                                <input type="text" ng-model="downlineQueryFilter" placeholder="Buscar downline">
+                            </form>
+                        </div>
+                        <table class="network-list">
+                            <tbody>
+                            <tr ng-repeat="downline in downlines | filter:downlineQueryFilter">
+                                <td>
+                                    <span class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!--
                 <h3 class="downline-name">{{ downline.name }}</h3>
