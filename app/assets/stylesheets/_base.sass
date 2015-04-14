@@ -43,6 +43,20 @@ h2.section-title
 .action-button-purple
   +action-button($color_purple_1)
 
+.action-button-edit
+  color: $color_blue_2
+  cursor: pointer
+
+  &:hover
+    color: $color_blue_3
+
+.action-button-delete
+  color: $color_red_1
+  cursor: pointer
+
+  &:hover
+    color: $color_red_2
+
 .action-button-login
   background-color: $color-blue_3
   border: none
@@ -103,6 +117,21 @@ h2.section-title
 
 .form-container
   +rem(padding, 4rem 16rem)
+
+
+.message-container
+  display: table
+  +rem(margin, 2rem 0)
+  +rem(padding, 2rem)
+  width: 100%
+
+  .message
+    display: table-cell
+    +rem(font-size, 1.5rem)
+    text-align: center
+    vertical-align: middle
+    width: 100%
+
 
 
 .section-container

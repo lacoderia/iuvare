@@ -39,7 +39,8 @@ iuvare.constant('DEFAULT_VALUES',{
     CYCLE_STATUS:{
         0: 'Completado',
         1: 'Ciclando'
-    }
+    },
+    DOWNLINE_LENGTH_LIMIT: 4
 });
 
 iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {

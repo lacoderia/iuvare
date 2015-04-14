@@ -124,3 +124,32 @@
 
     .icon-button
       +rem(font-size, 1rem)
+
+
+@mixin message($color)
+  box-sizing: border-box
+  background-color: action-button-background-color($color)
+  border: 1px solid action-button-border-color($color)
+  color: action-button-text-color($color)
+  text-align: center
+
+  &.size-large
+    +rem(font-size, 1.7rem)
+    padding: 10px 16px
+
+    .icon-button
+      +rem(font-size, 1.2rem)
+
+  &.size-medium
+    +rem(font-size, 1.5rem)
+    padding: 6px 12px
+
+    .icon-button
+      +rem(font-size, 0.8rem)
+
+  &.size-small
+    +rem(font-size, 0.8rem)
+    padding: 5px 10px
+
+    .icon-button
+      +rem(font-size, 1rem)
