@@ -5,11 +5,12 @@
 
 'use strict';
 
-iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", function($scope, $rootScope, $location, AuthService){
+iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", "InvitationService", function($scope, $rootScope, $location, AuthService, InvitationService){
 
     $scope.VIEW = {
         SIGNIN: 0,
-        SIGNUP: 1
+        SIGNUP: 1,
+        REQUEST: 2
     };
 
     // Object that holds the username and password values
@@ -32,6 +33,29 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         placementIuvareId: undefined,
         placementXangoId: undefined
     };
+
+    // Object that holds new user parameters
+    $scope.request = {
+        premier: undefined,
+        name: undefined,
+        email: undefined,
+        message: undefined
+    };
+
+    // Array that holds the premiers listing
+    $scope.premierDropdown = [];
+    $scope.premiers = [
+        {id: 1, name:'Ricardo Rosas'},
+        {id: 2, name:'Ricardo Rosas'},
+        {id: 3, name:'Ricardo Rosas'}
+    ];
+
+    angular.forEach($scope.premiers, function (premier, index) {
+        $scope.premierDropdown.push({
+            text: premier.name,
+            click: 'setPremier(' + index + ')'
+        });
+    });
 
     $scope.invitationToken = undefined;
     $scope.loginFormMessage = '';
@@ -83,6 +107,33 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
             }
         }else{
             $scope.signupFormMessage = 'Para poder registrarte es necesario que recibas una invitación previa.';
+        }
+    };
+
+    // Method that sets the selected premier on the dropdown
+    $scope.setPremier = function(index){
+        if ($scope.request) {
+            $scope.request.premier = $scope.premiers[index];
+        }
+    };
+
+    // Method to send user request
+    $scope.sendRequest = function(){
+        if($scope.requestForm.$valid){
+
+            var request = {
+                user_id: $scope.request.premier.id,
+                source_name: $scope.request.name,
+                source_email: $scope.request.email,
+                source_text: $scope.request.message
+            };
+
+            InvitationService.sendRequest(request)
+                .then(
+                function(requestFormMessage) {
+                    $scope.requestFormMessage = requestFormMessage;
+                }
+            );
         }
     };
 

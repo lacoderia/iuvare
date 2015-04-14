@@ -78,6 +78,9 @@ h2.section-title
     +rem(padding, 0 2rem)
     width: 100%
 
+  .dropdown
+    height: 50px
+
   .login-switch
     +action-button($color_purple_1)
 
@@ -86,6 +89,17 @@ h2.section-title
 
     &.checked
       +action-button($color_purple_5)
+
+  textarea
+    background-color: $color_gray_3
+    border: none
+    color: $color_gray_2
+    +rem(font-size, $medium-font)
+    font-weight: 600
+    height: 100px
+    +rem(padding, 1rem 2rem)
+    resize: none
+    width: 100%
 
 .form-container
   +rem(padding, 4rem 16rem)
