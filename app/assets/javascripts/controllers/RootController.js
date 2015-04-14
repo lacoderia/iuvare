@@ -10,7 +10,6 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthServ
     $scope.currentSection = undefined;
     $scope.currentSubsection = undefined;
     $scope.subsections = [];
-    $scope.userName = undefined;
 
     // Listeners del controlador
     $scope.$on('setCurrentSection', function($event){

@@ -7,19 +7,47 @@
                 <div class="downline-image">
                     <span class="icon-user"></span>
                 </div>
-                <h3 class="downline-name">Benjamín Hernández</h3>
-                <span class="downline-cycle-status">Ciclo 2 | Completado</span>
+                <h3 class="downline-name">{{ currentUserName }}</h3>
+                <!--span class="downline-cycle-status">Ciclo 2 | Completado</span-->
             </li>
         </ul>
 
         <ul class="downline-tree">
-            <li ng-repeat="downline in downlines">
-                <div class="downline-image">
-                    <span class="icon-user" ng-if="!downline.image"></span>
-                    <div class="image-container"><img ng-src="{{ downline.image }}" alt="{{ downline.name }}" ng-if="downline.image"></div>
+            <li ng-repeat="object in getDownlineLengthLimit(DOWNLINE_LENGTH_LIMIT) track by $index">
+                <div ng-if="downlines[$index].getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downlines[$index])]" ng-click="setCurrentDownline($event,downlines[$index])">
+                    <div class="downline-image">
+                        <span class="icon-user" ng-if="!downlines[$index].getPicture()"></span>
+                        <div class="image-container" ng-if="downlines[$index].getPicture()"><img ng-src="{{ downlines[$index].getPicture() }}" alt="{{ downlines[$index].getFirstName() }}"></div>
+                    </div>
+                    <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar Downline"></span>
+                    <span class="downline-action action-button-delete icon-circle-with-cross" title="Eliminar Downline"></span>
+                    <h3 class="downline-name">{{ downlines[$index].getFirstName() }} {{ downlines[$index].getLastName() }}</h3>
                 </div>
+                <div ng-if="!downlines[$index].getId()">
+                    <div class="downline-image">
+                        <span class="icon-user"></span>
+                    </div>
+                    <a class="action-button action-button-purple size-medium">Asignar</a>
+                    <div class="downline-list" style="display: none;">
+                        <div class="downline-search">
+                            <form class="form">
+                                <input type="text" ng-model="downlineQueryFilter" placeholder="Buscar downline">
+                            </form>
+                        </div>
+                        <table class="network-list">
+                            <tbody>
+                            <tr ng-repeat="downline in downlines | filter:downlineQueryFilter">
+                                <td>
+                                    <span class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--
                 <h3 class="downline-name">{{ downline.name }}</h3>
-                <span class="downline-cycle-status" title="Avance" data-auto-close="1" data-template="/assets/modules/_downline_cycle_popover.html" bs-popover>{{ downline.currentCycle.name }} | {{ CYCLE_STATUS[downline.currentCycle.status] }}</span>
+                <!--span class="downline-cycle-status" title="Avance" data-auto-close="1" data-template="/assets/modules/_downline_cycle_popover.html" bs-popover>{{ downline.currentCycle.name }} | {{ CYCLE_STATUS[downline.currentCycle.status] }}</span-->
             </li>
         </ul>
     </div>

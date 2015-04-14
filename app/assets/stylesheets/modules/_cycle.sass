@@ -11,7 +11,22 @@
       display: inline-block
       +rem(margin, 0 2rem)
       +rem(padding, 1rem)
+      position: relative
       vertical-align: top
+
+      .downline
+        cursor: pointer
+
+        &.selected
+          cursor: pointer
+
+          .downline-action
+            display: block
+
+          .downline-image
+            background-color: $color_gray_2
+            color: $color_gray_3
+
 
       .downline-cycle-container
         text-align: center
@@ -36,6 +51,18 @@
           span.cycle-name
             font-weight: bold
 
+      .downline-action
+        display: none
+        +rem(font-size, 2.5rem)
+        position: absolute
+
+        &.action-button-edit
+          right: 0
+          top: 0
+
+        &.action-button-delete
+          right: 0
+          top: 30px
 
       .downline-cycle-status
         background-color: $color-gray_3
@@ -76,5 +103,10 @@
 
       .downline-name
         +rem(font-size, 1.5rem)
+        font-weight: bold
         +rem(margin, 1rem)
+        text-transform: uppercase
+
+      .action-button
+        +rem(margin-top, 1rem)
 
