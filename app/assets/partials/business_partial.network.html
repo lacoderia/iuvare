@@ -5,13 +5,17 @@
         <div class="global-actions">
             <button class="action-button-purple size-medium" ng-click="showInviteView()">Invitar</button>
         </div>
-        <div class="downline-search">
-            <form class="form">
-                <input type="text" ng-model="downlineQueryFilter" placeholder="Buscar downline">
-            </form>
+        <div ng-if="!downlines.length" class="message-container">
+            <p class="message"> Por el momento no tienes downlines en tu red. Haz clic en el botón de invitar personas a formar parte de tu red.</p>
         </div>
-        <table class="network-list">
-            <tbody>
+        <div ng-if="downlines.length">
+            <div class="downline-search">
+                <form class="form">
+                    <input type="text" ng-model="downlineQueryFilter" placeholder="Buscar downline">
+                </form>
+            </div>
+            <table class="network-list">
+                <tbody>
                 <tr ng-repeat="downline in downlines | filter:downlineQueryFilter">
                     <td class="downline-image">
                         <span class="user-image">
@@ -21,11 +25,11 @@
                     </td>
                     <td>
                         <span class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</span>
-                        <span class="downline-status">Estatus</span>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="section-content network-container" ng-show="isInviteView()">
         <div class="form-container">
