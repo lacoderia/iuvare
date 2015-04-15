@@ -10,6 +10,7 @@ class PasswordsController < Devise::PasswordsController
       @success = true
     else
       @success = false
+      @error = "Mail was not sent."
     end
   end
 
@@ -22,10 +23,12 @@ class PasswordsController < Devise::PasswordsController
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message(:notice, flash_message) if is_flashing_format?
       @success = true
+      render "update.json"
     else
       @success = false
+      @error = resource.errors.full_messages
+      render "update.json", status: 500
     end
-    render "update.json"
   end
 
 end
