@@ -38,7 +38,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         lastName: undefined,
         email: undefined,
         password: undefined,
-        passwordConfirm: undefined,
+        passwordConfirmation: undefined,
         iuvareId: undefined,
         xangoId: undefined,
         sponsorIuvareId: undefined,
@@ -64,7 +64,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     $scope.reset = {
         token: undefined,
         password: undefined,
-        confirmation: undefined
+        passwordConfirmation: undefined
     };
 
     // Variables privadas
@@ -152,7 +152,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                     last_name: $scope.newUser.lastName,
                     email: $scope.newUser.email,
                     password: $scope.newUser.password,
-                    password_confirmation: $scope.newUser.passwordConfirm,
+                    password_confirmation: $scope.newUser.passwordConfirmation,
                     xango_id: $scope.newUser.xangoId,
                     iuvare_id: $scope.newUser.iuvareId,
                     sponsor_xango_id: $scope.newUser.sponsorXangoId,
@@ -218,7 +218,11 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that sends a password recovery mail
     $scope.recoverPassword = function () {
         if($scope.forgotForm.$valid){
-            AuthService.recoverPassword($scope.forgot)
+            var forgot = {
+                email: $scope.forgot.email
+            };
+
+            AuthService.recoverPassword(forgot)
                 .then(
                 function(forgotFormMessage) {
                     $scope.forgotFormMessage = forgotFormMessage;
@@ -238,7 +242,13 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that sends a password recovery mail
     $scope.resetPassword = function () {
         if($scope.resetForm.$valid){
-            AuthService.resetPassword($scope.reset)
+            var reset = {
+                reset_password_token: $scope.reset.token,
+                password: $scope.reset.password,
+                password_confirmation: $scope.reset.passwordConfirmation
+            };
+
+            AuthService.resetPassword(reset)
                 .then(
                 function(resetFormMessage) {
                     $scope.resetFormMessage = resetFormMessage;

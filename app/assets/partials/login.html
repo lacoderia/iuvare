@@ -35,7 +35,7 @@
                             <div ng-show="signupForm.signupPassword.$error.required">El password es requerido.</div>
                             <div ng-show="signupForm.signupPassword.$error.minlength">El password debe tener una longitud mínima de 8 caracteres.</div>
                         </div>
-                        <input type="password" placeholder="Confirmar password" name="signupConfirmation" ng-model="newUser.passwordConfirm" pw-check="newUser.password" required>
+                        <input type="password" placeholder="Confirmar password" name="signupConfirmation" ng-model="newUser.passwordConfirmation" pw-check="newUser.password" required>
                         <div ng-show="signupForm.$submitted || signupForm.signupConfirmation.$touched">
                             <div ng-show="signupForm.signupConfirmation.$error.required">La confirmación del password es requerida.</div>
                             <div ng-show="signupForm.signupConfirmation.$error.pwCheck && !signupForm.signupConfirmation.$error.required">El password y la confirmación deben ser iguales.</div>
@@ -154,7 +154,7 @@
                             <div ng-show="resetForm.resetPassword.$error.required">El password es requerido.</div>
                             <div ng-show="resetForm.resetPassword.$error.minlength">El password debe tener una longitud mínima de 8 caracteres.</div>
                         </div>
-                        <input type="password" placeholder="Confirmar password" name="resetConfirmation" ng-model="reset.passwordConfirm" pw-check="reset.password" required>
+                        <input type="password" placeholder="Confirmar password" name="resetConfirmation" ng-model="reset.passwordConfirmation" pw-check="reset.password" required>
                         <div ng-show="resetForm.$submitted || resetForm.resetConfirmation.$touched">
                             <div ng-show="resetForm.resetConfirmation.$error.required">La confirmación del password es requerida.</div>
                             <div ng-show="resetForm.resetConfirmation.$error.pwCheck && !resetForm.resetConfirmation.$error.required">El password y la confirmación deben ser iguales.</div>

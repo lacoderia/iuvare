@@ -43,9 +43,10 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     };
 
     var recoverPassword = function (forgot) {
-        var forgotServiceURL = '/users/forgot.json';
+        var forgotServiceURL = '/users/password.json';
         return $http.post(forgotServiceURL, {
-            forgot: forgot
+            utf8: 'V',
+            user: forgot
         }).then(
             function(data){
                 if(data){
@@ -59,9 +60,10 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     };
 
     var resetPassword = function (reset) {
-        var resetServiceURL = '/users/reset.json';
-        return $http.post(resetServiceURL, {
-            reset: reset
+        var resetServiceURL = '/users/password.json';
+        return $http.put(resetServiceURL, {
+            utf8: 'V',
+            user: reset
         }).then(
             function(data){
                 if(data){
