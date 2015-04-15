@@ -5,12 +5,6 @@ source 'http://rubygems.org'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
-# Use SCSS for stylesheets
-gem 'sass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -31,7 +25,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'autoprefixer-rails'
-gem 'compass-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -47,6 +40,17 @@ gem 'compass-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+group :assets do
+  # Use SCSS for stylesheets
+  gem 'sass-rails'
+# Use Uglifier as compressor for JavaScript assets
+  gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .js.coffee assets and views
+  gem 'coffee-rails', '~> 4.0.0'
+# Imports SASS libraries
+  gem 'compass-rails'
+end
 
 group :development, :test do
   # Call 'pry' anywhere in the code to stop execution and get a debugger console
