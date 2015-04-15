@@ -6,9 +6,10 @@ iuvare.factory('NetworkService', ['$http', '$q', "$state", 'UserService', functi
 
     var getAllDownlines = function () {
 
-        var loginServiceURL = '/downlines/all.json';
+        downlinesList = [];
+        var downlinesAllServiceURL = '/downlines/all.json';
 
-       return $http.get(loginServiceURL, {}).then(
+       return $http.get(downlinesAllServiceURL, {}).then(
            function(data){
                if(data.data.success){
                    var result = data.data.result;

@@ -1,20 +1,20 @@
 // Import styles
-@import "common/variables"
-@import "common/mixins"
+@import  "common/variables"
+@import  "common/mixins"
 
 //Import typography
-@import "common/icomoon"
-@import "common/typography"
+@import  "common/icomoon.css"
+@import  "common/typography"
 
 // Import layout sytles
-@import "layout/footer"
-@import "layout/top_nav"
-@import "layout/inner_aside_nav"
+@import  "layout/footer"
+@import  "layout/top_nav"
+@import  "layout/inner_aside_nav"
 
 // Import modules styles
-@import "modules/login"
-@import "modules/cycle"
-@import "modules/network"
+@import  "modules/login"
+@import  "modules/cycle"
+@import  "modules/network"
 
 // Common styles
 
@@ -43,8 +43,32 @@ h2.section-title
 .action-button-purple
   +action-button($color_purple_1)
 
+.action-button-edit
+  color: $color_blue_2
+  cursor: pointer
+
+  &:hover
+    color: $color_blue_3
+
+.action-button-delete
+  color: $color_red_1
+  cursor: pointer
+
+  &:hover
+    color: $color_red_2
+
 .action-button-login
   background-color: $color-blue_3
+  border: none
+  color: white
+  +rem(font-size, $large-font)
+  font-weight: 400
+  +rem(padding, 1.5rem)
+  text-transform: uppercase
+  width: 100%
+
+.action-button-cancel
+  background-color: $color-blue_fb
   border: none
   color: white
   +rem(font-size, $large-font)
@@ -68,6 +92,9 @@ h2.section-title
     +rem(padding, 0 2rem)
     width: 100%
 
+  .dropdown
+    height: 50px
+
   .login-switch
     +action-button($color_purple_1)
 
@@ -77,8 +104,34 @@ h2.section-title
     &.checked
       +action-button($color_purple_5)
 
+  textarea
+    background-color: $color_gray_3
+    border: none
+    color: $color_gray_2
+    +rem(font-size, $medium-font)
+    font-weight: 600
+    height: 100px
+    +rem(padding, 1rem 2rem)
+    resize: none
+    width: 100%
+
 .form-container
   +rem(padding, 4rem 16rem)
+
+
+.message-container
+  display: table
+  +rem(margin, 2rem 0)
+  +rem(padding, 2rem)
+  width: 100%
+
+  .message
+    display: table-cell
+    +rem(font-size, 1.5rem)
+    text-align: center
+    vertical-align: middle
+    width: 100%
+
 
 
 .section-container
