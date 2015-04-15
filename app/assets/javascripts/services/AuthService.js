@@ -42,6 +42,38 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
         );
     };
 
+    var recoverPassword = function (forgot) {
+        var forgotServiceURL = '/users/forgot.json';
+        return $http.post(forgotServiceURL, {
+            forgot: forgot
+        }).then(
+            function(data){
+                if(data){
+                    console.log(data);
+                }
+            },
+            function(response){
+                return response.data.error;
+            }
+        );
+    };
+
+    var resetPassword = function (reset) {
+        var resetServiceURL = '/users/reset.json';
+        return $http.post(resetServiceURL, {
+            reset: reset
+        }).then(
+            function(data){
+                if(data){
+                    console.log(data);
+                }
+            },
+            function(response){
+                return response.data.error;
+            }
+        );
+    };
+
     var getCurrentSession = function(){
         var sessionServiceURL = '/session.json';
         return $http.get(sessionServiceURL, {});
@@ -55,6 +87,8 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     return{
         signIn: signIn,
         signUp: signUp,
+        recoverPassword: recoverPassword,
+        resetPassword: resetPassword,
         isAuthenticated: isAuthenticated,
         getCurrentSession: getCurrentSession
     }

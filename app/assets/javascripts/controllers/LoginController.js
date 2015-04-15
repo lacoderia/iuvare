@@ -7,10 +7,23 @@
 
 iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", "InvitationService", function($scope, $rootScope, $location, AuthService, InvitationService){
 
+    // Object that holds
     $scope.VIEW = {
+        LOGIN: 0,
+        FORGOT: 1
+    };
+
+    // Object that holds the three possible login tab views
+    $scope.LOGIN_VIEW = {
         SIGNIN: 0,
         SIGNUP: 1,
         REQUEST: 2
+    };
+
+    // Object that holds the three possible login tab views
+    $scope.FORGOT_VIEW = {
+        FORGOT: 0,
+        RESET: 1
     };
 
     // Object that holds the username and password values
@@ -42,7 +55,22 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         message: undefined
     };
 
+    // Object that holds the recover password data
+    $scope.forgot = {
+        email: undefined
+    };
+
+    // Object that holds the recover password data
+    $scope.reset = {
+        token: undefined,
+        password: undefined,
+        confirmation: undefined
+    };
+
+    // Variables privadas
     var originalRequest = angular.copy($scope.request);
+    var originalForgot = angular.copy($scope.forgot);
+    var originalReset = angular.copy($scope.reset);
 
     // Array that holds the premiers listing
     $scope.premierDropdown = [];
@@ -64,7 +92,42 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method to init the controller's default state
     $scope.initController = function(){
         $scope.invitationToken = $location.search().token;
-        ($scope.invitationToken)? $scope.currentView = $scope.VIEW.SIGNUP : $scope.currentView = $scope.VIEW.SIGNIN;
+        ($scope.invitationToken)? $scope.currentLoginView = $scope.LOGIN_VIEW.SIGNUP : $scope.currentLoginView = $scope.LOGIN_VIEW.SIGNIN;
+
+        $scope.reset.token = $location.search().reset_password_token;
+        if ($scope.reset.token) {
+            $scope.currentView = $scope.VIEW.FORGOT;
+            $scope.currentForgotView = $scope.FORGOT_VIEW.RESET
+        } else {
+            $scope.currentView = $scope.VIEW.LOGIN;
+        }
+    };
+
+    // Method that returns if the parameter view is the current view
+    $scope.isCurrentView = function(view){
+        return (view == $scope.currentView);
+    };
+
+    // Method that toggles to login view
+    $scope.showLoginView = function () {
+        $scope.currentView = $scope.VIEW.LOGIN;
+        $scope.currentLoginView = $scope.LOGIN_VIEW.SIGNIN;
+    };
+
+    // Method that toggles to forgot view
+    $scope.showForgotView = function () {
+        $scope.currentView = $scope.VIEW.FORGOT;
+        $scope.currentForgotView = $scope.FORGOT_VIEW.FORGOT;
+    };
+
+    // Method that returns if the parameter view is the current forgot view
+    $scope.isCurrentForgotView = function (view) {
+        return (view == $scope.currentForgotView);
+    };
+
+    // Method that returns if the parameter view is the current login view
+    $scope.isCurrentLoginView = function (view) {
+        return (view == $scope.currentLoginView);
     };
 
     // Method to authenticate a user
@@ -117,7 +180,14 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         }
     };
 
-    // Method to send user request
+    // Method that resets the invitation request form
+    $scope.resetRequestForm = function(){
+        $scope.request = angular.copy(originalRequest);
+        $scope.requestForm.$setPristine();
+        $scope.requestForm.$setUntouched();
+    };
+
+    // Method that sends an invitation request
     $scope.sendRequest = function(){
         if($scope.requestForm.$valid){
 
@@ -132,17 +202,50 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                 .then(
                 function(requestFormMessage) {
                     $scope.requestFormMessage = requestFormMessage;
-                    $scope.request = angular.copy(originalRequest);
-                    $scope.requestForm.$setPristine();
-                    $scope.requestForm.$setUntouched();
+                    $scope.resetRequestForm();
                 }
             );
         }
     };
 
-    // Method that returns if the parameter view is the current view
-    $scope.isCurrentView = function (view) {
-        return (view == $scope.currentView);
+    // Method that resets the password recovery form
+    $scope.resetForgotForm = function(){
+        $scope.forgot = angular.copy(originalForgot);
+        $scope.forgotForm.$setPristine();
+        $scope.forgotForm.$setUntouched();
+    };
+
+    // Method that sends a password recovery mail
+    $scope.recoverPassword = function () {
+        if($scope.forgotForm.$valid){
+            AuthService.recoverPassword($scope.forgot)
+                .then(
+                function(forgotFormMessage) {
+                    $scope.forgotFormMessage = forgotFormMessage;
+                    $scope.resetForgotForm();
+                }
+            );
+        }
+    };
+
+    // Method that resets the password reset form
+    $scope.resetResetForm = function(){
+        $scope.reset = angular.copy(originalReset);
+        $scope.resetForm.$setPristine();
+        $scope.resetForm.$setUntouched();
+    };
+
+    // Method that sends a password recovery mail
+    $scope.resetPassword = function () {
+        if($scope.resetForm.$valid){
+            AuthService.resetPassword($scope.reset)
+                .then(
+                function(resetFormMessage) {
+                    $scope.resetFormMessage = resetFormMessage;
+                    $scope.resetResetForm();
+                }
+            );
+        }
     };
 
     $scope.initController();

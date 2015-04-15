@@ -1,19 +1,19 @@
 <div class="login-wrapper row" ng-controller="LoginController as loginCtrl">
     <div class="col-lg-12">
-        <div class="login-container">
+        <div class="login-container" ng-show="isCurrentView(VIEW.LOGIN)">
             <h2 class="section-title">Socio</h2>
             <hr class="separator-gray">
             <div>
                 <form class="form login-switch-container">
-                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentView(VIEW.SIGNIN) }"><input type="radio" ng-model="currentView" value="{{ VIEW.SIGNIN }}">Ingresar</label>
-                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentView(VIEW.SIGNUP) }" ng-show="invitationToken"><input type="radio" ng-model="currentView" value="{{ VIEW.SIGNUP }}">Registrarse</label>
-                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentView(VIEW.REQUEST) }" ng-show="!invitationToken"><input type="radio" ng-model="currentView" value="{{ VIEW.REQUEST }}">Solicitar invitación</label>
+                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.SIGNIN) }"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.SIGNIN }}">Ingresar</label>
+                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.SIGNUP) }" ng-show="invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.SIGNUP }}">Registrarse</label>
+                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.REQUEST) }" ng-show="!invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.REQUEST }}">Solicitar invitación</label>
                 </form>
             </div>
             <div class="user-image">
                 <span class="icon-user"></span>
             </div>
-            <div class="signup-form" ng-show="isCurrentView(VIEW.SIGNUP)">
+            <div class="signup-form" ng-show="isCurrentLoginView(LOGIN_VIEW.SIGNUP)">
                 <form novalidate name="signupForm" class="form" ng-submit="signUp()">
                     <fieldset>
                         <span>{{ signupFormMessage }}</span>
@@ -70,7 +70,7 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="login-form" ng-show="isCurrentView(VIEW.SIGNIN)">
+            <div class="login-form" ng-show="isCurrentLoginView(LOGIN_VIEW.SIGNIN)">
                 <form novalidate name="loginForm" class="form" ng-submit="signIn()">
                     <fieldset>
                         <span>{{ loginFormMessage }}</span>
@@ -85,11 +85,14 @@
                         </div>
                     </fieldset>
                     <fieldset>
+                        <div class="signup-forgot">
+                            <a href="" ng-click="showForgotView()">¿Olvidaste tu contraseña?</a>
+                        </div>
                         <button class="action-button-login">Login</button>
                     </fieldset>
                 </form>
             </div>
-            <div class="request-form" ng-show="isCurrentView(VIEW.REQUEST)">
+            <div class="request-form" ng-show="isCurrentLoginView(LOGIN_VIEW.REQUEST)">
                 <form novalidate name="requestForm" class="form" ng-submit="sendRequest()">
                     <fieldset>
                         <span>{{ requestFormMessage }}</span>
@@ -117,6 +120,49 @@
                     </fieldset>
                     <fieldset>
                         <button class="action-button-login">Enviar</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="forgot-container" ng-show="isCurrentView(VIEW.FORGOT)">
+            <h2 class="section-title">Recuperar contraseña</h2>
+            <hr class="separator-gray">
+            <div class="forgot-form" ng-show="isCurrentForgotView(FORGOT_VIEW.FORGOT)">
+                <form novalidate name="forgotForm" class="form" ng-submit="recoverPassword()">
+                    <fieldset>
+                        <span>{{ forgotFormMessage }}</span>
+                        <p>Proporciona tu correo electrónico registrado</p>
+                        <input type="email" placeholder="Correo electrónico" name="forgotEmail" ng-model="forgot.email" required>
+                        <div ng-show="forgotForm.$submitted || forgotForm.forgotEmail.$touched">
+                            <span ng-show="forgotForm.forgotEmail.$error.required">El correo electrónico es requerido.</span>
+                            <span ng-show="forgotForm.forgotEmail.$error.email">El correo electrónico no es válido.</span>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <button class="action-button-forgot">Recuperar</button>
+                        <input type="button" class="action-button-cancel" ng-click="showLoginView()" value="Cancelar" />
+                    </fieldset>
+                </form>
+            </div>
+            <div class="forgot-form" ng-show="isCurrentForgotView(FORGOT_VIEW.RESET)">
+                <form novalidate name="resetForm" class="form" ng-submit="resetPassword()">
+                    <fieldset>
+                        <span>{{ resetFormMessage }}</span>
+                        <p>Introduce un nuevo password para tu cuenta</p>
+                        <input type="password" placeholder="Password" name="resetPassword" ng-model="reset.password" minlength="8" required>
+                        <div ng-show="resetForm.$submitted || resetForm.resetPassword.$touched">
+                            <div ng-show="resetForm.resetPassword.$error.required">El password es requerido.</div>
+                            <div ng-show="resetForm.resetPassword.$error.minlength">El password debe tener una longitud mínima de 8 caracteres.</div>
+                        </div>
+                        <input type="password" placeholder="Confirmar password" name="resetConfirmation" ng-model="reset.passwordConfirm" pw-check="reset.password" required>
+                        <div ng-show="resetForm.$submitted || resetForm.resetConfirmation.$touched">
+                            <div ng-show="resetForm.resetConfirmation.$error.required">La confirmación del password es requerida.</div>
+                            <div ng-show="resetForm.resetConfirmation.$error.pwCheck && !resetForm.resetConfirmation.$error.required">El password y la confirmación deben ser iguales.</div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <button class="action-button-forgot">Recuperar</button>
+                        <input type="button" class="action-button-cancel" ng-click="showLoginView()" value="Cancelar" />
                     </fieldset>
                 </form>
             </div>
