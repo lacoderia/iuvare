@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :invitations
 
-  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}#, :skip => [:registrations]
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :passwords => "passwords"}#, :skip => [:registrations]
 
   resources :users
 
