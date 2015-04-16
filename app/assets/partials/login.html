@@ -130,7 +130,6 @@
             <div class="forgot-form" ng-show="isCurrentForgotView(FORGOT_VIEW.FORGOT)">
                 <form novalidate name="forgotForm" class="form" ng-submit="recoverPassword()">
                     <fieldset>
-                        <span>{{ forgotFormMessage }}</span>
                         <p>Proporciona tu correo electrónico registrado</p>
                         <input type="email" placeholder="Correo electrónico" name="forgotEmail" ng-model="forgot.email" required>
                         <div ng-show="forgotForm.$submitted || forgotForm.forgotEmail.$touched">
@@ -139,6 +138,7 @@
                         </div>
                     </fieldset>
                     <fieldset>
+                        <span>{{ forgotFormMessage }}</span>
                         <button class="action-button-forgot">Recuperar</button>
                         <input type="button" class="action-button-cancel" ng-click="showLoginView()" value="Cancelar" />
                     </fieldset>
@@ -147,8 +147,7 @@
             <div class="forgot-form" ng-show="isCurrentForgotView(FORGOT_VIEW.RESET)">
                 <form novalidate name="resetForm" class="form" ng-submit="resetPassword()">
                     <fieldset>
-                        <span>{{ resetFormMessage }}</span>
-                        <p>Introduce un nuevo password para tu cuenta</p>
+                        <p>Introduce una nueva contraseña para tu cuenta</p>
                         <input type="password" placeholder="Password" name="resetPassword" ng-model="reset.password" minlength="8" required>
                         <div ng-show="resetForm.$submitted || resetForm.resetPassword.$touched">
                             <div ng-show="resetForm.resetPassword.$error.required">El password es requerido.</div>
@@ -161,7 +160,8 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <button class="action-button-forgot">Recuperar</button>
+                        <span>{{ resetFormMessage }}</span>
+                        <button class="action-button-forgot">Cambiar contraseña</button>
                         <input type="button" class="action-button-cancel" ng-click="showLoginView()" value="Cancelar" />
                     </fieldset>
                 </form>

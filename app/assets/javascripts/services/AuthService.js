@@ -49,8 +49,9 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
             user: forgot
         }).then(
             function(data){
-                if(data){
+                if(data.data.success){
                     console.log(data);
+                    return "Se ha enviado un correo a la dirección que proporcionaste. Sigue las instrucciones para poder recuperar tu contraseña.";
                 }
             },
             function(response){
@@ -66,8 +67,9 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
             user: reset
         }).then(
             function(data){
-                if(data){
+                if(data.data.success){
                     console.log(data);
+                    return "Tu contraseña ha sido restaurada. Ahora puedes ingresar con tu nueva contraseña.";
                 }
             },
             function(response){
