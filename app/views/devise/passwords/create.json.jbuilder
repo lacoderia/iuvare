@@ -1,6 +1,8 @@
 json.success @success
 if @success
-  json.result {}
+  json.set! :result do
+    json.token @token
+  end
 else
   json.error @error
 end
