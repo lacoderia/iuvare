@@ -42,6 +42,42 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
         );
     };
 
+    var recoverPassword = function (forgot) {
+        var forgotServiceURL = '/users/password.json';
+        return $http.post(forgotServiceURL, {
+            utf8: 'V',
+            user: forgot
+        }).then(
+            function(data){
+                if(data.data.success){
+                    console.log(data);
+                    return "Se ha enviado un correo a la dirección que proporcionaste. Sigue las instrucciones para poder recuperar tu contraseña.";
+                }
+            },
+            function(response){
+                return response.data.error;
+            }
+        );
+    };
+
+    var resetPassword = function (reset) {
+        var resetServiceURL = '/users/password.json';
+        return $http.put(resetServiceURL, {
+            utf8: 'V',
+            user: reset
+        }).then(
+            function(data){
+                if(data.data.success){
+                    console.log(data);
+                    return "Tu contraseña ha sido restaurada. Ahora puedes ingresar con tu nueva contraseña.";
+                }
+            },
+            function(response){
+                return response.data.error;
+            }
+        );
+    };
+
     var getCurrentSession = function(){
         var sessionServiceURL = '/session.json';
         return $http.get(sessionServiceURL, {});
@@ -55,6 +91,8 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     return{
         signIn: signIn,
         signUp: signUp,
+        recoverPassword: recoverPassword,
+        resetPassword: resetPassword,
         isAuthenticated: isAuthenticated,
         getCurrentSession: getCurrentSession
     }

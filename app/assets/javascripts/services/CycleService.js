@@ -31,7 +31,6 @@ iuvare.factory('CycleService', ['$http', '$q', "$state", 'UserService', 'DEFAULT
                     });
 
                 }
-                console.log(downlinesList)
                 return downlinesList;
             },
             function(response){

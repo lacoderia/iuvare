@@ -1,75 +1,22 @@
-.downline-container
+ul.downline-tree
+  list-style: none
+  +rem(margin, 4rem 0)
+  padding: 0
+  text-align: center
+  width: 100%
 
-  ul.downline-tree
-    list-style: none
-    +rem(margin, 4rem 0)
-    padding: 0
-    text-align: center
-    width: 100%
+  li
+    display: inline-block
+    +rem(margin, 0 2rem)
+    +rem(padding, 1rem)
+    position: relative
+    vertical-align: top
+    width: 18%
 
-    li
-      display: inline-block
-      +rem(margin, 0 2rem)
-      +rem(padding, 1rem)
-      position: relative
-      vertical-align: top
-
-      .downline
-        cursor: pointer
-
-        &.selected
-          cursor: pointer
-
-          .downline-action
-            display: block
-
-          .downline-image
-            background-color: $color_gray_2
-            color: $color_gray_3
-
-
-      .downline-cycle-container
-        text-align: center
-
-        .cycle
-          +border-radius(5px)
-          display: inline-block
-          color: $color_gray_1
-          background-color: $color-blue_fb
-          +rem(font-size, 1.5rem)
-          height: 30px
-          +rem(margin-right, 0.5rem)
-          vertical-align: top
-          width: 30px
-
-          &:last-child
-            +rem(margin-right, 0)
-
-          span.cycle-status
-            vertical-align: sub
-
-          span.cycle-name
-            font-weight: bold
+    .downline
 
       .downline-action
-        display: none
-        +rem(font-size, 2.5rem)
-        position: absolute
-
-        &.action-button-edit
-          right: 0
-          top: 0
-
-        &.action-button-delete
-          right: 0
-          top: 30px
-
-      .downline-cycle-status
-        background-color: $color-gray_3
-        +border-radius(20px)
-        color: $color_gray_2
-        cursor: pointer
-        +rem(padding, 0.7rem 1rem)
+        +rem(font-size, 3rem)
 
       .downline-image
         background-color: $color_gray_3
@@ -101,12 +48,49 @@
           max-width: 95px
           width: 100%
 
+
       .downline-name
         +rem(font-size, 1.5rem)
         font-weight: bold
         +rem(margin, 1rem)
         text-transform: uppercase
 
-      .action-button
-        +rem(margin-top, 1rem)
+      .donwline-space-available
+        +rem(margin, 0.65rem)
 
+      &:not(.selected)
+        cursor: pointer
+
+      &.selected
+
+        .downline-image
+          background-color: $color_gray_2
+          color: $color_gray_3
+
+    .network-list
+      border: 1px solid $color_gray_3
+      background-color: $color-gray_1
+      +border-radius(5px)
+      +rem(margin-top, 0.5rem)
+      +rem(padding, 0.5rem)
+      position: relative
+
+      &:before
+        content: ''
+        border-bottom: 10px solid $color_gray_3
+        border-left: 10px solid transparent
+        border-right: 10px solid transparent
+        position: absolute
+        right: 50%
+        transform: translateX(50%)
+        top: -10px
+
+      &:after
+        content: ''
+        border-bottom: 8px solid $color_gray_1
+        border-left: 8px solid transparent
+        border-right: 8px solid transparent
+        position: absolute
+        right: 50%
+        transform: translateX(50%)
+        top: -8px

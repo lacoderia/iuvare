@@ -5,14 +5,17 @@ iuvare.factory('InvitationService', ['$http', '$q', "$state", 'SessionService', 
     var sendInvitation = function (invitation) {
         var inviteServiceURL = '/invitations.json';
 
-        $http.post(inviteServiceURL, {
+        return $http.post(inviteServiceURL, {
             invitation: invitation
         }).then(
             function(data){
-                console.log(data)
+                if(data) {
+                    return "La invitación ha sido enviada con éxito.";
+                }
             },
             function(response){
-                console.log(response)
+                console.log(response);
+                return response.data.error;
             }
         );
     };
@@ -29,6 +32,7 @@ iuvare.factory('InvitationService', ['$http', '$q', "$state", 'SessionService', 
                 }
             },
             function(response){
+                console.log(response);
                 return response.data.error;
             }
         );

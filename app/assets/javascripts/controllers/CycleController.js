@@ -5,27 +5,46 @@
 
 'use strict';
 
-iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "CycleService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, CycleService, SessionService, DEFAULT_VALUES){
+iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "CycleService", "NetworkService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, CycleService, NetworkService, SessionService, DEFAULT_VALUES){
 
     $scope.DOWNLINE_LENGTH_LIMIT = DEFAULT_VALUES.DOWNLINE_LENGTH_LIMIT;
 
     $scope.downlines = [];
     $scope.sectionTitle = undefined;
     $scope.currentUserName = undefined;
-    $scope.currentDownline = undefined;
+    $scope.currentDownlineIndex = undefined;
+    $scope.showDownlineList = false;
 
 
     $scope.getDownlineLengthLimit = function(length){
       return new Array(length);
     };
 
-    $scope.isCurrentDownline = function(downline){
-      return ($scope.currentDownline)?  ($scope.currentDownline.getId() == downline.getId()): false;
+    $scope.isCurrentDownline = function(downlineIndex){
+        return ($scope.currentDownlineIndex !== undefined)?  ($scope.currentDownlineIndex == downlineIndex): false;
     };
 
-    $scope.setCurrentDownline = function($event, downline){
+    $scope.resetDownlinesListVisibility = function(){
+        for(var downlineIndex=0; downlineIndex<DEFAULT_VALUES.DOWNLINE_LENGTH_LIMIT; downlineIndex++){
+            $scope.downlinesListVisibility[downlineIndex].visible = false;
+        }
+    };
+
+    $scope.setCurrentDownline = function($event, downlineIndex){
         $event.preventDefault();
-        $scope.currentDownline = downline;
+        $scope.currentDownlineIndex = downlineIndex;
+    };
+
+    $scope.isDownlineListVisible = function (downlineIndex) {
+        return false;
+    };
+
+    $scope.attachDownline = function(downlineIndex){
+
+    };
+
+    $scope.detachDownline = function(downlineIndex){
+        $scope.downlines.splice(downlineIndex,1);
     };
 
     // Method to init the controller's default state
@@ -38,7 +57,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "Cy
         // Obtenemos los downlines del usuario
         CycleService.getDownlines().then(
             function(downlineList){
-                $scope.downlines = downlineList;
+                $scope.downlines = angular.copy(downlineList);
             }
         );
 

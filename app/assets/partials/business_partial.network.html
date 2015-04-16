@@ -24,7 +24,7 @@
                         </span>
                     </td>
                     <td>
-                        <span class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</span>
+                        <span class="network-list-downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</span>
                     </td>
                 </tr>
                 </tbody>
@@ -35,7 +35,7 @@
         <div class="form-container">
             <form novalidate name="invitationForm" class="form" ng-submit="invite()">
                 <fieldset>
-                    <span>{{ invitationFormMessage }}</span>
+                    <span ng-show="invitationForm.$pristine">{{ invitationFormMessage }}</span>
                     <legend>Envia una invitación</legend>
                     <input type="text" placeholder="Nombre del invitado" name="invitationRecipentName" ng-model="invitation.recipient_name" ng-required="true">
                     <div ng-show="invitationForm.$submitted || invitationForm.invitationRecipentName.$touched">
