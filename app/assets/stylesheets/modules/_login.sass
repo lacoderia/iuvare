@@ -1,4 +1,4 @@
-.login-container
+.login-container, .forgot-container
   background-color: white
   +rem(margin, 10rem auto)
   +rem(padding, 0.1rem 0 0 0)
@@ -8,14 +8,22 @@
   form
     text-align: center
     fieldset
-      input
-        display: block      
+      input, textarea, button
+        display: block
 
     fieldset:nth-child(1)
       +rem(padding, 4rem)
 
       input
-        +rem(margin, 1rem)
+        +rem(margin-top, 1rem)
+        width: 100%
+
+      textarea
+        +rem(margin-top, 1rem)
+        width: 100%
+
+      button
+        +rem(margin-top, 1rem)
         width: 100%
 
   h2.section-title
@@ -32,6 +40,8 @@
     .login-switch
       min-width: 116px
 
-    .login-switch:last-child
-      +rem(margin-left, 0.2rem)
+    .login-switch:first-child
+      +rem(margin-right, 0.2rem)
 
+  .signup-forgot
+    +rem(margin-bottom, 1rem)

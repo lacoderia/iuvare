@@ -1,17 +1,50 @@
 'use strict';
 
-iuvare.factory('CycleService', [function(){
+iuvare.factory('CycleService', ['$http', '$q', "$state", 'UserService', 'DEFAULT_VALUES', function($http, $q, $state, UserService, DEFAULT_VALUES){
 
-    var downlines = [];
+    var downlinesList = [];
+
+
+    var resetDownlinesList = function(){
+        downlinesList = [];
+        for(var downlineIndex=0; downlineIndex<DEFAULT_VALUES.DOWNLINE_LENGTH_LIMIT; downlineIndex++){
+            downlinesList.push({});
+        }
+    };
 
     var getDownlines = function(){
 
-        downlines = [];
-        downlines.push({downLineId:0, name: 'Roberto Jiménez', image: '/assets/rails.png', currentCycle: { number: 1, name: 'Ciclo 1', status: 1 }, cyclesDetails: [{ number: 1, 'name': 'Ciclo 1', status:1 },{ number: 2, 'name': 'Ciclo 2', status:1 },{ number: 3, 'name': 'Ciclo 3', status: 0 },{ number:4, 'name': 'Ciclo 4', status: 0 },{ number:5, 'name': 'Ciclo 5', status: 0 }] })
+        resetDownlinesList();
 
-        return downlines;
+        var downlinesCycleServiceURL = '/downlines/cycle.json';
+
+
+        return $http.get(downlinesCycleServiceURL, {}).then(
+            function(data){
+                if(data.data.success){
+                    var result = data.data.result;
+                    angular.forEach(result, function(item, key){
+                        var downline = UserService.createUser(item.id, item.first_name, item.last_name, item.email, item.xango_id, item.xango_rank, item.iuvare_id, item.sponsor_xango_id, item.sponsor_iuvare_id, item.placemente_xango_id, item.placemente_iuvare_id, item.active, item.downline_position, item.payment_expiration, item.picture, item.upline_id);
+                        if(downline.getActive()){
+                            downlinesList[downline.getDownlinePosition()-1] = downline;
+                        }
+                    });
+
+                }
+                return downlinesList;
+            },
+            function(response){
+                console.log(response)
+            }
+        );
 
     };
+
+    var initService = function(){
+        resetDownlinesList();
+    };
+
+    initService();
 
     return{
         getDownlines: getDownlines

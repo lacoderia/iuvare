@@ -2,17 +2,13 @@
 
 iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', function($http, $q, $state, SessionService){
 
-
     var signIn = function (credentials) {
-
         var loginServiceURL = '/users/sign_in.json';
-
-        $http.post(loginServiceURL, {
+        return $http.post(loginServiceURL, {
             user: credentials
         }).then(
             function(data){
                 if(data){
-
                     var result = data.data.result;
                     if(result.id){
                         SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
@@ -21,26 +17,63 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
                 }
             },
             function(response){
-                console.log(response)
+                return response.data.error;
             }
         );
-
     };
 
     var signUp = function(user, token){
-        /*user = {
-            email: "luis.sanchez.franco@gmail.com", first_name: "Juan", iuvare_id: "5667", last_name: "Perez", password: "12345678", password_confirmation: "12345678", placement_iuvare_id: "3445", placement_xango_id: "3445", sponsor_iuvare_id: "456", sponsor_xango_id: "346", xango_id: "6768"
-        }*/
+
         var registerServiceURL = '/users.json';
-        $http.post(registerServiceURL, {
+        return $http.post(registerServiceURL, {
                 token: token,
                 user: user
         }).then(
             function(data){
-                console.log(data)
+                var result = data.data.result;
+                if(result.id){
+                    SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
+                    $state.go('business.cycle');
+                }
             },
             function (response) {
-                console.log(response)
+                return response.data.error;
+            }
+        );
+    };
+
+    var recoverPassword = function (forgot) {
+        var forgotServiceURL = '/users/password.json';
+        return $http.post(forgotServiceURL, {
+            utf8: 'V',
+            user: forgot
+        }).then(
+            function(data){
+                if(data.data.success){
+                    console.log(data);
+                    return "Se ha enviado un correo a la dirección que proporcionaste. Sigue las instrucciones para poder recuperar tu contraseña.";
+                }
+            },
+            function(response){
+                return response.data.error;
+            }
+        );
+    };
+
+    var resetPassword = function (reset) {
+        var resetServiceURL = '/users/password.json';
+        return $http.put(resetServiceURL, {
+            utf8: 'V',
+            user: reset
+        }).then(
+            function(data){
+                if(data.data.success){
+                    console.log(data);
+                    return "Tu contraseña ha sido restaurada. Ahora puedes ingresar con tu nueva contraseña.";
+                }
+            },
+            function(response){
+                return response.data.error;
             }
         );
     };
@@ -58,6 +91,8 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     return{
         signIn: signIn,
         signUp: signUp,
+        recoverPassword: recoverPassword,
+        resetPassword: resetPassword,
         isAuthenticated: isAuthenticated,
         getCurrentSession: getCurrentSession
     }
