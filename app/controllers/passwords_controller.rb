@@ -8,9 +8,11 @@ class PasswordsController < Devise::PasswordsController
 
     if successfully_sent?(resource)
       @success = true
+      render "create.json"
     else
       @success = false
       @error = "Mail was not sent."
+      render "create.json", status: 500
     end
   end
 
@@ -26,7 +28,7 @@ class PasswordsController < Devise::PasswordsController
       render "update.json"
     else
       @success = false
-      @error = resource.errors.full_messages
+      @error = resource.errors.full_messages.join(" ")
       render "update.json", status: 500
     end
   end
