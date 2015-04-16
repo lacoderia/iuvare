@@ -33,8 +33,6 @@
 //= require controllers/SubmenuController
 //= require controllers/WhyController
 
-// Directives
-
 // Services
 //= require services/AuthService
 //= require services/NavigationService.js
@@ -43,3 +41,5 @@
 //= require services/NetworkService
 //= require services/UserService
 //= require services/SessionService
+
+// Directives

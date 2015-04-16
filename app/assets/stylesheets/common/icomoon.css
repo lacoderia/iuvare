@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:url('/assets/icomoon.eot?bcr8vz');
-    src:url('/assets/icomoon.eot?#iefixbcr8vz') format('embedded-opentype'),
-    url('/assets/icomoon.woff?bcr8vz') format('woff'),
-    url('/assets/icomoon.ttf?bcr8vz') format('truetype'),
-    url('/assets/icomoon.svg?bcr8vz#icomoon') format('svg');
+    src:url('/assets/icomoon.eot?5ah4cn');
+    src:url('/assets/icomoon.eot?#iefix5ah4cn') format('embedded-opentype'),
+    url('/assets/icomoon.woff?5ah4cn') format('woff'),
+    url('/assets/icomoon.ttf?5ah4cn') format('truetype'),
+    url('/assets/icomoon.svg?5ah4cn#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,6 +29,10 @@
 
 .icon-locked:before {
     content: "\e601";
+}
+
+.icon-circle-with-plus:before {
+    content: "\e604";
 }
 
 .icon-circle-with-cross:before {
