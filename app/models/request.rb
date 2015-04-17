@@ -12,7 +12,9 @@ class Request < ActiveRecord::Base
   
   scope :pending, -> { where(status: 'pending') }
   scope :accepted, -> { where(status: 'accepted') }
-  scope :visible, -> { shere(visible: true) }
+  scope :rejected, -> { where(status: 'accepted') }
+  scope :visible, -> { where(visible: true) }
+  scope :by_premier, -> (premier) { where(user_id: premier.id)}
 
   state_machine :status, :initial => 'pending' do
     transition 'pending' => 'accepted', on: :accept

@@ -4,9 +4,15 @@ FactoryGirl.define do
     first_name 'Test'
     last_name 'User'
     password '12345678'
+    roles {[FactoryGirl.create(:role)]}
   end
 
-  factory :admin, parent: :user do
-    role 'admin'
+  factory :premier, class: Premier do
+    sequence(:email){ |n| "premier-#{n}@iuvare.mx" }
+    first_name 'Premier'
+    last_name 'User'
+    password '12345678'
+    roles {[FactoryGirl.create(:role_premier)]}
   end
+
 end

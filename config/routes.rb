@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  devise_for :premiers, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   resources :downlines, controller: "users", only: [] do
     collection do
       get 'all'
