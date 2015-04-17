@@ -25,14 +25,14 @@ module TestingSupport
     end
 
     def login_as_admin admin
-      visit(new_admin_user_session_path)
-      fill_in 'admin_user_email', with: admin.email
-      fill_in 'admin_user_password', with: admin.password
+      visit(new_premier_session_path)
+      fill_in 'premier_email', with: admin.email
+      fill_in 'premier_password', with: admin.password
       click_button 'Login'
     end
 
     def logout_as_admin
-       visit(destroy_admin_user_session_path)
+       visit(destroy_premier_session_path)
     end
 
   end

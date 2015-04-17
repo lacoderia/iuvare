@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :request, class: Request do
-    association :user, factory: :user
+    association :user, factory: :premier
     source_name "Juanito Bodoque"
     sequence(:source_email){ |n| "user-#{n}@iuvare.mx" }
     source_text "Me quiero registrar y soy de MAP"

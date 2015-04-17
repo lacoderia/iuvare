@@ -8,7 +8,7 @@ ActiveAdmin.register Request, :as => "Solicitudes_de Acceso" do
 
   controller do
     def scoped_collection
-      Request.pending
+      Request.pending.by_premier(current_premier)
     end
   end
 

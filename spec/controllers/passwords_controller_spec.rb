@@ -18,12 +18,21 @@ feature 'PasswordsController' do
       
       old_password = user.password
       new_password = "10002000"
-      password_reset_request = { utf8: 'V', user: { reset_password_token: token, password: new_password, password_confirmation: new_password } }
+
+      incorrect_password_reset_request = { utf8: 'V', user: { reset_password_token: token, password: new_password, password_confirmation: "20001000" } }
       page2 = nil
       with_rack_test_driver do
-        page2 = page.driver.put "/users/password.json", password_reset_request
+        page2 = page.driver.put "/users/password.json", incorrect_password_reset_request
       end
       response = JSON.parse(page2.body)
+      expect(response['success']).to be false
+
+      password_reset_request = { utf8: 'V', user: { reset_password_token: token, password: new_password, password_confirmation: new_password } }
+      page3 = nil
+      with_rack_test_driver do
+        page3 = page.driver.put "/users/password.json", password_reset_request
+      end
+      response = JSON.parse(page3.body)
       expect(response['success']).to be true
 
       user = User.first

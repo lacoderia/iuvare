@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :premiers, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   resources :downlines, controller: "users", only: [] do
