@@ -1,5 +1,5 @@
 feature 'InvitationsController' do
-  let!(:user) { create(:user) }
+  let!(:user){ create(:user) }
   describe 'request process' do
     context 'request creation' do
 

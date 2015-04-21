@@ -1,0 +1,42 @@
+class GoalsController < ApplicationController
+  before_action :set_goal, only: [:show, :edit, :update, :destroy]
+
+  respond_to :json
+
+  def create
+    @goal = Goal.new(goal_params)
+    begin
+      @goal.save
+      render "create.json"
+    rescue Exception => e
+      @errors = e
+      render "create.json", status: 500
+    end
+  end
+
+  def update
+    begin
+      @goal.update_attributes(goal_params)
+      render "update.json"
+    rescue Exception => e
+      @errors = e
+      render "update.json", status: 500
+    end
+  end
+
+  def destroy
+    @goal.destroy
+    respond_with(@goal)
+  end
+
+  private
+
+    def set_goal
+      @goal = Goal.find(params[:id])
+    end
+
+    def goal_params
+      params.require(:goal).permit(:user_id, :dream, :goal, :date, :goal_type)
+    end
+end
+

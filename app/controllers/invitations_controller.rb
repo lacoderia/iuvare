@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
+
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token
   respond_to :html, :json
 
   def index

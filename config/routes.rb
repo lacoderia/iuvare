@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :goals
+
   devise_for :premiers, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
