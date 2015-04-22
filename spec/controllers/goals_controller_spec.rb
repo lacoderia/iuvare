@@ -4,12 +4,25 @@ feature 'GoalsController' do
 
   describe 'goal associations' do
 
-    let!(:goal){ create(:goal, user: user) }
 
     it 'has correct associations' do
-      expect(user.goals.count).to eql 1
-      expect(goal.user).to be user
+
+      visit "#{by_user_goals_path}.json?user_id=#{user.id}"
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      goals = response['result']['goals']
+      expect(goals.empty?).to be true
+
+      goal = FactoryGirl.create(:goal, user: user)
+
+      visit "#{by_user_goals_path}.json?user_id=#{user.id}"
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      goals = response['result']['goals']
+      expect(goals.count).to eql 1
+      expect(goals[0]['user_id']).to eql user.id
       expect(Goal.by_user(user).type_be.count).to eql 1
+
     end
 
 
