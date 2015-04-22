@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420210420) do
+ActiveRecord::Schema.define(version: 20150421181951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.string   "answer_type"
+    t.text     "text"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "goals", force: :cascade do |t|
     t.integer  "user_id"
@@ -37,6 +45,13 @@ ActiveRecord::Schema.define(version: 20150420210420) do
     t.datetime "updated_at"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.integer  "test_id"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "requests", force: :cascade do |t|
     t.string   "source_name"
     t.string   "source_email"
@@ -57,6 +72,23 @@ ActiveRecord::Schema.define(version: 20150420210420) do
   create_table "roles_users", id: false, force: :cascade do |t|
     t.integer "role_id"
     t.integer "user_id"
+  end
+
+  create_table "test_scores", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "test_id"
+    t.float    "score"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.string   "name"
+    t.string   "test_type"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -92,9 +124,13 @@ ActiveRecord::Schema.define(version: 20150420210420) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "answers", "questions"
   add_foreign_key "goals", "users"
   add_foreign_key "invitations", "users"
+  add_foreign_key "questions", "tests"
   add_foreign_key "requests", "users"
   add_foreign_key "roles_users", "roles"
   add_foreign_key "roles_users", "users"
+  add_foreign_key "test_scores", "tests"
+  add_foreign_key "test_scores", "users"
 end

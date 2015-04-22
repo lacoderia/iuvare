@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  resources :answers
+
+  resources :questions
+
+  resources :tests do
+    collection do
+      match 'by_code', via: [:post, :get]
+    end
+  end
+
+  resources :test_scores
+
   resources :goals
 
   devise_for :premiers, ActiveAdmin::Devise.config

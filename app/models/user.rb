@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :downlines, class_name: "User", foreign_key: "upline_id"
   has_many :invitations
   has_many :goals
+  has_many :test_scores
   has_and_belongs_to_many :roles
 
   scope :all_downlines, -> (id) {where("upline_id = ?", id)}

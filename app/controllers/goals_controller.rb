@@ -39,4 +39,3 @@ class GoalsController < ApplicationController
       params.require(:goal).permit(:user_id, :dream, :goal, :date, :goal_type)
     end
 end
-
