@@ -32,6 +32,10 @@ class TestsController < ApplicationController
       render "by_code.json", status: 500
     end
   end
+  
+  def by_user
+    @tests = Test.includes(:test_scores).where("test_scores.user_id" => params[:user_id])
+  end
 
   private
 

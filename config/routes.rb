@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :tests do
     collection do
       match 'by_code', via: [:post, :get]
+      get 'by_user'
     end
   end
 
