@@ -32,6 +32,11 @@ feature 'TestsController' do
   let!(:cq_answer_3){ create(:answer, question: m1_second_question, text: "mi patrocinador me la dará", answer_type: "incorrect") }
   let!(:cq_answer_4){ create(:answer, question: m1_second_question, text: "de poner anuncios en periódicos y bolsas de trabajo", answer_type: "incorrect") }
 
+  let(:m1_third_question){create(:question, test: module1_test, text: "¿Qué es lo mas importante que tienes que saber para tener éxito?")}
+  let!(:qq_answer_1){ create(:answer, question: m1_third_question, text: "Conocer perfectamente el plan de negocios", answer_type: "incorrect") }
+  let!(:qq_answer_2){ create(:answer, question: m1_third_question, text: "Conocer perfectamente el jugo", answer_type: "incorrect") }
+  let!(:qq_answer_3){ create(:answer, question: m1_third_question, text: "Conocer al prospecto", answer_type: "correct") }
+
 
   describe 'GET tests' do
 
@@ -49,7 +54,116 @@ feature 'TestsController' do
       first_question_answers = color_test['questions'].first['answers']
       expect(first_question_answers.count).to eql 4
       expect(first_question_answers.first['text']).to eql "Superficial"
-      expect(first_question_answers.first['answer_type']).to eql "red"
+
+
+      with_rack_test_driver do
+        page.driver.post "/tests/by_code.json", { code: "module_1"}
+      end
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      
+      module_test = response['result']
+      expect(module_test['questions'].count).to eql 3
+
+      last_question_answers = module_test['questions'].last['answers']
+      expect(last_question_answers.count).to eql 3
+      expect(last_question_answers.first['text']).to eql "Conocer perfectamente el plan de negocios"
+    end
+
+  end
+
+  describe 'Evaluate percentage test_type' do
+
+    it 'evaluates correctly questions and answers' do
+
+      answers = [{id: fq_answer_1.id}, {id: sq_answer_1.id}].to_json
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      test_scores = response['result']['test_scores']
+      
+      expect(test_scores.count).to eql 4
+      yellow = test_scores.select{|ts| ts['description'] == "yellow"}[0]
+      expect(yellow["score"]).to eql 50.0
+      red = test_scores.select{|ts| ts['description'] == "red"}[0]
+      expect(red["score"]).to eql 50.0
+
+      answers = [{id: fq_answer_2.id}, {id: sq_answer_2.id}].to_json
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      test_scores = response['result']['test_scores']
+      
+      expect(test_scores.count).to eql 4
+      blue = test_scores.select{|ts| ts['description'] == "blue"}[0]
+      expect(blue["score"]).to eql 100.0 
+
+    end
+        
+  end
+
+  describe 'Evaluate correct_incorrect test_type' do
+
+    it 'evaluates correctly questions and answers' do
+
+      answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}, {id: qq_answer_1.id}].to_json
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: module1_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      test_scores = response['result']['test_scores']
+
+      expect(test_scores.count).to eql 1
+      ts = test_scores.first
+      expect(ts["score"]).to eql 33.33
+
+      answers = [{id: tq_answer_4.id}, {id: cq_answer_1.id}, {id: qq_answer_3.id}].to_json
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: module1_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      test_scores = response['result']['test_scores']
+
+      expect(test_scores.count).to eql 1
+      ts = test_scores.first
+      expect(ts["score"]).to eql 100.0
+      
+    end
+
+  end
+
+  describe 'error handling' do
+
+    it 'should raise errors for test questions without answers' do
+      answers = [{id: fq_answer_1.id}, {id: fq_answer_2.id}].to_json
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be false
+      expect(response['error']).to eql "Una pregunta del test no cuenta con su respuesta"
+    end
+
+    it 'should raise errors for different number of questions and answers submited for test' do
+      answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}].to_json
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: module1_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be false
+      expect(response['error']).to eql "El número de respuestas únicas no corresponde al número de las preguntas"
     end
 
   end

@@ -10,9 +10,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :test_scores
+  resources :test_scores do
+    collection do
+      post 'grade_test'
+    end
+  end
 
-  resources :goals
+  resources :goals do
+    collection do
+      get 'by_user'
+    end
+  end
 
   devise_for :premiers, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

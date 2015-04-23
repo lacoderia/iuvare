@@ -7,7 +7,7 @@ if @test
         json.extract! question, :id, :test_id, :text
         json.set! :answers do
           json.array! (question.answers) do |answer|
-            json.extract! answer, :id, :question_id, :answer_type, :text
+            json.extract! answer, :id, :question_id, :text
           end
         end
       end
