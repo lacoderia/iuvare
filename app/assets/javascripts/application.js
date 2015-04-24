@@ -20,6 +20,8 @@
 //= require bower_components/angular-strap/dist/angular-strap.tpl.js
 //= require bower_components/angular-resource/angular-resource.min
 //= require bower_components/ui-router/release/angular-ui-router.min
+//= require bower_components/moment/src/moment
+//= require bower_components/ngQuickDate/dist/ng-quick-date
 
 // Application scripts
 //= require app
@@ -37,6 +39,7 @@
 //= require services/AuthService
 //= require services/NavigationService.js
 //= require services/CycleService
+//= require services/GoalService
 //= require services/InvitationService
 //= require services/NetworkService
 //= require services/UserService

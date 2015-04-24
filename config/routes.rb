@@ -40,5 +40,8 @@ Rails.application.routes.draw do
   get "negocio", :to => "display#index"
   get "negocio/mi-red", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
+  get "perfil", :to => "display#index"
+  get "perfil/mi-perfil", :to => "display#index"
+  get "perfil/mis-metas", :to => "display#index"
 
 end
