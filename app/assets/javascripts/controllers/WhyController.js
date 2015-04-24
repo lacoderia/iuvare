@@ -61,6 +61,12 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
 
     };
 
+    $scope.createGoal = function(goal){
+        $scope.goal = angular.copy(originalGoal);
+        $scope.selectedGoal = goal;
+        $scope.showGoalForm($scope.GOAL_MODES.NEW)
+    };
+
     $scope.editGoal = function(goal){
         $scope.goal = angular.copy(goal);
         $scope.selectedGoal = goal;
@@ -137,7 +143,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
         }
     };
 
-    // Method that updates a new goal
+    // Method that updates the original goal object
     $scope.updateOriginalGoal = function(goal){
         for(var i=0; i<$scope.goalsList.length; i++){
             if($scope.goalsList[i].id == goal.id){
@@ -146,7 +152,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
         }
     };
 
-    // Method that updates a new goal
+    // Method that updates a goal
     $scope.updateGoal = function(){
         if ($scope.goalForm.$valid) {
             var goal = {

@@ -5,7 +5,7 @@
     <div class="unavailable-message" ng-show="goalsList && goalsList.length == 0 && !showGoal">
         <div class="unavailable-message-content">
             <h3>Aún no cuentas con ninguna meta</h3>
-            <a class="" title="" ng-click="showGoalForm(GOAL_MODES.NEW)">Agregar una nueva meta</a>
+            <a class="" title="" ng-click="createGoal()">Agregar una nueva meta</a>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
 
             </div>
         </div>
-        <a class="" title="" ng-show="goalsList.length < GOAL_TYPES.length" ng-click="showGoalForm(GOAL_MODES.NEW)">Agregar una nueva meta</a>
+        <a class="" title="" ng-show="goalsList.length < GOAL_TYPES.length" ng-click="createGoal()">Agregar una nueva meta</a>
 
     </div>
 
