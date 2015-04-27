@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Test Scores</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Test</th>
+      <th>Score</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @test_scores.each do |test_score| %>
+      <tr>
+        <td><%= test_score.user_id %></td>
+        <td><%= test_score.test_id %></td>
+        <td><%= test_score.score %></td>
+        <td><%= test_score.description %></td>
+        <td><%= link_to 'Show', test_score %></td>
+        <td><%= link_to 'Edit', edit_test_score_path(test_score) %></td>
+        <td><%= link_to 'Destroy', test_score, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Test score', new_test_score_path %>

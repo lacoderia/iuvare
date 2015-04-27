@@ -1,5 +1,22 @@
 Rails.application.routes.draw do
 
+  resources :answers
+
+  resources :questions
+
+  resources :tests do
+    collection do
+      match 'by_code', via: [:post, :get]
+      get 'by_user'
+    end
+  end
+
+  resources :test_scores do
+    collection do
+      post 'grade_test'
+    end
+  end
+
   resources :goals do
     collection do
       get 'by_user'
