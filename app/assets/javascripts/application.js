@@ -16,6 +16,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bower_components/angular/angular.min
+//= require directives/DirectivesModule
 //= require bower_components/angular-strap/dist/angular-strap.min
 //= require bower_components/angular-strap/dist/angular-strap.tpl.js
 //= require bower_components/angular-resource/angular-resource.min
@@ -29,17 +30,17 @@
 //= require controllers/CycleController
 //= require controllers/GlobalMenuController
 //= require controllers/LoginController
-//= require controllers/NetworkController
 //= require controllers/SubmenuController
 //= require controllers/WhyController
 
 // Services
 //= require services/AuthService
+//= require services/NetworkService
 //= require services/NavigationService.js
 //= require services/CycleService
 //= require services/InvitationService
-//= require services/NetworkService
 //= require services/UserService
 //= require services/SessionService
 
 // Directives
+//= require directives/DownlineListDirective

@@ -4,14 +4,13 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStrap']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
         { order: 1, code: 'BUSINESS', title: 'Negocios', state: 'business.cycle',
             subsections: [
-                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
+                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.cycle',
@@ -33,8 +32,7 @@ iuvare.constant('DEFAULT_VALUES',{
         PROFILE: 'PROFILE'
     },
     SUBSECTIONS_CODES:{
-        CYCLE: 'CYCLE',
-        NETWORK: 'NETWORK'
+        CYCLE: 'CYCLE'
     },
     CYCLE_STATUS:{
         0: 'Completado',
@@ -44,6 +42,10 @@ iuvare.constant('DEFAULT_VALUES',{
 });
 
 iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
+
+    var authorize = function(toState){
+
+    };
 
     $locationProvider.html5Mode({
         enabled: true,
@@ -62,7 +64,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             templateUrl: '/assets/login.html',
             redirectState: 'login',
             defaultState: 'login',
-            authenticationRequired: false
+            authenticationRequired: false,
         }).state('register',{
             url: "/register",
             templateUrl: '/assets/login.html',
@@ -76,7 +78,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: undefined,
-            authenticationRequired: true
+            authenticationRequired: true,
         }).state('business.cycle',{
             url: "/ciclo",
             templateUrl: '/assets/business_partial.cycle.html',
@@ -92,7 +94,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'NETWORK',
-            authenticationRequired: true
+            authenticationRequired: true,
         });
 
 }]);
@@ -101,22 +103,21 @@ iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService'
 
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
         if(toState.authenticationRequired){
+
             if(!AuthService.isAuthenticated()){
 
                 AuthService.getCurrentSession().then(
                     function(data){
                         if(data.data.success){
                             var result = data.data.result;
-                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
+                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placement_xango_id, result.placement_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
+
                         }else{
-                            event.preventDefault();
                             $state.transitionTo(toState.defaultState);
                         }
                     },
                     function(response){
                         console.log(response);
-
-                        event.preventDefault();
                         $state.transitionTo(toState.defaultState);
                     }
                 );
