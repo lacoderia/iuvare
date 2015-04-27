@@ -2,76 +2,55 @@
 
 iuvare.factory('GoalService', ['$http', '$q', "$state", 'SessionService', 'DEFAULT_VALUES', function($http, $q, $state, SessionService, DEFAULT_VALUES){
 
-    var goalsList = [];
+    var service = {
+        goals: [],
+        getGoals: getGoals,
+        saveGoal: saveGoal,
+        updateGoal: updateGoal
 
-    var getGoals = function () {
+    };
+    return service;
 
-        goalsList = [];
+    function getGoals() {
+
         var goalsServiceURL = '/goals/by_user.json?user_id=' + SessionService.$get().getId();
 
-        return $http.get(goalsServiceURL, {}).then(
-            function(data){
-                if(data.data.success){
-                    var goalsList = data.data.result.goals;
+        return $http.get(goalsServiceURL, {})
+            .success(function(data){
+                if(data.success){
+                    service.goals = data.result.goals;
 
-                    angular.forEach(goalsList, function(goal){
+                    angular.forEach(service.goals, function(goal){
                         goal.showInfo = false;
 
                         angular.forEach(DEFAULT_VALUES.GOAL_TYPES, function(goalType){
-                           if(goal.goal_type == goalType.code) {
-                               goal.type = goalType;
-                           }
+                            if(goal.goal_type == goalType.code) {
+                                goal.type = goalType;
+                            }
                         });
                     });
 
                 }
-
-                return goalsList;
-            },
-            function(response){
-                console.log(response);
-            }
-        );
+                return 'TEXTO DE SUCCESS';
+            });
     };
 
-    var saveGoal = function (goal) {
+    function saveGoal(goal) {
 
         var goalsServiceURL = '/goals.json';
 
         return $http.post(goalsServiceURL, {
-            goal: goal
-        }).then(
-            function(data){
-                return data;
-            },
-            function(response){
-                console.log(response);
-                return response.data.error;
-            }
-        );
+                goal: goal
+            });
     };
 
-    var updateGoal = function (id, goal) {
+    function updateGoal(id, goal) {
 
         var goalsServiceURL = '/goals/' + id + '.json';
 
         return $http.put(goalsServiceURL, {
-            goal: goal
-        }).then(
-            function(data){
-                return data;
-            },
-            function(response){
-                console.log(response);
-                return response.data.error;
-            }
-        );
-    };
-
-    return{
-        getGoals: getGoals,
-        saveGoal: saveGoal,
-        updateGoal: updateGoal
+                goal: goal
+            });
     };
 
 }]);

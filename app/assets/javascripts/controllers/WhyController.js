@@ -128,18 +128,20 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                 goal_type: $scope.goal.type.code
             };
 
-            GoalService.saveGoal(goal).then(
-                function(data) {
-                    if(data.data && data.data.result){
-                        $scope.goal.id = data.data.result.id;
+            GoalService.saveGoal(goal)
+                .success(function(data) {
+                    if(data.success){
+                        $scope.goal.id = data.result.id;
                         $scope.goal.showInfo = false;
 
                         $scope.goalsList.push($scope.goal);
                         $scope.resetGoalForm();
                         $scope.hideGoalForm();
                     }
-                }
-            );;
+                })
+                .error(function (error, status) {
+                    console.log('Hubo un error al guardar la meta. ');
+                });
         }
     };
 
@@ -163,15 +165,17 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                 goal_type: $scope.goal.type
             };
 
-            GoalService.updateGoal($scope.goal.id, goal).then(
-                function(data) {
-                    if(data.data && data.data.result){
+            GoalService.updateGoal($scope.goal.id, goal)
+                .success(function(data){
+                    if(data.success){
                         $scope.updateOriginalGoal($scope.goal);
                         $scope.resetGoalForm();
                         $scope.hideGoalForm();
                     }
-                }
-            );;
+                })
+                .error(function(error, status){
+                    console.log('Hubo un error al actualizar la meta. ');
+                });
         }
     };
 
@@ -197,13 +201,17 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
         $scope.sectionTitle = $scope.currentSubsection.title;
 
         // Obtenemos las metas del usuario
-        GoalService.getGoals().then(
-            function(goalsList){
-                $scope.goalsList = goalsList;
+        GoalService.getGoals()
+            .success(function(data){
+                if(data.success){
+                    $scope.goalsList = data.result.goals;
+                }
 
                 $scope.updateGoalsDropdown();
-            }
-        );
+            })
+            .error(function (error, status) {
+                console.log('Hubo un error al obtener las metas.');
+            });
 
     };
 
