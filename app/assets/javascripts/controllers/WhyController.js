@@ -204,7 +204,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
         GoalService.getGoals()
             .success(function(data){
                 if(data.success){
-                    $scope.goalsList = data.result.goals;
+                    $scope.goalsList = GoalService.goals;
                 }
 
                 $scope.updateGoalsDropdown();
