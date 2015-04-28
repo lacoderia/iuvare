@@ -37,6 +37,16 @@ class TestsController < ApplicationController
     @tests = Test.includes(:test_scores).where("test_scores.user_id" => params[:user_id])
   end
 
+  def by_code_and_user
+    @test = Test.includes(:test_scores).find_by("test_scores.user_id" => params[:user_id], "code" => params[:test_code])
+    if @test
+      render "by_code_and_user.json"
+    else
+      @errors = "Test not found"
+      render "by_code_and_user.json", status: 500
+    end
+  end
+
   private
 
     def set_test

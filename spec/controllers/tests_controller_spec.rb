@@ -68,6 +68,13 @@ feature 'TestsController' do
       last_question_answers = module_test['questions'].last['answers']
       expect(last_question_answers.count).to eql 3
       expect(last_question_answers.first['text']).to eql "Conocer perfectamente el plan de negocios"
+
+      with_rack_test_driver do
+        page.driver.post "/tests/by_code.json", { code: "ABC"}
+      end
+      response = JSON.parse(page.body)
+      expect(response['success']).to be false
+      expect(response['error']).to eql "Test not found"
     end
 
   end
@@ -104,14 +111,22 @@ feature 'TestsController' do
       blue = test_scores.select{|ts| ts['description'] == "blue"}[0]
       expect(blue["score"]).to eql 100.0 
 
-      visit("/tests/by_user.json?user_id=#{user.id}")
+      with_rack_test_driver do
+        page.driver.post "/tests/by_code_and_user.json", { user_id: user.id, test_code: personality_test.code}
+      end
       response = JSON.parse(page.body)
       expect(response['success']).to be true
-      tests = response['result']['tests']
-      expect(tests.first['code']).to eql personality_test.code
+      test = response['result']
+      expect(test['code']).to eql personality_test.code
+      expect(test['test_scores'].count).to eql Test::PERCENTAGE_ANSWER_TYPES_BY_CODE[personality_test.code].count
+      expect(test['test_scores'].select{ |s| s['description'] == 'blue'}.first['score']).to eql 100.0
 
-      expect(tests.first['test_scores'].count).to eql Test::PERCENTAGE_ANSWER_TYPES_BY_CODE[personality_test.code].count
-      expect(tests.first['test_scores'].select{ |s| s['description'] == 'blue'}.first['score']).to eql 100.0
+      with_rack_test_driver do
+        page.driver.post "/tests/by_code_and_user.json", { user_id: user.id, test_code: "ABC"}
+      end
+      response = JSON.parse(page.body)
+      expect(response['success']).to be false 
+      expect(response['error']).to eql "Test not found"
 
     end
         
