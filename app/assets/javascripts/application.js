@@ -32,6 +32,7 @@
 //= require controllers/GlobalMenuController
 //= require controllers/LoginController
 //= require controllers/NetworkController
+//= require controllers/ProfileController
 //= require controllers/SubmenuController
 //= require controllers/WhyController
 
@@ -44,5 +45,6 @@
 //= require services/NetworkService
 //= require services/UserService
 //= require services/SessionService
+//= require services/TestService
 
 // Directives

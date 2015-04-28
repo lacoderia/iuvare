@@ -1,6 +1,6 @@
 /*
- *   CycleController as cycleCtrl
- *   Description: Controller for Cycle section view
+ *   WhyController as whyCtrl
+ *   Description: Controller for Goals section view
  * */
 
 'use strict';
