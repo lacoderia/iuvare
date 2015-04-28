@@ -74,7 +74,7 @@ feature 'TestsController' do
       end
       response = JSON.parse(page.body)
       expect(response['success']).to be false
-      expect(response['error']).to eql "Test not found"
+      expect(response['error']).to eql "No se encontró el test"
     end
 
   end
@@ -126,7 +126,7 @@ feature 'TestsController' do
       end
       response = JSON.parse(page.body)
       expect(response['success']).to be false 
-      expect(response['error']).to eql "Test not found"
+      expect(response['error']).to eql "No se encontró el test con ese usuario"
 
     end
         
@@ -183,6 +183,7 @@ feature 'TestsController' do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
       end
 
+      expect(page.status_code).to be 500
       response = JSON.parse(page.body)
       expect(response['success']).to be false
       expect(response['error']).to eql "Una pregunta del test no cuenta con su respuesta"
