@@ -28,8 +28,8 @@ class TestsController < ApplicationController
     if @test
       render "by_code.json"
     else
-      @errors = "Test not found"
-      render "by_code.json", status: 500
+      @errors = "No se encontró el test"
+      render "by_code.json"
     end
   end
   
@@ -42,8 +42,8 @@ class TestsController < ApplicationController
     if @test
       render "by_code_and_user.json"
     else
-      @errors = "Test not found"
-      render "by_code_and_user.json", status: 500
+      @errors = "No se encontró el test con ese usuario"
+      render "by_code_and_user.json"
     end
   end
 
