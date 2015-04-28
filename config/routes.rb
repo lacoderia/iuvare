@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :assets do
+    collection do
+    
+    end
+  end
+
   resources :answers
 
   resources :questions
