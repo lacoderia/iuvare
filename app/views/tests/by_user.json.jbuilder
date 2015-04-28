@@ -14,5 +14,7 @@ if not @tests.empty?
   end
 else
   json.success true 
-  json.result {}
+  json.set! :result do
+    json.nil!    
+  end
 end
