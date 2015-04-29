@@ -4,7 +4,8 @@ iuvare.factory('TestService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
 
     var service = {
         getTestByCode: getTestByCode,
-        getTestResultByCode: getTestResultByCode
+        getTestResultByCode: getTestResultByCode,
+        gradeTest: gradeTest
     };
     return service;
 
@@ -19,9 +20,24 @@ iuvare.factory('TestService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
     // Function that retrieves a test result by code
     function getTestResultByCode(code) {
 
-        var testsServiceURL = 'tests/by_user.json?user_id=' + SessionService.$get().getId();;
+        var testsServiceURL = 'tests/by_code_and_user.json';
 
-        return $http.get(testsServiceURL);
+        return $http.post(testsServiceURL, {
+            user_id: SessionService.$get().getId(),
+            test_code: code
+        });
+    };
+
+    // Function that grades a test and returns the test results
+    function gradeTest(code, answers) {
+
+        var testsServiceURL = 'test_scores/grade_test.json';
+
+        return $http.post(testsServiceURL, {
+            user_id: SessionService.$get().getId(),
+            test_code: code,
+            answers: answers
+        });
     };
 
 }]);
