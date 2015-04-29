@@ -1,4 +1,17 @@
-class AssetsController < InheritedResources::Base
+class AssetsController < ApplicationController
+
+  respond_to :json
+
+  def by_keyword_and_asset_type
+    keyword = params[:keyword].downcase
+    asset_type = params[:asset_type]
+    @assets = Asset.where("asset_type = ? AND (LOWER(title) like '%#{keyword}%' OR LOWER(description) like '%#{keyword}%' OR LOWER(author) like '%#{keyword}%')", asset_type)
+  end
+
+  def by_asset_type
+    asset_type = params[:asset_type]
+    @assets = Asset.where(asset_type: asset_type)
+  end
 
   private
 
