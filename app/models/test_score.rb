@@ -2,10 +2,9 @@ class TestScore < ActiveRecord::Base
   belongs_to :test
   belongs_to :user
 
-  def self.grade_test user_id, test_code, answers
+  def self.grade_test user_id, test, answers
 
     user = User.find(user_id)
-    test = Test.find_by(code: test_code)
 
     if answers.uniq.count == test.questions.count and validate_answers(answers, test) 
 
