@@ -70,7 +70,7 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
                 answers.push(question)
             });
 
-            TestService.gradeTest($scope.TEST_CODES.COLOR, JSON.stringify(answers))
+            TestService.gradeTest($scope.TEST_CODES.COLOR, answers)
                 .success(function(data){
                     if(data.success){
                         $scope.colorTestResult = data.result;

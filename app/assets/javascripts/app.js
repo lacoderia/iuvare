@@ -179,7 +179,6 @@ iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService'
                         if(data.data.success){
                             var result = data.data.result;
                             SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
-                            console.log('Inicialicé la sesión')
                         }else{
                             event.preventDefault();
                             $state.transitionTo(toState.defaultState);
