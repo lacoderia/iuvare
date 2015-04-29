@@ -4,7 +4,8 @@ class TestScoresController < ApplicationController
 
   def grade_test
     begin
-      @test_scores = TestScore.grade_test(params[:user_id], params[:test_code], JSON.parse(params[:answers]) )
+      @test = Test.find_by(code: params[:test_code])
+      @test_scores = TestScore.grade_test(params[:user_id], @test, params[:answers] )
       render "grade_test.json"
     rescue Exception => e
       @errors = e.message
