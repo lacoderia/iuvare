@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421181951) do
+ActiveRecord::Schema.define(version: 20150428213812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 20150421181951) do
     t.integer  "question_id"
     t.string   "answer_type"
     t.text     "text"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "assets", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "author"
+    t.string   "source"
+    t.boolean  "purchasable"
+    t.float    "price"
+    t.string   "asset_type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -89,7 +101,10 @@ ActiveRecord::Schema.define(version: 20150421181951) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "asset_id"
   end
+
+  add_index "tests", ["asset_id"], name: "index_tests_on_asset_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -133,4 +148,5 @@ ActiveRecord::Schema.define(version: 20150421181951) do
   add_foreign_key "roles_users", "users"
   add_foreign_key "test_scores", "tests"
   add_foreign_key "test_scores", "users"
+  add_foreign_key "tests", "assets"
 end

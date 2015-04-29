@@ -5,7 +5,7 @@ class Request < ActiveRecord::Base
   STATUSES = [
     ['pending','pendiente'],
     ['accepted','aceptado'],
-    ['rejected','rechazado'],
+    ['rejected','rechazado']
   ]
 
   validates :status, inclusion: {in: STATUSES.map{ |pairs| pairs[0] } }

@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :assets do
+    collection do
+      get 'by_asset_type' 
+      get 'by_keyword_and_asset_type' 
+    end
+  end
+
   resources :answers
 
   resources :questions
