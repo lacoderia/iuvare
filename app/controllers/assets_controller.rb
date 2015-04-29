@@ -5,12 +5,12 @@ class AssetsController < ApplicationController
   def by_keyword_and_asset_type
     keyword = params[:keyword].downcase
     asset_type = params[:asset_type]
-    @assets = Asset.where("asset_type = ? AND (LOWER(title) like '%#{keyword}%' OR LOWER(description) like '%#{keyword}%' OR LOWER(author) like '%#{keyword}%')", asset_type)
+    @assets = Asset.by_asset_type(asset_type).by_keyword(keyword)
   end
 
   def by_asset_type
     asset_type = params[:asset_type]
-    @assets = Asset.where(asset_type: asset_type)
+    @assets = Asset.by_asset_type(asset_type)
   end
 
   private

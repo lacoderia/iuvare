@@ -62,6 +62,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def by_xango_id 
+    @user = User.by_xango_id(params[:xango_id]).first
+    if not @user
+      @errors = "No se encontró usuario con este ID de Xango"
+    end
+    render "by_xango_id.json"
+  end
+
   private
     def set_user
       @user = User.find(params[:id])

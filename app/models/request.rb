@@ -10,11 +10,11 @@ class Request < ActiveRecord::Base
 
   validates :status, inclusion: {in: STATUSES.map{ |pairs| pairs[0] } }
   
-  scope :pending, -> { where(status: 'pending') }
-  scope :accepted, -> { where(status: 'accepted') }
-  scope :rejected, -> { where(status: 'rejected') }
-  scope :visible, -> { where(visible: true) }
-  scope :by_premier, -> (premier) { where(user_id: premier.id) }
+  scope :pending, -> {where(status: 'pending')}
+  scope :accepted, -> {where(status: 'accepted')}
+  scope :rejected, -> {where(status: 'rejected')}
+  scope :visible, -> {where(visible: true)}
+  scope :by_premier, -> (premier){where(user_id: premier.id)}
 
   state_machine :status, :initial => 'pending' do
     transition 'pending' => 'accepted', on: :accept

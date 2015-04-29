@@ -1,5 +1,24 @@
 feature 'UsersController' do
   describe 'user services' do
+
+    context 'by_xango_id' do
+      let!(:user){ create(:user, xango_id: "12066412") }
+
+      it 'should get user' do
+        visit("#{by_xango_id_users_path}.json?xango_id=12066412")
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        expect(response['result']['id']).to eql user.id
+        expect(response['result']['xango_id']).to eql "12066412"
+        
+        visit("#{by_xango_id_users_path}.json?xango_id=12066415")
+        response = JSON.parse(page.body)
+        expect(response['success']).to be false
+        expect(response['error']).to eql "No se encontró usuario con este ID de Xango"
+
+      end
+    end
+
     context 'user downlines' do
 
       it 'successfully logins, gets all downlines, logs out, invalid gets all downlines' do

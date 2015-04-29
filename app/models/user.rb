@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   scope :all_downlines, -> (id) {where("upline_id = ?", id)}
   scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
+  scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}
 
   def role?(role)
     return !!self.roles.find_by_name(role)

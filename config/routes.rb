@@ -52,7 +52,11 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :passwords => "passwords"}#, :skip => [:registrations]
 
-  resources :users
+  resources :users do
+    collection do
+      get 'by_xango_id'
+    end
+  end
 
   devise_scope :user do
     get 'logout', :to => "devise/sessions#destroy"
