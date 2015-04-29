@@ -4,7 +4,7 @@ if not @errors
     json.extract! @test, :id, :name, :test_type, :code
     json.set! :test_scores do
       json.array! (@test_scores) do |test_score|
-        json.extract! test_score, :id, :user_id, :test_id, :score, :description
+        json.extract! test_score, :id, :user_id, :score, :description
       end
     end
   end
