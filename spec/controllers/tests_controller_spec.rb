@@ -83,13 +83,14 @@ feature 'TestsController' do
 
     it 'evaluates correctly questions and answers' do
 
-      answers = [{id: fq_answer_1.id}, {id: sq_answer_1.id}].to_json
+      answers = [{id: fq_answer_1.id}, {id: sq_answer_1.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
       end
 
       response = JSON.parse(page.body)
       expect(response['success']).to be true
+      expect(response['result']['id']).to eql personality_test.id
       test_scores = response['result']['test_scores']
       
       expect(test_scores.count).to eql 4
@@ -98,13 +99,14 @@ feature 'TestsController' do
       red = test_scores.select{|ts| ts['description'] == "red"}[0]
       expect(red["score"]).to eql 50.0
 
-      answers = [{id: fq_answer_2.id}, {id: sq_answer_2.id}].to_json
+      answers = [{id: fq_answer_2.id}, {id: sq_answer_2.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
       end
 
       response = JSON.parse(page.body)
       expect(response['success']).to be true
+      expect(response['result']['id']).to eql personality_test.id
       test_scores = response['result']['test_scores']
       
       expect(test_scores.count).to eql 4
@@ -136,26 +138,28 @@ feature 'TestsController' do
 
     it 'evaluates correctly questions and answers' do
 
-      answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}, {id: qq_answer_1.id}].to_json
+      answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}, {id: qq_answer_1.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: module1_test.code, answers: answers}
       end
 
       response = JSON.parse(page.body)
       expect(response['success']).to be true
+      expect(response['result']['id']).to eql module1_test.id
       test_scores = response['result']['test_scores']
 
       expect(test_scores.count).to eql 1
       ts = test_scores.first
       expect(ts["score"]).to eql 33.33
 
-      answers = [{id: tq_answer_4.id}, {id: cq_answer_1.id}, {id: qq_answer_3.id}].to_json
+      answers = [{id: tq_answer_4.id}, {id: cq_answer_1.id}, {id: qq_answer_3.id}]      
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: module1_test.code, answers: answers}
       end
 
       response = JSON.parse(page.body)
       expect(response['success']).to be true
+      expect(response['result']['id']).to eql module1_test.id
       test_scores = response['result']['test_scores']
 
       expect(test_scores.count).to eql 1
@@ -178,7 +182,7 @@ feature 'TestsController' do
   describe 'error handling' do
 
     it 'should raise errors for test questions without answers' do
-      answers = [{id: fq_answer_1.id}, {id: fq_answer_2.id}].to_json
+      answers = [{id: fq_answer_1.id}, {id: fq_answer_2.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
       end
@@ -190,7 +194,7 @@ feature 'TestsController' do
     end
 
     it 'should raise errors for different number of questions and answers submited for test' do
-      answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}].to_json
+      answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: module1_test.code, answers: answers}
       end

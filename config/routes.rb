@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :assets do
+    collection do
+      get 'by_asset_type' 
+      get 'by_keyword_and_asset_type' 
+    end
+  end
+
   resources :answers
 
   resources :questions
@@ -45,7 +52,11 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :passwords => "passwords"}#, :skip => [:registrations]
 
-  resources :users
+  resources :users do
+    collection do
+      get 'by_xango_id'
+    end
+  end
 
   devise_scope :user do
     get 'logout', :to => "devise/sessions#destroy"
