@@ -4,7 +4,6 @@ feature 'GoalsController' do
 
   describe 'goal associations' do
 
-
     it 'has correct associations' do
 
       visit "#{by_user_goals_path}.json?user_id=#{user.id}"
@@ -24,7 +23,6 @@ feature 'GoalsController' do
       expect(Goal.by_user(user).type_be.count).to eql 1
 
     end
-
 
   end
   

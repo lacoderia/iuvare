@@ -8,10 +8,12 @@ class User < ActiveRecord::Base
   has_many :downlines, class_name: "User", foreign_key: "upline_id"
   has_many :invitations
   has_many :goals
+  has_many :test_scores
   has_and_belongs_to_many :roles
 
   scope :all_downlines, -> (id) {where("upline_id = ?", id)}
   scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
+  scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}
 
   def role?(role)
     return !!self.roles.find_by_name(role)
