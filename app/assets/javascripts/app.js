@@ -132,19 +132,16 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         .state('login',{
             url: "/login",
             templateUrl: '/assets/login.html',
-            redirectState: 'login',
             defaultState: 'login',
             authenticationRequired: false
         }).state('register',{
             url: "/register",
             templateUrl: '/assets/login.html',
-            redirectState: 'register',
             defaultState: 'login',
             authenticationRequired: false
         }).state('business',{
             url: "/negocio",
             templateUrl: '/assets/business_partial.html',
-            redirectState: 'business.cycle',
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: undefined,
@@ -155,7 +152,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('business.cycle',{
             url: "/ciclo",
             templateUrl: '/assets/business_partial.cycle.html',
-            redirectState: 'business.cycle',
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'CYCLE',
@@ -163,7 +159,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('business.network',{
             url: "/mi-red",
             templateUrl: '/assets/business_partial.network.html',
-            redirectState: 'business.network',
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'NETWORK',
@@ -171,15 +166,16 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('profile',{
             url: "/perfil",
             templateUrl: '/assets/profile_partial.html',
-            redirectState: 'profile.profile',
             defaultState: 'login',
             section: 'PROFILE',
             subsection: undefined,
-            authenticationRequired: true
+            authenticationRequired: true,
+            resolve: {
+                authenticated: authenticated
+            }
         }).state('profile.profile',{
             url: "/mi-perfil",
             templateUrl: '/assets/profile_partial.profile.html',
-            redirectState: 'profile.profile',
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'PROFILE',
@@ -187,7 +183,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('profile.why',{
             url: "/mis-metas",
             templateUrl: '/assets/profile_partial.why.html',
-            redirectState: 'profile.why',
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'WHY',
