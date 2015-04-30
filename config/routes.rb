@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :plans
+
+  resources :contacts
+
   resources :assets do
     collection do
       get 'by_asset_type' 

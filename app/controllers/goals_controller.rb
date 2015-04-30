@@ -1,12 +1,12 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :edit, :update, :destroy]
+  before_action :set_goal, only: [:update, :destroy]
 
   respond_to :json
 
   def create
     @goal = Goal.new(goal_params)
     begin
-      @goal.save
+      @goal.save!
       render "create.json"
     rescue Exception => e
       @errors = e
