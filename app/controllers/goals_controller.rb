@@ -29,6 +29,11 @@ class GoalsController < ApplicationController
     respond_with(@goal)
   end
 
+  def by_user
+    @goals = Goal.where(user_id: params[:user_id])
+    render "by_user.json"
+  end
+
   private
 
     def set_goal
@@ -39,4 +44,3 @@ class GoalsController < ApplicationController
       params.require(:goal).permit(:user_id, :dream, :goal, :date, :goal_type)
     end
 end
-

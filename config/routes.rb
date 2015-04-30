@@ -1,6 +1,35 @@
 Rails.application.routes.draw do
 
-  resources :goals
+  resources :assets do
+    collection do
+      get 'by_asset_type' 
+      get 'by_keyword_and_asset_type' 
+    end
+  end
+
+  resources :answers
+
+  resources :questions
+
+  resources :tests do
+    collection do
+      match 'by_code', via: [:post, :get]
+      match 'by_code_and_user', via: [:post, :get]
+      get 'by_user'
+    end
+  end
+
+  resources :test_scores do
+    collection do
+      post 'grade_test'
+    end
+  end
+
+  resources :goals do
+    collection do
+      get 'by_user'
+    end
+  end
 
   devise_for :premiers, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -23,7 +52,11 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :passwords => "passwords"}#, :skip => [:registrations]
 
-  resources :users
+  resources :users do
+    collection do
+      get 'by_xango_id'
+    end
+  end
 
   devise_scope :user do
     get 'logout', :to => "devise/sessions#destroy"

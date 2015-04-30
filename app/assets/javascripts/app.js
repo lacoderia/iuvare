@@ -43,10 +43,6 @@ iuvare.constant('DEFAULT_VALUES',{
 
 iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
 
-    var authorize = function(toState){
-
-    };
-
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
@@ -58,13 +54,38 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }])
     });
 
+    var authenticated = ['$q', 'AuthService', 'SessionService', function ($q, AuthService, SessionService) {
+        var deferred = $q.defer();
+
+        if(!AuthService.isAuthenticated()){
+            AuthService.getCurrentSession().then(
+                function(data){
+                    if(data.data.success){
+                        var result = data.data.result;
+                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
+                        deferred.resolve();
+                    }else{
+                        deferred.reject('Not logged in');
+                    }
+                },
+                function(response){
+                    deferred.reject('Not logged in');
+                }
+            );
+        } else {
+            deferred.resolve();
+        }
+
+        return deferred.promise;
+    }];
+
     $stateProvider
         .state('login',{
             url: "/login",
             templateUrl: '/assets/login.html',
             redirectState: 'login',
             defaultState: 'login',
-            authenticationRequired: false,
+            authenticationRequired: false
         }).state('register',{
             url: "/register",
             templateUrl: '/assets/login.html',
@@ -79,6 +100,9 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             section: 'BUSINESS',
             subsection: undefined,
             authenticationRequired: true,
+            resolve: {
+                authenticated: authenticated
+            }
         }).state('business.cycle',{
             url: "/ciclo",
             templateUrl: '/assets/business_partial.cycle.html',
@@ -86,7 +110,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'CYCLE',
-            authenticationRequired: true,
+            authenticationRequired: true
         }).state('business.network',{
             url: "/mi-red",
             templateUrl: '/assets/business_partial.network.html',
@@ -94,39 +118,17 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'NETWORK',
-            authenticationRequired: true,
+            authenticationRequired: true
         });
 
 }]);
 
-iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService', function($rootScope, $state, $location,  AuthService, SessionService){
-
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-        if(toState.authenticationRequired){
-
-            if(!AuthService.isAuthenticated()){
-
-                AuthService.getCurrentSession().then(
-                    function(data){
-                        if(data.data.success){
-                            var result = data.data.result;
-                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placement_xango_id, result.placement_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
-
-                        }else{
-                            $state.transitionTo(toState.defaultState);
-                        }
-                    },
-                    function(response){
-                        console.log(response);
-                        $state.transitionTo(toState.defaultState);
-                    }
-                );
-            }
-        }
-
+iuvare.run(function ($rootScope, $state, $log) {
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams) {
+        // Redirect user to our login page
+        $state.go(toState.defaultState);
     });
-
-}]);
+});
 
 iuvare.config(['$httpProvider', function($httpProvider){
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
