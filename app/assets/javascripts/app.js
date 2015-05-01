@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
