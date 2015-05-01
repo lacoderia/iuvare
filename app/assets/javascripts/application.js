@@ -16,6 +16,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bower_components/angular/angular.min
+//= require directives/DirectivesModule
 //= require bower_components/angular-strap/dist/angular-strap.min
 //= require bower_components/angular-strap/dist/angular-strap.tpl.js
 //= require bower_components/angular-resource/angular-resource.min
