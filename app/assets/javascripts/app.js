@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStrap']);
+var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -20,10 +20,10 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
             ]
         },
-        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.cycle',
+        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.profile',
             subsections: [
-                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
+                { order:1, code: 'PROFILE', title: 'Mi perfil', state: 'profile.profile' },
+                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' }
             ]
         }
     ],
@@ -34,13 +34,53 @@ iuvare.constant('DEFAULT_VALUES',{
     },
     SUBSECTIONS_CODES:{
         CYCLE: 'CYCLE',
-        NETWORK: 'NETWORK'
+        NETWORK: 'NETWORK',
+        PROFILE: 'PROFILE',
+        WHY: 'WHY'
     },
     CYCLE_STATUS:{
         0: 'Completado',
         1: 'Ciclando'
     },
-    DOWNLINE_LENGTH_LIMIT: 4
+    DOWNLINE_LENGTH_LIMIT: 4,
+    GOAL_TYPES: [
+        {
+            code: 'be',
+            name:'¿Qué quiero ser?'
+        },
+        {
+            code: 'do',
+            name:'¿Qué quiero hacer?'
+        },
+        {
+            code: 'have',
+            name:'¿Qué quiero tener?'
+        },
+        {
+            code: 'share',
+            name:'¿Qué quiero compartir?'
+        },
+        {
+            code: 'travel',
+            name:'¿A dónde quiero viajar?'
+        },
+        {
+            code: 'worry_not',
+            name:'¿De qué no me quiero preocupar?'
+        }
+    ],
+    GOAL_MODES: {
+        NEW: {
+            action: 'new-goal',
+            button: 'Guardar',
+            description: 'Agregar una nueva meta'
+        },
+        EDIT: {
+            action: 'edit-goal',
+            button: 'Actualizar',
+            description: 'Editar mi meta'
+        }
+    }
 });
 
 iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -85,19 +125,16 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         .state('login',{
             url: "/login",
             templateUrl: '/assets/login.html',
-            redirectState: 'login',
             defaultState: 'login',
             authenticationRequired: false
         }).state('register',{
             url: "/register",
             templateUrl: '/assets/login.html',
-            redirectState: 'register',
             defaultState: 'login',
             authenticationRequired: false
         }).state('business',{
             url: "/negocio",
             templateUrl: '/assets/business_partial.html',
-            redirectState: 'business.cycle',
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: undefined,
@@ -108,7 +145,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('business.cycle',{
             url: "/ciclo",
             templateUrl: '/assets/business_partial.cycle.html',
-            redirectState: 'business.cycle',
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'CYCLE',
@@ -116,10 +152,33 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('business.network',{
             url: "/mi-red",
             templateUrl: '/assets/business_partial.network.html',
-            redirectState: 'business.network',
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'NETWORK',
+            authenticationRequired: true
+        }).state('profile',{
+            url: "/perfil",
+            templateUrl: '/assets/profile_partial.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: undefined,
+            authenticationRequired: true,
+            resolve: {
+                authenticated: authenticated
+            }
+        }).state('profile.profile',{
+            url: "/mi-perfil",
+            templateUrl: '/assets/profile_partial.profile.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'PROFILE',
+            authenticationRequired: true
+        }).state('profile.why',{
+            url: "/mis-metas",
+            templateUrl: '/assets/profile_partial.why.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'WHY',
             authenticationRequired: true
         });
 
@@ -158,3 +217,15 @@ iuvare.directive('pwCheck', function() {
         }
     };
 });
+
+/*
+*   Filtros
+*/
+
+iuvare.filter('formatDate', function(){
+    return function(date){
+        if(date){
+            return date.format('LL');
+        }
+    }
+})
