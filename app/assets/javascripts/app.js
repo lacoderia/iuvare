@@ -225,6 +225,7 @@ iuvare.directive('pwCheck', function() {
 iuvare.filter('formatDate', function(){
     return function(date){
         if(date){
+            date = new moment(date);
             return date.format('LL');
         }
     }
