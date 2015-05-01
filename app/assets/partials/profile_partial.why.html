@@ -22,7 +22,7 @@
                 <div class="goal-info" ng-show="goal.showInfo">
                     <div>{{ goal.dream }}</div>
                     <div>{{ goal.goal }}</div>
-                    <div>{{ goal.date }}</div>
+                    <div>{{ goal.date | formatDate }}</div>
                     <a class="action-button-blue size-medium" title="" ng-click="editGoal(goal)">Editar</a>
                 </div>
 
@@ -57,7 +57,7 @@
                     </div>
                     <quick-datepicker ng-model='goal.date' label-format="dd/MM/yyyy" disable-timepicker='true' disable-datepicker='true' disable-close-button="true" date-format="dd/MM/yyyy" placeholder="Selecciona una fecha"></quick-datepicker>
                     <div ng-show="goalForm.$submitted || goalForm.$dirty">
-                        <span ng-show="!goal.data">Debes seleccionar una fecha.</span>
+                        <span ng-show="!goal.date">Debes seleccionar una fecha.</span>
                     </div>
                 </fieldset>
                 <fieldset>
