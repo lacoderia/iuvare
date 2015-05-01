@@ -26,11 +26,17 @@
 
 // Controllers
 //= require controllers/RootController
+//= require controllers/AudioController
+//= require controllers/ConventionController
 //= require controllers/CycleController
+//= require controllers/DocumentController
 //= require controllers/GlobalMenuController
+//= require controllers/ListController
 //= require controllers/LoginController
 //= require controllers/NetworkController
+//= require controllers/SeminarController
 //= require controllers/SubmenuController
+//= require controllers/TrainingController
 //= require controllers/WhyController
 
 // Services

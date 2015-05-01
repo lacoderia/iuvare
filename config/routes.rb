@@ -65,5 +65,12 @@ Rails.application.routes.draw do
   get "negocio", :to => "display#index"
   get "negocio/mi-red", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
+  get "negocio/lista", :to => "display#index"
+  get "sistema", :to => "display#index"
+  get "sistema/audios", :to => "display#index"
+  get "sistema/seminarios", :to => "display#index"
+  get "sistema/convenciones", :to => "display#index"
+  get "sistema/capacitaciones", :to => "display#index"
+  get "sistema/documentos", :to => "display#index"
 
 end
