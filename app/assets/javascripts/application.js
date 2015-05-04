@@ -18,9 +18,10 @@
 //= require bower_components/angular/angular.min
 //= require directives/DirectivesModule
 //= require bower_components/angular-strap/dist/angular-strap.min
-//= require bower_components/angular-strap/dist/angular-strap.tpl.js
+//= require bower_components/angular-strap/dist/angular-strap.tpl
 //= require bower_components/angular-resource/angular-resource.min
 //= require bower_components/ui-router/release/angular-ui-router.min
+//= require bower_components/angular-utils-pagination/dirPagination
 //= require bower_components/moment/moment
 //= require bower_components/moment/locale/es
 //= require bower_components/ngQuickDate/dist/ng-quick-date
@@ -44,6 +45,7 @@
 //= require controllers/WhyController
 
 // Services
+//= require services/AssetService
 //= require services/AuthService
 //= require services/NavigationService.js
 //= require services/CycleService

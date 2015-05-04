@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504181237) do
+ActiveRecord::Schema.define(version: 20150504211739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,6 @@ ActiveRecord::Schema.define(version: 20150504181237) do
     t.datetime "updated_at",  null: false
     t.integer  "test_id"
   end
-
-  add_index "assets", ["test_id"], name: "index_assets_on_test_id", unique: true, using: :btree
 
   create_table "goals", force: :cascade do |t|
     t.integer  "user_id"
