@@ -67,7 +67,6 @@ Rails.application.routes.draw do
   get "login", :to => "display#index"
   get "register", :to => "display#index"
   get "negocio", :to => "display#index"
-  get "negocio/mi-red", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
   get "perfil", :to => "display#index"
   get "perfil/mi-perfil", :to => "display#index"
@@ -79,5 +78,8 @@ Rails.application.routes.draw do
   get "sistema/convenciones", :to => "display#index"
   get "sistema/capacitaciones", :to => "display#index"
   get "sistema/documentos", :to => "display#index"
+  get "perfil", :to => "display#index"
+  get "perfil/mi-perfil", :to => "display#index"
+  get "perfil/mis-metas", :to => "display#index"
 
 end

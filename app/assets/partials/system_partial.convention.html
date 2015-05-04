@@ -5,6 +5,37 @@
         <form class="form">
             <input type="text" placeholder="Busca una convención: Ej. Introducción a Xango">
         </form>
+
+        <div ng-show="!areAssetsAvailable()" class="message-container">
+            <p class="message">No hay seminarios disponibles</p>
+        </div>
+
+        <!-- Listado de assets  -->
+        <div ng-show="areAssetsAvailable()">
+            <div class="assets-list">
+                <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
+                    <div>
+                        <div class="asset-name">{{ asset.title }}</div>
+                        <div class="asset-author">{{ asset.author }}</div>
+                        <div class="asset-detail-toggle-icon" ng-click="toggleAssetInfo(asset)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
+                    </div>
+
+                    <div class="asset-info" ng-show="asset.showInfo">
+                        <div>{{ asset.description }}</div>
+                        <div ng-if="asset.source">
+                            <video controls>
+                                <source ng-src="{{ asset.source + '.mp4' }}" type="video/mp4">
+                                <source ng-src="{{ asset.source + '.webm' }}" type="video/webm">
+                            </video>
+                        </div>
+                        <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este video.</div>
+                    </div>
+
+
+                </div>
+            </div>
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
     </div>
 
 </div>

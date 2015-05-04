@@ -4,15 +4,14 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
         { order: 1, code: 'BUSINESS', title: 'Negocios', state: 'business.cycle',
             subsections: [
                 { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' },
-                { order:3, code: 'LIST', title: 'Lista', state: 'business.list' }
+                { order:2, code: 'LIST', title: 'Lista', state: 'business.list' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.cycle',
@@ -34,21 +33,18 @@ iuvare.constant('DEFAULT_VALUES',{
     SECTIONS_CODES: {
         BUSINESS: 'BUSINESS',
         SYSTEM: 'SYSTEM',
+        PROFILE: 'PROFILE'
+    },
+    SUBSECTIONS_CODES:{
+        CYCLE: 'CYCLE',
         PROFILE: 'PROFILE',
+        WHY: 'WHY',
+        LIST: 'LIST',
         AUDIO: 'AUDIO',
         SEMINAR: 'SEMINAR',
         CONVENTION: 'CONVENTION',
         TRAINING: 'TRAINING',
-        DOCUMENT: 'DOCUMENT'
-
-    },
-    SUBSECTIONS_CODES:{
-        CYCLE: 'CYCLE',
-        NETWORK: 'NETWORK',
-        PROFILE: 'PROFILE',
-        WHY: 'WHY'
-        LIST: 'LIST',
-        AUDIO: 'AUDIO',
+        DOCUMENT: 'DOCUMENT',
     },
     CYCLE_STATUS:{
         0: 'Completado',
@@ -258,42 +254,12 @@ iuvare.run(function ($rootScope, $state, $log) {
     });
 });
 
-iuvare.run(['$rootScope', '$state', '$location', 'AuthService', 'SessionService', function($rootScope, $state, $location,  AuthService, SessionService){
-
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-
-        if(toState.authenticationRequired){
-            if(!AuthService.isAuthenticated()){
-
-                AuthService.getCurrentSession().then(
-                    function(data){
-                        if(data.data.success){
-                            var result = data.data.result;
-                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
-                        }else{
-                            event.preventDefault();
-                            $state.transitionTo(toState.defaultState);
-                        }
-                    },
-                    function(response){
-                        console.log(response);
-
-                        event.preventDefault();
-                        $state.transitionTo(toState.defaultState);
-                    }
-                );
-            }
-        }
-
-    });
-});
-
 iuvare.config(['$httpProvider', function($httpProvider){
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 }]);
 
 /*
-    Directivas menores
+ Directivas menores
  */
 
 iuvare.directive('pwCheck', function() {
@@ -316,14 +282,13 @@ iuvare.directive('pwCheck', function() {
 });
 
 /*
-*   Filtros
-*/
+ *   Filtros
+ */
 
 iuvare.filter('formatDate', function(){
     return function(date){
         if(date){
-            date = new moment(date);
             return date.format('LL');
         }
     }
-})
+});
