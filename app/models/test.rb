@@ -5,7 +5,8 @@ class Test < ActiveRecord::Base
 
   TYPES = [
     ['percentage', 'porcentaje'],
-    ['correct_incorrect', 'correcto/incorrecto']
+    ['correct_incorrect', 'correcto/incorrecto'],
+    ['multiple', 'multiple']
   ]
 
   PERCENTAGE_ANSWER_TYPES_BY_CODE = {
