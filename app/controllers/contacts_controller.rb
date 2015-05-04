@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController 
-  before_action :set_contact, only: [:update, :destroy, :send_video, :finish_video]
+  before_action :set_contact, only: [:update, :destroy]
 
   respond_to :json
 
@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
       @contact.save!
       render "create.json"
     rescue Exception => e
-      @errors = e
+      @errors = e.message
       render "create.json", status: 500      
     end
   end
@@ -19,7 +19,7 @@ class ContactsController < ApplicationController
       @contact.update_attributes(contact_params)
       render "update.json"
     rescue Exception => e
-      @errors = e
+      @errors = e.message
       render "update.json", status: 500
     end
   end
@@ -32,16 +32,6 @@ class ContactsController < ApplicationController
   def by_user
     @contact = Contact.where(user_id: params[:user_id])
     render "by_user.json"
-  end
-
-  def send_video
-    #TODO: SEND VIDEO LOGIC
-    @contact.invite!
-  end
-
-  def finish_video
-    # TODO: FINISH VIDEO LOGIC
-    @contact.watch_video!
   end
 
   private

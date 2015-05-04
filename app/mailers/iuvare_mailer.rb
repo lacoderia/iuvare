@@ -8,4 +8,10 @@ class IuvareMailer < ActionMailer::Base
   	mail(to: invitation.recipient_email, subject: "Te invitamos a formar parte de Iuvare")
   end
 
+  def send_video(contact, sender_user)
+    @contact = contact
+    @sender_user = sender_user
+    
+  end
+
 end

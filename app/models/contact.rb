@@ -18,7 +18,5 @@ class Contact < ActiveRecord::Base
     transition 'to_close' => 'ruled_out', on: :rule_out
     transition 'to_close' => 'registered', on: :register
   end
-  
-
-  
+    
 end

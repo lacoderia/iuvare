@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
 
-  resources :plans
+  resources :plans do
+    collection do
+      post 'send_video'
+    end
+    member do
+      post 'finish_video'
+    end
+  end
 
-  resources :contacts
+  resources :contacts do
+    collection do
+      get 'by_user'
+    end
+  end
 
   resources :assets do
     collection do
