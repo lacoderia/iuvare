@@ -1,8 +1,8 @@
 feature 'AssetsController' do
-  let!(:asset){ create(:asset, title: "Search Title") }
+  let!(:test){ create(:test, name: "Prueba test") }
+  let!(:asset){ create(:asset, title: "Search Title", test: test) }
   let!(:other_asset){ create(:asset) }
-  let!(:test){ create(:test, asset: asset, name: "Prueba test") }
-
+  
   describe 'asset associations' do
 
     context 'by_asset_type' do

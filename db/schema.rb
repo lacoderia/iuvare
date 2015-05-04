@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428213812) do
+ActiveRecord::Schema.define(version: 20150504211739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150428213812) do
     t.string   "asset_type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "test_id"
   end
 
   create_table "goals", force: :cascade do |t|
@@ -101,10 +102,7 @@ ActiveRecord::Schema.define(version: 20150428213812) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "asset_id"
   end
-
-  add_index "tests", ["asset_id"], name: "index_tests_on_asset_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -140,6 +138,7 @@ ActiveRecord::Schema.define(version: 20150428213812) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "answers", "questions"
+  add_foreign_key "assets", "tests"
   add_foreign_key "goals", "users"
   add_foreign_key "invitations", "users"
   add_foreign_key "questions", "tests"
@@ -148,5 +147,4 @@ ActiveRecord::Schema.define(version: 20150428213812) do
   add_foreign_key "roles_users", "users"
   add_foreign_key "test_scores", "tests"
   add_foreign_key "test_scores", "users"
-  add_foreign_key "tests", "assets"
 end

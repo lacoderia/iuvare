@@ -1,0 +1,42 @@
+.assets-list
+  +rem(margin-top, 1rem)
+  min-height: 400px
+
+  .asset
+    background-color: $color_gray_1
+    border: 1px solid $color_gray_4
+    +border-radius(5px)
+    position: relative
+    +rem(margin, 1rem 0)
+    +rem(padding, 2rem)
+
+    audio
+      +rem(margin-top, 0.8rem)
+
+    video
+      display: block
+      +rem(margin, 0.8rem auto)
+
+    .asset-detail-toggle-icon
+      cursor: pointer
+      +rem(font-size, 2rem)
+      position: absolute
+      +rem(right, 2rem)
+      top: 25px
+
+    .asset-name
+      +rem(font-size, 2.2rem)
+      display: inline-block
+      width: 90%
+
+    .asset-info
+      +rem(font-size, 1.5rem)
+      font-weight: normal
+      +rem(margin, 1rem 0 0)
+
+      a
+        +rem(margin-top, 3rem)
+
+
+    &:hover
+      background-color: $color_gray_3

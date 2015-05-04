@@ -1,0 +1,41 @@
+<div ng-controller="AudioController as audioCtrl">
+    <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <div class="section-content audio-container">
+        <form class="form">
+            <input type="text" placeholder="Busca un audio: Ej. Introducción a Xango" ng-model="assetQuery">
+        </form>
+
+        <div ng-show="!areAssetsAvailable()" class="message-container">
+            <p class="message">No hay audios disponibles</p>
+        </div>
+
+        <!-- Listado de assets  -->
+        <div ng-show="areAssetsAvailable()">
+            <div class="assets-list">
+                <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
+                    <div>
+                        <div class="asset-name">{{ asset.title }}</div>
+                        <div class="asset-author">{{ asset.author }}</div>
+                        <div class="asset-detail-toggle-icon" ng-click="toggleAssetInfo(asset)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
+                    </div>
+
+                    <div class="asset-info" ng-show="asset.showInfo">
+                        <div>{{ asset.description }}</div>
+                        <div ng-if="asset.source">
+                            <audio controls>
+                                <source ng-src="{{ asset.source }}">
+                            </audio>
+                        </div>
+                        <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>
+                    </div>
+
+
+                </div>
+            </div>
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
+
+    </div>
+
+</div>
