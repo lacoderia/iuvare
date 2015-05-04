@@ -72,5 +72,12 @@ Rails.application.routes.draw do
   get "perfil", :to => "display#index"
   get "perfil/mi-perfil", :to => "display#index"
   get "perfil/mis-metas", :to => "display#index"
+  get "negocio/lista", :to => "display#index"
+  get "sistema", :to => "display#index"
+  get "sistema/audios", :to => "display#index"
+  get "sistema/seminarios", :to => "display#index"
+  get "sistema/convenciones", :to => "display#index"
+  get "sistema/capacitaciones", :to => "display#index"
+  get "sistema/documentos", :to => "display#index"
 
 end

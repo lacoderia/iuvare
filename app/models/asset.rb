@@ -1,7 +1,7 @@
 class Asset < ActiveRecord::Base
 
   #has_many :plans
-  has_one :test
+  belongs_to :test
   
   TYPES = [
     ['audio', 'audio'],
