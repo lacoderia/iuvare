@@ -1,7 +1,7 @@
 class Test < ActiveRecord::Base
   has_many :test_scores
   has_many :questions
-  belongs_to :asset
+  has_many :assets
 
   TYPES = [
     ['percentage', 'porcentaje'],
