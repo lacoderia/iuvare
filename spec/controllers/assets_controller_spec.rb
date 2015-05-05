@@ -82,5 +82,25 @@ feature 'AssetsController' do
     end
     
   end
+  
+  describe 'asset type plan and tests relationship' do
+ 	  let!(:test_plan){ create(:test, name: "Plan test", code: "plan") }
+	  let!(:asset_plan_jorge){ create(:asset, title: "Plan Jorge", test: test_plan, asset_type: "plan") }
+	  let!(:asset_plan_circe){ create(:asset, title: "Plan Circe", test: test_plan, asset_type: "plan") }
+	  
+  	context 'correct relationship' do
+  		it 'should return same test from diferent plans' do
+  			visit "#{by_asset_type_assets_path}.json?asset_type=plan"
+
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+
+        assets = response['result']['assets']
+        expect(assets.count).to eql 2
+        expect(assets.first['test']['id']).to eql test_plan.id
+        expect(assets.second['test']['id']).to eql test_plan.id
+  		end
+  	end
+  end
 
 end
