@@ -45,6 +45,7 @@
 //= require services/InvitationService
 //= require services/NetworkService
 //= require services/UserService
+//= require services/XangoUserService
 //= require services/SessionService
 
 // Directives
