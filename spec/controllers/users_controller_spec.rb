@@ -24,7 +24,7 @@ feature 'UsersController' do
       it 'successfully logins, gets all downlines, logs out, invalid gets all downlines' do
           #login 
           up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-          down = User.create(first_name: "Perro", last_name: "Premier", email: "downline@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango", upline_id: up.id)
+          down = User.create(first_name: "Mucho", last_name: "Premier", email: "downline@xango.com", xango_id: "654321", iuvare_id: "4321", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
           page = login_with_service user = { email: "diospremier@xango.com", password: 'xangoxango' }
           response = JSON.parse(page.body)
           expect(response['success']).to be true 
@@ -33,7 +33,7 @@ feature 'UsersController' do
           response1 = JSON.parse(page.body)
           expect(response1['success']).to be true
           expect(response1['result'].length).to eql 1 
-          expect(response1['result'][0]['first_name']).to eql "Perro"
+          expect(response1['result'][0]['first_name']).to eql "Mucho"
           expect(response1['result'][0]['upline_id']).to eql up.id
           #logout
           logout
