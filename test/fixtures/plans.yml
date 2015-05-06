@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  asset_id: 1
+  contact_id: 1
+  token: MyString
+  expiration: 2015-04-30 17:32:53
+  description: MyText
+
+two:
+  asset_id: 1
+  contact_id: 1
+  token: MyString
+  expiration: 2015-04-30 17:32:53
+  description: MyText
