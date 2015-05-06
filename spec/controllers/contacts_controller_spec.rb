@@ -46,6 +46,17 @@ feature 'ContactsController' do
   describe 'contact CRUD and status transition' do
     
     #params.require(:contact).permit(:user_id, :name, :email, :phone, :description, :status)
+
+    context 'destroy' do
+      it 'removes contact in contact list' do
+        with_rack_test_driver do
+          page.driver.delete "#{contacts_path}/#{contact.id}.json" 
+        end
+
+        expect(page.status_code).to be 204
+        expect(Contact.count).to be 0
+      end
+    end
     
     context 'create and update' do
 
@@ -62,7 +73,7 @@ feature 'ContactsController' do
         expect(new_contact['name']).to eql 'Filomeno'
         created_contact = Contact.find(new_contact['id'])
 
-        update_contact_request = {contact:{name: "Arturo", email: 'cemento@cemex.mx'} }
+        update_contact_request = {contact:{name: "Arturo", email: 'cemento@cemex.mx', status: 'contacted'} }
         with_rack_test_driver do
           page.driver.put "#{contacts_path}/#{created_contact.id}.json", update_contact_request
         end
@@ -91,7 +102,6 @@ feature 'ContactsController' do
 
       end
 
-
     end
     
     context 'update transitions' do
@@ -111,7 +121,13 @@ feature 'ContactsController' do
       end
 
       it 'should raise errors on invalid transitions' do
-
+        update_contact_request = {contact:{status: 'registered'} }
+        with_rack_test_driver do
+          page.driver.put "#{contacts_path}/#{contact.id}.json", update_contact_request
+        end
+        response = JSON.parse(page.body)
+        expect(response['success']).to be false 
+        expect(response['error']).to eql "Cambio de estado inválido"
       end
 
     end

@@ -16,7 +16,7 @@ class ContactsController < ApplicationController
 
   def update
     begin
-      @contact.update_attributes(contact_params)
+      @contact.update_with_status_check(contact_params)
       render "update.json"
     rescue Exception => e
       @error = e.message

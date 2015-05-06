@@ -28,5 +28,27 @@ class Contact < ActiveRecord::Base
     transitions[:registered] = {previous: [:to_close], next: nil}
     return transitions
   end
+
+  def update_with_status_check contact_params
+
+    if new_status = contact_params[:status]
+      can_update_status = false
+      self.status_transitions.each do |st|
+        if st.to == new_status
+          can_update_status = true
+          break
+        end
+      end
+
+      if can_update_status
+        self.update_attributes(contact_params)
+      else
+        raise "Cambio de estado inválido"
+      end
+    else
+      self.update_attributes(contact_params)
+    end
+
+  end
     
 end
