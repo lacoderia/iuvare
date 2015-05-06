@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
       @contact.save!
       render "create.json"
     rescue Exception => e
-      @errors = e.message
+      @error = e.message
       render "create.json", status: 500      
     end
   end
@@ -19,7 +19,7 @@ class ContactsController < ApplicationController
       @contact.update_attributes(contact_params)
       render "update.json"
     rescue Exception => e
-      @errors = e.message
+      @error = e.message
       render "update.json", status: 500
     end
   end
@@ -30,8 +30,12 @@ class ContactsController < ApplicationController
   end
 
   def by_user
-    @contact = Contact.where(user_id: params[:user_id])
+    @contacts = Contact.where(user_id: params[:user_id])
     render "by_user.json"
+  end
+
+  def transitions
+    @transitions = Contact.transitions
   end
 
   private

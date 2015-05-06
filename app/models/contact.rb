@@ -18,5 +18,15 @@ class Contact < ActiveRecord::Base
     transition 'to_close' => 'ruled_out', on: :rule_out
     transition 'to_close' => 'registered', on: :register
   end
+
+  def self.transitions
+    transitions = {}
+    transitions[:to_invite] = {previous: nil, next: [:contacted]}
+    transitions[:contacted] = {previous: [:to_invite], next: [:to_close]}
+    transitions[:to_close] = {previous: [:contacted], next: [:ruled_out, :registered]}
+    transitions[:ruled_out] = {previous: [:to_close], next: nil}
+    transitions[:registered] = {previous: [:to_close], next: nil}
+    return transitions
+  end
     
 end
