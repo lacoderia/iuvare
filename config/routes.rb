@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :contacts do
     collection do
       get 'by_user'
+      get 'transitions'
     end
   end
 
@@ -77,6 +78,8 @@ Rails.application.routes.draw do
     get 'logout', :to => "devise/sessions#destroy"
     get 'session', :to => "sessions#get"
   end
+  
+  #get "watch_video", :to => "plans#watch_video"
 
   root :to => "display#index"
   get "login", :to => "display#index"

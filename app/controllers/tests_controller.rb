@@ -26,7 +26,7 @@ class TestsController < ApplicationController
   def by_code
     @test = Test.includes(:questions => :answers).find_by(code: params[:code])
     if not @test
-      @errors = "No se encontró el test"
+      @error = "No se encontró el test"
     end
     render "by_code.json"
   end
@@ -38,7 +38,7 @@ class TestsController < ApplicationController
   def by_code_and_user
     @test = Test.includes(:test_scores).find_by("test_scores.user_id" => params[:user_id], "code" => params[:test_code])
     if not @test
-      @errors = "No se encontró el test con ese usuario"
+      @error = "No se encontró el test con ese usuario"
     end
     render "by_code_and_user.json"
   end

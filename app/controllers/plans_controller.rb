@@ -7,7 +7,7 @@ class PlansController <  ApplicationController
     begin
       @plan = Plan.send_video(params[:contact_id], params[:user_id], params[:asset_id])
     rescue Exception => e
-      @errors = e.message
+      @error = e.message
     end
   end
 
@@ -15,9 +15,18 @@ class PlansController <  ApplicationController
     begin
       @plan = Plan.finish_video(@contact)
     rescue Exception => e
-      @errors = e.message
+      @error = e.message
     end
-  end  
+  end
+
+  def watch_video
+    begin
+      token = params[:token]
+      @plan = Plan.can_watch_video(token)
+    rescue  Exception => e
+      @error = e.message
+    end
+  end
 
   private
 

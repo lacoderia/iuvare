@@ -9,7 +9,7 @@ class GoalsController < ApplicationController
       @goal.save!
       render "create.json"
     rescue Exception => e
-      @errors = e
+      @error = e.message
       render "create.json", status: 500
     end
   end
@@ -19,7 +19,7 @@ class GoalsController < ApplicationController
       @goal.update_attributes(goal_params)
       render "update.json"
     rescue Exception => e
-      @errors = e
+      @error = e.message
       render "update.json", status: 500
     end
   end
