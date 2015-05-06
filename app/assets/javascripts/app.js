@@ -88,6 +88,13 @@ iuvare.constant('DEFAULT_VALUES',{
             button: 'Actualizar',
             description: 'Editar mi meta'
         }
+    },
+    CONTACT_STATUS: {
+        TO_INVITE: { title: 'Por invitar', class: '' },
+        CONTACTED: { title: 'Contactado', class: '' },
+        TO_CLOSE: { title: 'Por cerrar', class: '' },
+        RULED_OUT: { title: 'Descartado', class: '' },
+        REGISTERED: { title: 'Registrado', class: '' }
     }
 });
 
