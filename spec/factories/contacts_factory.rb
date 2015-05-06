@@ -5,6 +5,5 @@ FactoryGirl.define do
     sequence(:email){ |n| "contact-#{n}@whatever.mx" }
     phone "66666666"
     description "Vive en el DF"
-    status "to_invite"
   end
 end

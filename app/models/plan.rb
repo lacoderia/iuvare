@@ -1,10 +1,11 @@
 class Plan < ActiveRecord::Base
+
+  belongs_to :asset
+  belongs_to :contact
   
-  def self.send_video
-    contact_id = params[:contact_id]
-    asset _id = params[:asset_id]
-    exipiration = Time.zone.now + 120.minutes
-    sender_user = User.find(params[:user_id])
+  def self.send_video contact_id, user_id, asset_id
+    expiration = Time.zone.now + 120.minutes
+    sender_user = User.find(user_id)
 
     plan = Plan.create(token: SecureRandom.urlsafe_base64, asset_id: asset_id, contact_id: contact_id, expiration: expiration)
 
