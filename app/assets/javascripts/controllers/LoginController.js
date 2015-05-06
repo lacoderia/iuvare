@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", "InvitationService", function($scope, $rootScope, $location, AuthService, InvitationService){
+iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", "InvitationService", "XangoUserService", function($scope, $rootScope, $location, AuthService, InvitationService, XangoUserService){
 
     // Object that holds
     $scope.VIEW = {
@@ -42,9 +42,9 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         iuvareId: undefined,
         xangoId: undefined,
         sponsorIuvareId: undefined,
-        sponsorXangoId: undefined,
+        sponsorXango: {},
         placementIuvareId: undefined,
-        placementXangoId: undefined
+        placementXango: {}
     };
 
     // Object that holds new request parameters
@@ -142,10 +142,37 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         }
     };
 
+    // Method to get a xango user
+    $scope.getXangoUser = function(xangoUser, formField) {
+
+        formField.$pending = true;
+
+        if(xangoUser.id){
+            XangoUserService.getXangoUser(xangoUser.id)
+                .success(function(data){
+                    if(data.success){
+                        xangoUser.message = data.result.first_name + ' ' + data.result.last_name;
+                        formField.$setValidity('userExists', true);
+                    } else {
+                        xangoUser.message = 'No existe un usuario con ese id';
+                        formField.$setValidity('userExists', false);
+                    }
+                })
+                .error(function(error, status){
+                    xangoUser.message = 'Hubo un error al obtener el usuario con ese id';
+                    formField.$setValidity('userExists', false);
+                });
+        } else {
+            xangoUser.message = undefined;
+            formField.$setValidity('userExists', true);
+        }
+
+    };
+
     // Method to register a new user
     $scope.signUp = function () {
         if($scope.invitationToken){
-            if($scope.signupForm.$valid){
+            if($scope.signupForm.$valid && !$scope.signupForm.signupXangoSponsorId.$pending && !$scope.signupForm.signupXangoPlacementId.$pending){
 
                 var user = {
                     first_name: $scope.newUser.firstName,
@@ -155,9 +182,9 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                     password_confirmation: $scope.newUser.passwordConfirmation,
                     xango_id: $scope.newUser.xangoId,
                     iuvare_id: $scope.newUser.iuvareId,
-                    sponsor_xango_id: $scope.newUser.sponsorXangoId,
+                    sponsor_xango_id: $scope.newUser.sponsorXango.id,
                     sponsor_iuvare_id: $scope.newUser.sponsorIuvareId,
-                    placement_xango_id: $scope.newUser.placementXangoId,
+                    placement_xango_id: $scope.newUser.placementXango.id,
                     placement_iuvare_id: $scope.newUser.placementIuvareId
                 };
 
@@ -167,6 +194,8 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                         $scope.signupFormMessage = signupFormMessage;
                     }
                 );
+            } else {
+                console.log('Para enviar la solicitud de registro todos los campos deben ser válidos.');
             }
         }else{
             $scope.signupFormMessage = 'Para poder registrarte es necesario que recibas una invitación previa.';
