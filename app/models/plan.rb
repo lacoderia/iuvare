@@ -22,7 +22,9 @@ class Plan < ActiveRecord::Base
 
   def self.finish_video plan
     contact = plan.contact
-    contact.watch_video!
+    if contact.status?(:contacted) or contact.status?(:to_invite)
+      contact.watch_video!
+    end
 
     return plan
   end
