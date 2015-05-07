@@ -13,17 +13,33 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
         {'src': '/assets/bici.jpg', 'uploading': false}
     ];
 
-    // Method to add a picture to the collage
-    $scope.addPicture = function(){
-        $scope.bricks.push({'src': '/assets/iuvare_logo.png'});
-    };
-
-
     // Function that triggers file input click
     $scope.openPictureSelector = function(event) {
         $(event.target).siblings('input').trigger('click');
         return false;
-    }
+    };
+
+    // Function that uploads a picture file to server
+    $scope.uploadPicture = function(brick){
+        console.log(brick.file);
+
+        brick.uploading = true;
+        brick.error = false;
+
+        setTimeout(function(){
+            brick.uploading = false;
+
+
+            // Aquí debemos guardar la imagen en el servidor
+
+            
+            brick.error = true;
+
+            $scope.$digest();
+
+        }, 1000);
+
+    };
 
     // Function that reads the image file and adds it to the masonry grid
     $scope.addPicture = function(element) {
@@ -35,41 +51,27 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
             reader.onload = function (e) {
                 var brick = {
                     src: e.target.result,
-                    uploading: true,
-                    file: element
+                    uploading: false,
+                    error: false,
+                    file: input[0].files[0]
                 };
 
                 $scope.bricks.push(brick);
 
+                $scope.uploadPicture(brick);
+
                 $scope.$digest();
-
-                setTimeout(function(){
-                    brick.uploading = false;
-
-
-                    // Aquí debemos guardar la imagen en el servidor
-
-                    brick.error = true;
-
-                    $scope.$digest();
-
-                }, 1000);
 
             };
 
             reader.readAsDataURL(input[0].files[0]);
         }
-    }
-
-    // Function that uploads a picture again
-    $scope.reloadPicture = function(brick) {
-        $scope.addPicture(brick.element);
-    }
+    };
 
     // Method to remove a picture
     $scope.removePicture = function(brick){
         $scope.bricks.splice($scope.bricks.indexOf(brick), 1);
-    }
+    };
 
     // Method to init the controller's default state
     $scope.initController = function(){
