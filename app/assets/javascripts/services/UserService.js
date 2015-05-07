@@ -4,9 +4,12 @@ iuvare.factory('UserService', [function(){
 
     function User(){
 
-        var _id = undefined;
-        var _firstName = undefined;
-        var _lastName = undefined;
+        // Variables públicas
+        this._id = undefined;
+        this._firstName = undefined;
+        this._lastName = undefined;
+
+        //Variables privadas
         var _email = undefined;
         var _xangoId = undefined;
         var _xangoRank = undefined;
@@ -41,27 +44,27 @@ iuvare.factory('UserService', [function(){
         };
 
         this.getId = function(){
-            return _id;
+            return this._id;
         };
 
         this.setId = function(id){
-            _id = id;
+            this._id = id;
         };
 
         this.getFirstName = function(){
-            return _firstName;
+            return this._firstName;
         };
 
         this.setFirstName = function(firstName){
-            _firstName = firstName;
+            this._firstName = firstName;
         };
 
         this.getLastName = function(){
-            return _lastName;
+            return this._lastName;
         };
 
         this.setLastName = function(lastName){
-            _lastName = lastName;
+            this._lastName = lastName;
         };
 
         this.getEmail = function(){
@@ -160,12 +163,16 @@ iuvare.factory('UserService', [function(){
             _picture = picture;
         };
 
-        this.setUplineId = function(){
+        this.setUplineId = function(uplineId){
+            _uplineId = uplineId;
+        };
+
+        this.getUplineId = function(){
             return _uplineId;
         };
 
-        this.getUplineId = function(uplineId){
-            _uplineId = uplineId;
+        this.isCycleMember = function(uplineId){
+            return ((uplineId == _uplineId) && _downlinePosition)? true : false;
         };
 
     }

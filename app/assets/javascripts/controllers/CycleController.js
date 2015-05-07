@@ -5,46 +5,91 @@
 
 'use strict';
 
-iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "CycleService", "NetworkService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, CycleService, NetworkService, SessionService, DEFAULT_VALUES){
+iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "CycleService", "InvitationService", "NetworkService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, CycleService, InvitationService, NetworkService, SessionService, DEFAULT_VALUES){
 
     $scope.DOWNLINE_LENGTH_LIMIT = DEFAULT_VALUES.DOWNLINE_LENGTH_LIMIT;
 
     $scope.downlines = [];
+    $scope.downlinesNetworkList = [];
     $scope.sectionTitle = undefined;
-    $scope.currentUserName = undefined;
+    $scope.currentUser = undefined;
     $scope.currentDownlineIndex = undefined;
-    $scope.showDownlineList = false;
+
+    // Object that holds the invitation values
+    $scope.invitation = {
+        recipient_name: undefined,
+        recipient_email: undefined
+    };
+
+    // Variables privadas
+    var showInvite = false;
+    var originalInvitation = angular.copy($scope.invitation);
 
 
     $scope.getDownlineLengthLimit = function(length){
       return new Array(length);
     };
 
+    $scope.isEditingCycle = function () {
+        return $scope.editCycle;
+    };
+
     $scope.isCurrentDownline = function(downlineIndex){
         return ($scope.currentDownlineIndex !== undefined)?  ($scope.currentDownlineIndex == downlineIndex): false;
     };
 
-    $scope.resetDownlinesListVisibility = function(){
-        for(var downlineIndex=0; downlineIndex<DEFAULT_VALUES.DOWNLINE_LENGTH_LIMIT; downlineIndex++){
-            $scope.downlinesListVisibility[downlineIndex].visible = false;
-        }
-    };
-
     $scope.setCurrentDownline = function($event, downlineIndex){
         $event.preventDefault();
+        $rootScope.$broadcast('hideAllDownlineLists');
         $scope.currentDownlineIndex = downlineIndex;
     };
 
-    $scope.isDownlineListVisible = function (downlineIndex) {
-        return false;
-    };
-
-    $scope.attachDownline = function(downlineIndex){
-
+    $scope.attachDownline = function(downlineIndex, downlinePosition){
+        var downline = $scope.downlinesNetworkList[downlineIndex];
+        CycleService.attachDownline(downlineIndex, downlinePosition, downline);
     };
 
     $scope.detachDownline = function(downlineIndex){
-        $scope.downlines.splice(downlineIndex,1);
+        CycleService.detachDownline(downlineIndex).then(function () {
+            
+        });
+    };
+
+
+    // Method that resets the invitation form
+    $scope.resetInvitationForm = function(){
+        $scope.invitation = angular.copy(originalInvitation);
+        $scope.invitationForm.$setPristine();
+        $scope.invitationForm.$setUntouched();
+    };
+
+    $scope.invite = function () {
+        if ($scope.invitationForm.$valid) {
+            var invitation = {
+                user_id: SessionService.$get().getId(),
+                recipient_name: $scope.invitation.recipient_name,
+                recipient_email: $scope.invitation.recipient_email
+            };
+
+            InvitationService.sendInvitation(invitation).then(
+                function(invitationFormMessage) {
+                    $scope.invitationFormMessage = invitationFormMessage;
+                    $scope.resetInvitationForm();
+                }
+            );
+        }
+    };
+
+    $scope.isInviteView = function(){
+        return showInvite;
+    };
+
+    $scope.showInviteView = function () {
+        showInvite = true;
+    };
+
+    $scope.hideInviteView = function () {
+        showInvite = false;
     };
 
     // Method to init the controller's default state
@@ -61,7 +106,17 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "Cy
             }
         );
 
-        $scope.currentUserName = SessionService.$get().getFirstName() + " " + SessionService.$get().getLastName();
+        // Obtenemos toda la red del usuario
+        NetworkService.getAllDownlines().then(
+            function (downlineList) {
+                $scope.downlinesNetworkList = angular.copy(downlineList);
+            }
+        );
+
+        $scope.currentUser = SessionService.$get();
+        //console.log("ENTRE AL CONTROLADOR DEL CICLO")
+        //console.log(SessionService.$get().getLastName())
+        //$scope.currentUserName = SessionService.$get().getFirstName() + " " + SessionService.$get().getLastName();
 
     };
 
