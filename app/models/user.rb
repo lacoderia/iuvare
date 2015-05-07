@@ -24,11 +24,10 @@ class User < ActiveRecord::Base
   	unless user
       invitations = Invitation.where("recipient_email = ? AND token = ?", self.email, token)
     	if invitations.size == 1
-        upline = User.find_by_xango_id(self.placement_xango_id)
-        if upline
-          self.upline_id = upline.id
+        if self.upline_id
+          upline = User.find(self.upline_id)
           downline_no = upline.downlines.where("downline_position is not null").count
-          self.downline_position = downline_no + 1 if downline_no < 3
+          self.downline_position = downline_no + 1 if downline_no < 4
         end
     		self.save
     	else

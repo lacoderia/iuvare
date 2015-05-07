@@ -47,6 +47,9 @@
   @if $color == $color_purple_1
     @return $color_purple_1
 
+  @if $color == $color_blue_1
+    @return $color_blue_1
+
   @return $color
 
 
@@ -54,11 +57,17 @@
   @if $color == $color_purple_1
     @return white
 
+  @if $color == $color_blue_1
+    @return white
+
   @return white
 
 @function action-button-hover-background-color($color)
   @if $color == $color_purple_1
     @return lighten($color-purple_1, 4%)
+
+  @if $color == $color_blue_1
+    @return lighten($color_blue_1, 4%)
 
   @return $color
 

@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
 
+  resources :plans do
+    collection do
+      post 'send_video'
+    end
+    member do
+      post 'finish_video'
+    end
+  end
+
+  resources :contacts do
+    collection do
+      get 'by_user'
+      get 'transitions'
+    end
+  end
+
   resources :assets do
     collection do
       get 'by_asset_type' 
@@ -62,12 +78,26 @@ Rails.application.routes.draw do
     get 'logout', :to => "devise/sessions#destroy"
     get 'session', :to => "sessions#get"
   end
+  
+  #get "watch_video", :to => "plans#watch_video"
 
   root :to => "display#index"
   get "login", :to => "display#index"
   get "register", :to => "display#index"
   get "negocio", :to => "display#index"
-  get "negocio/mi-red", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
+  get "perfil", :to => "display#index"
+  get "perfil/mi-perfil", :to => "display#index"
+  get "perfil/mis-metas", :to => "display#index"
+  get "negocio/lista", :to => "display#index"
+  get "sistema", :to => "display#index"
+  get "sistema/audios", :to => "display#index"
+  get "sistema/seminarios", :to => "display#index"
+  get "sistema/convenciones", :to => "display#index"
+  get "sistema/capacitaciones", :to => "display#index"
+  get "sistema/documentos", :to => "display#index"
+  get "perfil", :to => "display#index"
+  get "perfil/mi-perfil", :to => "display#index"
+  get "perfil/mis-metas", :to => "display#index"
 
 end

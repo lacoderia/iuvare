@@ -5,6 +5,8 @@
 //Import typography
 @import  "common/icomoon.css"
 @import  "common/typography"
+@import  "common/ng-quick-date.css"
+@import  "common/ng-quick-date-default-theme.css"
 
 // Import layout sytles
 @import  "layout/footer"
@@ -15,6 +17,9 @@
 @import  "modules/login"
 @import  "modules/cycle"
 @import  "modules/network"
+@import  "modules/why"
+@import  "modules/assets"
+@import  "modules/list"
 
 // Common styles
 
@@ -36,6 +41,9 @@ h2.section-title
   font-weight: 400
   +rem(font-size, 2.5rem)
   text-transform: uppercase
+
+.action-button-blue
+  +action-button($color_blue_1)
 
 .action-button-fb
   +action-button($color-blue_fb)
@@ -101,6 +109,7 @@ h2.section-title
 
   .dropdown
     height: 50px
+    width: 100%
 
   .login-switch
     +action-button($color_purple_1)
@@ -127,17 +136,41 @@ h2.section-title
 
 
 .message-container
-  display: table
-  +rem(margin, 2rem 0)
+  display: block
+  +rem(margin, 5rem 0)
   +rem(padding, 2rem)
   width: 100%
 
   .message
-    display: table-cell
-    +rem(font-size, 1.5rem)
+    display: block
+    +rem(font-size, 1.8rem)
     text-align: center
     vertical-align: middle
     width: 100%
+
+  .actions
+    display: block
+    +rem(margin, 2rem 0)
+    text-align: center
+
+.quickdate
+  width: 100%
+
+  .quickdate-button
+    font-size: 13px
+    font-weight: 500
+    height: 50px
+    line-height: 1.42857143
+    +rem(padding-top, 1.5rem)
+    text-align: center
+    vertical-align: middle
+    width: 100%
+
+  .quickdate-button:hover
+    border: 1px solid $color_gray_4
+    background-color: $color-gray_5
+    color: $color-gray_6
+    text-decoration: none
 
 
 

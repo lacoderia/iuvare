@@ -1,0 +1,35 @@
+.goals-list
+  +rem(margin-bottom, 4rem)
+
+  .goal
+    background-color: $color_gray_1
+    border: 1px solid $color_gray_4
+    +border-radius(5px)
+    position: relative
+    +rem(margin, 1rem 0)
+    +rem(padding, 2rem)
+
+    .goal-detail-toggle-icon
+      cursor: pointer
+      +rem(font-size, 2rem)
+      position: absolute
+      +rem(right, 2rem)
+      top: 25px
+
+    .goal-name
+      +rem(font-size, 2.2rem)
+      display: inline-block
+      width: 90%
+
+    .goal-info
+      +rem(font-size, 1.5rem)
+      font-weight: normal
+      +rem(margin, 2rem 0 0)
+
+      a
+        +rem(margin-top, 3rem)
+
+
+    &:hover
+      background-color: $color_gray_3
+

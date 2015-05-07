@@ -6,14 +6,15 @@ feature 'RegistrationsController' do
     context 'user creation' do
 
       it 'successfully creates user, logout, valid and invalid login, existing and non-existing session' do
-        up = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "123456", sponsor_iuvare_id: "1234", placement_xango_id: "123456", placement_iuvare_id: "1234"  }
+        upline = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "123456", placement_xango_id: "123456", upline_id: upline.id  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
         expect(response['success']).to be true
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['email']).to eql invitation.recipient_email
+        expect(response['result']['downline_position']).to eql 1
         logout
         
         page = login_with_service user = { email: new_user[:email], password: 'invalidpassword' }
@@ -36,7 +37,7 @@ feature 'RegistrationsController' do
       end
 
       it 'checks for duplicate users' do
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "12066412", sponsor_iuvare_id: "6777", placement_xango_id: "12066412", placement_iuvare_id: "6777"  }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "12066412", placement_xango_id: "12066412"  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
