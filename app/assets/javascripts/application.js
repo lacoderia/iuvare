@@ -38,7 +38,6 @@
 //= require controllers/GlobalMenuController
 //= require controllers/ListController
 //= require controllers/LoginController
-//= require controllers/NetworkController
 //= require controllers/SeminarController
 //= require controllers/SubmenuController
 //= require controllers/TrainingController
