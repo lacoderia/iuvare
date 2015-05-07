@@ -1,81 +1,89 @@
 @font-face {
-	font-family: 'icomoon';
-	src:url('/assets/icomoon.eot?ekulz');
-	src:url('/assets/icomoon.eot?#iefixekulz') format('embedded-opentype'),
-		url('/assets/icomoon.woff?ekulz') format('woff'),
-		url('/assets/icomoon.ttf?ekulz') format('truetype'),
-		url('/assets/icomoon.svg?ekulz#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icomoon';
+    src:url('/assets/icomoon.eot?-bvyjed');
+    src:url('/assets/icomoon.eot?#iefix-bvyjed') format('embedded-opentype'),
+    url('/assets/icomoon.woff?-bvyjed') format('woff'),
+    url('/assets/icomoon.ttf?-bvyjed') format('truetype'),
+    url('/assets/icomoon.svg?-bvyjed#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-envelope:before {
+    content: "\e609";
+}
+
+.icon-phone:before {
+    content: "\e608";
 }
 
 .icon-spinner:before {
-	content: "\e607";
+    content: "\e607";
 }
 
 .icon-circle-down:before {
-	content: "\e605";
+    content: "\e605";
 }
 
 .icon-circle-right:before {
-	content: "\e606";
+    content: "\e606";
 }
 
 .icon-image:before {
-	content: "\e90d";
+    content: "\e90d";
 }
 
 .icon-cart:before {
-	content: "\e93a";
+    content: "\e93a";
 }
 
 .icon-user:before {
-	content: "\e971";
+    content: "\e971";
 }
 
 .icon-search:before {
-	content: "\e986";
+    content: "\e986";
 }
 
 .icon-info:before {
-	content: "\ea0c";
+    content: "\ea0c";
 }
 
 .icon-facebook:before {
-	content: "\ea8c";
+    content: "\ea8c";
 }
 
 .icon-swap-vert-circle:before {
-	content: "\e602";
+    content: "\e602";
 }
 
 .icon-locked:before {
-	content: "\e601";
+    content: "\e601";
 }
 
 .icon-circle-with-plus:before {
-	content: "\e604";
+    content: "\e604";
 }
 
 .icon-circle-with-cross:before {
-	content: "\e603";
+    content: "\e603";
 }
 
 .icon-help:before {
-	content: "\e600";
+    content: "\e600";
 }
 

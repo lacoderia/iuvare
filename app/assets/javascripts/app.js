@@ -90,11 +90,11 @@ iuvare.constant('DEFAULT_VALUES',{
         }
     },
     CONTACT_STATUS: {
-        TO_INVITE: { title: 'Por invitar', class: '' },
-        CONTACTED: { title: 'Contactado', class: '' },
-        TO_CLOSE: { title: 'Por cerrar', class: '' },
-        RULED_OUT: { title: 'Descartado', class: '' },
-        REGISTERED: { title: 'Registrado', class: '' }
+        TO_INVITE: { code:'to_invite', title: 'Por invitar', class: '' },
+        CONTACTED: { code:'contacted', title: 'Contactado', class: '' },
+        TO_CLOSE: { code:'to_close', title: 'Por cerrar', class: '' },
+        RULED_OUT: { code:'ruled_out', title: 'Descartado', class: '' },
+        REGISTERED: { code:'registered', title: 'Registrado', class: '' }
     }
 });
 
@@ -263,6 +263,10 @@ iuvare.run(function ($rootScope, $state, $log) {
 
 iuvare.config(['$httpProvider', function($httpProvider){
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+}]);
+
+iuvare.config(['$logProvider',function($logProvider){
+    $logProvider.debugEnabled(true);
 }]);
 
 /*
