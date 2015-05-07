@@ -151,18 +151,22 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
             XangoUserService.getXangoUser(xangoUser.id)
                 .success(function(data){
                     if(data.success){
+                        xangoUser.dbId = data.result.id;
                         xangoUser.message = data.result.first_name + ' ' + data.result.last_name;
                         formField.$setValidity('userExists', true);
                     } else {
+                        xangoUser.dbId = undefined;
                         xangoUser.message = 'No existe un usuario con ese id';
                         formField.$setValidity('userExists', false);
                     }
                 })
                 .error(function(error, status){
+                    xangoUser.dbId = undefined;
                     xangoUser.message = 'Hubo un error al obtener el usuario con ese id';
                     formField.$setValidity('userExists', false);
                 });
         } else {
+            xangoUser.dbId = undefined;
             xangoUser.message = undefined;
             formField.$setValidity('userExists', true);
         }
@@ -185,7 +189,8 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                     sponsor_xango_id: $scope.newUser.sponsorXango.id,
                     sponsor_iuvare_id: $scope.newUser.sponsorIuvareId,
                     placement_xango_id: $scope.newUser.placementXango.id,
-                    placement_iuvare_id: $scope.newUser.placementIuvareId
+                    placement_iuvare_id: $scope.newUser.placementIuvareId,
+                    upline_id: $scope.newUser.placementXango.dbId
                 };
 
                 AuthService.signUp(user, $scope.invitationToken)
