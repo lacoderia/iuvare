@@ -1,5 +1,5 @@
 class TestsController < ApplicationController 
-  before_action :set_goal, only: [:show, :edit, :update, :destroy]
+  before_action :set_test, only: [:show, :edit, :update, :destroy]
 
   respond_to :json
 
