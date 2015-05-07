@@ -25,8 +25,8 @@ class Plan < ActiveRecord::Base
 
   def self.can_watch_video token
     time_now = Time.zone.now
-    plan = Plan.includes({asset: {tests: :answers} }).find_by(token: token) #includes assets, tests, questions, answers
-    if plan.expiration > time_now
+    plan = Plan.includes({asset: {test: {questions: :answers} } }).find_by(token: token) #includes assets, tests, questions, answers
+    if plan.expiration < time_now
       raise 'Ya han pasado más de 120 minutos desde que se realizó la invitación.'
     else
       return plan
