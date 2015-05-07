@@ -1,7 +1,7 @@
 if not @error
   json.success true
   json.set! :result do 
-    json.extract! @goal, :id, :user_id, :dream, :goal, :date, :goal_type
+    json.extract! @contact, :id, :user_id, :name, :email, :phone, :description, :status
   end
 else
   json.success false

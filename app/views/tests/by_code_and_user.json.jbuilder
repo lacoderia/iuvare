@@ -10,5 +10,5 @@ if @test
   end
 else
   json.success false 
-  json.error @errors
+  json.error @error
 end

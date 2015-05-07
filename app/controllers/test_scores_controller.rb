@@ -8,7 +8,7 @@ class TestScoresController < ApplicationController
       @test_scores = TestScore.grade_test(params[:user_id], @test, params[:answers] )
       render "grade_test.json"
     rescue Exception => e
-      @errors = e.message
+      @error = e.message
       render "grade_test.json", status: 500
     end
   end

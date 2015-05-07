@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   def by_xango_id 
     @user = User.by_xango_id(params[:xango_id]).first
     if not @user
-      @errors = "No se encontró usuario con este ID de Xango"
+      @error = "No se encontró usuario con este ID de Xango"
     end
     render "by_xango_id.json"
   end
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :sponsor_iuvare_id, :placement_xango_id, :placement_iuvare_id, :active, :payment_expiration, :xango_rank)
+      params.require(:user).permit(:first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :active, :payment_expiration, :xango_rank, :upline_id)
     end
 
     def not_signed_error
