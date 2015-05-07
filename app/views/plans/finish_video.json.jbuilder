@@ -1,4 +1,4 @@
-if @plan
+if not @error
   json.success true
   json.set! :result do
     json.extract! @plan, :id, :asset_id, :token, :expiration, :description

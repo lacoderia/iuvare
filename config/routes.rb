@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   resources :plans do
     collection do
       post 'send_video'
+      post 'watch_video'
     end
     member do
-      post 'finish_video'
+      get 'finish_video'
     end
   end
 

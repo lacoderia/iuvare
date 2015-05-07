@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
 
   belongs_to :user
+  has_many :plans
 
   STATUSES = [
     ['to_invite', 'por invitar'],
@@ -11,6 +12,8 @@ class Contact < ActiveRecord::Base
   ]
 
   validates :status, inclusion: {in: STATUSES.map{ |pairs| pairs[0] } }
+  
+  before_validation :initialize_status
 
   state_machine :status, :initial => 'to_invite' do
     transition 'to_invite' => 'contacted', on: :invite
@@ -27,7 +30,7 @@ class Contact < ActiveRecord::Base
     transitions[:ruled_out] = {previous: [:to_close], next: nil}
     transitions[:registered] = {previous: [:to_close], next: nil}
     return transitions
-  end
+  end 
 
   def update_with_status_check contact_params
 
@@ -51,4 +54,9 @@ class Contact < ActiveRecord::Base
 
   end
     
+  private
+
+    def initialize_status 
+      self.status = 'to_invite' unless self.status
+    end
 end

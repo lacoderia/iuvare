@@ -1,6 +1,6 @@
 class Asset < ActiveRecord::Base
 
-  #has_many :plans
+  has_many :plans
   belongs_to :test
   
   TYPES = [

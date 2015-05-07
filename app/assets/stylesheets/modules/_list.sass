@@ -16,6 +16,17 @@
     +rem(margin, 1rem 0)
     +rem(padding, 2rem)
 
+    .contact-actions
+      +rem(font-size, 3rem)
+      +rem(margin-top, 2rem)
+
+    .contact-detail-toggle-icon
+      cursor: pointer
+      +rem(font-size, 2rem)
+      position: absolute
+      +rem(right, 2rem)
+      top: 25px
+
     .contact-image
       display: inline-block
       +rem(margin-right, 1rem)
@@ -27,3 +38,18 @@
       display: inline-block
       vertical-align: top
 
+      .icon
+        +rem(font-size, 1.2rem)
+        +rem(margin-right, 0.5rem)
+
+
+    .contact-name
+      +rem(font-size, 2.2rem)
+
+    .contact-email
+      +rem(font-size, 1.5rem)
+      font-weight: normal
+      +rem(margin, 1rem 0 0)
+
+    &:hover
+      background-color: $color_gray_3

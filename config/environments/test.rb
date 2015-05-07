@@ -49,4 +49,5 @@ Rails.application.configure do
   # which will be used by cloudfront as well
   config.serve_static_files = true
   config.static_cache_control = "public, max-age=31536000"
+
 end

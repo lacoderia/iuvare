@@ -13,7 +13,7 @@ class PlansController <  ApplicationController
 
   def finish_video
     begin
-      @plan = Plan.finish_video(@contact)
+      @plan = Plan.finish_video(@plan)
     rescue Exception => e
       @error = e.message
     end
