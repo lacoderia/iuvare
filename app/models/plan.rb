@@ -13,7 +13,9 @@ class Plan < ActiveRecord::Base
 
     IuvareMailer.send_video(plan, sender_user).deliver_now
     contact = Contact.find(contact_id)
-    contact.invite!
+    if contact.status?(:to_invite)
+      contact.invite!
+    end
 
     return plan
   end

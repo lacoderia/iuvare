@@ -15,6 +15,8 @@ feature 'PlansController' do
 
       it 'should complete the video flow' do
       
+        mail_count = ActionMailer::Base.deliveries.count
+        
         #Sending video
         send_video_request = {contact_id: contact.id, user_id: user.id, asset_id: asset.id}
         with_rack_test_driver do
@@ -29,6 +31,17 @@ feature 'PlansController' do
         contact_object = plan_object['contact']
         expect(contact_object['status']).to eql 'contacted'
 
+        # Sending video to him again
+        send_video_request = {contact_id: contact.id, user_id: user.id, asset_id: asset.id}
+        with_rack_test_driver do
+          page.driver.post "#{send_video_plans_path}.json", send_video_request
+        end
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        plan_object = response['result']
+        expect(plan_object['contact']['status']).to eql 'contacted'
+        expect(mail_count + 2).to eql ActionMailer::Base.deliveries.count
+
         #Validating that video can be seen
         can_watch_video_request = {token: plan_object['token']}
         with_rack_test_driver do
@@ -38,12 +51,34 @@ feature 'PlansController' do
         expect(response['success']).to be true
         plan_object = response['result']
 
+        # Sending video to him again because he missed it
+        send_video_request = {contact_id: contact.id, user_id: user.id, asset_id: asset.id}
+        with_rack_test_driver do
+          page.driver.post "#{send_video_plans_path}.json", send_video_request
+        end
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        plan_object = response['result']
+        expect(plan_object['contact']['status']).to eql 'contacted'
+        expect(mail_count + 3).to eql ActionMailer::Base.deliveries.count 
+
         #Finishing video
         visit "#{finish_video_plan_path(plan_object['id'])}.json"
         response = JSON.parse(page.body)
         expect(response['success']).to be true
         updated_contact_object = response['result']['contact']
-        expect(updated_contact_object['status']).to eql 'to_close'      
+        expect(updated_contact_object['status']).to eql 'to_close'  
+
+        # Sending video to him again because he requested it
+        send_video_request = {contact_id: contact.id, user_id: user.id, asset_id: asset.id}
+        with_rack_test_driver do
+          page.driver.post "#{send_video_plans_path}.json", send_video_request
+        end
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        plan_object = response['result']
+        expect(plan_object['contact']['status']).to eql 'to_close'
+        expect(mail_count + 4).to eql ActionMailer::Base.deliveries.count
         
       end
 
@@ -56,6 +91,7 @@ feature 'PlansController' do
       
        it 'should send erros on video flow' do
 
+        mail_count = ActionMailer::Base.deliveries.count
         #Sending video
         send_video_request = {contact_id: contact.id, user_id: user.id}
         with_rack_test_driver do
@@ -71,7 +107,8 @@ feature 'PlansController' do
         response = JSON.parse(page.body)
         expect(response['success']).to be true
         plan_object = response['result']
-
+        expect(mail_count + 1).to eql ActionMailer::Base.deliveries.count
+        
         #Validating expiration time for video
         Timecop.travel(starting_datetime + 121.minutes)
         can_watch_video_request = {token: plan_object['token']}
@@ -88,8 +125,8 @@ feature 'PlansController' do
           page.driver.post "#{watch_video_plans_path}.json", can_watch_video_request
         end
         response = JSON.parse(page.body)
-        expect(response['success']).to be true
-
+        expect(response['success']).to be true       
+        
         #Finishing video
         visit "#{finish_video_plan_path(plan.id)}.json"
         response = JSON.parse(page.body)
