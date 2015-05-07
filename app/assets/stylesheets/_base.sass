@@ -19,6 +19,7 @@
 @import  "modules/network"
 @import  "modules/why"
 @import  "modules/assets"
+@import  "modules/collage"
 
 // Common styles
 
@@ -208,3 +209,11 @@ h2.section-title
 
 .wrapper-container
   min-height: 500px
+
+// Animations
+
+@keyframes loadingAnimation
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)

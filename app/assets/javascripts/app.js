@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination', 'wu.masonry']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -26,7 +26,8 @@ iuvare.constant('DEFAULT_VALUES',{
         { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.profile',
             subsections: [
                 { order:1, code: 'PROFILE', title: 'Mi perfil', state: 'profile.profile' },
-                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' }
+                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
+                { order:3, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' }
             ]
         }
     ],
@@ -187,6 +188,14 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'WHY',
+            authenticationRequired: true
+        }).state('profile.collage',{
+            url: "/collage",
+            templateUrl: '/assets/profile_partial.collage.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'COLLAGE',
+            authenticationRequired: true
         }).state('business.list',{
             url: "/lista",
             templateUrl: '/assets/business_partial.list.html',
