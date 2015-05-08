@@ -18,16 +18,19 @@
                 <div class="actions">
                     <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createContact()">Agregar nuevo contacto</a>
                 </div>
-                <div ng-repeat="contact in contactList | filter:contactQuery | orderBy: name"  class="contact">
-                    <div>
+                <div ng-repeat="contact in contactList | filter:contactQuery | orderBy:['order', 'name']"  class="contact">
+                    <div class="contact-info-container">
                         <div class="contact-image">
                             <span class="user-image">
-                                <span class="icon-user" ng-if="!downline.getPicture()"></span>
-                                <div class="image-container"><img ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}" ng-if="downline.getPicture()"></div>
+                                <span class="icon-user" ng-if="!contact.picture"></span>
+                                <div class="image-container"><img ng-src="{{ contact.picture }}" alt="{{ contact.name }}" ng-if="contact.picture"></div>
                             </span>
                         </div>
                         <div class="contact-info">
                             <div class="contact-name">{{ contact.name }}</div>
+                            <div class="contact-status">
+                                <span class="status" ng-class="getContactStatus(contact.status).class">{{ getContactStatus(contact.status).title }}</span>
+                            </div>
                             <div class="contact-email" ng-if="contact.email"><span class="icon-envelope icon"></span> <a href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a></div>
                             <div class="contact-phone" ng-if="contact.phone"><span class="icon-phone icon"></span> {{ contact.phone }}</div>
                             <div ng-if="contact.showInfo">
@@ -40,6 +43,16 @@
 
                         </div>
                         <div class="contact-detail-toggle-icon" ng-click="toggleContactInfo(contact)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[contact.showInfo]"></span></div>
+                    </div>
+                    <div class="contact-status-container">
+                        <div class="contact-actions ">
+                            <button type="button" name="planList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="planDropdown">
+                                <span ng-if="!selectedPlan">Selecciona un plan</span>
+                                <span ng-if="selectedPlan">{{ selectedPlan.title }}</span>
+                                <span class="caret"></span>
+                            </button>
+                            <a class="" title="Enviar Video" ng-click="editContact(contact)" ng-show="showButton(contact,'send-video')">Enviar Video</a>
+                        </div>
                     </div>
                 </div>
             </div>

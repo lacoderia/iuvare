@@ -4,7 +4,11 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
 
     var replaceContact = function (replacementContact) {
         for(var contactIndex=0; contactIndex<service.contacts.length; contactIndex++){
-
+            var contact = service.contacts[contactIndex];
+            if(contact.id == replacementContact.id){
+                service.contacts[contactIndex] = replacementContact;
+                break;
+            }
         }
     };
 
@@ -20,6 +24,7 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
                         service.contacts = data.result.contacts;
                         angular.forEach(service.contacts, function(contact){
                             contact.showInfo = false;
+                            contact.order = DEFAULT_VALUES.CONTACT_STATUS[(contact.status).toUpperCase()].order;
                         });
                     }
                 }
@@ -47,7 +52,8 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
                     phone: data.result.phone,
                     description: data.result.description,
                     status: data.result.status,
-                    showInfo: false
+                    showInfo: false,
+                    order: DEFAULT_VALUES.CONTACT_STATUS[(contact.status).toUpperCase()].order
                 };
                 service.contacts.push(contact);
             });
@@ -57,7 +63,7 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
 
     var updateContact = function (contact) {
 
-        var contactServiceURL = '/contacts/' + SessionService.$get().getId() + '.json';
+        var contactServiceURL = '/contacts/' + contact.id + '.json';
 
         var tempContact = {
             user_id: contact.user_id,
@@ -84,19 +90,53 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
                     phone: data.result.phone,
                     description: data.result.description,
                     status: data.result.status,
-                    showInfo: false
+                    showInfo: false,
+                    order: DEFAULT_VALUES.CONTACT_STATUS[(contact.status).toUpperCase()].order
                 };
 
+                replaceContact(contact);
 
             });
+
+        return service.contacts;
+
+    };
+
+    var deleteContact = function (contactIndex) {
+
+        var contactServiceURL = '/contacts/' + service.contacts[contactIndex].id + '.json';
+
+        return $http.delete(contactServiceURL, {})
+            .success(function (data) {
+                service.contacts.splice(contactIndex,1);
+            });
+
+        return service.contacts;
+    };
+
+    var getStatusTransitions = function () {
+
+        var contactServiceURL = '/contacts/transitions.json';
+
+        return $http.get(contactServiceURL, {})
+            .success(function (data) {
+                if(data.success){
+                    service.transitions = data.result.transitions;
+                }
+            });
+
+        return service.transitions;
 
     };
 
     var service = {
         contacts: [],
+        transitions: [],
         getContactList: getContactList,
         saveContact: saveContact,
-        updateContact: updateContact
+        updateContact: updateContact,
+        deleteContact: deleteContact,
+        getStatusTransitions: getStatusTransitions
     };
 
     return service;

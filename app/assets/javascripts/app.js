@@ -90,11 +90,11 @@ iuvare.constant('DEFAULT_VALUES',{
         }
     },
     CONTACT_STATUS: {
-        TO_INVITE: { code:'to_invite', title: 'Por invitar', class: '' },
-        CONTACTED: { code:'contacted', title: 'Contactado', class: '' },
-        TO_CLOSE: { code:'to_close', title: 'Por cerrar', class: '' },
-        RULED_OUT: { code:'ruled_out', title: 'Descartado', class: '' },
-        REGISTERED: { code:'registered', title: 'Registrado', class: '' }
+        TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },
+        CONTACTED: { order:2, code:'contacted', title: 'Contactado', class: 'contacted' },
+        TO_INVITE: { order:3, code:'to_invite', title: 'Por invitar', class: 'to-invite' },
+        REGISTERED: { order:4, code:'registered', title: 'Registrado', class: 'registered' },
+        RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
     }
 });
 
