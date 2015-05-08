@@ -3,12 +3,6 @@ Rails.application.configure do
   ENV['HOST'] = "localhost:3000"
   
   # Settings specified here will take precedence over those in config/application.rb.
-
-  ENV['ADDRESS'] = "smtp.gmail.com"
-  ENV['HOST'] = "localhost:3000"
-  ENV['DOMAIN_NAME'] = "coderia.mx"
-  ENV['MAIL_USERNAME'] = ""
-  ENV['MAIL_PASSWORD'] = ""
   
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
@@ -55,20 +49,5 @@ Rails.application.configure do
   # which will be used by cloudfront as well
   config.serve_static_files = true
   config.static_cache_control = "public, max-age=31536000"
-
-  config.action_mailer.smtp_settings = {
-    address: ENV["ADDRESS"],
-    port: 587,
-    domain: ENV["DOMAIN_NAME"],
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV["MAIL_USERNAME"],
-    password: ENV["MAIL_PASSWORD"]
-  }
-  # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => ENV["HOST"] }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
   
 end
