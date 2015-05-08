@@ -1,8 +1,27 @@
 <div ng-controller="CollageController as collageCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <div class="masonry-container" masonry="{ columnWidth: '.masonry-brick-container', 'preserveOrder': 'true' }">
-        <div class="masonry-brick masonry-brick-container" ng-repeat="brick in bricks">
+
+    <ul isotope-container="isotope-container">
+        <li ng-repeat="x in xList" isotope-item="isotope-item" onclick="removeItem(this)">
+            <div class="symbol">{{x.name}}</div>
+            <div class="weight" date="{{x.date}}">{{x.date|date}}</div>
+            <div class="number" number="{{x.number}}">{{x.number}}</div>
+        </li>
+
+        <li id="extra" isotope-item="" class="kindling green">
+            <div class="symbol">extra</div>
+            <div class="weight" date="1360313309421">{{'1360313309421' | date}}</div>
+            <div class="number" number="20">Twenty</div>
+        </li>
+    </ul>
+
+    <button class="action-button-upload" ng-click="openPictureSelector($event)">Agregar imagen</button>
+    <input type='file' accept="image/*" onchange="angular.element(this).scope().addPicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
+
+
+    <div class="masonry-container" isotope-container=".masonry-container">
+        <div isotope-item class="masonry-brick-container" ng-repeat="brick in bricks">
             <img ng-src="{{ brick.src }}">
             <div class="masonry-brick-overlay" ng-show="brick.uploading || brick.error"></div>
             <span class="icon-spinner loading" ng-show="brick.uploading"></span>
@@ -12,6 +31,6 @@
     </div>
 
     <button class="action-button-upload" ng-click="openPictureSelector($event)">Agregar imagen</button>
-    <input type='file' accept="image/*" onchange="angular.element(this).scope().addPicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
+
 
 </div>
