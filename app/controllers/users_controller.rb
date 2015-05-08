@@ -39,8 +39,8 @@ class UsersController < ApplicationController
   def all
     #logica de current_user y filtrado de socios
     if current_user
-      @success = true
       @downlines = User.all_downlines(current_user.id)
+      @success = true
       render "downlines.json"
     else
       @success = false
@@ -52,13 +52,25 @@ class UsersController < ApplicationController
   def cycle
     #logica de current_user y filtrado de socios
     if current_user
-      @success = true
       @downlines = User.cycle_downlines(current_user.id)
+      @success = true
       render "downlines.json"
     else
       @success = false
       @error = not_signed_error
       render "downlines.json", status: 500
+    end
+  end
+
+  def change_position
+    if current_user
+      @downline = User.change_position(params[:id], params[:position])
+      @success = true
+      render "change_position.json"
+    else
+      @success = false
+      @error = not_signed_error
+      render "change_position.json", status: 500
     end
   end
 
