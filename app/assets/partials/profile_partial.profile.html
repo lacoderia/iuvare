@@ -1,3 +1,43 @@
-<div ng-controller="WhyController as whyCtrl">
+<div ng-controller="ProfileController as profileCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <!-- Sección de test de personalidad -->
+    <div class="unavailable-message" ng-show="colorTestResult && !colorTestResult.id && !showTest">
+        <div class="unavailable-message-content">
+            <h3>Aún no relizas tu test de personalidad</h3>
+            <a class="" title="" ng-click="createTest()">Realizar test</a>
+        </div>
+    </div>
+
+    <!-- Sección de resultados test de personalidad -->
+    <div ng-show="colorTestResult && colorTestResult.id && !showTest">
+        Mis resultados:
+        <div ng-repeat="result in colorTestResult.test_scores | orderBy : '-score'">
+            {{ result.description }} : {{ result.score }} %
+        </div>
+        <a class="" title="" ng-click="createTest()">Volver a realizar test</a>
+    </div>
+
+    <!-- Forma para nuevo test -->
+    <div class="test-form" ng-show="showTest">
+        <form novalidate name="testForm" class="form" ng-submit="gradeTest()">
+            <fieldset>
+                <div ng-repeat="question in colorTest.questions">
+                    {{ question.text }}
+                    <label ng-repeat="answer in question.answers">
+                        <input type="radio" ng-model="question.selectedAnswer" value="{{ answer.id }}" required>
+                        {{ answer.text }}
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div ng-show="testForm.$submitted">
+                    {{ testFormMessage }}
+                </div>
+                <button class="action-button-forgot">Enviar</button>
+                <input type="button" class="action-button-cancel" ng-click="hideTestForm()" value="Cancelar" />
+            </fieldset>
+        </form>
+    </div>
+
 </div>

@@ -43,6 +43,7 @@
 //= require controllers/GlobalMenuController
 //= require controllers/ListController
 //= require controllers/LoginController
+//= require controllers/ProfileController
 //= require controllers/SeminarController
 //= require controllers/SubmenuController
 //= require controllers/TrainingController
@@ -62,6 +63,7 @@
 //= require services/UserService
 //= require services/XangoUserService
 //= require services/SessionService
+//= require services/TestService
 
 // Directives
 //= require directives/DownlineListDirective

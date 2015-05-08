@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   resources :plans do
     collection do
       post 'send_video'
+      post 'watch_video'
     end
     member do
-      post 'finish_video'
+      get 'finish_video'
     end
   end
 
@@ -54,6 +55,9 @@ Rails.application.routes.draw do
     collection do
       get 'all'
       get 'cycle'
+    end
+    member do
+      post 'change_position'
     end
   end
 

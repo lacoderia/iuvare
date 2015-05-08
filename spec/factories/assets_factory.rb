@@ -7,5 +7,10 @@ FactoryGirl.define do
     purchasable false
     price 0.0
     asset_type "training"
+
+    trait :plan do
+      asset_type "plan"
+      association :test, :for_plan, factory: :test
+    end
   end
 end

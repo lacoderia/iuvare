@@ -62,7 +62,7 @@ feature 'ContactsController' do
 
       it 'creates contact in contact list' do
 
-        new_contact_request = {contact:{user_id: user.id, name: 'Filomeno', email: 'filo@meno.com', phone: '67432341', description: 'León', status: "to_invite"}}
+        new_contact_request = {contact:{user_id: user.id, name: 'Filomeno', email: 'filo@meno.com', phone: '67432341', description: 'León'}}
         with_rack_test_driver do
           page.driver.post "#{contacts_path}.json", new_contact_request
         end
@@ -91,7 +91,7 @@ feature 'ContactsController' do
       end
 
       it 'should raise errors on create' do
-        new_contact_request = {contact:{user_id: user.id, name: 'Filomeno', email: 'filo@meno.com', phone: '67432341', description: 'León'}}
+        new_contact_request = {contact:{user_id: user.id, name: 'Filomeno', email: 'filo@meno.com', phone: '67432341', description: 'León', status:'no_existe'}}
         with_rack_test_driver do
           page.driver.post "#{contacts_path}.json", new_contact_request
         end

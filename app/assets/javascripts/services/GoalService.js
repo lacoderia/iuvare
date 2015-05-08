@@ -31,7 +31,6 @@ iuvare.factory('GoalService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
                     });
 
                 }
-                return 'TEXTO DE SUCCESS';
             });
     };
 
