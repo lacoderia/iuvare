@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :offices do
+    collection do
+      get 'by_name'
+    end
+  end
+
   resources :assets do
     collection do
       get 'by_asset_type' 
