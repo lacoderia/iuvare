@@ -1,0 +1,23 @@
+<div class="login-wrapper row" ng-controller="PlanController as planCtrl">
+    <div class="col-lg-12">
+        <div class="plan-container">
+            <h2 class="section-title">Bienvenido a Iuvare</h2>
+            <hr class="separator-gray">
+            <div>
+                <p ng-if="!isTokenSent()">Espere un momento por favor</p>
+
+                <div ng-if="(isTokenSent() && !isValidToken()) || !asset.source" class="message-container">
+                    <p class="message"><span class="icon-camera message-icon"></span></p>
+                    <p class="message">Hubo un problema al cargar el video, por favor, contacta a la persona que te envió el correo.</p>
+                </div>
+
+                <div ng-if="isTokenSent() && isValidToken() && asset.source" class="plan-video">
+                    <video width="500" controls>
+                        <source ng-src="{{ asset.source + '.mp4' }}" type="video/mp4">
+                        <source ng-src="{{ asset.source + '.webm' }}" type="video/webm">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

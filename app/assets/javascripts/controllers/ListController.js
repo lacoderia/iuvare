@@ -48,7 +48,6 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                     ListService.getStatusTransitions()
                         .success(function (data) {
                             $scope.statusTransitions = angular.copy(ListService.transitions);
-                            console.log($scope.statusTransitions)
                         })
                         .error(function (error, status) {
                             console.log('Hubo un error al obtener las transiciones de los estatus');
@@ -146,7 +145,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.showContactListView = function () {
         addingContact = false;
         editingContact = false;
-        $scope.selectedContact = false;
+        $scope.selectedContact = undefined;
+        $scope.selectedPlan = undefined;
     };
 
     $scope.showButton = function(contact, action){
@@ -155,7 +155,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
         switch (action){
             case 'send-video':
-                (action.status != DEFAULT_VALUES.CONTACT_STATUS.RULED_OUT || action.status != DEFAULT_VALUES.CONTACT_STATUS.REGISTERED)? false : true;
+                showButton = (contact.status == DEFAULT_VALUES.CONTACT_STATUS.RULED_OUT.code || contact.status == DEFAULT_VALUES.CONTACT_STATUS.REGISTERED.code)? false : true;
                 break;
         }
 
@@ -165,6 +165,19 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.setVideo = function (index) {
         $scope.selectedPlan = $scope.plans[index];
+    };
+
+    $scope.sendVideo = function (contact) {
+        if($scope.selectedPlan){
+            ListService.sendVideo(contact.id, $scope.selectedPlan.id)
+                    .success(function (data) {
+                        $scope.contactList = angular.copy(ListService.contacts);
+                    })
+                    .error(function (error, status) {
+                        console.log('Hubo un erro al enviar un video');
+                        console.log(error);
+                    });
+        }
     };
 
     $scope.getContactStatus = function (key) {

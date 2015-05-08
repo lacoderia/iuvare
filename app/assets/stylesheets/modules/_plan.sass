@@ -1,0 +1,36 @@
+.plan-container
+  background-color: white
+  +rem(margin, 10rem auto)
+  +rem(padding, 1rem 2rem 2rem)
+  text-align: center
+  width: 800px
+
+  h2.section-title
+    color: $color_gray_2
+    +rem(margin, 2rem 0)
+
+  hr.separator-gray
+    width: 96%
+
+  .loading-container
+    position: relative
+
+    .loading
+      animation: loadingAnimation 0.8s infinite linear
+      font-size: 2rem
+      position: absolute
+      right: 1.5rem
+      top: 1.5rem
+
+  .login-switch-container
+    font-size: 0
+    +rem(margin, 2rem 0)
+
+    .login-switch
+      min-width: 116px
+
+    .login-switch:first-child
+      +rem(margin-right, 0.2rem)
+
+  .signup-forgot
+    +rem(margin-bottom, 1rem)

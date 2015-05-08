@@ -25,6 +25,9 @@
         +rem(font-size, 3rem)
         +rem(margin-top, 2rem)
 
+        span
+          vertical-align: middle
+
       .contact-detail-toggle-icon
         cursor: pointer
         +rem(font-size, 2rem)
@@ -47,6 +50,25 @@
           +rem(font-size, 1.2rem)
           +rem(margin-right, 0.5rem)
 
+        .send-video-legend
+          +rem(font-size, 1.5rem)
+
+        .send-video-actions
+          +rem(margin-bottom, 1rem)
+
+          span, button
+            vertical-align: middle
+
+          button.action-button-send
+            background-color: transparent
+            border: none
+
+          button.dropdown
+            min-width: 242px
+            max-width: 242px
+            overflow: hidden
+            text-overflow: ellipsis
+
 
       .contact-name
         +rem(font-size, 2.2rem)
@@ -59,11 +81,6 @@
       .contact-status
         +rem(margin, 1rem 0 0)
 
-
-    .contact-status-container
-      display: inline-block
-      vert-align: top
-      width: 19%
 
     &:hover
       background-color: $color_gray_3

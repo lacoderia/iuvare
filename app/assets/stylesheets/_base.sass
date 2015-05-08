@@ -14,12 +14,13 @@
 @import  "layout/inner_aside_nav"
 
 // Import modules styles
-@import  "modules/login"
-@import  "modules/cycle"
-@import  "modules/network"
-@import  "modules/why"
 @import  "modules/assets"
+@import  "modules/cycle"
 @import  "modules/list"
+@import  "modules/login"
+@import  "modules/network"
+@import  "modules/plan"
+@import  "modules/why"
 
 // Common styles
 
@@ -65,6 +66,13 @@ h2.section-title
   &:hover
     color: $color_red_2
 
+.action-button-send
+  color: $color_purple_1
+  cursor: pointer
+
+  &:hover
+    color: $color_purple_2
+
 .action-button-add
   color: $color_green_1
   cursor: pointer
@@ -91,6 +99,7 @@ h2.section-title
   +rem(padding, 1.5rem)
   text-transform: uppercase
   width: 100%
+
 
 .form
 
@@ -147,6 +156,9 @@ h2.section-title
     text-align: center
     vertical-align: middle
     width: 100%
+
+    .message-icon
+      +rem(font-size, 6rem)
 
   .actions
     display: block

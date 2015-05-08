@@ -147,6 +147,11 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             templateUrl: '/assets/login.html',
             defaultState: 'login',
             authenticationRequired: false
+        }).state('plan',{
+            url: "/plan",
+            templateUrl: '/assets/plan.html',
+            defaultState: 'login',
+            authenticationRequired: false
         }).state('business',{
             url: "/negocio",
             templateUrl: '/assets/business_partial.html',
@@ -164,6 +169,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             section: 'BUSINESS',
             subsection: 'CYCLE',
             authenticationRequired: true
+        }).state('business.plan',{
+            url: "/plan",
+            templateUrl: '/assets/business_partial.plan.html',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'PLAN',
+            authenticationRequired: false
         }).state('business.network',{
             url: "/mi-red",
             templateUrl: '/assets/business_partial.network.html',

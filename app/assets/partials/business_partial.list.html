@@ -35,7 +35,18 @@
                             <div class="contact-phone" ng-if="contact.phone"><span class="icon-phone icon"></span> {{ contact.phone }}</div>
                             <div ng-if="contact.showInfo">
                                 <div class="contact-description">{{ contact.description }}</div>
-                                <div class="contact-actions ">
+                                <div class="contact-actions">
+                                    <span ng-show="showButton(contact,'send-video')">
+                                        <div class="send-video-legend">Enviar plan: </div>
+                                        <div class="send-video-actions">
+                                            <button type="button" name="planList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="planDropdown">
+                                                <span ng-if="!selectedPlan">Selecciona un plan</span>
+                                                <span ng-if="selectedPlan">{{ selectedPlan.title }}</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <button class="action-button-send icon-arrow-circle-right" title="Enviar Video" ng-click="sendVideo(contact)" ng-disabled="!selectedPlan"></button>
+                                        </div>
+                                    </span>
                                     <span class="action-button-edit icon-swap-vert-circle" title="Editar Contacto" ng-click="editContact(contact)"></span>
                                     <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index)"></span>
                                 </div>
@@ -43,16 +54,6 @@
 
                         </div>
                         <div class="contact-detail-toggle-icon" ng-click="toggleContactInfo(contact)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[contact.showInfo]"></span></div>
-                    </div>
-                    <div class="contact-status-container">
-                        <div class="contact-actions ">
-                            <button type="button" name="planList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="planDropdown">
-                                <span ng-if="!selectedPlan">Selecciona un plan</span>
-                                <span ng-if="selectedPlan">{{ selectedPlan.title }}</span>
-                                <span class="caret"></span>
-                            </button>
-                            <a class="" title="Enviar Video" ng-click="editContact(contact)" ng-show="showButton(contact,'send-video')">Enviar Video</a>
-                        </div>
                     </div>
                 </div>
             </div>
