@@ -10,6 +10,21 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
     $scope.bricks = [
         {'src': '/assets/rails.png', 'uploading': false},
         {'src': '/assets/iuvare_logo.png', 'uploading': false},
+        {'src': '/assets/bici.jpg', 'uploading': false},
+        {'src': '/assets/rails.png', 'uploading': false},
+        {'src': '/assets/iuvare_logo.png', 'uploading': false},
+        {'src': '/assets/bici.jpg', 'uploading': false},
+        {'src': '/assets/rails.png', 'uploading': false},
+        {'src': '/assets/iuvare_logo.png', 'uploading': false},
+        {'src': '/assets/bici.jpg', 'uploading': false},
+        {'src': '/assets/rails.png', 'uploading': false},
+        {'src': '/assets/iuvare_logo.png', 'uploading': false},
+        {'src': '/assets/bici.jpg', 'uploading': false},
+        {'src': '/assets/rails.png', 'uploading': false},
+        {'src': '/assets/iuvare_logo.png', 'uploading': false},
+        {'src': '/assets/bici.jpg', 'uploading': false},
+        {'src': '/assets/rails.png', 'uploading': false},
+        {'src': '/assets/iuvare_logo.png', 'uploading': false},
         {'src': '/assets/bici.jpg', 'uploading': false}
     ];
 
@@ -73,6 +88,10 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
     // Method to remove a picture
     $scope.removePicture = function(brick){
         $scope.bricks.splice($scope.bricks.indexOf(brick), 1);
+
+        setTimeout(function(){
+            $scope.$emit('iso-method', {name:'layout', params:null})
+        }, 0);
     };
 
     // Method to init the controller's default state

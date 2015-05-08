@@ -308,6 +308,24 @@ iuvare.directive('pwCheck', function() {
     };
 });
 
+iuvare.directive('imagesLoaded', function($timeout) {
+    return {
+        restrict: 'A',
+        link: function($scope, $elem, $attr) {
+
+            $timeout(function() {
+                $elem.isotope();
+
+                $elem.isotope('once', 'layoutComplete', function(isoInstance, laidOutItems) {
+                    $elem.imagesLoaded(function() {
+                        $elem.isotope('layout');
+                    });
+                });
+            }, 0);
+        }
+    };
+});
+
 /*
  *   Filtros
  */
