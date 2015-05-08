@@ -56,6 +56,9 @@ Rails.application.routes.draw do
       get 'all'
       get 'cycle'
     end
+    member do
+      post 'change_position'
+    end
   end
 
   resources :requests  do
