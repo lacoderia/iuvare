@@ -1,0 +1,81 @@
+<div ng-controller="ListController as listCtrl">
+    <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <div class="section-content contact-container">
+        <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact()">
+            <input type="text" placeholder="Busca un contacto: Ej. Benjamín Hernández" ng-model="contactQuery">
+        </form>
+
+        <div ng-show="!isContactListEmpty() && !isAddingContact()" class="message-container">
+            <p class="message">Aún no cuentas con algún contacto</p>
+            <div class="actions">
+                <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createContact()">Agregar nuevo contacto</a>
+            </div>
+        </div>
+
+        <div ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact()">
+            <div class="contact-list">
+                <div class="actions">
+                    <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createContact()">Agregar nuevo contacto</a>
+                </div>
+                <div ng-repeat="contact in contactList | filter:contactQuery | orderBy: name"  class="contact">
+                    <div>
+                        <div class="contact-image">
+                            <span class="user-image">
+                                <span class="icon-user" ng-if="!downline.getPicture()"></span>
+                                <div class="image-container"><img ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}" ng-if="downline.getPicture()"></div>
+                            </span>
+                        </div>
+                        <div class="contact-info">
+                            <div class="contact-name">{{ contact.name }}</div>
+                            <div class="contact-email" ng-if="contact.email"><span class="icon-envelope icon"></span> <a href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a></div>
+                            <div class="contact-phone" ng-if="contact.phone"><span class="icon-phone icon"></span> {{ contact.phone }}</div>
+                            <div ng-if="contact.showInfo">
+                                <div class="contact-description">{{ contact.description }}</div>
+                                <div class="contact-actions ">
+                                    <span class="action-button-edit icon-swap-vert-circle" title="Editar Contacto" ng-click="editContact(contact)"></span>
+                                    <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index)"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="contact-detail-toggle-icon" ng-click="toggleContactInfo(contact)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[contact.showInfo]"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form" ng-show="isAddingContact() && !isEditingContact()">
+            <form class="form" ng-submit="saveContact()">
+                <fieldset>
+                    <legend>Agregar contacto</legend>
+                    <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="selectedContact.name" required>
+                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email" required>
+                    <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="selectedContact.phone" required>
+                    <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Descripción"></textarea>
+                </fieldset>
+                <fieldset>
+                    <button class="action-button-forgot">Guardar contacto</button>
+                    <input type="button" class="action-button-cancel" ng-click="showContactListView()" value="Cancelar" />
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="contact-form" ng-show="!isAddingContact() && isEditingContact()">
+            <form class="form" ng-submit="updateContact()">
+                <fieldset>
+                    <legend>Editar contacto</legend>
+                    <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="selectedContact.name" required>
+                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email" required>
+                    <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="selectedContact.phone" required>
+                    <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Descripción"></textarea>
+                </fieldset>
+                <fieldset>
+                    <button class="action-button-forgot">Guardar cambios</button>
+                    <input type="button" class="action-button-cancel" ng-click="showContactListView()" value="Cancelar" />
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>

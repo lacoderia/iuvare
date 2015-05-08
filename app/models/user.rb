@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   scope :all_downlines, -> (id) {where("upline_id = ?", id)}
   scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
+  scope :downline_at_position, -> (id, position) {where(upline_id: id, downline_position: position)}
   scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}
 
   def role?(role)
@@ -24,11 +25,10 @@ class User < ActiveRecord::Base
   	unless user
       invitations = Invitation.where("recipient_email = ? AND token = ?", self.email, token)
     	if invitations.size == 1
-        upline = User.find_by_xango_id(self.placement_xango_id)
-        if upline
-          self.upline_id = upline.id
+        if self.upline_id
+          upline = User.find(self.upline_id)
           downline_no = upline.downlines.where("downline_position is not null").count
-          self.downline_position = downline_no + 1 if downline_no < 3
+          self.downline_position = downline_no + 1 if downline_no < 4
         end
     		self.save
     	else
@@ -47,5 +47,19 @@ class User < ActiveRecord::Base
 
   def self.get_cycle_downlines user_id
     downlines = User.cycle_downlines(user_id)
+  end
+
+  def self.change_position user_id, position
+    downline = User.find(user_id)
+    if downline
+      downlines = User.downline_at_position(downline.upline_id, position)
+      if downlines.size == 1
+        downlines[0].downline_position = nil
+        downlines[0].save
+      end
+      downline.downline_position = position
+      downline.save
+    end
+    downline
   end
 end

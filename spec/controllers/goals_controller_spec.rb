@@ -63,7 +63,6 @@ feature 'GoalsController' do
       expect(response['success']).to be false 
 
       expect(Goal.all.count).to eql 2
-      
 
     end
 

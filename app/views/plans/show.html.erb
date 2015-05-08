@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Asset:</strong>
+  <%= @plan.asset_id %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @plan.contact_id %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @plan.token %>
+</p>
+
+<p>
+  <strong>Expiration:</strong>
+  <%= @plan.expiration %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @plan.description %>
+</p>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', plans_path %>

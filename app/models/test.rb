@@ -1,11 +1,12 @@
 class Test < ActiveRecord::Base
   has_many :test_scores
   has_many :questions
-  belongs_to :asset
+  has_many :assets
 
   TYPES = [
     ['percentage', 'porcentaje'],
-    ['correct_incorrect', 'correcto/incorrecto']
+    ['correct_incorrect', 'correcto/incorrecto'],
+    ['multiple', 'multiple']
   ]
 
   PERCENTAGE_ANSWER_TYPES_BY_CODE = {

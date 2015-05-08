@@ -1,0 +1,7 @@
+<p>Bienvenido,</p>
+
+<p><%= @sender_user.first_name %> te ha invitado a ver el plan de negocios de Iuvare.</p>
+
+<p>Para visualizarlo, haz click <a href='<%="http://#{ENV['HOST']}/negocio/plan?token=#{@plan.token}" %>'>aquí</a>.</p>
+
+<p>Es importante que accedas a la liga lo antes posible ya que tiene una caducidad de 120 minutos.</p>

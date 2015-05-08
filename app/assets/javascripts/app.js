@@ -4,20 +4,23 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
         { order: 1, code: 'BUSINESS', title: 'Negocios', state: 'business.cycle',
             subsections: [
                 { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
+                { order:2, code: 'LIST', title: 'Lista', state: 'business.list' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.cycle',
             subsections: [
-                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'NETWORK', title: 'Mi red', state: 'business.network' }
+                { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio' },
+                { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar' },
+                { order:3, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention' },
+                { order:4, code: 'TRAINING', title: 'Capacitaciones', state: 'system.training' },
+                { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document' }
             ]
         },
         { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.profile',
@@ -34,9 +37,14 @@ iuvare.constant('DEFAULT_VALUES',{
     },
     SUBSECTIONS_CODES:{
         CYCLE: 'CYCLE',
-        NETWORK: 'NETWORK',
         PROFILE: 'PROFILE',
-        WHY: 'WHY'
+        WHY: 'WHY',
+        LIST: 'LIST',
+        AUDIO: 'AUDIO',
+        SEMINAR: 'SEMINAR',
+        CONVENTION: 'CONVENTION',
+        TRAINING: 'TRAINING',
+        DOCUMENT: 'DOCUMENT',
     },
     CYCLE_STATUS:{
         0: 'Completado',
@@ -87,6 +95,13 @@ iuvare.constant('DEFAULT_VALUES',{
         MODULE_2: 'module_2',
         MODULE_3: 'module_3',
         BASICS: 'basics'
+    },
+    CONTACT_STATUS: {
+        TO_INVITE: { code:'to_invite', title: 'Por invitar', class: '' },
+        CONTACTED: { code:'contacted', title: 'Contactado', class: '' },
+        TO_CLOSE: { code:'to_close', title: 'Por cerrar', class: '' },
+        RULED_OUT: { code:'ruled_out', title: 'Descartado', class: '' },
+        REGISTERED: { code:'registered', title: 'Registrado', class: '' }
     }
 });
 
@@ -186,6 +201,61 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'WHY',
+        }).state('business.list',{
+            url: "/lista",
+            templateUrl: '/assets/business_partial.list.html',
+            redirectState: 'business.list',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'LIST',
+            authenticationRequired: true
+        }).state('system',{
+            url: "/sistema",
+            templateUrl: '/assets/system_partial.html',
+            redirectState: 'system.audio',
+            defaultState: 'login',
+            section: 'SYSTEM',
+            subsection: undefined,
+            authenticationRequired: true
+        }).state('system.audio',{
+            url: "/audios",
+            templateUrl: '/assets/system_partial.audio.html',
+            redirectState: 'system.cycle',
+            defaultState: 'login',
+            section: 'SYSTEM',
+            subsection: 'AUDIO',
+            authenticationRequired: true
+        }).state('system.seminar',{
+            url: "/seminarios",
+            templateUrl: '/assets/system_partial.seminar.html',
+            redirectState: 'system.seminar',
+            defaultState: 'login',
+            section: 'SYSTEM',
+            subsection: 'SEMINAR',
+            authenticationRequired: true
+        }).state('system.convention',{
+            url: "/convenciones",
+            templateUrl: '/assets/system_partial.convention.html',
+            redirectState: 'system.convention',
+            defaultState: 'login',
+            section: 'SYSTEM',
+            subsection: 'CONVENTION',
+            authenticationRequired: true
+        }).state('system.training',{
+            url: "/capacitaciones",
+            templateUrl: '/assets/system_partial.training.html',
+            redirectState: 'system.training',
+            defaultState: 'login',
+            section: 'SYSTEM',
+            subsection: 'TRAINING',
+            authenticationRequired: true
+        }).state('system.document',{
+            url: "/documentos",
+            templateUrl: '/assets/system_partial.document.html',
+            redirectState: 'system.document',
+            defaultState: 'login',
+            section: 'SYSTEM',
+            subsection: 'DOCUMENT',
             authenticationRequired: true
         });
 
@@ -202,8 +272,12 @@ iuvare.config(['$httpProvider', function($httpProvider){
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 }]);
 
+iuvare.config(['$logProvider',function($logProvider){
+    $logProvider.debugEnabled(true);
+}]);
+
 /*
-    Directivas menores
+ Directivas menores
  */
 
 iuvare.directive('pwCheck', function() {
@@ -226,8 +300,8 @@ iuvare.directive('pwCheck', function() {
 });
 
 /*
-*   Filtros
-*/
+ *   Filtros
+ */
 
 iuvare.filter('formatDate', function(){
     return function(date){
@@ -235,4 +309,4 @@ iuvare.filter('formatDate', function(){
             return date.format('LL');
         }
     }
-})
+});
