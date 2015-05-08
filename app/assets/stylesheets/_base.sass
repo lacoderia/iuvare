@@ -19,9 +19,11 @@
 @import  "modules/network"
 @import  "modules/why"
 @import  "modules/assets"
+@import  "modules/collage"
 @import  "modules/list"
 
 // Common styles
+@import "common/isotope.css"
 
 a
   cursor: pointer
@@ -209,3 +211,11 @@ h2.section-title
 
 .wrapper-container
   min-height: 500px
+
+// Animations
+
+@keyframes loadingAnimation
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)

@@ -26,6 +26,21 @@
 //= require bower_components/moment/locale/es
 //= require bower_components/ngQuickDate/dist/ng-quick-date
 
+//= require bower_components/jquery-bridget/jquery.bridget
+//= require bower_components/get-style-property/get-style-property
+//= require bower_components/get-size/get-size
+//= require bower_components/eventEmitter/EventEmitter.js
+//= require bower_components/eventie/eventie
+//= require bower_components/doc-ready/doc-ready
+//= require bower_components/matches-selector/matches-selector
+//= require bower_components/fizzy-ui-utils/utils
+//= require bower_components/outlayer/item
+//= require bower_components/outlayer/outlayer
+//= require bower_components/imagesloaded/imagesloaded
+//= require bower_components/isotope/dist/isotope.pkgd.js
+//= require bower_components/angular-isotope/dist/angular-isotope.js
+
+
 // Application scripts
 //= require app
 
@@ -33,6 +48,7 @@
 //= require controllers/RootController
 //= require controllers/AudioController
 //= require controllers/ConventionController
+//= require controllers/CollageController
 //= require controllers/CycleController
 //= require controllers/DocumentController
 //= require controllers/GlobalMenuController
@@ -49,6 +65,7 @@
 //= require services/AuthService
 //= require services/NetworkService
 //= require services/NavigationService.js
+//= require services/CollageService
 //= require services/CycleService
 //= require services/GoalService
 //= require services/InvitationService
