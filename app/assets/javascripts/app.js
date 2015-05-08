@@ -89,6 +89,13 @@ iuvare.constant('DEFAULT_VALUES',{
             description: 'Editar mi meta'
         }
     },
+    TEST_CODES:{
+        COLOR: 'color',
+        MODULE_1: 'module_1',
+        MODULE_2: 'module_2',
+        MODULE_3: 'module_3',
+        BASICS: 'basics'
+    },
     CONTACT_STATUS: {
         TO_INVITE: { code:'to_invite', title: 'Por invitar', class: '' },
         CONTACTED: { code:'contacted', title: 'Contactado', class: '' },
