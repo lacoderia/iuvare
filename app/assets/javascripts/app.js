@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination', 'iso.directives']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -26,7 +26,8 @@ iuvare.constant('DEFAULT_VALUES',{
         { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.profile',
             subsections: [
                 { order:1, code: 'PROFILE', title: 'Mi perfil', state: 'profile.profile' },
-                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' }
+                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
+                { order:3, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' }
             ]
         }
     ],
@@ -88,6 +89,13 @@ iuvare.constant('DEFAULT_VALUES',{
             button: 'Actualizar',
             description: 'Editar mi meta'
         }
+    },
+    TEST_CODES:{
+        COLOR: 'color',
+        MODULE_1: 'module_1',
+        MODULE_2: 'module_2',
+        MODULE_3: 'module_3',
+        BASICS: 'basics'
     },
     CONTACT_STATUS: {
         TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },
@@ -206,6 +214,14 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'WHY',
+            authenticationRequired: true
+        }).state('profile.collage',{
+            url: "/collage",
+            templateUrl: '/assets/profile_partial.collage.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'COLLAGE',
+            authenticationRequired: true
         }).state('business.list',{
             url: "/lista",
             templateUrl: '/assets/business_partial.list.html',
@@ -300,6 +316,24 @@ iuvare.directive('pwCheck', function() {
             scope.$watch("otherModelValue", function() {
                 ngModel.$validate();
             });
+        }
+    };
+});
+
+iuvare.directive('imagesLoaded', function($timeout) {
+    return {
+        restrict: 'A',
+        link: function($scope, $elem, $attr) {
+
+            $timeout(function() {
+                $elem.isotope();
+
+                $elem.isotope('once', 'layoutComplete', function(isoInstance, laidOutItems) {
+                    $elem.imagesLoaded(function() {
+                        $elem.isotope('layout');
+                    });
+                });
+            }, 0);
         }
     };
 });

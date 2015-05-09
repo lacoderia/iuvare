@@ -104,5 +104,6 @@ Rails.application.routes.draw do
   get "perfil", :to => "display#index"
   get "perfil/mi-perfil", :to => "display#index"
   get "perfil/mis-metas", :to => "display#index"
+  get "perfil/collage", :to => "display#index"
 
 end

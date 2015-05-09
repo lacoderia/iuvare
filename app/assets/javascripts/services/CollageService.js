@@ -1,6 +1,6 @@
 'use strict';
 
-iuvare.factory('GoalService', ['$http', '$q', "$state", 'SessionService', 'DEFAULT_VALUES', function($http, $q, $state, SessionService, DEFAULT_VALUES){
+iuvare.factory('CollageService', ['$http', '$q', "$state", 'SessionService', 'DEFAULT_VALUES', function($http, $q, $state, SessionService, DEFAULT_VALUES){
 
     var service = {
         goals: [],
@@ -31,6 +31,7 @@ iuvare.factory('GoalService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
                     });
 
                 }
+                return 'TEXTO DE SUCCESS';
             });
     };
 
