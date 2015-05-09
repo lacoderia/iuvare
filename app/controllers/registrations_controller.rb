@@ -14,7 +14,6 @@ class RegistrationsController < Devise::RegistrationsController
 			@success = true
 			render "create.json"
 		else
-			#binding.pry
 			@success = false
 			render "create.json", status: 500
 		end
