@@ -14,7 +14,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:2, code: 'LIST', title: 'Lista', state: 'business.list' }
             ]
         },
-        { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.cycle',
+        { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
             subsections: [
                 { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio' },
                 { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar' },
@@ -103,6 +103,14 @@ iuvare.constant('DEFAULT_VALUES',{
         TO_INVITE: { order:3, code:'to_invite', title: 'Por invitar', class: 'to-invite' },
         REGISTERED: { order:4, code:'registered', title: 'Registrado', class: 'registered' },
         RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
+    },
+    ASSET_PATHS: {
+        AUDIO: '/assets/audios/',
+        DOCUMENT: '/assets/documents/',
+        PLAN: '/assets/plan/',
+        SEMINAR: '/assets/videos/',
+        CONVENTION: '/assets/videos/',
+        TRAINING: '/assets/videos/'
     }
 });
 

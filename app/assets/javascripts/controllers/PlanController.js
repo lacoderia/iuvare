@@ -12,6 +12,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "ListS
     var validToken = false;
 
     //Public variables
+    $scope.ASSET_PATH = DEFAULT_VALUES.ASSET_PATHS.PLAN;
     $scope.asset = undefined;
 
 

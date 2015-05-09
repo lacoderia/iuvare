@@ -24,7 +24,7 @@
                         <div>{{ asset.description }}</div>
                         <div ng-if="asset.source">
                             <audio controls>
-                                <source ng-src="{{ asset.source }}">
+                                <source ng-src="{{ ASSET_PATH + asset.source + '.mp3' }}">
                             </audio>
                         </div>
                         <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>

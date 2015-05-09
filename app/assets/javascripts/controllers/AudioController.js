@@ -6,7 +6,8 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
     var ASSET_TYPE = 'audio';
     var playlable = true;
 
-    // Public variables
+    //Public variables
+    $scope.ASSET_PATH = DEFAULT_VALUES.ASSET_PATHS.AUDIO;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
 
