@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :offices do
+    collection do
+      get 'by_name'
+    end
+  end
+
   resources :plans do
     collection do
       post 'send_video'
