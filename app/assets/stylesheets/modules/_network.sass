@@ -1,46 +1,84 @@
-.network-container
-  .global-actions
-    text-align: right
+.network-list
+  border: 1px solid $color_gray_3
+  background-color: $color-gray_1
+  +border-radius(5px)
+  +rem(margin-top, 0.5rem)
+  position: relative
 
-  .downline-search
-    +rem(margin, 1.5rem 0)
+  .network-list-header
+    +rem(padding, 0.8rem)
+    position: relative
 
     input
+      box-sizing: border-box
+      +rem(margin-top, 0.4rem)
+      padding-left: 25px
       width: 100%
 
-  .network-list
-    border: 1px solid $color-gray_3
-    color: $color-gray_2
-    width: 100%
+    .close-icon
+      cursor: pointer
+      float: right
 
-    td
-      +rem(padding, 1.4rem 0)
-      vertical-align: middle
+    .input-icon
+      color: $color_gray_2
+      position: absolute
+      left: 15px
+      top: 34px
 
-    td.downline-image
-      text-align: center
-      width: 80px
+  .network-list-table
+    max-height: 200px
+    overflow-y: auto
+    position: relative
 
-    tr
-      border-bottom: 1px solid $color-gray_3
-
-    tr.network-table-global-actions
-      background-color: $color_gray_1
+    table
+      position: relative
+      width: 100%
 
       td
-        +rem(padding-right, 1rem)
-        text-align: right
+        border-bottom: 1px solid $color-gray_3
+        +rem(padding, 0.5rem 0)
 
-    .network-list-downline-name
-      display: block
-      +rem(font-size, 1.8rem)
+      tr
+        +rem(padding-bottom, 1rem)
 
-    .network-list-downline-status
-      background-color: $color-gray_3
-      +border-radius(5px)
-      color: $color_gray_2
-      cursor: pointer
-      display: inline-block
-      +rem(margin-top, 0.3rem)
-      +rem(padding, 0.2rem 1rem)
+        &:hover
+          background: $color_gray_3
+          cursor: pointer
 
+        &:last-child
+          td
+            border-bottom: none
+
+      .downline-image
+        width: 35%
+
+        span
+          vertical-align: middle
+
+      .downline-name
+        text-align: left
+        width: 75%
+
+  .search-downline-input
+    +rem(padding-bottom, 1rem)
+    width: 100%
+
+  &:before
+    content: ''
+    border-bottom: 10px solid $color_gray_3
+    border-left: 10px solid transparent
+    border-right: 10px solid transparent
+    position: absolute
+    right: 50%
+    transform: translateX(50%)
+    top: -10px
+
+  &:after
+    content: ''
+    border-bottom: 8px solid $color_gray_1
+    border-left: 8px solid transparent
+    border-right: 8px solid transparent
+    position: absolute
+    right: 50%
+    transform: translateX(50%)
+    top: -8px

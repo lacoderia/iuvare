@@ -37,6 +37,15 @@ iuvare.factory('CycleService', ['$http', '$q', "$state", 'UserService', 'DEFAULT
                 console.log(response)
             }
         );
+    };
+
+    var attachDownline = function (downlineIndex,downlinePosition, downline) {
+        console.log(downlinePosition)
+        downlinesList[downlineIndex] = downline;
+    }
+
+    var detachDownline = function(downlineIndex){
+        downlinesList[downlineIndex] = {};
 
     };
 
@@ -47,7 +56,9 @@ iuvare.factory('CycleService', ['$http', '$q', "$state", 'UserService', 'DEFAULT
     initService();
 
     return{
-        getDownlines: getDownlines
+        getDownlines: getDownlines,
+        attachDownline: attachDownline,
+        detachDownline: detachDownline
     }
 
 }]);

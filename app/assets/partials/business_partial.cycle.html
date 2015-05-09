@@ -1,15 +1,19 @@
 <div ng-controller="CycleController as cycleCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <div class="section-content downline-container">
+    <!-- Sección de ciclos -->
+    <div class="section-content downline-container" ng-show="!isInviteView()">
         <ul class="downline-tree">
             <li>
                 <div class="downline">
                     <div class="downline-image">
                         <span class="icon-user"></span>
                     </div>
-                    <h3 class="downline-name">{{ currentUserName }}</h3>
+                    <h3 class="downline-name">{{ currentUser.getFirstName() }} {{ currentUser.getLastName() }}</h3>
                     <!--span class="downline-cycle-status">Ciclo 2 | Completado</span-->
+                    <div class="global-actions">
+                        <button class="action-button-purple size-medium" ng-click="showInviteView()">Invitar más downlines</button>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -23,7 +27,7 @@
                     </div>
                     <h3 class="downline-name">{{ downlines[$index].getFirstName() }} {{ downlines[$index].getLastName() }}</h3>
                     <div ng-if="isCurrentDownline($index)">
-                        <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar Downline"></span>
+                        <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar Downline" ng-click="showDownlineList($index+1)"></span>
                         <span class="downline-action action-button-delete icon-circle-with-cross" title="Eliminar Downline" ng-click="detachDownline($index)"></span>
                     </div>
                 </div>
@@ -33,16 +37,39 @@
                     </div>
                     <p class="donwline-space-available">Disponible</p>
                     <div ng-if="isCurrentDownline($index)">
-                        <span class="downline-action action-button-add icon-circle-with-plus" title="Asignar Downline" ng-click="attachDownline($index)"></span>
+                        <span class="downline-action action-button-add icon-circle-with-plus" title="Asignar Downline" ng-click="showDownlineList($index+1)"></span>
                     </div>
                 </div>
-                <div class="network-list" ng-show="isDownlineListVisible($index)">
-                    LISTA DE TODOS LOS DOWNLINES
-                </div>
+                <ng-downline-list current-user="currentUser" network="downlinesNetworkList" select-downline="attachDownline" show-downline-list="showDownlineList" hide-downline-list="hideDownlineList"></ng-downline-list>
                 <!--
                 <h3 class="downline-name">{{ downline.name }}</h3>
                 <!--span class="downline-cycle-status" title="Avance" data-auto-close="1" data-template="/assets/modules/_downline_cycle_popover.html" bs-popover>{{ downline.currentCycle.name }} | {{ CYCLE_STATUS[downline.currentCycle.status] }}</span-->
             </li>
         </ul>
+    </div>
+
+    <!-- Forma para invitar Downlines -->
+    <div class="section-content network-container" ng-show="isInviteView()">
+        <div class="form-container">
+            <form novalidate name="invitationForm" class="form" ng-submit="invite()">
+                <fieldset>
+                    <span ng-show="invitationForm.$pristine">{{ invitationFormMessage }}</span>
+                    <legend>Envia una invitación</legend>
+                    <input type="text" placeholder="Nombre del invitado" name="invitationRecipentName" ng-model="invitation.recipient_name" ng-required="true">
+                    <div ng-show="invitationForm.$submitted || invitationForm.invitationRecipentName.$touched">
+                        <span ng-show="invitationForm.invitationRecipentName.$error.required">El nombre es requerido.</span>
+                    </div>
+                    <input type="email" placeholder="Correo electrónico del invitado" name="invitationRecipentEmail" ng-model="invitation.recipient_email" ng-required="true">
+                    <div ng-show="invitationForm.$submitted || invitationForm.invitationRecipentEmail.$touched">
+                        <span ng-show="invitationForm.invitationRecipentEmail.$error.required">El correo electrónico es requerido.</span>
+                        <span ng-show="invitationForm.invitationRecipentEmail.$error.email">El correo electrónico no es válido.</span>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <button class="action-button-login">Enviar</button>
+                    <input type="button" class="action-button-cancel" ng-click="hideInviteView()" value="Cancelar" />
+                </fieldset>
+            </form>
+        </div>
     </div>
 </div>

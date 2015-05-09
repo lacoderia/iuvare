@@ -6,6 +6,23 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :plans do
+    collection do
+      post 'send_video'
+      post 'watch_video'
+    end
+    member do
+      get 'finish_video'
+    end
+  end
+
+  resources :contacts do
+    collection do
+      get 'by_user'
+      get 'transitions'
+    end
+  end
+
   resources :assets do
     collection do
       get 'by_asset_type' 
@@ -45,6 +62,9 @@ Rails.application.routes.draw do
       get 'all'
       get 'cycle'
     end
+    member do
+      post 'change_position'
+    end
   end
 
   resources :requests  do
@@ -68,6 +88,8 @@ Rails.application.routes.draw do
     get 'logout', :to => "devise/sessions#destroy"
     get 'session', :to => "sessions#get"
   end
+  
+  #get "watch_video", :to => "plans#watch_video"
 
   root :to => "display#index"
   get "login", :to => "display#index"
@@ -87,5 +109,6 @@ Rails.application.routes.draw do
   get "perfil", :to => "display#index"
   get "perfil/mi-perfil", :to => "display#index"
   get "perfil/mis-metas", :to => "display#index"
+  get "perfil/collage", :to => "display#index"
 
 end

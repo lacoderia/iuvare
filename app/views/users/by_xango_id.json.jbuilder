@@ -5,5 +5,5 @@ if @user
   end
 else
   json.success false
-  json.error @errors
+  json.error @error
 end

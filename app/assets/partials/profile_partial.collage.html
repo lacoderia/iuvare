@@ -1,0 +1,18 @@
+<div ng-controller="CollageController as collageCtrl">
+    <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <div class="masonry-container" isotope-container=".masonry-container" images-loaded>
+        <div isotope-item class="masonry-brick-container" ng-repeat="brick in bricks">
+            <div>{{$index}}</div>
+            <img ng-src="{{ brick.src }}" imageonload>
+            <div class="masonry-brick-overlay" ng-show="brick.uploading || brick.error"></div>
+            <span class="icon-spinner loading" ng-show="brick.uploading"></span>
+            <span class="icon-repeat reload" ng-show="brick.error" ng-click="uploadPicture(brick)"></span>
+            <div class="close-button" ng-hide="brick.uploading"><span class="icon-circle-with-cross" ng-click="removePicture(brick)"></span></div>
+        </div>
+    </div>
+
+    <button class="action-button-upload" ng-click="openPictureSelector($event)">Agregar imagen</button>
+    <input type='file' accept="image/*" onchange="angular.element(this).scope().addPicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
+
+</div>

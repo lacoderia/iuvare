@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 20150504211739) do
     t.integer  "test_id"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "description"
+    t.string   "status"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "goals", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "dream"
@@ -56,6 +67,16 @@ ActiveRecord::Schema.define(version: 20150504211739) do
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.integer  "asset_id"
+    t.integer  "contact_id"
+    t.string   "token"
+    t.datetime "expiration"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "questions", force: :cascade do |t|

@@ -1,4 +1,4 @@
-if not @errors
+if not @error
   json.success true
   json.set! :result do
     json.extract! @test, :id, :name, :test_type, :code
@@ -10,5 +10,5 @@ if not @errors
   end
 else
   json.success false
-  json.error @errors
+  json.error @error
 end
