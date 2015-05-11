@@ -107,7 +107,7 @@ feature 'TestsController' do
       expect(test_scores.count).to eql 4
       blue = test_scores.select{|ts| ts['description'] == "blue"}[0]
       expect(blue["score"]).to eql 100.0 
-      visit("/tests/by_code_and_user.json?code=#{personality_test.code}&user_id=#{user.id}")
+      visit("/tests/by_code_and_user.json?test_code=#{personality_test.code}&user_id=#{user.id}")
 
       response = JSON.parse(page.body)
       expect(response['success']).to be true
@@ -116,7 +116,7 @@ feature 'TestsController' do
       expect(test['test_scores'].count).to eql Test::PERCENTAGE_ANSWER_TYPES_BY_CODE[personality_test.code].count
       expect(test['test_scores'].select{ |s| s['description'] == 'blue'}.first['score']).to eql 100.0
 
-      visit("/tests/by_code_and_user.json?code=ABC&user_id=#{user.id}")
+      visit("/tests/by_code_and_user.json?test_code=ABC&user_id=#{user.id}")
       
       response = JSON.parse(page.body)
       expect(response['success']).to be false 
