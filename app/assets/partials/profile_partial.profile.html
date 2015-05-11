@@ -1,11 +1,11 @@
-<div ng-controller="ProfileController as profileCtrl">
+<div ng-controller="ProfileController as profileCtrl" class="profile-container">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <!-- Sección de test de personalidad -->
-    <div class="unavailable-message" ng-show="colorTestResult && !colorTestResult.id && !showTest">
-        <div class="unavailable-message-content">
-            <h3>Aún no relizas tu test de personalidad</h3>
-            <a class="" title="" ng-click="createTest()">Realizar test</a>
+    <div class="message-container" ng-show="colorTestResult && !colorTestResult.id && !showTest">
+        <p class="message">Aún no relizas tu test de personalidad</p>
+        <div class="actions">
+            <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createTest()">Realizar test</a>
         </div>
     </div>
 
@@ -21,14 +21,13 @@
     <!-- Forma para nuevo test -->
     <div class="test-form" ng-show="showTest">
         <form novalidate name="testForm" class="form" ng-submit="gradeTest()">
-            <fieldset>
-                <div ng-repeat="question in colorTest.questions">
-                    {{ question.text }}
-                    <label ng-repeat="answer in question.answers">
-                        <input type="radio" ng-model="question.selectedAnswer" value="{{ answer.id }}" required>
-                        {{ answer.text }}
-                    </label>
-                </div>
+            <legend>Test de personalidad</legend>
+            <fieldset ng-repeat="question in colorTest.questions">
+                <p>{{ question.text }}</p>
+                <label ng-repeat="answer in question.answers" class="profile-tests">
+                    <div>{{ answer.text }}</div>
+                    <input type="radio" ng-model="question.selectedAnswer" value="{{ answer.id }}" required>
+                </label>
             </fieldset>
             <fieldset>
                 <div ng-show="testForm.$submitted">
