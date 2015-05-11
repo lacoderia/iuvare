@@ -54,6 +54,7 @@
 //= require controllers/GlobalMenuController
 //= require controllers/ListController
 //= require controllers/LoginController
+//= require controllers/PlanController
 //= require controllers/ProfileController
 //= require controllers/SeminarController
 //= require controllers/SubmenuController
@@ -78,3 +79,4 @@
 
 // Directives
 //= require directives/DownlineListDirective
+//= require directives/VideoDirective

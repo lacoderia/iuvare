@@ -17,6 +17,7 @@
 @import  "modules/login"
 @import  "modules/cycle"
 @import  "modules/network"
+@import  "modules/plan"
 @import  "modules/why"
 @import  "modules/assets"
 @import  "modules/collage"
@@ -48,7 +49,7 @@ h2.section-title
   +action-button($color_blue_1)
 
 .action-button-fb
-  +action-button($color-blue_fb)
+  +action-button($color_blue_fb)
 
 .action-button-purple
   +action-button($color_purple_1)
@@ -66,6 +67,13 @@ h2.section-title
 
   &:hover
     color: $color_red_2
+
+.action-button-send
+  color: $color_purple_1
+  cursor: pointer
+
+  &:hover
+    color: $color_purple_2
 
 .action-button-add
   color: $color_green_1
@@ -85,7 +93,7 @@ h2.section-title
   width: 100%
 
 .action-button-cancel
-  background-color: $color-blue_fb
+  background-color: $color_blue_fb
   border: none
   color: white
   +rem(font-size, $large-font)
@@ -93,6 +101,7 @@ h2.section-title
   +rem(padding, 1.5rem)
   text-transform: uppercase
   width: 100%
+
 
 .form
 
@@ -150,6 +159,9 @@ h2.section-title
     vertical-align: middle
     width: 100%
 
+    .message-icon
+      +rem(font-size, 6rem)
+
   .actions
     display: block
     +rem(margin, 2rem 0)
@@ -192,6 +204,29 @@ h2.section-title
   background-color: $color_gray_1
   border: 0
   height: 3px
+
+.test-form
+  +rem(padding, 0 3rem)
+
+  fieldset
+    border-top: 1px solid $color-gray_3
+    +rem(margin-bottom, 2rem)
+    +rem(padding, 2rem 0)
+    
+    p
+      +rem(margin, 0)
+
+    .question
+      display: block
+      +rem(margin-bottom, 1rem)
+      text-align: left
+
+    &:first-child
+      border-top: none
+      +rem(margin-top, 2rem)
+
+  .range-answer-options
+    +rem(margin, 0 2rem)
 
 .user-image
   background-color: $color_gray_3

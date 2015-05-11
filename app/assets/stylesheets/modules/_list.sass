@@ -16,40 +16,127 @@
     +rem(margin, 1rem 0)
     +rem(padding, 2rem)
 
-    .contact-actions
-      +rem(font-size, 3rem)
-      +rem(margin-top, 2rem)
-
-    .contact-detail-toggle-icon
-      cursor: pointer
-      +rem(font-size, 2rem)
-      position: absolute
-      +rem(right, 2rem)
-      top: 25px
-
-    .contact-image
+    .contact-info-container
       display: inline-block
-      +rem(margin-right, 1rem)
-      text-align: center
+      width: 70%
       vertical-align: top
 
+      .contact-actions
+        +rem(font-size, 3rem)
+        +rem(margin-top, 2rem)
 
-    .contact-info
-      display: inline-block
-      vertical-align: top
+        span
+          vertical-align: middle
 
-      .icon
-        +rem(font-size, 1.2rem)
-        +rem(margin-right, 0.5rem)
+      .contact-detail-toggle-icon
+        cursor: pointer
+        +rem(font-size, 2rem)
+        position: absolute
+        +rem(right, 2rem)
+        top: 25px
+
+      .contact-image
+        display: inline-block
+        +rem(margin-right, 1rem)
+        text-align: center
+        vertical-align: top
 
 
-    .contact-name
-      +rem(font-size, 2.2rem)
+      .contact-info
+        display: inline-block
+        vertical-align: top
 
-    .contact-email
-      +rem(font-size, 1.5rem)
-      font-weight: normal
-      +rem(margin, 1rem 0 0)
+        .icon
+          +rem(font-size, 1.2rem)
+          +rem(margin-right, 0.5rem)
+
+        .send-video-legend
+          +rem(font-size, 1.5rem)
+
+        .send-video-actions
+          +rem(margin-bottom, 1rem)
+
+          span, button
+            vertical-align: middle
+
+          button.action-button-send
+            background-color: transparent
+            border: none
+
+          button.dropdown
+            min-width: 242px
+            max-width: 242px
+            overflow: hidden
+            text-overflow: ellipsis
+
+
+      .contact-name
+        +rem(font-size, 2.2rem)
+
+      .contact-email
+        +rem(font-size, 1.5rem)
+        font-weight: normal
+        +rem(margin, 1.2rem 0 0)
+
+      .contact-status
+        +rem(margin, 1rem 0 0)
+
+        .status-actions
+          +rem(margin-left, 2rem)
+
+          a
+            +border-radius(50%)
+            display: inline-block
+            +rem(margin-right, 0.8rem)
+            +rem(padding, 0.2rem 0.8rem)
+            text-decoration: none
+
+            &.register-contact
+              background-color: $color_gray_2
+              color: $color_gray_5
+
+              &:hover
+                background-color: $color_gray_5
+                color: $color_gray_2
+
+            &.discard-contact
+              background-color: $color_gray_2
+              color: $color_gray_5
+
+              &:hover
+                background-color: $color_gray_5
+                color: $color_gray_2
+
 
     &:hover
       background-color: $color_gray_3
+
+.status
+  border: 1px solid
+  +border-radius(10px)
+  +rem(padding, 0.5rem 1rem)
+
+  &.contacted
+    background: $color_gray_4
+    border-color: $color_gray_2
+    color: white
+
+  &.to-invite
+    background: $color_blue_fb
+    border-color: $color_blue_3
+    color: white
+
+  &.registered
+    background: $color_purple_1
+    border-color: $color_purple_4
+    color: white
+
+  &.ruled-out
+    background: $color_red_1
+    border-color: $color_red_2
+    color: white
+
+  &.to-close
+    background: $color_green_1
+    border-color: $color_green_2
+    color: white
