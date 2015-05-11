@@ -95,7 +95,9 @@ iuvare.constant('DEFAULT_VALUES',{
         MODULE_1: 'module_1',
         MODULE_2: 'module_2',
         MODULE_3: 'module_3',
-        BASICS: 'basics'
+        BASICS: 'basics',
+        PLAN: 'plan'
+
     },
     CONTACT_STATUS: {
         TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },

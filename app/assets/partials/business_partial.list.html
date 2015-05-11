@@ -30,6 +30,10 @@
                             <div class="contact-name">{{ contact.name }}</div>
                             <div class="contact-status">
                                 <span class="status" ng-class="getContactStatus(contact.status).class">{{ getContactStatus(contact.status).title }}</span>
+                                <span class="status-actions" ng-show="showButton(contact, 'close-workflow')">
+                                    <a class="register-contact" title="Registrar" ng-click="updateFinalStatus(contact, CONTACT_STATUS.REGISTERED.code)"><span class="icon-add-user"></span></a>
+                                    <a class="discard-contact" title="Descartar" ng-click="updateFinalStatus(contact, CONTACT_STATUS.RULED_OUT.code)"><span class="icon-remove-user"></span></a>
+                                </span>
                             </div>
                             <div class="contact-email" ng-if="contact.email"><span class="icon-envelope icon"></span> <a href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a></div>
                             <div class="contact-phone" ng-if="contact.phone"><span class="icon-phone icon"></span> {{ contact.phone }}</div>

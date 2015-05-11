@@ -23,7 +23,7 @@
                     <div class="asset-info" ng-show="asset.showInfo">
                         <div>{{ asset.description }}</div>
                         <div ng-if="asset.source">
-                            <a class="action-button-blue size-medium" ng-href="{{ ASSET_PATH + asset.source + '.pdf' }}" title="{{ 'Ver documento: ' + asset.title }}" target="_blank" >Ver documento</a>
+                            <a class="action-button-blue size-medium" ng-href="{{ ASSET_PATH + asset.source }}" title="{{ 'Ver documento: ' + asset.title }}" target="_blank" >Ver documento</a>
                         </div>
                         <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este documento.</div>
                     </div>

@@ -205,6 +205,29 @@ h2.section-title
   border: 0
   height: 3px
 
+.test-form
+  +rem(padding, 0 3rem)
+
+  fieldset
+    border-top: 1px solid $color-gray_3
+    +rem(margin-bottom, 2rem)
+    +rem(padding, 2rem 0)
+    
+    p
+      +rem(margin, 0)
+
+    .question
+      display: block
+      +rem(margin-bottom, 1rem)
+      text-align: left
+
+    &:first-child
+      border-top: none
+      +rem(margin-top, 2rem)
+
+  .range-answer-options
+    +rem(margin, 0 2rem)
+
 .user-image
   background-color: $color_gray_3
   +border-radius(50%)

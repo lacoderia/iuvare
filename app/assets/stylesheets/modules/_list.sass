@@ -81,6 +81,32 @@
       .contact-status
         +rem(margin, 1rem 0 0)
 
+        .status-actions
+          +rem(margin-left, 2rem)
+
+          a
+            +border-radius(50%)
+            display: inline-block
+            +rem(margin-right, 0.8rem)
+            +rem(padding, 0.2rem 0.8rem)
+            text-decoration: none
+
+            &.register-contact
+              background-color: $color_gray_2
+              color: $color_gray_5
+
+              &:hover
+                background-color: $color_gray_5
+                color: $color_gray_2
+
+            &.discard-contact
+              background-color: $color_gray_2
+              color: $color_gray_5
+
+              &:hover
+                background-color: $color_gray_5
+                color: $color_gray_2
+
 
     &:hover
       background-color: $color_gray_3

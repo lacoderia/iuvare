@@ -121,6 +121,42 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
         return service.contacts;
     };
 
+    var updateFinalStatus = function(contact, finalStatus){
+
+        var contactServiceURL = '/contacts/' + contact.id + '.json';
+
+        var tempContact = {
+            user_id: contact.user_id,
+            name: contact.name,
+            email: contact.email,
+            phone: contact.phone,
+            description: contact.description,
+            status: finalStatus
+        };
+
+        return $http.put(contactServiceURL, {
+            contact: tempContact
+        })
+            .success(function (data) {
+                var contact = {
+                    id: data.result.id,
+                    user_id: data.result.user_id,
+                    name: data.result.name,
+                    email: data.result.email,
+                    phone: data.result.phone,
+                    description: data.result.description,
+                    status: data.result.status,
+                    showInfo: false,
+                    order: DEFAULT_VALUES.CONTACT_STATUS[(data.result.status).toUpperCase()].order
+                };
+
+                replaceContact(contact);
+
+            });
+
+        return service.contacts;
+    };
+
     var getStatusTransitions = function () {
 
         var contactServiceURL = '/contacts/transitions.json';
@@ -170,9 +206,20 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
         return $http.post(contactServiceURL, {})
                 .success(function (data) {
                     if(data.success){
-                        console.log(data)
+
                     }
                 });
+    };
+
+    var videoEnded = function (assetId) {
+
+        var contactServiceURL = '/plans/' + assetId + '/finish_video.json';
+
+        return $http.get(contactServiceURL, {})
+            .success(function (data) {
+                if(data.success){
+                }
+            });
     };
 
     var service = {
@@ -182,9 +229,11 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
         saveContact: saveContact,
         updateContact: updateContact,
         deleteContact: deleteContact,
+        updateFinalStatus: updateFinalStatus,
         getStatusTransitions: getStatusTransitions,
         sendVideo: sendVideo,
-        watchVideo: watchVideo
+        watchVideo: watchVideo,
+        videoEnded: videoEnded
     };
 
     return service;

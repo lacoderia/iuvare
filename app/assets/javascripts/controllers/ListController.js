@@ -142,6 +142,23 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
             });
     };
 
+    $scope.updateFinalStatus = function (contact, finalStatus) {
+        ListService.updateFinalStatus(contact,finalStatus)
+            .success(function(data){
+                if(data.success){
+                    $scope.contactList = angular.copy(ListService.contacts);
+                }
+
+            })
+            .error(function (error, status) {
+                console.log('Hubo un error al actualizar el contacto.');
+                console.log(error);
+            })
+            .finally(function () {
+                $scope.showContactListView();
+            });
+    };
+
     $scope.showContactListView = function () {
         addingContact = false;
         editingContact = false;
@@ -156,6 +173,9 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         switch (action){
             case 'send-video':
                 showButton = (contact.status == DEFAULT_VALUES.CONTACT_STATUS.RULED_OUT.code || contact.status == DEFAULT_VALUES.CONTACT_STATUS.REGISTERED.code)? false : true;
+                break;
+            case 'close-workflow':
+                showButton = (contact.status == DEFAULT_VALUES.CONTACT_STATUS.TO_CLOSE.code)? true : false;
                 break;
         }
 
