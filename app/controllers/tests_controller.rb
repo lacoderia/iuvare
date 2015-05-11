@@ -36,7 +36,7 @@ class TestsController < ApplicationController
   end
 
   def by_code_and_user
-    @test = Test.by_code_and_user(params[:code], params[:user_id])
+    @test = Test.by_code_and_user(params[:test_code], params[:user_id])
     if not @test
       @error = "No se encontró el test con ese usuario."
     end
