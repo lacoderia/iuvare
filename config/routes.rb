@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :offices do
+    collection do
+      get 'by_name'
+    end
+  end
+
   resources :plans do
     collection do
       post 'send_video'
@@ -30,8 +36,8 @@ Rails.application.routes.draw do
 
   resources :tests do
     collection do
-      match 'by_code', via: [:post, :get]
-      match 'by_code_and_user', via: [:post, :get]
+      get 'by_code'
+      get 'by_code_and_user'
       get 'by_user'
     end
   end
@@ -88,6 +94,7 @@ Rails.application.routes.draw do
   root :to => "display#index"
   get "login", :to => "display#index"
   get "register", :to => "display#index"
+  get "plan", :to => "display#index"
   get "negocio", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
   get "perfil", :to => "display#index"

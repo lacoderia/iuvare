@@ -24,8 +24,8 @@
                         <div>{{ asset.description }}</div>
                         <div ng-if="asset.source">
                             <video controls>
-                                <source ng-src="{{ asset.source + '.mp4' }}" type="video/mp4">
-                                <source ng-src="{{ asset.source + '.webm' }}" type="video/webm">
+                                <source ng-src="{{ ASSET_PATH + asset.source + '.mp4' }}" type="video/mp4">
+                                <source ng-src="{{ ASSET_PATH + asset.source + '.webm' }}" type="video/webm">
                             </video>
                         </div>
                         <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este video.</div>

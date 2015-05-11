@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @office.title %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @office.address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @office.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @office.longitude %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @office.description %>
+</p>
+
+<p>
+  <strong>Schedule:</strong>
+  <%= @office.schedule %>
+</p>
+
+<%= link_to 'Edit', edit_office_path(@office) %> |
+<%= link_to 'Back', offices_path %>

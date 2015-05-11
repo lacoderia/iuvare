@@ -41,10 +41,8 @@ feature 'TestsController' do
   describe 'GET tests' do
 
     it 'gets correctly questions and answers by code' do
-
-      with_rack_test_driver do
-        page.driver.post "/tests/by_code.json", { code: "color"}
-      end
+      visit("/tests/by_code.json?code=color")
+      
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       
@@ -55,10 +53,8 @@ feature 'TestsController' do
       expect(first_question_answers.count).to eql 4
       expect(first_question_answers.first['text']).to eql "Superficial"
 
-
-      with_rack_test_driver do
-        page.driver.post "/tests/by_code.json", { code: "module_1"}
-      end
+      visit("/tests/by_code.json?code=module_1")
+      
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       
@@ -69,12 +65,11 @@ feature 'TestsController' do
       expect(last_question_answers.count).to eql 3
       expect(last_question_answers.first['text']).to eql "Conocer perfectamente el plan de negocios"
 
-      with_rack_test_driver do
-        page.driver.post "/tests/by_code.json", { code: "ABC"}
-      end
+      visit("/tests/by_code.json?code=ABC")
+      
       response = JSON.parse(page.body)
       expect(response['success']).to be false
-      expect(response['error']).to eql "No se encontró el test"
+      expect(response['error']).to eql "No se encontró el test."
     end
 
   end
@@ -112,10 +107,8 @@ feature 'TestsController' do
       expect(test_scores.count).to eql 4
       blue = test_scores.select{|ts| ts['description'] == "blue"}[0]
       expect(blue["score"]).to eql 100.0 
+      visit("/tests/by_code_and_user.json?test_code=#{personality_test.code}&user_id=#{user.id}")
 
-      with_rack_test_driver do
-        page.driver.post "/tests/by_code_and_user.json", { user_id: user.id, test_code: personality_test.code}
-      end
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       test = response['result']
@@ -123,12 +116,11 @@ feature 'TestsController' do
       expect(test['test_scores'].count).to eql Test::PERCENTAGE_ANSWER_TYPES_BY_CODE[personality_test.code].count
       expect(test['test_scores'].select{ |s| s['description'] == 'blue'}.first['score']).to eql 100.0
 
-      with_rack_test_driver do
-        page.driver.post "/tests/by_code_and_user.json", { user_id: user.id, test_code: "ABC"}
-      end
+      visit("/tests/by_code_and_user.json?test_code=ABC&user_id=#{user.id}")
+      
       response = JSON.parse(page.body)
       expect(response['success']).to be false 
-      expect(response['error']).to eql "No se encontró el test con ese usuario"
+      expect(response['error']).to eql "No se encontró el test con ese usuario."
 
     end
         

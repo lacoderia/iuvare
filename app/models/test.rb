@@ -15,4 +15,16 @@ class Test < ActiveRecord::Base
   }
 
   validates :test_type, inclusion: {in: TYPES.map{ |pairs| pairs[0] } }
+
+  def self.by_code code
+    Test.includes(:questions => :answers).find_by(code: code)
+  end
+
+  def self.by_user user_id
+    Test.includes(:test_scores).where("test_scores.user_id" => user_id)
+  end
+
+  def self.by_code_and_user code, user_id
+    Test.includes(:test_scores).find_by("test_scores.user_id" => user_id, "code" => code)
+  end
 end
