@@ -5,15 +5,15 @@
 
 'use strict';
 
-iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "CycleService", "InvitationService", "NetworkService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, CycleService, InvitationService, NetworkService, SessionService, DEFAULT_VALUES){
+iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "InvitationService", "NetworkService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, InvitationService, NetworkService, SessionService, DEFAULT_VALUES){
 
     $scope.DOWNLINE_LENGTH_LIMIT = DEFAULT_VALUES.DOWNLINE_LENGTH_LIMIT;
 
-    $scope.downlines = [];
+    $scope.downlinesList = [];
     $scope.downlinesNetworkList = [];
     $scope.sectionTitle = undefined;
     $scope.currentUser = undefined;
-    $scope.currentDownlineIndex = undefined;
+    $scope.currentDownline = undefined;
 
     // Object that holds the invitation values
     $scope.invitation = {
@@ -25,34 +25,38 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "Cy
     var showInvite = false;
     var originalInvitation = angular.copy($scope.invitation);
 
-
-    $scope.getDownlineLengthLimit = function(length){
-      return new Array(length);
-    };
-
     $scope.isEditingCycle = function () {
         return $scope.editCycle;
     };
 
-    $scope.isCurrentDownline = function(downlineIndex){
-        return ($scope.currentDownlineIndex !== undefined)?  ($scope.currentDownlineIndex == downlineIndex): false;
+    $scope.isCurrentDownline = function(downline){
+        return ($scope.currentDownline !== undefined)? ($scope.currentDownline == downline): false;
     };
 
-    $scope.setCurrentDownline = function($event, downlineIndex){
+    $scope.setCurrentDownline = function($event, downline){
         $event.preventDefault();
         $rootScope.$broadcast('hideAllDownlineLists');
-        $scope.currentDownlineIndex = downlineIndex;
+        $scope.currentDownline = downline;
     };
 
-    $scope.attachDownline = function(downlineIndex, downlinePosition){
-        var downline = $scope.downlinesNetworkList[downlineIndex];
-        CycleService.attachDownline(downlineIndex, downlinePosition, downline);
+    $scope.attachDownline = function(downline, downlinePosition){
+        NetworkService.attachDownline(downline, downlinePosition)
+            .success(function(data){
+                if(data.success){
+                    $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
+                    $scope.downlinesList = angular.copy(NetworkService.downlinesList);
+                }
+            });
     };
 
-    $scope.detachDownline = function(downlineIndex){
-        CycleService.detachDownline(downlineIndex).then(function () {
-            
-        });
+    $scope.detachDownline = function(downline){
+        NetworkService.detachDownline(downline)
+            .success(function(data){
+                if(data.success){
+                    $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
+                    $scope.downlinesList = angular.copy(NetworkService.downlinesList);
+                }
+            });
     };
 
 
@@ -99,24 +103,16 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "Cy
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
-        // Obtenemos los downlines del usuario
-        CycleService.getDownlines().then(
-            function(downlineList){
-                $scope.downlines = angular.copy(downlineList);
-            }
-        );
-
         // Obtenemos toda la red del usuario
-        NetworkService.getAllDownlines().then(
-            function (downlineList) {
-                $scope.downlinesNetworkList = angular.copy(downlineList);
-            }
-        );
+        NetworkService.getAllDownlines()
+            .success(function(data){
+                if(data.success){
+                    $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
+                    $scope.downlinesList = angular.copy(NetworkService.downlinesList);
+                }
+            });
 
         $scope.currentUser = SessionService.$get();
-        //console.log("ENTRE AL CONTROLADOR DEL CICLO")
-        //console.log(SessionService.$get().getLastName())
-        //$scope.currentUserName = SessionService.$get().getFirstName() + " " + SessionService.$get().getLastName();
 
     };
 
