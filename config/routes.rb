@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :offices do
     collection do
-      get 'by_name'
+      get 'ordered_by_name'
     end
   end
 
