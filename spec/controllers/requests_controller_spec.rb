@@ -33,7 +33,6 @@ feature 'RequestsController' do
           with_rack_test_driver do
             page2 = page.driver.post "/requests/#{id}/accept.json"
           end
-          #binding.pry
           response2 = JSON.parse(page2.body)
           expect(response2['success']).to be true
           expect(response2['result']['status']).to eql "accepted"
@@ -65,7 +64,6 @@ feature 'RequestsController' do
           with_rack_test_driver do
             page2 = page.driver.post "/requests/#{id}/reject.json"
           end
-          #binding.pry
           response2 = JSON.parse(page2.body)
           expect(response2['success']).to be true
           expect(response2['result']['status']).to eql "rejected"
