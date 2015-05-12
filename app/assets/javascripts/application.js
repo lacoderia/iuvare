@@ -67,17 +67,17 @@
 // Services
 //= require services/AssetService
 //= require services/AuthService
-//= require services/NetworkService
-//= require services/NavigationService.js
 //= require services/CollageService
 //= require services/GoalService
 //= require services/InvitationService
 //= require services/ListService
 //= require services/NetworkService
+//= require services/NavigationService
+//= require services/OfficeService
+//= require services/TestService
 //= require services/UserService
 //= require services/XangoUserService
 //= require services/SessionService
-//= require services/TestService
 
 // Directives
 //= require directives/DownlineListDirective

@@ -94,6 +94,7 @@ Rails.application.routes.draw do
   root :to => "display#index"
   get "login", :to => "display#index"
   get "register", :to => "display#index"
+  get "sedes", :to => "display#index"
   get "plan", :to => "display#index"
   get "negocio", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
