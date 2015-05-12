@@ -2,6 +2,7 @@ class Contact < ActiveRecord::Base
 
   belongs_to :user
   has_many :plans
+  has_one :test_score
 
   STATUSES = [
     ['to_invite', 'por invitar'],

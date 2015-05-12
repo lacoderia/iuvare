@@ -20,6 +20,7 @@ feature 'ContactsController' do
     end
       
     context 'by_user' do
+      let!(:test_score){ create(:test_score, user: user, contact: contact) }
 
       it 'gets contacts for user' do
         visit "#{by_user_contacts_path}.json?user_id=#{user.id}"
@@ -29,6 +30,9 @@ feature 'ContactsController' do
         expect(contacts.count).to be 1
         expect(contacts.first['user_id']).to be user.id
         expect(contacts.first['name']).to eql "Imperium"
+        test_score_response = contacts.first['test_score']
+        expect(test_score_response['user_id']).to be user.id
+        expect(test_score_response['id']).to be test_score.id
       end
 
       it 'gets no contacts for user' do
