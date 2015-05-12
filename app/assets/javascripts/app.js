@@ -23,11 +23,12 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document' }
             ]
         },
-        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.profile',
+        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
             subsections: [
-                { order:1, code: 'PROFILE', title: 'Mi perfil', state: 'profile.profile' },
-                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
-                { order:3, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' }
+                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
+                { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' },
+                { order:3, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' },
+                { order:4, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' }
             ]
         },
         { order: 4, code: 'HEADQUARTERS', title: 'Sedes', state: 'headquarters',
@@ -241,13 +242,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             resolve: {
                 authenticated: authenticated
             }
-        }).state('profile.profile',{
-            url: "/mi-perfil",
-            templateUrl: '/assets/profile_partial.profile.html',
-            defaultState: 'login',
-            section: 'PROFILE',
-            subsection: 'PROFILE',
-            authenticationRequired: true
         }).state('profile.why',{
             url: "/mis-metas",
             templateUrl: '/assets/profile_partial.why.html',
@@ -261,6 +255,20 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'COLLAGE',
+            authenticationRequired: true
+        }).state('profile.test',{
+            url: "/test",
+            templateUrl: '/assets/profile_partial.test.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'TEST',
+            authenticationRequired: true
+        }).state('profile.profile',{
+            url: "/mis-datos",
+            templateUrl: '/assets/profile_partial.profile.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'PROFILE',
             authenticationRequired: true
         }).state('business.list',{
             url: "/lista",
