@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :events do
+    collection do
+      get 'current'
+    end
+  end
+
   resources :offices do
     collection do
       get 'by_name'
