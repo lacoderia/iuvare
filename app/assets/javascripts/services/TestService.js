@@ -22,7 +22,7 @@ iuvare.factory('TestService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
 
         var testsServiceURL = 'tests/by_code_and_user.json';
 
-        return $http.post(testsServiceURL, {
+        return $http.get(testsServiceURL, {
             user_id: SessionService.$get().getId(),
             test_code: code
         });
