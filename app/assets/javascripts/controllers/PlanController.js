@@ -18,7 +18,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
     $scope.asset = undefined;
     $scope.test = undefined;
     $scope.testAnswers = {
-        interest: 0,
+        interest: undefined,
         contactTime: undefined
     };
 
@@ -91,7 +91,9 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
     };
 
     $scope.sendTest = function () {
-        console.log($scope.testAnswers)
+        var contactId = $scope.plan.contact.id;
+        var userId = $scope.plan.user_id;
+        ListService.gradeTest($scope.testAnswers, contactId, userId);
     };
 
     $scope.initController();

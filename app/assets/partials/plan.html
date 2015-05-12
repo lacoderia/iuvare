@@ -27,15 +27,17 @@
                     <form novalidate name="testForm" class="form" ng-submit="sendTest()">
                         <fieldset>
                             <p class="question">1. {{ test.questions[0].text }}</p>
-                            <label ng-repeat="index in [1,2,3,4,5,6,7,8,9,10]" class="range-answer-options">
-                                <div>{{ $index+1 }}</div>
-                                <div><input type="radio" ng-model="testAnswers.interest" value="{{ $index+1 }}" required></div>
+                            <label  ng-repeat="answer in test.questions[0].answers" class="range-answer-options">
+                                <div>{{ answer.text }}</div>
+                                <div><input type="radio" ng-model="testAnswers.interest" value="{{ answer }}" required></div>
                             </label>
                         </fieldset>
                         <fieldset>
                             <p class="question">2. {{ test.questions[1].text }}</p>
-                            <label></label>
-                            <input type="text" placeholder="Entre semana después de las 6pm" ng-model="testAnswers.contactTime">
+                            <label ng-repeat="answer in test.questions[1].answers" class="contact-time">
+                                <div>{{ answer.text }}</div>
+                                <div><input type="radio" ng-model="testAnswers.contactTime" value="{{ answer }}" required></div>
+                            </label>
                         </fieldset>
                         <fieldset>
                             <div ng-show="testForm.$submitted">
