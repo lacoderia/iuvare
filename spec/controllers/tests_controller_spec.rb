@@ -37,6 +37,17 @@ feature 'TestsController' do
   let!(:qq_answer_2){ create(:answer, question: m1_third_question, text: "Conocer perfectamente el jugo", answer_type: "incorrect") }
   let!(:qq_answer_3){ create(:answer, question: m1_third_question, text: "Conocer al prospecto", answer_type: "correct") }
 
+  # Multiple, after watching video test
+  let!(:after_plan_test){ create(:test, name: "Nivel de interés", test_type: "multiple", code: "plan") }
+  
+  let(:ap_first_question){create(:question, test: after_plan_test, text: "En una escala del 1 al 10, ¿qué nivel de interés despertó en ti la propuesta? (Siendo 1 ningún interés y 10 un gran interés)")}
+  let!(:tqq_answer_1){ create(:answer, question: ap_first_question, text: "1", answer_type: nil) }
+  let!(:tqq_answer_2){ create(:answer, question: ap_first_question, text: "2", answer_type: nil) }
+
+  let(:ap_second_question){create(:question, test: after_plan_test, text: "¿En que momento te gustaría que me ponga en contacto contigo?")}
+  let!(:tqs_answer_1){ create(:answer, question: ap_second_question, text: "Hoy", answer_type: nil) }
+  let!(:tqs_answer_2){ create(:answer, question: ap_second_question, text: "Mañana", answer_type: nil) }
+  let!(:tqs_answer_3){ create(:answer, question: ap_second_question, text: "No es necesario", answer_type: nil) }
 
   describe 'GET tests' do
 
@@ -167,6 +178,54 @@ feature 'TestsController' do
       expect(tests.first['test_scores'].count).to eql 1
       expect(tests.first['test_scores'].first['score']).to eql 100.0
           
+    end
+
+  end
+
+  describe 'Evaluate multiple test_type' do
+
+    it 'Saves multiple answers as test_scores' do
+
+      answers = [{id: tqq_answer_1.id}, {id: tqs_answer_1.id}]
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      expect(response['result']['id']).to eql after_plan_test.id
+      test_scores = response['result']['test_scores']
+
+      expect(test_scores.count).to eql 1
+      tsf = test_scores.first
+      expect(tsf["score"]).to eql tqq_answer_1.text.to_f
+      expect(tsf["description"]).to eql tqs_answer_1.text
+
+      answers = [{id: tqq_answer_2.id}, {id: tqs_answer_2.id}]      
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      expect(response['result']['id']).to eql after_plan_test.id
+      test_scores = response['result']['test_scores']
+
+      expect(test_scores.count).to eql 1
+      tsf = test_scores.first
+      expect(tsf["score"]).to eql tqq_answer_2.text.to_f
+      expect(tsf["description"]).to eql tqs_answer_2.text
+
+      visit("/tests/by_user.json?user_id=#{user.id}")
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      tests = response['result']['tests']
+      expect(tests.first['code']).to eql after_plan_test.code
+
+      expect(tests.first['test_scores'].count).to eql 1
+      expect(tests.first['test_scores'].first['description']).to eql tqs_answer_2.text
+      expect(tests.first['test_scores'].first['score']).to eql tqq_answer_2.text.to_f
+
     end
 
   end

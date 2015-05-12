@@ -67,7 +67,6 @@
 //= require services/NetworkService
 //= require services/NavigationService.js
 //= require services/CollageService
-//= require services/CycleService
 //= require services/GoalService
 //= require services/InvitationService
 //= require services/ListService
