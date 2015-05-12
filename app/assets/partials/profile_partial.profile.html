@@ -1,6 +1,50 @@
 <div ng-controller="ProfileController as profileCtrl" class="profile-container">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
+    <div class="profile-form">
+        <div class="profile-picture">
+            <div class="picture-container">
+                <div class="picture">
+                    <img src="">
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <a class="action-button-purple size-medium" ng-click="openProfilePictureSelector($event)">Seleccionar imagen</a>
+            <input type='file' accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
+        </div>
+        <form novalidate name="profileForm" class="form" ng-submit="updateProfile()">
+            <fieldset>
+                <input type="text" placeholder="Nombre(s)" name="profileFirstName" ng-model="currentUser.name" required>
+                <div ng-show="profileForm.$submitted || profileForm.profileFirstName.$touched">
+                    <span ng-show="profileForm.profileFirstName.$error.required">El nombre es requerido.</span>
+                </div>
+                <input type="text" placeholder="Apellido(s)" name="profileLastName" ng-model="currentUser.lastName" required>
+                <div ng-show="profileForm.$submitted || profileForm.profileLastName.$touched">
+                    <span ng-show="profileForm.profileLastName.$error.required">Los apellidos son requerido.</span>
+                </div>
+                <input type="email" placeholder="Correo electrónico" name="profileEmail" ng-model="currentUser.email" readonly required>
+                <div ng-show="profileForm.$submitted || profileForm.profileEmail.$touched">
+                    <span ng-show="profileForm.profileEmail.$error.required">El correo electrónico es requerido.</span>
+                    <span ng-show="profileForm.profileEmail.$error.email">El correo electrónico no es válido.</span>
+                </div>
+                <input type="text" placeholder="ID Iuvare" name="profileIuvareId" ng-model="currentUser.iuvareId" readonly required>
+                <div ng-show="profileForm.$submitted || profileForm.profileIuvareId.$touched">
+                    <span ng-show="profileForm.profileIuvareId.$error.required">El ID Iuvare es requerido.</span>
+                </div>
+                <input type="text" placeholder="ID Xango" name="profileXangoId" ng-model="currentUser.xangoId" readonly required>
+                <div ng-show="profileForm.$submitted || profileForm.profileXangoId.$touched">
+                    <span ng-show="profileForm.profileXangoId.$error.required">El ID Xango es requerido.</span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <button class="action-button-forgot">Actualizar perfil</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <h2 class="section-title">Test de personalidad</h2>
+
     <!-- Sección de test de personalidad -->
     <div class="message-container" ng-show="colorTestResult && !colorTestResult.id && !showTest">
         <p class="message">Aún no relizas tu test de personalidad</p>
