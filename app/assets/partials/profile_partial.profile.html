@@ -1,43 +1,44 @@
 <div ng-controller="ProfileController as profileCtrl" class="profile-container">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <!-- Sección de test de personalidad -->
-    <div class="message-container" ng-show="colorTestResult && !colorTestResult.id && !showTest">
-        <p class="message">Aún no relizas tu test de personalidad</p>
-        <div class="actions">
-            <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createTest()">Realizar test</a>
-        </div>
-    </div>
-
-    <!-- Sección de resultados test de personalidad -->
-    <div ng-show="colorTestResult && colorTestResult.id && !showTest">
-        Mis resultados:
-        <div ng-repeat="result in colorTestResult.test_scores | orderBy : '-score'">
-            {{ result.description }} : {{ result.score }} %
+    <div class="profile-form">
+        <div class="profile-picture">
+            <div class="picture-container">
+                <div class="picture">
+                    <img src="">
+                </div>
+            </div>
         </div>
         <div class="actions">
-            <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createTest()">Volver a tomar el test</a>
+            <a class="action-button-purple size-medium" ng-click="openProfilePictureSelector($event)">Seleccionar imagen</a>
+            <input type='file' accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
-
-    </div>
-
-    <!-- Forma para nuevo test -->
-    <div class="test-form" ng-show="showTest">
-        <form novalidate name="testForm" class="form" ng-submit="gradeTest()">
-            <legend>Test de personalidad</legend>
-            <fieldset ng-repeat="question in colorTest.questions">
-                <p>{{ ($index+1) + ". " + question.text }}</p>
-                <label ng-repeat="answer in question.answers" class="profile-tests">
-                    <div>{{ answer.text }}</div>
-                    <input type="radio" ng-model="question.selectedAnswer" value="{{ answer.id }}" required>
-                </label>
+        <form novalidate name="profileForm" class="form" ng-submit="updateProfile()">
+            <fieldset>
+                <input type="text" placeholder="Nombre(s)" name="profileFirstName" ng-model="currentUser.name" required>
+                <div ng-show="profileForm.$submitted || profileForm.profileFirstName.$touched">
+                    <span ng-show="profileForm.profileFirstName.$error.required">El nombre es requerido.</span>
+                </div>
+                <input type="text" placeholder="Apellido(s)" name="profileLastName" ng-model="currentUser.lastName" required>
+                <div ng-show="profileForm.$submitted || profileForm.profileLastName.$touched">
+                    <span ng-show="profileForm.profileLastName.$error.required">Los apellidos son requerido.</span>
+                </div>
+                <input type="email" placeholder="Correo electrónico" name="profileEmail" ng-model="currentUser.email" readonly required>
+                <div ng-show="profileForm.$submitted || profileForm.profileEmail.$touched">
+                    <span ng-show="profileForm.profileEmail.$error.required">El correo electrónico es requerido.</span>
+                    <span ng-show="profileForm.profileEmail.$error.email">El correo electrónico no es válido.</span>
+                </div>
+                <input type="text" placeholder="ID Iuvare" name="profileIuvareId" ng-model="currentUser.iuvareId" readonly required>
+                <div ng-show="profileForm.$submitted || profileForm.profileIuvareId.$touched">
+                    <span ng-show="profileForm.profileIuvareId.$error.required">El ID Iuvare es requerido.</span>
+                </div>
+                <input type="text" placeholder="ID Xango" name="profileXangoId" ng-model="currentUser.xangoId" readonly required>
+                <div ng-show="profileForm.$submitted || profileForm.profileXangoId.$touched">
+                    <span ng-show="profileForm.profileXangoId.$error.required">El ID Xango es requerido.</span>
+                </div>
             </fieldset>
             <fieldset>
-                <div ng-show="testForm.$submitted">
-                    {{ testFormMessage }}
-                </div>
-                <button class="action-button-forgot">Enviar</button>
-                <input type="button" class="action-button-cancel" ng-click="hideTestForm()" value="Cancelar" />
+                <button class="action-button-forgot">Actualizar perfil</button>
             </fieldset>
         </form>
     </div>

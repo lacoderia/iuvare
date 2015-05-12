@@ -8,3 +8,28 @@
       +rem('margin-right', 3rem)
       text-align: center
       min-width: 150px
+
+  .profile-picture
+    line-height: 0
+    text-align: center
+    width: 100%
+
+    .picture-container
+      border-top-left-radius: 10px
+      border-top-right-radius: 10px
+      display: inline-block
+      width: 220px
+
+      .picture
+        background: url('/assets/person.png') no-repeat white
+        background-size: cover
+        height: 220px
+        overflow: hidden
+        position: relative
+        width: 220px
+
+        img
+          position: absolute
+          left: 50%
+          top: 50%
+          transform: translateY(-50%) translateX(-50%)
