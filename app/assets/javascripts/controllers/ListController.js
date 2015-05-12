@@ -98,37 +98,40 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     };
 
     $scope.saveContact = function () {
-        ListService.saveContact($scope.selectedContact)
-            .success(function(data){
-                if(data.success){
-                    $scope.contactList = angular.copy(ListService.contacts);
-                }
-            })
-            .error(function (error, status) {
-                console.log('Hubo un error al guardr el contacto.');
-                console.log(error);
-            })
-            .finally(function () {
-                $scope.showContactListView();
-            });
+        if($scope.newContactForm.$valid) {
+            ListService.saveContact($scope.selectedContact)
+                .success(function(data){
+                    if(data.success){
+                        $scope.contactList = angular.copy(ListService.contacts);
+                    }
+                })
+                .error(function (error, status) {
+                    console.log('Hubo un error al guardr el contacto.');
+                    console.log(error);
+                })
+                .finally(function () {
+                    $scope.showContactListView();
+                });
+        }
     };
 
     $scope.updateContact = function () {
-        ListService.updateContact($scope.selectedContact)
-            .success(function(data){
-                if(data.success){
-                    $scope.contactList = angular.copy(ListService.contacts);
-                }
+        if($scope.editContactForm.$valid) {
+            ListService.updateContact($scope.selectedContact)
+                .success(function(data){
+                    if(data.success){
+                        $scope.contactList = angular.copy(ListService.contacts);
+                    }
 
-            })
-            .error(function (error, status) {
-                console.log('Hubo un error al actualizar el contacto.');
-                console.log(error);
-            })
-            .finally(function () {
-                $scope.showContactListView();
-            });
-
+                })
+                .error(function (error, status) {
+                    console.log('Hubo un error al actualizar el contacto.');
+                    console.log(error);
+                })
+                .finally(function () {
+                    $scope.showContactListView();
+                });
+        }
     };
 
     $scope.deleteContact = function (contactIndex) {
