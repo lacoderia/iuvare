@@ -51,7 +51,10 @@
 //= require controllers/CollageController
 //= require controllers/CycleController
 //= require controllers/DocumentController
+//= require controllers/EventsController
+//= require controllers/FAQController
 //= require controllers/GlobalMenuController
+//= require controllers/HeadquartersController
 //= require controllers/ListController
 //= require controllers/LoginController
 //= require controllers/PlanController

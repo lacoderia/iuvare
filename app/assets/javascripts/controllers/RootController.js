@@ -25,11 +25,7 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthServ
 
 
     $scope.isPublicView = function(){
-        return ($state.current.authenticationRequired)? false  : true;
-    };
-
-    $scope.isUserAuthenticated = function () {
-      return ($state.current.authenticationRequired && AuthService.isAuthenticated());
+        return $state.current.authenticationRequired;
     };
 
     var initController = function(){

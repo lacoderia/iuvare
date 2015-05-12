@@ -30,20 +30,14 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:3, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' }
             ]
         },
-        { order: 4, code: 'HEADQUARTERS', title: 'Sedes', state: 'headquarters.headquarters',
-            subsections: [
-                { order:1, code: 'HEADQUARTERS', title: 'Sedes', state: 'headquarters.headquarters' }
-            ]
+        { order: 4, code: 'HEADQUARTERS', title: 'Sedes', state: 'headquarters',
+            subsections: []
         },
-        { order: 5, code: 'EVENTS', title: 'Eventos', state: 'events.events',
-            subsections: [
-                { order:1, code: 'EVENTS', title: 'Eventos', state: 'events.events' }
-            ]
+        { order: 5, code: 'EVENTS', title: 'Eventos', state: 'events',
+            subsections: []
         },
-        { order: 6, code: 'FAQ', title: 'FAQ', state: 'faq.faq',
-            subsections: [
-                { order:1, code: 'FAQ', title: 'Eventos', state: 'faq.faq' }
-            ]
+        { order: 6, code: 'FAQ', title: 'FAQ', state: 'faq',
+            subsections: []
         }
     ],
     SECTIONS_CODES: {
@@ -188,6 +182,24 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             templateUrl: '/assets/plan.html',
             defaultState: 'login',
             authenticationRequired: false
+        }).state('headquarters',{
+            url: "/sedes",
+            templateUrl: '/assets/headquarters.html',
+            defaultState: 'login',
+            section: 'HEADQUARTERS',
+            authenticationRequired: true
+        }).state('events',{
+            url: "/eventos",
+            templateUrl: '/assets/events.html',
+            defaultState: 'login',
+            section: 'EVENTS',
+            authenticationRequired: true
+        }).state('faq',{
+            url: "/preguntas-frecuentes",
+            templateUrl: '/assets/faq.html',
+            defaultState: 'login',
+            section: 'FAQ',
+            authenticationRequired: true
         }).state('business',{
             url: "/negocio",
             templateUrl: '/assets/business_partial.html',
