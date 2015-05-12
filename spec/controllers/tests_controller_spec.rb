@@ -183,12 +183,14 @@ feature 'TestsController' do
   end
 
   describe 'Evaluate multiple test_type' do
+  
+    let!(:contact){ create(:contact, user: user) }
 
     it 'Saves multiple answers as test_scores' do
 
       answers = [{id: tqq_answer_1.id}, {id: tqs_answer_1.id}]
       with_rack_test_driver do
-        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers}
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers, contact_id: contact.id }
       end
 
       response = JSON.parse(page.body)
@@ -203,7 +205,7 @@ feature 'TestsController' do
 
       answers = [{id: tqq_answer_2.id}, {id: tqs_answer_2.id}]      
       with_rack_test_driver do
-        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers}
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers, contact_id: contact.id}
       end
 
       response = JSON.parse(page.body)
@@ -253,6 +255,18 @@ feature 'TestsController' do
       response = JSON.parse(page.body)
       expect(response['success']).to be false
       expect(response['error']).to eql "El número de respuestas únicas no corresponde al número de las preguntas"
+    end
+
+    it 'should raise errors for multiple type test without contact_id' do
+
+      answers = [{id: tqq_answer_1.id}, {id: tqs_answer_1.id}]
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers }
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be false
+      expect(response['error']).to eql "Falta contact_id para este tipo de test"
     end
 
   end
