@@ -56,6 +56,7 @@
 //= require controllers/LoginController
 //= require controllers/PlanController
 //= require controllers/ProfileController
+//= require controllers/ProfileTestController
 //= require controllers/SeminarController
 //= require controllers/SubmenuController
 //= require controllers/TrainingController
