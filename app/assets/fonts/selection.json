@@ -4,6 +4,37 @@
 		{
 			"icon": {
 				"paths": [
+					"M512 77.459c-238.313 0-431.26 192.947-431.26 431.26s192.947 431.26 431.26 431.26 431.26-192.947 431.26-431.26-192.947-431.26-431.26-431.26zM395.577 712.598l-150.86 62.311 67.777-152.499 304.997-306.637 86.361 88.547-308.279 308.279zM730.091 380.271l-90.188-88.548c0 0 55.205-84.722 115.877-27.877s-25.689 116.423-25.689 116.423z",
+					"M286.258 718.611l17.491 17.491 75.43-30.062c0 0-9.292-3.28-7.652-22.411 0 0-32.249 6.013-29.516-30.062 0 0-15.852 2.186-24.050-7.651l-31.701 72.697z"
+				],
+				"attrs": [
+					{},
+					{}
+				],
+				"isMulticolor": false,
+				"grid": 0,
+				"tags": [
+					"edit"
+				]
+			},
+			"attrs": [
+				{},
+				{}
+			],
+			"properties": {
+				"order": 33,
+				"id": 0,
+				"prevSize": 32,
+				"code": 58895,
+				"name": "edit"
+			},
+			"setIdx": 0,
+			"setId": 9,
+			"iconIdx": 0
+		},
+		{
+			"icon": {
+				"paths": [
 					"M818.637 979.405c0-114.995-111.974-173.517-221.030-220.518-108.698-46.797-143.411-86.221-143.411-170.701 0-50.637 33.178-34.15 47.718-127.027 6.144-38.502 35.43-0.614 41.062-88.525 0-35.021-16.026-43.725-16.026-43.725s8.141-51.866 11.315-91.802c3.277-41.83-20.378-131.072-117.811-158.464-16.998-17.459-28.518-45.158 23.91-72.909-114.688-5.325-141.363 54.682-202.445 98.816-51.968 38.707-65.997 99.994-63.488 132.608 3.328 39.936 11.418 91.802 11.418 91.802s-16.077 8.704-16.077 43.725c5.632 87.962 35.021 50.022 41.114 88.525 14.541 92.877 47.77 76.39 47.77 127.027 0 84.48-10.854 113.152-119.603 159.949-109.107 46.95-143.053 122.214-142.49 231.219 0.154 32.614-0.563 44.595-0.563 44.595h819.2c0 0-0.563-11.981-0.563-44.595zM819.2 513.997l-117.709-122.778-54.323 54.323 122.829 117.658-122.778 117.658 54.323 54.323 117.658-122.778 117.658 122.778 54.323-54.323-122.778-117.658 122.726-117.658-54.323-54.323-117.606 122.778z"
 				],
 				"attrs": [
@@ -21,11 +52,11 @@
 			"properties": {
 				"order": 1,
 				"id": 1,
-				"prevSize": 20,
+				"prevSize": 32,
 				"code": 58894,
 				"name": "remove-user"
 			},
-			"setIdx": 0,
+			"setIdx": 1,
 			"setId": 8,
 			"iconIdx": 0
 		},
@@ -49,11 +80,11 @@
 			"properties": {
 				"order": 1,
 				"id": 0,
-				"prevSize": 20,
+				"prevSize": 32,
 				"code": 58893,
 				"name": "add-user"
 			},
-			"setIdx": 0,
+			"setIdx": 1,
 			"setId": 8,
 			"iconIdx": 1
 		},
@@ -77,11 +108,11 @@
 			"properties": {
 				"order": 15,
 				"id": 2,
-				"prevSize": 20,
+				"prevSize": 32,
 				"code": 58884,
 				"name": "circle-with-plus"
 			},
-			"setIdx": 6,
+			"setIdx": 7,
 			"setId": 2,
 			"iconIdx": 0
 		},
@@ -105,11 +136,11 @@
 			"properties": {
 				"order": 16,
 				"id": 1,
-				"prevSize": 20,
+				"prevSize": 32,
 				"code": 58883,
 				"name": "circle-with-cross"
 			},
-			"setIdx": 6,
+			"setIdx": 7,
 			"setId": 2,
 			"iconIdx": 1
 		},
@@ -138,11 +169,11 @@
 			"properties": {
 				"order": 17,
 				"id": 0,
-				"prevSize": 20,
+				"prevSize": 32,
 				"code": 58880,
 				"name": "help"
 			},
-			"setIdx": 6,
+			"setIdx": 7,
 			"setId": 2,
 			"iconIdx": 2
 		},
@@ -174,7 +205,7 @@
 				"code": 58892,
 				"name": "camera"
 			},
-			"setIdx": 1,
+			"setIdx": 2,
 			"setId": 7,
 			"iconIdx": 0
 		},
@@ -198,11 +229,11 @@
 			"properties": {
 				"order": 1,
 				"id": 0,
-				"prevSize": 28,
+				"prevSize": 32,
 				"code": 58891,
 				"name": "arrow-circle-right"
 			},
-			"setIdx": 2,
+			"setIdx": 3,
 			"setId": 6,
 			"iconIdx": 0
 		},
@@ -227,11 +258,11 @@
 			"properties": {
 				"order": 28,
 				"id": 0,
-				"prevSize": 28,
+				"prevSize": 32,
 				"code": 58890,
 				"name": "repeat"
 			},
-			"setIdx": 8,
+			"setIdx": 9,
 			"setId": 0,
 			"iconIdx": 0
 		},
@@ -266,7 +297,7 @@
 				"code": 58881,
 				"name": "locked"
 			},
-			"setIdx": 4,
+			"setIdx": 5,
 			"setId": 4,
 			"iconIdx": 0
 		},
@@ -290,11 +321,11 @@
 			"properties": {
 				"order": 13,
 				"id": 0,
-				"prevSize": 24,
+				"prevSize": 32,
 				"code": 58882,
 				"name": "swap-vert-circle"
 			},
-			"setIdx": 5,
+			"setIdx": 6,
 			"setId": 3,
 			"iconIdx": 0
 		},
@@ -325,7 +356,7 @@
 				"code": 58889,
 				"name": "envelope"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 0
 		},
@@ -354,7 +385,7 @@
 				"code": 58888,
 				"name": "phone"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 1
 		},
@@ -386,7 +417,7 @@
 				"code": 58887,
 				"name": "spinner"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 2
 		},
@@ -420,7 +451,7 @@
 				"code": 58885,
 				"name": "circle-down"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 3
 		},
@@ -454,7 +485,7 @@
 				"code": 58886,
 				"name": "circle-right"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 4
 		},
@@ -485,7 +516,7 @@
 				"ligatures": "image, picture",
 				"name": "image"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 5
 		},
@@ -516,7 +547,7 @@
 				"ligatures": "cart, purchase",
 				"name": "cart"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 6
 		},
@@ -546,7 +577,7 @@
 				"ligatures": "user, profile2",
 				"name": "user"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 7
 		},
@@ -576,7 +607,7 @@
 				"ligatures": "search, magnifier",
 				"name": "search"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 8
 		},
@@ -605,7 +636,7 @@
 				"ligatures": "info, information",
 				"name": "info"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 9
 		},
@@ -633,7 +664,7 @@
 				"ligatures": "facebook, brand6",
 				"name": "facebook"
 			},
-			"setIdx": 7,
+			"setIdx": 8,
 			"setId": 1,
 			"iconIdx": 10
 		}
@@ -665,6 +696,7 @@
 			"color": 4473924,
 			"bgColor": 16777215
 		},
-		"historySize": 100
+		"historySize": 100,
+		"gridSize": 16
 	}
 }
