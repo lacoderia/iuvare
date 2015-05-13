@@ -15,18 +15,15 @@ iuvare.factory('TestService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
         var testsServiceURL = 'tests/by_code.json?code=' + code;
 
         return $http.get(testsServiceURL);
-    };
+    }
 
     // Function that retrieves a test result by code
     function getTestResultByCode(code) {
 
-        var testsServiceURL = 'tests/by_code_and_user.json';
+        var testsServiceURL = 'tests/by_code_and_user.json?user_id=' + SessionService.$get().getId() + '&test_code=' + code;
 
-        return $http.get(testsServiceURL, {
-            user_id: SessionService.$get().getId(),
-            test_code: code
-        });
-    };
+        return $http.get(testsServiceURL);
+    }
 
     // Function that grades a test and returns the test results
     function gradeTest(code, answers) {
@@ -38,6 +35,6 @@ iuvare.factory('TestService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
             test_code: code,
             answers: answers
         });
-    };
+    }
 
 }]);
