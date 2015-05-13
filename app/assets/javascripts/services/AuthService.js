@@ -42,6 +42,19 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
         );
     };
 
+    var logout = function(){
+        var logoutServiceURL = '/logout';
+        return $http.get(logoutServiceURL).then(
+            function(data){
+                SessionService.destroySession();
+                $state.go('login');
+            },
+            function (response) {
+                return response;
+            }
+        );
+    };
+
     var recoverPassword = function (forgot) {
         var forgotServiceURL = '/users/password.json';
         return $http.post(forgotServiceURL, {
@@ -91,6 +104,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
     return{
         signIn: signIn,
         signUp: signUp,
+        logout: logout,
         recoverPassword: recoverPassword,
         resetPassword: resetPassword,
         isAuthenticated: isAuthenticated,

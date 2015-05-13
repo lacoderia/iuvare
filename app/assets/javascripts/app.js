@@ -31,21 +31,16 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:4, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' }
             ]
         },
-        { order: 4, code: 'HEADQUARTERS', title: 'Sedes', state: 'headquarters.headquarters',
-            subsections: [
-                { order:1, code: 'HEADQUARTERS', title: 'Sedes', state: 'headquarters.headquarters' }
-            ]
-        },
-        { order: 5, code: 'EVENTS', title: 'Eventos', state: 'events.events',
+        /*{ order: 4, code: 'EVENTS', title: 'Eventos', state: 'events.events',
             subsections: [
                 { order:1, code: 'EVENTS', title: 'Eventos', state: 'events.events' }
             ]
         },
-        { order: 6, code: 'FAQ', title: 'FAQ', state: 'faq.faq',
+        { order: 5, code: 'FAQ', title: 'FAQ', state: 'faq.faq',
             subsections: [
                 { order:1, code: 'FAQ', title: 'Eventos', state: 'faq.faq' }
             ]
-        }
+        }*/
     ],
     SECTIONS_CODES: {
         BUSINESS: 'BUSINESS',
