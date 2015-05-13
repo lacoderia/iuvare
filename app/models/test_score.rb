@@ -1,8 +1,9 @@
 class TestScore < ActiveRecord::Base
   belongs_to :test
   belongs_to :user
+  belongs_to :contact
 
-  def self.grade_test user_id, test, answers
+  def self.grade_test user_id, test, answers, contact_id = nil
 
     user = User.find(user_id)
 
@@ -12,6 +13,12 @@ class TestScore < ActiveRecord::Base
         return grade_percentage_test answers, user, test
       elsif test.test_type == "correct_incorrect"
         return grade_correct_incorrect_test answers, user, test
+      elsif test.test_type == "multiple"
+        if not contact_id
+          raise "Falta contact_id para este tipo de test"
+        end
+        contact = Contact.find(contact_id)        
+        return grade_multiple_test answers, user, test, contact
       end
             
     else
@@ -21,6 +28,24 @@ class TestScore < ActiveRecord::Base
   end
 
   private
+
+    def self.grade_multiple_test answers, user, test, contact
+
+      ts = nil
+      answers.each do |answer|
+        answer = Answer.find(answer["id"])
+        ts = TestScore.find_or_initialize_by(user_id: user.id, test_id: test.id, contact_id: contact.id)
+        if answer.text.to_i != 0
+          ts.score = answer.text
+        else
+          ts.description = answer.text
+        end
+        ts.save!
+      end
+
+      return [ts]
+
+    end
 
     def self.grade_percentage_test answers, user, test
 

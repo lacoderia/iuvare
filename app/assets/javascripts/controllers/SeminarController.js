@@ -7,6 +7,7 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
     var playlable = true;
 
     // Public variables
+    $scope.ASSET_PATH = DEFAULT_VALUES.ASSET_PATHS.SEMINAR;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
 

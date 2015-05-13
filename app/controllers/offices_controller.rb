@@ -1,12 +1,14 @@
-class OfficesController < InheritedResources::Base
+class OfficesController < ApplicationController 
+  
+  respond_to :html, :json
 	
-	def by_name
-		@offices = Office.by_name
-	end
+  def ordered_by_name
+    @offices = Office.ordered_by_name
+  end
 
   private
     def office_params
-      params.require(:office).permit(:title, :address, :latitude, :longitude, :description, :schedule)
+      params.require(:office).permit(:name, :address, :latitude, :longitude, :description, :schedule)
     end
 end
 

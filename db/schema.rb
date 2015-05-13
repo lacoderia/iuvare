@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511232941) do
+ActiveRecord::Schema.define(version: 20150512230706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150511232941) do
   end
 
   create_table "offices", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "address"
     t.string   "latitude"
     t.string   "longitude"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150511232941) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "contact_id"
   end
 
   create_table "tests", force: :cascade do |t|
@@ -154,17 +155,17 @@ ActiveRecord::Schema.define(version: 20150511232941) do
     t.string   "sponsor_iuvare_id"
     t.string   "placement_xango_id"
     t.string   "placement_iuvare_id"
-    t.boolean  "active"
+    t.boolean  "active",                 default: true
     t.datetime "payment_expiration"
     t.string   "xango_rank"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"

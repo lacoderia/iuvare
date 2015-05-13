@@ -1,0 +1,64 @@
+<div class="login-wrapper row" ng-controller="PlanController as planCtrl">
+    <div class="col-lg-12">
+        <div class="plan-container">
+            <h2 class="section-title">Bienvenido a Iuvare</h2>
+            <hr class="separator-gray">
+            <div>
+                <p ng-if="!isTokenSent()">Espere un momento por favor</p>
+
+                <div ng-if="(isTokenSent() && !isValidToken() && !hasVideoEnded() && !hasTestSent()) || !asset.source" class="message-container">
+                    <p class="message"><span class="icon-camera message-icon"></span></p>
+                    <p class="message">Hubo un problema al cargar el video, por favor, contacta a la persona que te envió el correo.</p>
+                </div>
+                <div ng-if="isTokenSent() && isValidToken() && asset.source && !hasVideoEnded()" class="plan-video">
+                    <video width="500" controls lc-video onended="onended">
+                        <!--source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4">
+                        <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.webm" type="video/webm">
+                        <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg"-->
+                        <source ng-src="{{ ASSET_PATH + asset.source + '.mp4' }}" type="video/mp4">
+                        <source ng-src="{{ ASSET_PATH + asset.source + '.webm' }}" type="video/webm">
+                    </video>
+                </div>
+
+
+                <!-- Forma para nuevo test -->
+                <div class="test-form" ng-if="isTokenSent() && isValidToken() && hasVideoEnded() && !hasTestSent()">
+                    <p>Casi terminamos, por favor contesta la siguiente encuesta para finalizar.</p>
+                    <form novalidate name="testForm" class="form" ng-submit="sendTest()">
+                        <fieldset>
+                            <p class="question">1. {{ test.questions[0].text }}</p>
+                            <label  ng-repeat="answer in test.questions[0].answers" class="range-answer-options">
+                                <div>{{ answer.text }}</div>
+                                <div><input type="radio" ng-model="testAnswers.interest" value="{{ answer }}" required></div>
+                            </label>
+                        </fieldset>
+                        <fieldset>
+                            <p class="question">2. {{ test.questions[1].text }}</p>
+                            <label ng-repeat="answer in test.questions[1].answers" class="contact-time">
+                                <div>{{ answer.text }}</div>
+                                <div><input type="radio" ng-model="testAnswers.contactTime" value="{{ answer }}" required></div>
+                            </label>
+                        </fieldset>
+                        <fieldset>
+                            <div ng-show="testForm.$submitted">
+                                {{ testFormMessage }}
+                            </div>
+                            <button class="action-button-forgot">Enviar</button>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div ng-if="hasTestSent()" class="score">
+                    <h3>Gracias por tu tiempo, tus respuestas han sido enviadas.</h3>
+                    <p>
+                        Tus respuestas: <br>
+                        <ul>
+                            <li ng-repeat="answer in answers.test_scores">{{ answer.description }}</li>
+                        </ul>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

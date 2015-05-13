@@ -54,7 +54,9 @@
 //= require controllers/GlobalMenuController
 //= require controllers/ListController
 //= require controllers/LoginController
+//= require controllers/PlanController
 //= require controllers/ProfileController
+//= require controllers/ProfileTestController
 //= require controllers/SeminarController
 //= require controllers/SubmenuController
 //= require controllers/TrainingController
@@ -66,7 +68,6 @@
 //= require services/NetworkService
 //= require services/NavigationService.js
 //= require services/CollageService
-//= require services/CycleService
 //= require services/GoalService
 //= require services/InvitationService
 //= require services/ListService
@@ -78,3 +79,4 @@
 
 // Directives
 //= require directives/DownlineListDirective
+//= require directives/VideoDirective

@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination', 'iso.directives']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -14,7 +14,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:2, code: 'LIST', title: 'Lista', state: 'business.list' }
             ]
         },
-        { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.cycle',
+        { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
             subsections: [
                 { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio' },
                 { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar' },
@@ -23,18 +23,32 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document' }
             ]
         },
-        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.profile',
+        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
             subsections: [
-                { order:1, code: 'PROFILE', title: 'Mi perfil', state: 'profile.profile' },
-                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
-                { order:3, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' }
+                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
+                { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' },
+                { order:3, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' },
+                { order:4, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' }
             ]
-        }
+        },
+        /*{ order: 4, code: 'EVENTS', title: 'Eventos', state: 'events.events',
+            subsections: [
+                { order:1, code: 'EVENTS', title: 'Eventos', state: 'events.events' }
+            ]
+        },
+        { order: 5, code: 'FAQ', title: 'FAQ', state: 'faq.faq',
+            subsections: [
+                { order:1, code: 'FAQ', title: 'Eventos', state: 'faq.faq' }
+            ]
+        }*/
     ],
     SECTIONS_CODES: {
         BUSINESS: 'BUSINESS',
         SYSTEM: 'SYSTEM',
-        PROFILE: 'PROFILE'
+        PROFILE: 'PROFILE',
+        HEADQUARTERS: 'HEADQUARTERS',
+        EVENTS: 'EVENTS',
+        FAQ: 'FAQ'
     },
     SUBSECTIONS_CODES:{
         CYCLE: 'CYCLE',
@@ -95,14 +109,24 @@ iuvare.constant('DEFAULT_VALUES',{
         MODULE_1: 'module_1',
         MODULE_2: 'module_2',
         MODULE_3: 'module_3',
-        BASICS: 'basics'
+        BASICS: 'basics',
+        PLAN: 'plan'
+
     },
     CONTACT_STATUS: {
-        TO_INVITE: { code:'to_invite', title: 'Por invitar', class: '' },
-        CONTACTED: { code:'contacted', title: 'Contactado', class: '' },
-        TO_CLOSE: { code:'to_close', title: 'Por cerrar', class: '' },
-        RULED_OUT: { code:'ruled_out', title: 'Descartado', class: '' },
-        REGISTERED: { code:'registered', title: 'Registrado', class: '' }
+        TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },
+        CONTACTED: { order:2, code:'contacted', title: 'Contactado', class: 'contacted' },
+        TO_INVITE: { order:3, code:'to_invite', title: 'Por invitar', class: 'to-invite' },
+        REGISTERED: { order:4, code:'registered', title: 'Registrado', class: 'registered' },
+        RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
+    },
+    ASSET_PATHS: {
+        AUDIO: '/assets/audios/',
+        DOCUMENT: '/assets/documents/',
+        PLAN: '/assets/plan/',
+        SEMINAR: '/assets/videos/',
+        CONVENTION: '/assets/videos/',
+        TRAINING: '/assets/videos/'
     }
 });
 
@@ -155,6 +179,11 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             templateUrl: '/assets/login.html',
             defaultState: 'login',
             authenticationRequired: false
+        }).state('plan',{
+            url: "/plan",
+            templateUrl: '/assets/plan.html',
+            defaultState: 'login',
+            authenticationRequired: false
         }).state('business',{
             url: "/negocio",
             templateUrl: '/assets/business_partial.html',
@@ -172,6 +201,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             section: 'BUSINESS',
             subsection: 'CYCLE',
             authenticationRequired: true
+        }).state('business.plan',{
+            url: "/plan",
+            templateUrl: '/assets/business_partial.plan.html',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'PLAN',
+            authenticationRequired: false
         }).state('business.network',{
             url: "/mi-red",
             templateUrl: '/assets/business_partial.network.html',
@@ -189,13 +225,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             resolve: {
                 authenticated: authenticated
             }
-        }).state('profile.profile',{
-            url: "/mi-perfil",
-            templateUrl: '/assets/profile_partial.profile.html',
-            defaultState: 'login',
-            section: 'PROFILE',
-            subsection: 'PROFILE',
-            authenticationRequired: true
         }).state('profile.why',{
             url: "/mis-metas",
             templateUrl: '/assets/profile_partial.why.html',
@@ -209,6 +238,20 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'COLLAGE',
+            authenticationRequired: true
+        }).state('profile.test',{
+            url: "/test",
+            templateUrl: '/assets/profile_partial.test.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'TEST',
+            authenticationRequired: true
+        }).state('profile.profile',{
+            url: "/mis-datos",
+            templateUrl: '/assets/profile_partial.profile.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'PROFILE',
             authenticationRequired: true
         }).state('business.list',{
             url: "/lista",
@@ -333,6 +376,7 @@ iuvare.directive('imagesLoaded', function($timeout) {
 iuvare.filter('formatDate', function(){
     return function(date){
         if(date){
+            date = new moment(date);
             return date.format('LL');
         }
     }

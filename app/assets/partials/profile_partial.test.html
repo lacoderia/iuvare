@@ -1,0 +1,45 @@
+<div ng-controller="ProfileTestController as profileTestCtrl" class="profile-test-container">
+    <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <!-- Sección de test de personalidad -->
+    <div class="message-container" ng-show="colorTestResult && !colorTestResult.id && !showTest">
+        <p class="message">Aún no relizas tu test de personalidad</p>
+        <div class="actions">
+            <a class="action-button-purple size-medium" title="Realizar test" ng-click="createTest()">Realizar test</a>
+        </div>
+    </div>
+
+    <!-- Sección de resultados test de personalidad -->
+    <div ng-show="colorTestResult && colorTestResult.id && !showTest">
+        Mis resultados:
+        <div ng-repeat="result in colorTestResult.test_scores | orderBy : '-score'">
+            {{ result.description }} : {{ result.score }} %
+        </div>
+        <div class="actions">
+            <a class="action-button-purple size-medium" title="Volver a tomar el test" ng-click="createTest()">Volver a tomar el test</a>
+        </div>
+
+    </div>
+
+    <!-- Forma para nuevo test -->
+    <div class="test-form" ng-show="showTest">
+        <form novalidate name="testForm" class="form" ng-submit="gradeTest()">
+            <legend>Test de personalidad</legend>
+            <fieldset ng-repeat="question in colorTest.questions">
+                <p>{{ ($index+1) + ". " + question.text }}</p>
+                <label ng-repeat="answer in question.answers" class="profile-tests">
+                    <div>{{ answer.text }}</div>
+                    <input type="radio" ng-model="question.selectedAnswer" value="{{ answer.id }}" required>
+                </label>
+            </fieldset>
+            <fieldset>
+                <div ng-show="testForm.$submitted">
+                    {{ testFormMessage }}
+                </div>
+                <button class="action-button-forgot">Enviar</button>
+                <input type="button" class="action-button-cancel" ng-click="hideTestForm()" value="Cancelar" />
+            </fieldset>
+        </form>
+    </div>
+
+</div>
