@@ -1,11 +1,17 @@
 feature 'EventsController' do
+  let(:starting_datetime) { Time.zone.parse('12 May 2015 13:00:00') }
 	
 	describe 'events' do
 
 		context 'current' do
-			let!(:eventPast){create(:event, date: Date.today-1.month)}
+		  
+		  before do
+        Timecop.freeze(starting_datetime)
+      end
+      
+			let!(:eventPast){create(:event, date: starting_datetime-1.month)}
 			let!(:eventCurr){create(:event)}
-			let!(:eventNext){create(:event, date: Date.today+1.month)}
+			let!(:eventNext){create(:event, date: starting_datetime+1.month)}
 
 			it 'should get past event' do
 			
