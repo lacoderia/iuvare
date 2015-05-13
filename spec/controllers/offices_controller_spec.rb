@@ -9,7 +9,7 @@ feature 'OfficesController' do
 
 			it 'has correct info' do
 
-				visit "offices/by_name.json"
+				visit "/offices/by_name.json"
 
         response = JSON.parse(page.body)
         expect(response).not_to be nil
