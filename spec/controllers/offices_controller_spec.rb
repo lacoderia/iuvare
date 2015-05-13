@@ -10,7 +10,7 @@ feature 'OfficesController' do
 
       it 'has sorted info' do
 
-				visit "#{by_name_offices_path}.json"
+				visit "#{ordered_by_name_offices_path}.json"
 
         response = JSON.parse(page.body)
         expect(response['success']).to be true
