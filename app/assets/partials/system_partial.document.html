@@ -3,7 +3,7 @@
 
     <div class="section-content audio-container">
         <form class="form">
-            <input type="text" placeholder="Busca un document: Ej. Introducción a Xango">
+            <input type="text" placeholder="Busca un document: Ej. Introducción a Xango" ng-model="assetQuery">
         </form>
 
         <div ng-show="!areAssetsAvailable()" class="message-container">

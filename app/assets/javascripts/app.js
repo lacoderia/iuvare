@@ -121,12 +121,12 @@ iuvare.constant('DEFAULT_VALUES',{
         RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
     },
     ASSET_PATHS: {
-        AUDIO: '/assets/audios/',
-        DOCUMENT: '/assets/documents/',
-        PLAN: '/assets/plan/',
-        SEMINAR: '/assets/videos/',
-        CONVENTION: '/assets/videos/',
-        TRAINING: '/assets/videos/'
+        AUDIO: '/assets/',
+        DOCUMENT: '/assets/',
+        PLAN: '/assets/',
+        SEMINAR: '/assets/',
+        CONVENTION: '/assets/',
+        TRAINING: '/assets/'
     }
 });
 
