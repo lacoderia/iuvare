@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination', 'iso.directives']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -31,15 +31,16 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:4, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' }
             ]
         },
-        { order: 4, code: 'HEADQUARTERS', title: 'Sedes', state: 'headquarters',
-            subsections: []
+        /*{ order: 4, code: 'EVENTS', title: 'Eventos', state: 'events.events',
+            subsections: [
+                { order:1, code: 'EVENTS', title: 'Eventos', state: 'events.events' }
+            ]
         },
-        { order: 5, code: 'EVENTS', title: 'Eventos', state: 'events',
-            subsections: []
-        },
-        { order: 6, code: 'FAQ', title: 'FAQ', state: 'faq',
-            subsections: []
-        }
+        { order: 5, code: 'FAQ', title: 'FAQ', state: 'faq.faq',
+            subsections: [
+                { order:1, code: 'FAQ', title: 'Eventos', state: 'faq.faq' }
+            ]
+        }*/
     ],
     SECTIONS_CODES: {
         BUSINESS: 'BUSINESS',
@@ -120,12 +121,12 @@ iuvare.constant('DEFAULT_VALUES',{
         RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
     },
     ASSET_PATHS: {
-        AUDIO: '/assets/audios/',
-        DOCUMENT: '/assets/documents/',
-        PLAN: '/assets/plan/',
-        SEMINAR: '/assets/videos/',
-        CONVENTION: '/assets/videos/',
-        TRAINING: '/assets/videos/'
+        AUDIO: '/assets/',
+        DOCUMENT: '/assets/',
+        PLAN: '/assets/',
+        SEMINAR: '/assets/',
+        CONVENTION: '/assets/',
+        TRAINING: '/assets/'
     }
 });
 
@@ -393,6 +394,7 @@ iuvare.directive('imagesLoaded', function($timeout) {
 iuvare.filter('formatDate', function(){
     return function(date){
         if(date){
+            date = new moment(date);
             return date.format('LL');
         }
     }

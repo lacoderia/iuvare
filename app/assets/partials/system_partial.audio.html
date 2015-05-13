@@ -20,7 +20,7 @@
                         <div class="asset-detail-toggle-icon" ng-click="toggleAssetInfo(asset)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
                     </div>
 
-                    <div class="asset-info" ng-show="asset.showInfo">
+                    <div class="asset-info" ng-if="asset.showInfo">
                         <div>{{ asset.description }}</div>
                         <div ng-if="asset.source">
                             <audio controls>
