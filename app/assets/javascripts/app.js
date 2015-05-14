@@ -4,14 +4,16 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives', 'uiGmapgoogle-maps']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
-        { order: 1, code: 'BUSINESS', title: 'Negocios', state: 'business.cycle',
+        { order: 1, code: 'BUSINESS', title: 'Negocio', state: 'business.cycle',
             subsections: [
                 { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'LIST', title: 'Lista', state: 'business.list' }
+                { order:2, code: 'LIST', title: 'Lista', state: 'business.list' },
+                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list' },
+                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
@@ -27,40 +29,11 @@ iuvare.constant('DEFAULT_VALUES',{
             subsections: [
                 { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
                 { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' },
-                { order:3, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' },
-                { order:4, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' }
+                { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' },
+                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' },
             ]
-        },
-        /*{ order: 4, code: 'EVENTS', title: 'Eventos', state: 'events.events',
-            subsections: [
-                { order:1, code: 'EVENTS', title: 'Eventos', state: 'events.events' }
-            ]
-        },
-        { order: 5, code: 'FAQ', title: 'FAQ', state: 'faq.faq',
-            subsections: [
-                { order:1, code: 'FAQ', title: 'Eventos', state: 'faq.faq' }
-            ]
-        }*/
+        }
     ],
-    SECTIONS_CODES: {
-        BUSINESS: 'BUSINESS',
-        SYSTEM: 'SYSTEM',
-        PROFILE: 'PROFILE',
-        HEADQUARTERS: 'HEADQUARTERS',
-        EVENTS: 'EVENTS',
-        FAQ: 'FAQ'
-    },
-    SUBSECTIONS_CODES:{
-        CYCLE: 'CYCLE',
-        PROFILE: 'PROFILE',
-        WHY: 'WHY',
-        LIST: 'LIST',
-        AUDIO: 'AUDIO',
-        SEMINAR: 'SEMINAR',
-        CONVENTION: 'CONVENTION',
-        TRAINING: 'TRAINING',
-        DOCUMENT: 'DOCUMENT',
-    },
     CYCLE_STATUS:{
         0: 'Completado',
         1: 'Ciclando'
@@ -201,19 +174,26 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             section: 'BUSINESS',
             subsection: 'CYCLE',
             authenticationRequired: true
-        }).state('business.plan',{
-            url: "/plan",
-            templateUrl: '/assets/business_partial.plan.html',
+        }).state('business.list',{
+            url: "/lista",
+            templateUrl: '/assets/business_partial.list.html',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'LIST',
+            authenticationRequired: true
+        }).state('business.headquarters',{
+            url: "/sedes",
+            templateUrl: '/assets/business_partial.headquarters.html',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'HEADQUARTERS',
+            authenticationRequired: true
+        }).state('business.plan_list',{
+            url: "/lista-plan",
+            templateUrl: '/assets/business_partial.plan_list.html',
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'PLAN',
-            authenticationRequired: false
-        }).state('business.network',{
-            url: "/mi-red",
-            templateUrl: '/assets/business_partial.network.html',
-            defaultState: 'login',
-            section: 'BUSINESS',
-            subsection: 'NETWORK',
             authenticationRequired: true
         }).state('profile',{
             url: "/perfil",
@@ -253,18 +233,9 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             section: 'PROFILE',
             subsection: 'PROFILE',
             authenticationRequired: true
-        }).state('business.list',{
-            url: "/lista",
-            templateUrl: '/assets/business_partial.list.html',
-            redirectState: 'business.list',
-            defaultState: 'login',
-            section: 'BUSINESS',
-            subsection: 'LIST',
-            authenticationRequired: true
         }).state('system',{
             url: "/sistema",
             templateUrl: '/assets/system_partial.html',
-            redirectState: 'system.audio',
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: undefined,
@@ -272,7 +243,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('system.audio',{
             url: "/audios",
             templateUrl: '/assets/system_partial.audio.html',
-            redirectState: 'system.cycle',
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: 'AUDIO',
@@ -280,7 +250,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('system.seminar',{
             url: "/seminarios",
             templateUrl: '/assets/system_partial.seminar.html',
-            redirectState: 'system.seminar',
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: 'SEMINAR',
@@ -288,7 +257,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('system.convention',{
             url: "/convenciones",
             templateUrl: '/assets/system_partial.convention.html',
-            redirectState: 'system.convention',
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: 'CONVENTION',
@@ -296,7 +264,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('system.training',{
             url: "/capacitaciones",
             templateUrl: '/assets/system_partial.training.html',
-            redirectState: 'system.training',
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: 'TRAINING',
@@ -304,7 +271,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('system.document',{
             url: "/documentos",
             templateUrl: '/assets/system_partial.document.html',
-            redirectState: 'system.document',
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: 'DOCUMENT',

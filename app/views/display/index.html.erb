@@ -5,7 +5,7 @@
         <h1>
           <a href="/" title="Inicio"><img src="/assets/iuvare_logo_white.png" alt="Logo IUVARE"></a>
         </h1>
-        <ng-include src="'/assets/common/_inner_top_nav_template.html'" ng-if="!isPublicView() && isUserAuthenticated()"></ng-include>
+        <ng-include src="'/assets/common/_inner_top_nav_template.html'" ng-if="isPublicView()"></ng-include>
       </div>
     </div>
   </div>

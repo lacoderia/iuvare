@@ -17,7 +17,6 @@ iuvare.factory('AssetService', ['$http', '$q', "$state", 'SessionService', 'DEFA
                         });
                     }
                 }
-                return 'TEXTO DE SUCCESS';
             });
     };
 
