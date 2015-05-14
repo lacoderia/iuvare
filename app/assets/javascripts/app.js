@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives', 'uiGmapgoogle-maps']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives', 'uiGmapgoogle-maps', 'chart.js']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
