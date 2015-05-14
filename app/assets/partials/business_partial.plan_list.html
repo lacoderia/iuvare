@@ -1,22 +1,18 @@
 <div class="row" ng-controller="PlanListController as planListCtrl">
-    <div class="col-lg-12 section-container">
+    <div class="col-lg-12 section-container plan-list-container">
         <div>
             <h2 class="section-title">Plan</h2>
-
-            <video controls>
-                <source src="/assets/plan_Jorge%20Arzamendi_Plan%20Jorge%20Arzamendi.webm" type="video/webm">
-                <source src="/assets/plan_Jorge%20Arzamendi_Plan%20Jorge%20Arzamendi.mp4" type="video/mp4">
-            </video>
-
             <div class="list-item-container" ng-repeat="plan in planList">
                 <div>
-                    <div>{{ plan.title }}</div>
+                    <div class="item-name">{{ plan.title }}</div>
                     <div class="item-detail-toggle-icon" ng-click="togglePlanInfo(plan)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[plan.showInfo]"></span></div>
                 </div>
                 <div ng-if="plan.showInfo">
-                    <div>Autor: {{ plan.author }}</div>
-                    <div>Descripción: {{ plan.description }}</div>
-                    <div ng-if="plan.source">
+                    <div class="item-info">
+                        <div>Autor: {{ plan.author }}</div>
+                        <div>Descripción: {{ plan.description }}</div>
+                    </div>
+                    <div ng-if="plan.source" class="item-video">
                         <video controls>
                             <source src="/assets/plan_Jorge%20Arzamendi_Plan%20Jorge%20Arzamendi.webm" type="video/webm">
                             <source src="/assets/plan_Jorge%20Arzamendi_Plan%20Jorge%20Arzamendi.mp4" type="video/mp4">
