@@ -10,6 +10,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
     var tokenSent = false;
     var validToken = false;
     var videoEnded = false;
+    var testSent = false;
     var rangeLimit = 10;
 
     //Public variables
@@ -18,9 +19,10 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
     $scope.asset = undefined;
     $scope.test = undefined;
     $scope.testAnswers = {
-        interest: 0,
+        interest: undefined,
         contactTime: undefined
     };
+    $scope.answers = undefined;
 
     var triggerTest = function () {
 
@@ -79,6 +81,10 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
         return videoEnded;
     };
 
+    $scope.hasTestSent = function () {
+        return testSent;
+    };
+
     $scope.onended = function () {
         $timeout(function () {
             videoEnded = true;
@@ -91,7 +97,18 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
     };
 
     $scope.sendTest = function () {
-        console.log($scope.testAnswers)
+        var contactId = $scope.plan.contact.id;
+        var userId = $scope.plan.user_id;
+        ListService.gradeTest($scope.testAnswers, contactId, userId)
+            .success(function (data) {
+                testSent = true;
+                $scope.answers = data.result;
+                console.log($scope.answers);
+            })
+            .error(function (error,status) {
+                console.log('Ocurrió un error al guardar los resultado del test')
+                console.log(error);
+            });
     };
 
     $scope.initController();

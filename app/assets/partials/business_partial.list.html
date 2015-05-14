@@ -51,7 +51,7 @@
                                             <button class="action-button-send icon-arrow-circle-right" title="Enviar Video" ng-click="sendVideo(contact)" ng-disabled="!selectedPlan"></button>
                                         </div>
                                     </span>
-                                    <span class="action-button-edit icon-swap-vert-circle" title="Editar Contacto" ng-click="editContact(contact)"></span>
+                                    <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
                                     <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index)"></span>
                                 </div>
                             </div>
@@ -64,13 +64,23 @@
         </div>
 
         <div class="contact-form" ng-show="isAddingContact() && !isEditingContact()">
-            <form class="form" ng-submit="saveContact()">
+            <form novalidate name="newContactForm" class="form" ng-submit="saveContact()">
                 <fieldset>
                     <legend>Agregar contacto</legend>
                     <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="selectedContact.name" required>
+                    <div ng-show="newContactForm.$submitted || newContactForm.contactName.$touched">
+                        <span ng-show="newContactForm.contactName.$error.required">El nombre de contacto es requerido.</span>
+                    </div>
                     <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email" required>
+                    <div ng-show="newContactForm.$submitted || newContactForm.contactMail.$touched">
+                        <span ng-show="newContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
+                        <span ng-show="newContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
+                    </div>
                     <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="selectedContact.phone" required>
-                    <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Descripción"></textarea>
+                    <div ng-show="newContactForm.$submitted || newContactForm.contactPhone.$touched">
+                        <span ng-show="newContactForm.contactPhone.$error.required">El teléfono de contacto es requerido.</span>
+                    </div>
+                    <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Notas"></textarea>
                 </fieldset>
                 <fieldset>
                     <button class="action-button-forgot">Guardar contacto</button>
@@ -80,13 +90,23 @@
         </div>
 
         <div class="contact-form" ng-show="!isAddingContact() && isEditingContact()">
-            <form class="form" ng-submit="updateContact()">
+            <form novalidate name="editContactForm" class="form" ng-submit="updateContact()">
                 <fieldset>
                     <legend>Editar contacto</legend>
                     <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="selectedContact.name" required>
+                    <div ng-show="editContactForm.$submitted || editContactForm.contactName.$touched">
+                        <span ng-show="editContactForm.contactName.$error.required">El nombre de contacto es requerido.</span>
+                    </div>
                     <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email" required>
+                    <div ng-show="editContactForm.$submitted || editContactForm.contactMail.$touched">
+                        <span ng-show="editContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
+                        <span ng-show="editContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
+                    </div>
                     <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="selectedContact.phone" required>
-                    <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Descripción"></textarea>
+                    <div ng-show="editContactForm.$submitted || editContactForm.contactPhone.$touched">
+                        <span ng-show="editContactForm.contactPhone.$error.required">El teléfono de contacto es requerido.</span>
+                    </div>
+                    <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Notas"></textarea>
                 </fieldset>
                 <fieldset>
                     <button class="action-button-forgot">Guardar cambios</button>

@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'angularUtils.directives.dirPagination', 'iso.directives']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -23,18 +23,32 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document' }
             ]
         },
-        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.profile',
+        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
             subsections: [
-                { order:1, code: 'PROFILE', title: 'Mi perfil', state: 'profile.profile' },
-                { order:2, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
-                { order:3, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' }
+                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
+                { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' },
+                { order:3, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' },
+                { order:4, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' }
             ]
-        }
+        },
+        /*{ order: 4, code: 'EVENTS', title: 'Eventos', state: 'events.events',
+            subsections: [
+                { order:1, code: 'EVENTS', title: 'Eventos', state: 'events.events' }
+            ]
+        },
+        { order: 5, code: 'FAQ', title: 'FAQ', state: 'faq.faq',
+            subsections: [
+                { order:1, code: 'FAQ', title: 'Eventos', state: 'faq.faq' }
+            ]
+        }*/
     ],
     SECTIONS_CODES: {
         BUSINESS: 'BUSINESS',
         SYSTEM: 'SYSTEM',
-        PROFILE: 'PROFILE'
+        PROFILE: 'PROFILE',
+        HEADQUARTERS: 'HEADQUARTERS',
+        EVENTS: 'EVENTS',
+        FAQ: 'FAQ'
     },
     SUBSECTIONS_CODES:{
         CYCLE: 'CYCLE',
@@ -107,12 +121,12 @@ iuvare.constant('DEFAULT_VALUES',{
         RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
     },
     ASSET_PATHS: {
-        AUDIO: '/assets/audios/',
-        DOCUMENT: '/assets/documents/',
-        PLAN: '/assets/plan/',
-        SEMINAR: '/assets/videos/',
-        CONVENTION: '/assets/videos/',
-        TRAINING: '/assets/videos/'
+        AUDIO: '/assets/',
+        DOCUMENT: '/assets/',
+        PLAN: '/assets/',
+        SEMINAR: '/assets/',
+        CONVENTION: '/assets/',
+        TRAINING: '/assets/'
     }
 });
 
@@ -211,13 +225,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             resolve: {
                 authenticated: authenticated
             }
-        }).state('profile.profile',{
-            url: "/mi-perfil",
-            templateUrl: '/assets/profile_partial.profile.html',
-            defaultState: 'login',
-            section: 'PROFILE',
-            subsection: 'PROFILE',
-            authenticationRequired: true
         }).state('profile.why',{
             url: "/mis-metas",
             templateUrl: '/assets/profile_partial.why.html',
@@ -231,6 +238,20 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'PROFILE',
             subsection: 'COLLAGE',
+            authenticationRequired: true
+        }).state('profile.test',{
+            url: "/test",
+            templateUrl: '/assets/profile_partial.test.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'TEST',
+            authenticationRequired: true
+        }).state('profile.profile',{
+            url: "/mis-datos",
+            templateUrl: '/assets/profile_partial.profile.html',
+            defaultState: 'login',
+            section: 'PROFILE',
+            subsection: 'PROFILE',
             authenticationRequired: true
         }).state('business.list',{
             url: "/lista",
@@ -355,6 +376,7 @@ iuvare.directive('imagesLoaded', function($timeout) {
 iuvare.filter('formatDate', function(){
     return function(date){
         if(date){
+            date = new moment(date);
             return date.format('LL');
         }
     }

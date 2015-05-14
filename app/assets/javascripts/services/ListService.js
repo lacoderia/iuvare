@@ -98,7 +98,7 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
                     description: data.result.description,
                     status: data.result.status,
                     showInfo: false,
-                    order: DEFAULT_VALUES.CONTACT_STATUS[(contact.status).toUpperCase()].order
+                    order: DEFAULT_VALUES.CONTACT_STATUS[(data.result.status).toUpperCase()].order
                 };
 
                 replaceContact(contact);
@@ -222,6 +222,26 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
             });
     };
 
+    var gradeTest = function(answers, contactId, userId){
+
+        answers.interest = JSON.parse(answers.interest);
+        answers.contactTime = JSON.parse(answers.contactTime);
+        userId = 1;
+        var contactServiceURL = '/test_scores/grade_test.json';
+
+        return $http.post(contactServiceURL, {
+            user_id: userId,
+            contact_id: contactId,
+            test_code: DEFAULT_VALUES.TEST_CODES.PLAN,
+            answers: [answers.interest, answers.contactTime]
+        })
+            .success(function (data) {
+                if(data.success){
+                }
+            });
+    };
+
+
     var service = {
         contacts: [],
         transitions: [],
@@ -233,7 +253,8 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
         getStatusTransitions: getStatusTransitions,
         sendVideo: sendVideo,
         watchVideo: watchVideo,
-        videoEnded: videoEnded
+        videoEnded: videoEnded,
+        gradeTest: gradeTest
     };
 
     return service;
