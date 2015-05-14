@@ -34,7 +34,6 @@ iuvare.controller('PlanListController', ["$scope", "$log", "$rootScope", "AssetS
             .success(function(data){
                 if(data.success){
                     $scope.planList = AssetService.assets;
-                    console.log($scope.planList);
                 }
             })
             .error(function(response){
