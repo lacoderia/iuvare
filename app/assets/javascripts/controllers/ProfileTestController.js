@@ -5,12 +5,23 @@
 
 'use strict';
 
-iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "AuthService", "TestService", "SessionService", "UserService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, TestService, SessionService, UserService, DEFAULT_VALUES){
+iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", "AuthService", "TestService", "SessionService", "UserService", "DEFAULT_VALUES", function($scope, $rootScope, $timeout, AuthService, TestService, SessionService, UserService, DEFAULT_VALUES){
 
     $scope.TEST_CODES = DEFAULT_VALUES.TEST_CODES;
+    var chartColours = {
+        blue: '#3169F5',
+        yellow: '#F5EF2A',
+        green: '#48A731',
+        red: '#B2002F'
+    };
 
     // Array that holds the user's goals list
     $scope.colorTestResult = undefined;
+    $scope.dataChart = {
+        labels: [],
+        data: [],
+        colours: []
+    };
 
     // Object that holds the test questions and answers
     $scope.colorTest = undefined;
@@ -18,16 +29,23 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "AuthService
     // Variables privadas
     $scope.showTest = false;
     $scope.testFormMessage = undefined;
+    var chartLoaded = false;
 
     // Method that shows the new goal form
     $scope.showTestForm = function(){
         $scope.showTest = true;
+        chartLoaded = true;
     };
 
     // Method that hides the new goal form
     $scope.hideTestForm = function(){
         $scope.resetTestForm();
         $scope.showTest = false;
+        chartLoaded = false;
+    };
+
+    $scope.isChartLoaded = function(){
+        return chartLoaded;
     };
 
     $scope.createTest = function(){
@@ -56,6 +74,21 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "AuthService
         $scope.testForm.$setUntouched();
     };
 
+    $scope.setChart = function(testScores){
+        $scope.dataChart.labels = [];
+        $scope.dataChart.data = [];
+
+        angular.forEach(testScores, function (score) {
+            $scope.dataChart.labels.push(score.description);
+            $scope.dataChart.data.push(score.score);
+            $scope.dataChart.colours.push(chartColours[score.description]);
+        });
+
+        $timeout(function(){
+            chartLoaded = true;
+        },0);
+    };
+
     // Method that saves a new goal
     $scope.gradeTest = function(){
 
@@ -75,6 +108,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "AuthService
                     if(data.success){
                         $scope.colorTestResult = data.result;
                         $scope.hideTestForm();
+                        $scope.setChart($scope.colorTestResult.test_scores);
                     } else {
                         $scope.testFormMessage = data.error;
                     }
@@ -99,6 +133,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "AuthService
             .success(function(data){
                 if(data.success){
                     $scope.colorTestResult = data.result;
+                    $scope.setChart($scope.colorTestResult.test_scores);
+
                 } else {
                     $scope.colorTestResult = {};
                     console.log(data.error);

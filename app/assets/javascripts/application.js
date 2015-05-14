@@ -41,6 +41,8 @@
 //= require bower_components/imagesloaded/imagesloaded
 //= require bower_components/isotope/dist/isotope.pkgd.js
 //= require bower_components/angular-isotope/dist/angular-isotope.js
+//= require bower_components/Chart.js/Chart.min
+//= require bower_components/angular-chart.js/dist/angular-chart.min.js
 
 
 // Application scripts
