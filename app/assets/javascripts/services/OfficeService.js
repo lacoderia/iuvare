@@ -14,10 +14,8 @@ iuvare.factory('OfficeService', ['$http', '$q', "$state", 'SessionService', 'DEF
 
         return $http.get(officesServiceURL, {})
             .success(function(data){
-                console.log(data);
-
                 if(data.success){
-                    service.offices = data.result.goals;
+                    service.offices = data.result;
                 }
             });
     };

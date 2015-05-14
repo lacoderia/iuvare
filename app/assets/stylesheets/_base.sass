@@ -1,28 +1,29 @@
 // Import styles
-@import  "common/variables"
-@import  "common/mixins"
+@import "common/variables"
+@import "common/mixins"
 
 //Import typography
-@import  "common/icomoon.css"
-@import  "common/typography"
-@import  "common/ng-quick-date.css"
-@import  "common/ng-quick-date-default-theme.css"
+@import "common/icomoon.css"
+@import "common/typography"
+@import "common/ng-quick-date.css"
+@import "common/ng-quick-date-default-theme.css"
 
 // Import layout sytles
-@import  "layout/footer"
-@import  "layout/top_nav"
-@import  "layout/inner_aside_nav"
+@import "layout/footer"
+@import "layout/top_nav"
+@import "layout/inner_aside_nav"
 
 // Import modules styles
-@import  "modules/login"
-@import  "modules/cycle"
-@import  "modules/network"
-@import  "modules/plan"
-@import  "modules/why"
-@import  "modules/assets"
-@import  "modules/collage"
-@import  "modules/list"
+@import "modules/login"
+@import "modules/cycle"
+@import "modules/network"
+@import "modules/plan"
+@import "modules/why"
+@import "modules/assets"
+@import "modules/collage"
+@import "modules/list"
 @import "modules/profile"
+@import "modules/headquarters"
 
 // Common styles
 @import "common/isotope.css"
@@ -146,6 +147,23 @@ h2.section-title
 .form-container
   +rem(padding, 4rem 16rem)
 
+.list-item-container
+  background-color: $color_gray_1
+  border: 1px solid $color_gray_4
+  +border-radius(5px)
+  position: relative
+  +rem(margin, 1rem 0)
+  +rem(padding, 2rem)
+
+  .item-detail-toggle-icon
+    cursor: pointer
+    +rem(font-size, 2rem)
+    position: absolute
+    +rem(right, 2rem)
+    top: 25px
+
+  &:hover
+    background-color: $color_gray_3
 
 .message-container
   display: block
