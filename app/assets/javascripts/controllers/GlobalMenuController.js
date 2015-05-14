@@ -17,6 +17,10 @@ iuvare.controller('GlobalMenuController', ["$scope", "$rootScope", "$state", "Au
         AuthService.logout();
     };
 
+    $scope.logout = function(){
+        AuthService.logout();
+    };
+
     // Method to init the controller's default state
     $scope.initController = function(){
     };
