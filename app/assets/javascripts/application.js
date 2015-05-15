@@ -28,6 +28,12 @@
 //= require bower_components/lodash/dist/lodash.min
 //= require bower_components/angular-google-maps/dist/angular-google-maps.min
 
+//= require bower_components/angular-sanitize/angular-sanitize
+//= require bower_components/videogular/videogular
+//= require bower_components/videogular-controls/vg-controls
+//= require bower_components/videogular-overlay-play/vg-overlay-play
+//= require bower_components/videogular-buffering/vg-buffering
+
 //= require bower_components/jquery-bridget/jquery.bridget
 //= require bower_components/get-style-property/get-style-property
 //= require bower_components/get-size/get-size
