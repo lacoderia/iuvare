@@ -92,4 +92,3 @@
 
 // Directives
 //= require directives/DownlineListDirective
-//= require directives/VideoDirective
