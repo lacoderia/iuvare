@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Collage:</strong>
+  <%= @collage_image.collage_id %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @collage_image.picture %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @collage_image.order %>
+</p>
+
+<%= link_to 'Edit', edit_collage_image_path(@collage_image) %> |
+<%= link_to 'Back', collage_images_path %>

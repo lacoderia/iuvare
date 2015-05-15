@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :collage_images
+
+  resources :collages
+
   resources :offices do
     collection do
       get 'ordered_by_name'
