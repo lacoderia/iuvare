@@ -1,6 +1,14 @@
 .profile-container
 
+  .profile-form
+    +rem(padding, 4rem 16rem)
+
+    .actions
+      text-align: center
+      +rem(margin, 1rem 0 3rem)
+
   .test-form
+
     p
       +rem(font-size, 1.8rem)
       font-weight: 500
@@ -23,6 +31,7 @@
       .picture
         background: url('/assets/person.png') no-repeat white
         background-size: cover
+        +border-radius(50%)
         height: 220px
         overflow: hidden
         position: relative
