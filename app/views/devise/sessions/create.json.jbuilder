@@ -10,8 +10,8 @@ if @success
 					json.name = key.name
 					json.set! :scores do
 						json.array! (tests[key]) do |test_score|
-							json.score test_score.score
-							json.description Test::SPANISH_LABELS[test_score.description]
+							json.extract! test_score, :score, :description
+        			json.description_spanish Test::SPANISH_LABELS[test_score.description]
 						end
 					end
 				end
