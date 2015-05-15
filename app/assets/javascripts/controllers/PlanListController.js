@@ -3,10 +3,10 @@
 iuvare.controller('PlanListController', ["$scope", "$log", "$rootScope", "AssetService", "DEFAULT_VALUES", function($scope, $log, $rootScope, AssetService, DEFAULT_VALUES){
 
     // Private variables
-    var ASSET_TYPE = 'plan';
+    var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
 
     // Public variables
-    $scope.ASSET_PATH = DEFAULT_VALUES.ASSET_PATHS.PLAN;
+    $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
     $scope.planList = undefined;
 
     // Method that toggles plan's detail
