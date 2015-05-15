@@ -8,6 +8,7 @@ if @success
 				tests = @user.test_scores.group_by(&:test)
 				json.array! (tests.keys) do |key|
 					json.name key.name
+					json.code key.code
 					json.set! :scores do
 						json.array! (tests[key]) do |test_score|
 							json.extract! test_score, :score, :description
