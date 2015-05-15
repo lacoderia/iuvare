@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :test_scores
   has_and_belongs_to_many :roles
 
-  scope :all_downlines, -> (id) {where("upline_id = ?", id)}
+  scope :all_downlines, -> (id) {where("upline_id = ?", id).includes(:test_scores => :test)}
   scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
   scope :downline_at_position, -> (id, position) {where(upline_id: id, downline_position: position)}
   scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}
