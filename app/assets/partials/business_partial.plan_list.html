@@ -7,7 +7,7 @@
                     <div class="item-name">{{ plan.title }}</div>
                     <div class="item-detail-toggle-icon" ng-click="togglePlanInfo(plan)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[plan.showInfo]"></span></div>
                 </div>
-                <div >
+                <div ng-show="plan.showInfo">
                     <div class="item-info">
                         <div>Autor: {{ plan.author }}</div>
                         <div>Descripción: {{ plan.description }}</div>
