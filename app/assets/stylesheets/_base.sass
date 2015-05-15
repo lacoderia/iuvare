@@ -27,6 +27,7 @@
 
 // Common styles
 @import "common/isotope.css"
+@import "common/angular-chart"
 
 a
   cursor: pointer
@@ -213,6 +214,43 @@ h2.section-title
     text-decoration: none
 
 
+.score
+
+  .actions
+    +rem(margin, 6rem 0)
+    text-align: center
+
+  .title
+    +rem(font-size, 2rem)
+    +rem(margin-bottom, 3rem)
+    text-align: center
+
+  .legend
+    +rem(margin, 0 auto 1.2rem)
+    max-width: 300px
+
+    table
+      background-color: $color-gray_1
+      +border-radius(10px)
+      border: 1px solid $color-gray_5
+      +rem(font-size, 1.4rem)
+      margin: 0
+      padding: 0
+      overflow: hidden
+      text-align: center
+      width: 100%
+
+    td
+      +rem(font-size, 1.6rem)
+      +rem(padding, 0.5rem 0)
+
+      strong
+        font-weight: bolder
+
+  .chart
+    margin: 0px auto
+    max-width: 300px
+    +rem(margin-bottom, 1.5rem)
 
 .section-container
   background-color: white
@@ -238,6 +276,11 @@ h2.section-title
     border-bottom: 1px solid $color-gray_3
     +rem(margin-bottom, 1rem)
     +rem(padding, 2rem 0)
+
+    label
+      +rem('margin-right', 3rem)
+      text-align: center
+      min-width: 150px
     
     p
       +rem(margin, 0)
