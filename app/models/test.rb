@@ -14,6 +14,10 @@ class Test < ActiveRecord::Base
     'brain' =>['right', 'left']
   }
 
+  SPANISH_LABELS = {
+    'yellow' => 'Amarillo', 'red' => 'Rojo', 'green' => 'Verde', 'blue' => 'Azul' 
+  }
+
   validates :test_type, inclusion: {in: TYPES.map{ |pairs| pairs[0] } }
 
   def self.by_code code
