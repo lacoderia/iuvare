@@ -4,7 +4,7 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives', 'uiGmapgoogle-maps', 'chart.js']);
+var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives', 'uiGmapgoogle-maps', 'chart.js', "ngSanitize", 'com.2fdevs.videogular', 'com.2fdevs.videogular.plugins.controls', 'com.2fdevs.videogular.plugins.overlayplay', 'com.2fdevs.videogular.plugins.buffering']);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -30,7 +30,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
                 { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' },
                 { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' },
-                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' },
+                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' }
             ]
         }
     ],
@@ -92,13 +92,16 @@ iuvare.constant('DEFAULT_VALUES',{
         REGISTERED: { order:4, code:'registered', title: 'Registrado', class: 'registered' },
         RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
     },
-    ASSET_PATHS: {
-        AUDIO: '/assets/',
-        DOCUMENT: '/assets/',
-        PLAN: '/assets/',
-        SEMINAR: '/assets/',
-        CONVENTION: '/assets/',
-        TRAINING: '/assets/'
+    ASSETS:{
+        PATH: '/assets/',
+        TYPES: {
+            AUDIO: 'audio',
+            DOCUMENT: 'document',
+            PLAN: 'plan',
+            SEMINAR: 'seminar',
+            CONVENTION: 'convention',
+            TRAINING: 'training'
+        }
     }
 });
 

@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  resources :collage_images do
+    collection do
+      post 'create_by_user_id'
+    end
+  end
+
+  resources :collages do
+    collection do
+      get 'by_user'
+    end
+  end
+
   resources :offices do
     collection do
       get 'ordered_by_name'
