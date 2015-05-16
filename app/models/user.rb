@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :collages
   
-  has_attached_file :picture, :styles => { :original => "300x300>" }, :default_url => ""
+  has_attached_file :picture, :styles => { :original => "300x300#" }, :default_url => ""
   validates_attachment_content_type :picture, :content_type => /\Aimage\/.*\Z/
 
   scope :all_downlines, -> (id) {where("upline_id = ?", id)}
