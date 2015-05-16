@@ -11,12 +11,26 @@
 
     <!-- Sección de resultados test de personalidad -->
     <div ng-show="colorTestResult && colorTestResult.id && !showTest">
-        Mis resultados:
-        <div ng-repeat="result in colorTestResult.test_scores | orderBy : '-score'">
-            {{ result.description }} : {{ result.score }} %
-        </div>
-        <div class="actions">
-            <a class="action-button-purple size-medium" title="Volver a tomar el test" ng-click="createTest()">Volver a tomar el test</a>
+        <div class="score">
+            <h3 class="title">Mis resultados:</h3>
+            <div class="chart">
+                <canvas id="pie" class="chart chart-doughnut" data="dataChart.data" labels="dataChart.labels" colours="dataChart.colours" ng-if="isChartLoaded()"></canvas>
+            </div>
+            <div class="legend">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td ng-repeat="result in colorTestResult.test_scores | orderBy : '-score'">
+                                <div>{{ result.description_spanish.toUpperCase() }}</div>
+                                <div><strong>{{ result.score }} %</strong></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="actions">
+                <a class="action-button-purple size-medium" title="Volver a tomar el test" ng-click="createTest()">Volver a tomar el test</a>
+            </div>
         </div>
 
     </div>

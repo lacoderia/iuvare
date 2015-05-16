@@ -1,8 +1,21 @@
 Rails.application.routes.draw do
 
+
   resources :events do
     collection do
       get 'current'
+    end
+  end
+
+  resources :collage_images do
+    collection do
+      post 'create_by_user_id'
+    end
+  end
+
+  resources :collages do
+    collection do
+      get 'by_user'
     end
   end
 
@@ -103,10 +116,9 @@ Rails.application.routes.draw do
   get "plan", :to => "display#index"
   get "negocio", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
-  get "perfil", :to => "display#index"
-  get "perfil/mi-perfil", :to => "display#index"
-  get "perfil/mis-metas", :to => "display#index"
   get "negocio/lista", :to => "display#index"
+  get "negocio/sedes", :to => "display#index"
+  get "negocio/lista-plan", :to => "display#index"
   get "sistema", :to => "display#index"
   get "sistema/audios", :to => "display#index"
   get "sistema/seminarios", :to => "display#index"

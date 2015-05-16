@@ -67,7 +67,7 @@ class TestScore < ActiveRecord::Base
       test_scores = []
       percentage_types_with_count.each do |key, value|
         ts = TestScore.find_or_initialize_by(user_id: user.id, test_id: test.id, description: key)
-        ts.score = value/total*100
+        ts.score = (value/total*100).round(2)
         ts.save!
         test_scores << ts
       end

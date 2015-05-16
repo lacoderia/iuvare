@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Collage Images</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Collage</th>
+      <th>Picture</th>
+      <th>Order</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collage_images.each do |collage_image| %>
+      <tr>
+        <td><%= collage_image.collage_id %></td>
+        <td><%= collage_image.picture %></td>
+        <td><%= collage_image.order %></td>
+        <td><%= link_to 'Show', collage_image %></td>
+        <td><%= link_to 'Edit', edit_collage_image_path(collage_image) %></td>
+        <td><%= link_to 'Destroy', collage_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collage image', new_collage_image_path %>

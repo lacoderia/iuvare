@@ -25,6 +25,14 @@
 //= require bower_components/moment/moment
 //= require bower_components/moment/locale/es
 //= require bower_components/ngQuickDate/dist/ng-quick-date
+//= require bower_components/lodash/dist/lodash.min
+//= require bower_components/angular-google-maps/dist/angular-google-maps.min
+
+//= require bower_components/angular-sanitize/angular-sanitize
+//= require bower_components/videogular/videogular
+//= require bower_components/videogular-controls/vg-controls
+//= require bower_components/videogular-overlay-play/vg-overlay-play
+//= require bower_components/videogular-buffering/vg-buffering
 
 //= require bower_components/jquery-bridget/jquery.bridget
 //= require bower_components/get-style-property/get-style-property
@@ -39,6 +47,8 @@
 //= require bower_components/imagesloaded/imagesloaded
 //= require bower_components/isotope/dist/isotope.pkgd.js
 //= require bower_components/angular-isotope/dist/angular-isotope.js
+//= require bower_components/Chart.js/Chart.min
+//= require bower_components/angular-chart.js/dist/angular-chart.min.js
 
 
 // Application scripts
@@ -51,10 +61,13 @@
 //= require controllers/CollageController
 //= require controllers/CycleController
 //= require controllers/DocumentController
+//= require controllers/EventsController
 //= require controllers/GlobalMenuController
+//= require controllers/HeadquartersController
 //= require controllers/ListController
 //= require controllers/LoginController
 //= require controllers/PlanController
+//= require controllers/PlanListController
 //= require controllers/ProfileController
 //= require controllers/ProfileTestController
 //= require controllers/SeminarController
@@ -65,18 +78,17 @@
 // Services
 //= require services/AssetService
 //= require services/AuthService
-//= require services/NetworkService
-//= require services/NavigationService.js
 //= require services/CollageService
 //= require services/GoalService
 //= require services/InvitationService
 //= require services/ListService
 //= require services/NetworkService
+//= require services/NavigationService
+//= require services/OfficeService
+//= require services/TestService
 //= require services/UserService
 //= require services/XangoUserService
 //= require services/SessionService
-//= require services/TestService
 
 // Directives
 //= require directives/DownlineListDirective
-//= require directives/VideoDirective

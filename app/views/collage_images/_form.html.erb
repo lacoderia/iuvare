@@ -1,0 +1,29 @@
+<%= form_for(@collage_image) do |f| %>
+  <% if @collage_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@collage_image.errors.count, "error") %> prohibited this collage_image from being saved:</h2>
+
+      <ul>
+      <% @collage_image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :collage_id %><br>
+    <%= f.number_field :collage_id %>
+  </div>
+  <div class="field">
+    <%= f.label :picture %><br>
+    <%= f.file_field :picture %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br>
+    <%= f.number_field :order %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

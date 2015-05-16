@@ -25,5 +25,7 @@ module IuvareBackend
     config.assets.paths << "#{Rails.root}/app/assets/plans"
     config.assets.paths << "#{Rails.root}/app/assets/seminars"
     config.assets.paths << "#{Rails.root}/app/assets/trainings"
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

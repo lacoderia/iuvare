@@ -1,31 +1,33 @@
 // Import styles
-@import  "common/variables"
-@import  "common/mixins"
+@import "common/variables"
+@import "common/mixins"
 
 //Import typography
-@import  "common/icomoon.css"
-@import  "common/typography"
-@import  "common/ng-quick-date.css"
-@import  "common/ng-quick-date-default-theme.css"
+@import "common/icomoon.css"
+@import "common/typography"
+@import "common/ng-quick-date.css"
+@import "common/ng-quick-date-default-theme.css"
 
 // Import layout sytles
-@import  "layout/footer"
-@import  "layout/top_nav"
-@import  "layout/inner_aside_nav"
+@import "layout/footer"
+@import "layout/top_nav"
+@import "layout/inner_aside_nav"
 
 // Import modules styles
-@import  "modules/login"
-@import  "modules/cycle"
-@import  "modules/network"
-@import  "modules/plan"
-@import  "modules/why"
-@import  "modules/assets"
-@import  "modules/collage"
-@import  "modules/list"
+@import "modules/login"
+@import "modules/cycle"
+@import "modules/network"
+@import "modules/plan"
+@import "modules/why"
+@import "modules/assets"
+@import "modules/collage"
+@import "modules/list"
 @import "modules/profile"
+@import "modules/headquarters"
 
 // Common styles
 @import "common/isotope.css"
+@import "common/angular-chart"
 
 a
   cursor: pointer
@@ -146,6 +148,30 @@ h2.section-title
 .form-container
   +rem(padding, 4rem 16rem)
 
+.list-item-container
+  background-color: $color_gray_1
+  border: 1px solid $color_gray_4
+  +border-radius(5px)
+  position: relative
+  +rem(margin, 1rem 0)
+  +rem(padding, 2rem)
+
+  .item-info
+    +rem(margin, 1rem 0)
+
+  .item-name
+    +rem(font-size, 1.8rem)
+    +rem(margin-bottom, 1rem)
+
+  .item-detail-toggle-icon
+    cursor: pointer
+    +rem(font-size, 2rem)
+    position: absolute
+    +rem(right, 2rem)
+    top: 25px
+
+  &:hover
+    background-color: $color_gray_3
 
 .message-container
   display: block
@@ -188,6 +214,43 @@ h2.section-title
     text-decoration: none
 
 
+.score
+
+  .actions
+    +rem(margin, 6rem 0)
+    text-align: center
+
+  .title
+    +rem(font-size, 2rem)
+    +rem(margin-bottom, 3rem)
+    text-align: center
+
+  .legend
+    +rem(margin, 0 auto 1.2rem)
+    max-width: 300px
+
+    table
+      background-color: $color-gray_1
+      +border-radius(10px)
+      border: 1px solid $color-gray_5
+      +rem(font-size, 1.4rem)
+      margin: 0
+      padding: 0
+      overflow: hidden
+      text-align: center
+      width: 100%
+
+    td
+      +rem(font-size, 1.6rem)
+      +rem(padding, 0.5rem 0)
+
+      strong
+        font-weight: bolder
+
+  .chart
+    margin: 0px auto
+    max-width: 300px
+    +rem(margin-bottom, 1.5rem)
 
 .section-container
   background-color: white
@@ -213,6 +276,11 @@ h2.section-title
     border-bottom: 1px solid $color-gray_3
     +rem(margin-bottom, 1rem)
     +rem(padding, 2rem 0)
+
+    label
+      +rem('margin-right', 3rem)
+      text-align: center
+      min-width: 150px
     
     p
       +rem(margin, 0)

@@ -37,6 +37,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
     $scope.showGoalForm = function(mode){
         $scope.currentGoalMode = mode;
         $scope.showGoal = true;
+        $scope.updateGoalsDropdown();
     };
 
     // Method that hides the new goal form
@@ -64,7 +65,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
     $scope.createGoal = function(goal){
         $scope.goal = angular.copy(originalGoal);
         $scope.selectedGoal = goal;
-        $scope.showGoalForm($scope.GOAL_MODES.NEW)
+        $scope.showGoalForm($scope.GOAL_MODES.NEW);
     };
 
     $scope.editGoal = function(goal){
@@ -83,10 +84,13 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
 
     // Method that updates the selectable goals dropdown list
     $scope.updateGoalsDropdown = function(){
+        $scope.goalTypeDropdown = [];
+
         angular.forEach($scope.GOAL_TYPES, function (goalType, index) {
 
             var availableGoal = true;
-            angular.forEach($scope.goalsList, function(goal, index) {
+            console.log($scope.goalsList);
+            angular.forEach($scope.goalsList, function(goal) {
                 if (goal.goal_type == goalType.code) {
                    availableGoal = false;
                 }
@@ -106,6 +110,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
     $scope.setGoalType = function(index){
         if ($scope.goal) {
             $scope.goal.type = $scope.GOAL_TYPES[index];
+            $scope.goal.goal_type = $scope.goal.type.code;
         }
     };
 
@@ -187,7 +192,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                 break;
             case 'edit-goal':
                 $scope.updateGoal();
-                break
+                break;
             default:
                 break;
         }
@@ -206,8 +211,6 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                 if(data.success){
                     $scope.goalsList = GoalService.goals;
                 }
-
-                $scope.updateGoalsDropdown();
             })
             .error(function (error, status) {
                 console.log('Hubo un error al obtener las metas.');

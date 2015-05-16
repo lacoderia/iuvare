@@ -88,7 +88,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :active, :payment_expiration, :xango_rank, :upline_id)
+      params.require(:user).permit(:first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :active, :payment_expiration, :xango_rank, :upline_id, :picture)
     end
 
     def not_signed_error
