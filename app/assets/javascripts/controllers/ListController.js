@@ -3,7 +3,7 @@
 iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetService", "AuthService", "ListService", "SessionService", "DEFAULT_VALUES", function($scope, $log, $rootScope, AssetService, AuthService, ListService, SessionService, DEFAULT_VALUES){
 
     //Private variables
-    var ASSET_TYPE = 'plan';
+    var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
     var addingContact = false;
     var editingContact = false;
 

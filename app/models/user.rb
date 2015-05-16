@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_attached_file :picture, :styles => { :original => "300x300#" }, :default_url => ""
   validates_attachment_content_type :picture, :content_type => /\Aimage\/.*\Z/
 
-  scope :all_downlines, -> (id) {where("upline_id = ?", id)}
+  scope :all_downlines, -> (id) {where("upline_id = ?", id).includes(:test_scores => :test)}
   scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
   scope :downline_at_position, -> (id, position) {where(upline_id: id, downline_position: position)}
   scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}

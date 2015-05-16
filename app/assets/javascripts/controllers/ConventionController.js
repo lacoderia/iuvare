@@ -3,11 +3,11 @@
 iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AssetService, AuthService, SessionService, DEFAULT_VALUES){
 
     // Private variables
-    var ASSET_TYPE = 'convention';
+    var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.CONVENTION;
     var playlable = true;
 
     // Public variables
-    $scope.ASSET_PATH = DEFAULT_VALUES.ASSET_PATHS.CONVENTION;
+    $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
 

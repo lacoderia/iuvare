@@ -14,7 +14,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
     var rangeLimit = 10;
 
     //Public variables
-    $scope.ASSET_PATH = DEFAULT_VALUES.ASSET_PATHS.PLAN;
+    $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
     $scope.plan = undefined;
     $scope.asset = undefined;
     $scope.test = undefined;
