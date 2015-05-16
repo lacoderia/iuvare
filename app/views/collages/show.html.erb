@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @collage.user_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @collage.name %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @collage.order %>
+</p>
+
+<%= link_to 'Edit', edit_collage_path(@collage) %> |
+<%= link_to 'Back', collages_path %>

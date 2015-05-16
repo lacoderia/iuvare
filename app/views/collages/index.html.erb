@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Collages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Order</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collages.each do |collage| %>
+      <tr>
+        <td><%= collage.user_id %></td>
+        <td><%= collage.name %></td>
+        <td><%= collage.order %></td>
+        <td><%= link_to 'Show', collage %></td>
+        <td><%= link_to 'Edit', edit_collage_path(collage) %></td>
+        <td><%= link_to 'Destroy', collage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collage', new_collage_path %>

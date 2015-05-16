@@ -1,0 +1,2 @@
+module CollageImagesHelper
+end

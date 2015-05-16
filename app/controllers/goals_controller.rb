@@ -1,4 +1,5 @@
 class GoalsController < ApplicationController
+  
   before_action :set_goal, only: [:update, :destroy]
 
   respond_to :json
