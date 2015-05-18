@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+
+  resources :events do
+    collection do
+      get 'current'
+    end
+  end
+
   resources :collage_images do
     collection do
       post 'create_by_user_id'

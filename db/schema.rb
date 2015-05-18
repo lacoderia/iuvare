@@ -68,6 +68,15 @@ ActiveRecord::Schema.define(version: 20150514234302) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "date"
+    t.text     "description"
+    t.string   "picture"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "goals", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "dream"
