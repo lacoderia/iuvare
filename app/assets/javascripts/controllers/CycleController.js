@@ -103,6 +103,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+
         // Obtenemos toda la red del usuario
         NetworkService.getAllDownlines()
             .success(function(data){
