@@ -51,6 +51,8 @@ feature 'CollageController' do
         page.driver.post "#{create_by_user_id_collage_images_path}.json", new_collage_image_request
       end
       response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      expect(response['result']['picture'].index test_file).not_to be nil
 
       visit "#{by_user_collages_path}.json?user_id=#{user.id}"
       response = JSON.parse(page.body)
@@ -61,10 +63,18 @@ feature 'CollageController' do
       expect(collage_images.count).to be 1
       expect(collage_images.first['picture'].index test_file).not_to be nil
     end
-  end
 
-  context 'error handling' do
-
+    it 'should throw error' do
+      test_file = "moto.jpg" 
+      picture = Rack::Test::UploadedFile.new(Rails.root + "spec/images/#{test_file}", 'image/jpg')
+      new_collage_image_request = {picture: picture, order: 1, user_id: 1000}
+      with_rack_test_driver do
+        page.driver.post "#{create_by_user_id_collage_images_path}.json", new_collage_image_request
+      end
+      response = JSON.parse(page.body)
+      expect(response['success']).to be false 
+    end
+    
   end
 
 end
