@@ -79,7 +79,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
         $scope.dataChart.data = [];
 
         angular.forEach(testScores, function (score) {
-            $scope.dataChart.labels.push(score.description);
+            $scope.dataChart.labels.push(score.description_spanish);
             $scope.dataChart.data.push(score.score);
             $scope.dataChart.colours.push(chartColours[score.description]);
         });

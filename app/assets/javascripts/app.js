@@ -84,7 +84,6 @@ iuvare.constant('DEFAULT_VALUES',{
         MODULE_3: 'module_3',
         BASICS: 'basics',
         PLAN: 'plan'
-
     },
     CONTACT_STATUS: {
         TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },
@@ -127,7 +126,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
                 function(data){
                     if(data.data.success){
                         var result = data.data.result;
-                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id);
+                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count);
                         deferred.resolve();
                     }else{
                         deferred.reject('Not logged in');

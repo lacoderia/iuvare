@@ -38,7 +38,7 @@ iuvare.factory('NetworkService', ['$http', '$q', "$state", 'UserService', 'DEFAU
                 if(data.success){
                     var result = data.result;
                     angular.forEach(result, function(item, key){
-                        var downline = UserService.createUser(item.id, item.first_name, item.last_name, item.email, item.xango_id, item.xango_rank, item.iuvare_id, item.sponsor_xango_id, item.sponsor_iuvare_id, item.placement_xango_id, item.placement_iuvare_id, item.active, item.downline_position, item.payment_expiration, item.picture, item.upline_id);
+                        var downline = UserService.createUser(item.id, item.first_name, item.last_name, item.email, item.xango_id, item.xango_rank, item.iuvare_id, item.sponsor_xango_id, item.sponsor_iuvare_id, item.placement_xango_id, item.placement_iuvare_id, item.active, item.downline_position, item.payment_expiration, item.picture, item.upline_id, item.test_scores, item.downline_count);
                         if(downline.getActive()){
                             service.downlinesNetworkList.push(downline);
                         }

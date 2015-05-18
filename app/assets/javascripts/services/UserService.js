@@ -1,6 +1,6 @@
 'use strict';
 
-iuvare.factory('UserService', [function(){
+iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
 
     function User(){
 
@@ -23,8 +23,12 @@ iuvare.factory('UserService', [function(){
         var _paymentExpiration = undefined;
         var _picture = undefined;
         var _uplineId = undefined;
+        var _testScores = {
+            colors: undefined
+        };
+        var _downlineCount = undefined;
 
-        this.createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId) {
+        this.createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount) {
             this.setId(id);
             this.setFirstName(firstName);
             this.setLastName(lastName);
@@ -41,6 +45,8 @@ iuvare.factory('UserService', [function(){
             this.setPaymentExpiration(paymentExpiration);
             this.setPicture(picture);
             this.setUplineId(uplineId);
+            this.setTestScores(testScores);
+            this.setDownlineCount(downlineCount);
         };
 
         this.getId = function(){
@@ -171,6 +177,30 @@ iuvare.factory('UserService', [function(){
             return _uplineId;
         };
 
+        this.setTestScores = function(testScores){
+
+            angular.forEach(testScores, function(test){
+
+                switch(test.code){
+                    case DEFAULT_VALUES.TEST_CODES.COLOR:
+                        _testScores.colors = test.scores;
+                        break;
+                }
+            });
+        };
+
+        this.getTestScores = function(){
+            return _testScores;
+        };
+
+        this.setDownlineCount = function(downlineConunt){
+            _downlineCount = downlineConunt;
+        };
+
+        this.getDownlineConunt = function(){
+            return _downlineCount;
+        };
+
         this.isCycleMember = function(uplineId){
             return ((uplineId == _uplineId) && _downlinePosition)? true : false;
         };
@@ -178,13 +208,13 @@ iuvare.factory('UserService', [function(){
     }
 
 
-    var createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId) {
+    var createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount) {
 
         // Se crea una nueva instancia de Usario
         var user = new User();
 
         //Se asignan variables a través de un método constructor
-        user.createUser(id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId)
+        user.createUser(id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount)
 
         return user;
     };
