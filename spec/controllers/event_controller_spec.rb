@@ -45,6 +45,17 @@ feature 'EventsController' do
           expect(response['result'][0]['id']).to eql 9
 
 			end
+			
+			it 'should get no events' do
+			
+			  Timecop.travel(Time.zone.local(2015, 7, 5, 13, 30, 0))
+          visit "#{current_events_path}.json"
+
+          response = JSON.parse(page.body)
+          expect(response['success']).to be true
+          expect(response['result']).to eql nil
+
+			end
 
 		end
 
