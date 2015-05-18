@@ -644,6 +644,8 @@ asset_105 = Asset.create(title: "Plan Circe Rodriguez", description:"Plan de neg
 asset_106 = Asset.create(title: "Plan Circe Rodriguez Colombia", description:"Plan de negocios para Colombia presentado por Circe Rodriguez", author:"Circe Rodriguez", source: "plan_Circe_Rodriguez_Plan_Circe_Rodriguez_Colombia", asset_type: "plan", test_id: test_plan.id)
 asset_107 = Asset.create(title: "Plan Enrique Flores", description:"Plan de negocios presentado por Enrique Flores", author:"Enrique Flores", source: "plan_Enrique_Flores_Plan_Enrique_Flores", asset_type: "plan", test_id: test_plan.id)
 
+#asset_type = FAQ
+asset_108 = Asset.create(title: "FAQ", description:"Documento PDF del FAQ", author:"FAQ", source: "FAQ.pdf", asset_type: "FAQ")
 
 #Sedes
 sede_1 = Office.create(name: "Morelia", address: "Aristeo Mercado 969 Col. Nueva chapultepec", latitude: "19.6871535", longitude: "-101.1677894", description: "", schedule: "Plan: Lunes a viernes 8:00pm")

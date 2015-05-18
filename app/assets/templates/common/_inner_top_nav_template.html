@@ -1,7 +1,7 @@
 <nav ng-controller="GlobalMenuController as glblMenuController">
     <ul>
         <li ng-class="{ 'selected':isCurrentSection(item.code) }" ng-repeat="item in NAV_ITEMS"><a ui-sref="{{ item.state }}">{{ item.title }}</a></li>
-        <li><a href="/assets/FAQ.pdf" target="_blank">FAQ</a></li>
+        <li><a ui-sref="FAQ">FAQ</a></li>
         <li><a ng-click="logout()">Salir</a></li>
     </ul>
 </nav>

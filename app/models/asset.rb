@@ -9,7 +9,8 @@ class Asset < ActiveRecord::Base
     ['convention', 'convencion'],
     ['training', 'capacitacion'],
     ['document', 'documento'],
-    ['plan', 'plan']
+    ['plan', 'plan'],
+    ['FAQ', 'FAQ']
   ]
 
   validates :asset_type, inclusion: {in: TYPES.map{ |pairs| pairs[0] } }
