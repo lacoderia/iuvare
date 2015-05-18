@@ -3,7 +3,7 @@
  */
 'use strict';
 
-iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$timeout", "ListService", "TestService", "DEFAULT_VALUES", function($scope, $location, $rootScope, $timeout, ListService, TestService, DEFAULT_VALUES){
+iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce", "$timeout", "ListService", "TestService", "DEFAULT_VALUES", function($scope, $location, $rootScope, $sce, $timeout, ListService, TestService, DEFAULT_VALUES){
 
     //Private variables
     var planToken = undefined;
@@ -56,6 +56,17 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
                 if(data.success){
                     $scope.plan = data.result;
                     $scope.asset = $scope.plan.asset;
+
+                    $scope.asset.config = {
+                        preload: "none",
+                        sources : [
+                            {src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.mp4'), type: "video/mp4"},
+                            {src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.webm'), type: "video/webm"},
+                            {src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.ogg'), type: "video/ogg"}
+                        ],
+                        theme : "/assets/bower_components/videogular-themes-default/videogular.css"
+                    };
+
                     validToken = true;
                 }
             })
@@ -85,7 +96,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$time
         return testSent;
     };
 
-    $scope.onended = function () {
+    $scope.onComplete = function () {
         $timeout(function () {
             videoEnded = true;
             triggerTest();
