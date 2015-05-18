@@ -14,6 +14,7 @@ gem 'devise'
 gem 'js-routes'
 gem 'paperclip'
 gem 'bootstrap-sass'
+gem 'newrelic_rpm'
 gem 'cancancan'
 
 gem 'activeadmin', github: 'activeadmin'
