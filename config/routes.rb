@@ -130,5 +130,6 @@ Rails.application.routes.draw do
   get "perfil/collage", :to => "display#index"
   get "perfil/test", :to => "display#index"
   get "perfil/mis-datos", :to => "display#index"
+  get "FAQ", :to => "display#index"
 
 end

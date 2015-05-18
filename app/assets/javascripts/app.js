@@ -4,7 +4,21 @@
  * */
 'use strict';
 
-var iuvare = angular.module('iuvare', ['ngResource', 'iuvareDirectives', 'ui.router', 'mgcrea.ngStrap', 'ngQuickDate', 'angularUtils.directives.dirPagination', 'iso.directives', 'uiGmapgoogle-maps', 'chart.js', "ngSanitize", 'com.2fdevs.videogular', 'com.2fdevs.videogular.plugins.controls', 'com.2fdevs.videogular.plugins.overlayplay', 'com.2fdevs.videogular.plugins.buffering']);
+var iuvare = angular.module('iuvare',
+    [   'ngResource',
+        'iuvareDirectives',
+        'ui.router',
+        'mgcrea.ngStrap',
+        'ngQuickDate',
+        'angularUtils.directives.dirPagination',
+        'iso.directives',
+        'uiGmapgoogle-maps',
+        'chart.js', "ngSanitize",
+        'com.2fdevs.videogular',
+        'com.2fdevs.videogular.plugins.controls',
+        'com.2fdevs.videogular.plugins.overlayplay',
+        'com.2fdevs.videogular.plugins.buffering'
+    ]);
 
 iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
@@ -100,7 +114,8 @@ iuvare.constant('DEFAULT_VALUES',{
             PLAN: 'plan',
             SEMINAR: 'seminar',
             CONVENTION: 'convention',
-            TRAINING: 'training'
+            TRAINING: 'training',
+            FAQ: 'FAQ'
         }
     }
 });
@@ -277,6 +292,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             section: 'SYSTEM',
             subsection: 'DOCUMENT',
             authenticationRequired: true
+        }).state('FAQ',{
+            url: "/FAQ",
+            templateUrl: '/assets/faq.html',
+            defaultState: 'login',
+            section: 'FAQ',
+            subsection: undefined,
+            authenticationRequired: true
         });
 
 }]);
@@ -348,4 +370,10 @@ iuvare.filter('formatDate', function(){
             return date.format('LL');
         }
     }
+});
+
+iuvare.filter('trustAsResourceUrl', function($sce) {
+    return function(val) {
+        return $sce.trustAsResourceUrl(val);
+    };
 });
