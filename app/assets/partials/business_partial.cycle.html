@@ -5,12 +5,30 @@
     <div class="section-content downline-container" ng-show="!isInviteView()">
         <ul class="downline-tree">
             <li>
-                <div class="downline">
+                <div class="downline"  class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(currentUser)]" ng-click="setCurrentDownline($event, currentUser)">
                     <div class="downline-image">
                         <span class="icon-user"></span>
                     </div>
                     <h3 class="downline-name">{{ currentUser.getFirstName() }} {{ currentUser.getLastName() }}</h3>
-                    <!--span class="downline-cycle-status">Ciclo 2 | Completado</span-->
+                    <div ng-if="isCurrentDownline(currentUser)">
+                        <div class="downline-test-scores" ng-if="hasTestScores(currentUser)">
+                            <div class="test-score" class="test-downlines-count">
+                                <div>
+                                    <span class="score">{{ currentUser.getDownlineCount() }}</span>
+                                    <p>Downlines en su red</p>
+                                </div>
+                            </div>
+                            <div class="test-score test-colors">
+                                <div ng-if="currentUser.getTestScores().colors">
+                                    <canvas id="pie" class="chart chart-pie" data="dataChart.data" labels="dataChart.labels" colours="dataChart.colours" ></canvas>
+                                    <p>Resultado de test de pesonalidad</p>
+                                </div>
+                                <div ng-if="!currentUser.getTestScores().colors">
+                                    Aun no has realizado el Test de personalidad. <br><br> Has clic <a ui-sref="profile.test">aquí</a> para tomarlo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="global-actions">
                         <button class="action-button-purple size-medium" ng-click="showInviteView()">Invitar más downlines</button>
                     </div>
@@ -27,6 +45,23 @@
                     </div>
                     <h3 class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</h3>
                     <div ng-if="isCurrentDownline(downline)">
+                        <div class="downline-test-scores" ng-if="hasTestScores(downline)">
+                            <div class="test-score" class="test-downlines-count">
+                                <div>
+                                    <span class="score">{{ downline.getDownlineCount() }}</span>
+                                    <p>Downlines en su red</p>
+                                </div>
+                            </div>
+                            <div class="test-score test-colors">
+                                <div ng-if="downline.getTestScores().colors">
+                                    <canvas id="pie" class="chart chart-pie" data="dataChart.data" labels="dataChart.labels" colours="dataChart.colours" ></canvas>
+                                    <p>Resultado de test de pesonalidad</p>
+                                </div>
+                                <div ng-if="!downline.getTestScores().colors">
+                                    El Downline no ha realizado el Test de personalidad.
+                                </div>
+                            </div>
+                        </div>
                         <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar Downline" ng-click="showDownlineList()"></span>
                         <span class="downline-action action-button-delete icon-circle-with-cross" title="Eliminar Downline" ng-click="detachDownline(downline)"></span>
                     </div>

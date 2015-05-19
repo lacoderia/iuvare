@@ -21,9 +21,30 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
         recipient_email: undefined
     };
 
+    $scope.dataChart = {
+        labels: [],
+        data: [],
+        colours: []
+    };
+
     // Variables privadas
     var showInvite = false;
     var originalInvitation = angular.copy($scope.invitation);
+    var hasTest = false;
+    var chartColours = {
+        blue: '#3169F5',
+        yellow: '#F5EF2A',
+        green: '#48A731',
+        red: '#B2002F'
+    };
+
+    $scope.resetChartData = function () {
+        $scope.dataChart = {
+            labels: [],
+            data: [],
+            colours: []
+        };
+    };
 
     $scope.isEditingCycle = function () {
         return $scope.editCycle;
@@ -36,7 +57,19 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
     $scope.setCurrentDownline = function($event, downline){
         $event.preventDefault();
         $rootScope.$broadcast('hideAllDownlineLists');
-        $scope.currentDownline = downline;
+
+        if(!$scope.currentDownline){
+            $scope.currentDownline = downline;
+            (Object.keys(downline).length > 1)? $scope.setChart(downline.getTestScores().colors): undefined;
+        }else{
+            if(Object.keys(downline).length <= 1 || Object.keys($scope.currentDownline).length){
+                $scope.currentDownline = downline;
+                (Object.keys(downline).length > 1)? $scope.setChart(downline.getTestScores().colors): undefined;
+            }else if(downline.getId() != $scope.currentDownline.getId()){
+                $scope.currentDownline = downline;
+                (Object.keys(downline).length > 1)? $scope.setChart(downline.getTestScores().colors): undefined;
+            }
+        }
     };
 
     $scope.attachDownline = function(downline, downlinePosition){
@@ -94,6 +127,27 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
 
     $scope.hideInviteView = function () {
         showInvite = false;
+    };
+
+    $scope.hasTestScores = function(downline){
+        for(var key in downline.getTestScores()){
+            if(key){
+                hasTest = true;
+                break;
+            }
+        }
+
+        return hasTest;
+    };
+
+    $scope.setChart = function(testScores){
+        $scope.resetChartData();
+
+        angular.forEach(testScores, function (score) {
+            $scope.dataChart.labels.push(score.description_spanish);
+            $scope.dataChart.data.push(score.score);
+            $scope.dataChart.colours.push(chartColours[score.description]);
+        });
     };
 
     // Method to init the controller's default state
