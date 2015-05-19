@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     begin
-      @user.update(user_params)
+      @user.update!(user_params)
       render "update.json"
     rescue Exception => e
       @error = e.message
@@ -93,7 +93,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :active, :payment_expiration, :xango_rank, :upline_id, :picture)
+      params.require(:user).permit(:first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :active, :payment_expiration, :xango_rank, :upline_id, :picture, :password , :password_confirmation)
     end
 
     def not_signed_error

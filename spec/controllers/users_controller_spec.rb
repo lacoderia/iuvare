@@ -31,7 +31,7 @@ feature 'UsersController' do
 
         test_file = "moto.jpg" 
         picture = Rack::Test::UploadedFile.new(Rails.root + "spec/images/#{test_file}", 'image/jpg')
-        update_user_request = {user:{first_name: "Arturo", picture: picture} }
+        update_user_request = {user:{first_name: "Arturo", picture: picture, password: 'ABCDEFG123', password_confirmation: 'ABCDEFG123'} }
         with_rack_test_driver do
           page.driver.put "#{users_path}/#{user.id}.json", update_user_request 
         end
@@ -40,7 +40,11 @@ feature 'UsersController' do
         expect(response['result']['picture'].index test_file).not_to be nil
         expect(response['result']['first_name']).to eql "Arturo"
 
-        update_user_request = {user:{picture: "ERROR"} }
+        page = login_with_service updated_user = { email: user.email, password: 'ABCDEFG123' }
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true 
+
+        update_user_request = {user:{password: 'ABCDEFG1234', password_confirmation: 'ABCDEFG12345'} }
         with_rack_test_driver do
           page.driver.put "#{users_path}/#{user.id}.json", update_user_request 
         end
