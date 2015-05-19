@@ -27,8 +27,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
-    respond_with(@user)
+    begin
+      @user.update(user_params)
+      render "update.json"
+    rescue Exception => e
+      @error = e.message
+      render "update.json", status: 500
+    end
   end
 
   def destroy

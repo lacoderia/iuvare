@@ -26,7 +26,6 @@ ActiveAdmin.register Event, :as => "Eventos" do
       f.input :picture, :required => false, :as => :file
     end
     f.actions
-  end
-	
+  end	
 
 end
