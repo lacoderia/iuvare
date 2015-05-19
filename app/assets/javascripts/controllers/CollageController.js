@@ -7,28 +7,7 @@
 
 iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, CollageService, SessionService, DEFAULT_VALUES){
 
-    $scope.bricks = [
-        {'src': '/assets/rails.png', 'uploading': false},
-        {'src': '/assets/iuvare_logo.png', 'uploading': false},
-        {'src': '/assets/bici.jpg', 'uploading': false},
-        {'src': '/assets/rails.png', 'uploading': false},
-        {'src': '/assets/iuvare_logo.png', 'uploading': false},
-        {'src': '/assets/bici.jpg', 'uploading': false},
-        {'src': '/assets/rails.png', 'uploading': false},
-        {'src': '/assets/iuvare_logo.png', 'uploading': false},
-        {'src': '/assets/bici.jpg', 'uploading': false},
-        {'src': '/assets/rails.png', 'uploading': false},
-        {'src': '/assets/iuvare_logo.png', 'uploading': false},
-        {'src': '/assets/bici.jpg', 'uploading': false},
-        {'src': '/assets/rails.png', 'uploading': false},
-        {'src': '/assets/iuvare_logo.png', 'uploading': false},
-        {'src': '/assets/bici.jpg', 'uploading': false},
-        {'src': '/assets/rails.png', 'uploading': false},
-        {'src': '/assets/iuvare_logo.png', 'uploading': false},
-        {'src': '/assets/bici.jpg', 'uploading': false}
-    ];
-
-    $scope.xList = [{"name":"a","number":"1","date":"1360413309421","class":"purple"},{"name":"b","number":"5","date":"1360213309421","class":"orange"},{"name":"c","number":"10","date":"1360113309421","class":"blue"},{"name":"d","number":"2","date":"1360113309421","class":"green"},{"name":"e","number":"6","date":"1350613309421","class":"green"},{"name":"f","number":"21","date":"1350613309421","class":"orange"},{"name":"g","number":"3","date":"1340613309421","class":"blue"},{"name":"h","number":"7","date":"1330613309001","class":"purple"},{"name":"i","number":"22","date":"1360412309421","class":"blue"}, {"name":"a","number":"1","date":"1360413309421","class":"purple"},{"name":"b","number":"5","date":"1360213309421","class":"orange"},{"name":"c","number":"10","date":"1360113309421","class":"blue"},{"name":"d","number":"2","date":"1360113309421","class":"green"},{"name":"e","number":"6","date":"1350613309421","class":"green"},{"name":"f","number":"21","date":"1350613309421","class":"orange"},{"name":"g","number":"3","date":"1340613309421","class":"blue"},{"name":"h","number":"7","date":"1330613309001","class":"purple"},{"name":"i","number":"22","date":"1360412309421","class":"blue"}];
+    $scope.bricks = [];
 
     // Function that triggers file input click
     $scope.openPictureSelector = function(event) {
@@ -38,24 +17,21 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
 
     // Function that uploads a picture file to server
     $scope.uploadPicture = function(brick){
-        console.log(brick.file);
 
         brick.uploading = true;
         brick.error = false;
 
-        setTimeout(function(){
-            brick.uploading = false;
-
-
-            // Aquí debemos guardar la imagen en el servidor
-
-            
-            brick.error = true;
-
-            $scope.$digest();
-
-        }, 1000);
-
+        CollageService.savePicture(brick)
+            .success(function(data){
+                if(data.success){
+                    brick.uploading = false;
+                    brick.id = data.result.id;
+                }
+            })
+            .error(function(response){
+                brick.error = true;
+                console.log('Hubo un error al guardar la imagen.');
+            });
     };
 
     // Function that reads the image file and adds it to the masonry grid
@@ -65,12 +41,20 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
         if (input[0].files && input[0].files[0]) {
             var reader = new FileReader();
 
+            var newPictureOrder = 0;
+            var lastPicture = angular.copy($scope.bricks[$scope.bricks.length - 1]);
+            if (lastPicture){
+                newPictureOrder = lastPicture.order + 1;
+            }
+
             reader.onload = function (e) {
                 var brick = {
+                    id: undefined,
                     src: e.target.result,
                     uploading: false,
                     error: false,
-                    file: input[0].files[0]
+                    file: input[0].files[0],
+                    order: newPictureOrder
                 };
 
                 $scope.bricks.push(brick);
@@ -86,12 +70,23 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
     };
 
     // Method to remove a picture
-    $scope.removePicture = function(brick){
-        $scope.bricks.splice($scope.bricks.indexOf(brick), 1);
+    $scope.deletePicture = function(brick){
+        if(brick.id){
+            brick.uploading = true;
 
-        setTimeout(function(){
-            $scope.$emit('iso-method', {name:'layout', params:null})
-        }, 0);
+            CollageService.deletePicture(brick)
+                .success(function(data){
+                    $scope.bricks.splice($scope.bricks.indexOf(brick), 1);
+
+                    setTimeout(function(){
+                        $scope.$emit('iso-method', {name:'layout', params:null})
+                    }, 0);
+                })
+                .error(function(response){
+                    brick.uploading = false;
+                    console.log('Hubo un error al eliminar una imagen.');
+                });
+        }
     };
 
     // Method to init the controller's default state
@@ -101,6 +96,13 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        CollageService.getCollage()
+            .success(function(data){
+                $scope.bricks = CollageService.bricks;
+            })
+            .error(function(response){
+                console.log('Hubo un error al obtener el collage.');
+            });
     };
 
     $scope.initController();

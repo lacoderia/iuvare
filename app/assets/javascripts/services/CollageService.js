@@ -3,54 +3,52 @@
 iuvare.factory('CollageService', ['$http', '$q', "$state", 'SessionService', 'DEFAULT_VALUES', function($http, $q, $state, SessionService, DEFAULT_VALUES){
 
     var service = {
-        goals: [],
-        getGoals: getGoals,
-        saveGoal: saveGoal,
-        updateGoal: updateGoal
+        bricks: [],
+        getCollage: getCollage,
+        savePicture: savePicture,
+        deletePicture: deletePicture
 
     };
     return service;
 
-    function getGoals() {
+    function getCollage() {
+        var collageServiceURL = '/collages/by_user.json?user_id=' + SessionService.$get().getId();
 
-        var goalsServiceURL = '/goals/by_user.json?user_id=' + SessionService.$get().getId();
-
-        return $http.get(goalsServiceURL, {})
+        return $http.get(collageServiceURL, {})
             .success(function(data){
                 if(data.success){
-                    service.goals = data.result.goals;
+                    var collage_pictures = data.result.collages[0].collage_images;
 
-                    angular.forEach(service.goals, function(goal){
-                        goal.showInfo = false;
+                    angular.forEach(collage_pictures, function(collage_picture){
+                        var brick = {
+                            'id': collage_picture.id,
+                            'src': collage_picture.picture,
+                            'uploading': false,
+                            'order': collage_picture.order
+                        };
 
-                        angular.forEach(DEFAULT_VALUES.GOAL_TYPES, function(goalType){
-                            if(goal.goal_type == goalType.code) {
-                                goal.type = goalType;
-                            }
-                        });
+                        service.bricks.push(brick);
                     });
-
                 }
-                return 'TEXTO DE SUCCESS';
             });
     };
 
-    function saveGoal(goal) {
+    function savePicture(picture) {
 
-        var goalsServiceURL = '/goals.json';
+        var collageServiceURL = '/collage_images/create_by_user_id.json';
 
-        return $http.post(goalsServiceURL, {
-                goal: goal
+        return $http.post(collageServiceURL, {
+            user_id: SessionService.$get().getId(),
+            picture: picture.src,
+            order: picture.order
             });
     };
 
-    function updateGoal(id, goal) {
+    function deletePicture(picture) {
 
-        var goalsServiceURL = '/goals/' + id + '.json';
+        var collageServiceURL = '/collage_images/' + picture.id + '.json';
 
-        return $http.put(goalsServiceURL, {
-                goal: goal
-            });
+        return $http.delete(collageServiceURL);
     };
 
 }]);
