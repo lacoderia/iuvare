@@ -197,7 +197,7 @@ iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
             _downlineCount = downlineConunt;
         };
 
-        this.getDownlineConunt = function(){
+        this.getDownlineCount = function(){
             return _downlineCount;
         };
 
