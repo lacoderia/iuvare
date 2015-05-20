@@ -39,6 +39,7 @@ feature 'UsersController' do
         expect(response['success']).to be true
         expect(response['result']['picture'].index test_file).not_to be nil
         expect(response['result']['first_name']).to eql "Arturo"
+        logout
 
         page = login_with_service updated_user = { email: user.email, password: 'ABCDEFG123' }
         response = JSON.parse(page.body)
