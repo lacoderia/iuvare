@@ -9,6 +9,7 @@
                 </div>
             </div>
         </div>
+
         <div class="actions">
             <a class="action-button-purple size-medium" ng-click="openProfilePictureSelector($event)">Seleccionar imagen</a>
             <input type='file' accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
@@ -38,7 +39,29 @@
                 </div>
             </fieldset>
             <fieldset>
+                <span ng-bind="profileFormMessage"></span>
                 <button class="action-button-forgot">Actualizar perfil</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="password-form">
+        <form novalidate name="passwordForm" class="form" ng-submit="updatePassword()">
+            <fieldset>
+                <input type="password" placeholder="Password" name="password" ng-model="currentUser.password" minlength="8" required>
+                <div ng-show="passwordForm.$submitted || passwordForm.password.$touched">
+                    <div ng-show="passwordForm.password.$error.required">El password es requerido.</div>
+                    <div ng-show="passwordForm.password.$error.minlength">El password debe tener una longitud mínima de 8 caracteres.</div>
+                </div>
+                <input type="password" placeholder="Confirmar password" name="confirmation" ng-model="currentUser.confirmation" pw-check="currentUser.password" required>
+                <div ng-show="passwordForm.$submitted || passwordForm.confirmation.$touched">
+                    <div ng-show="passwordForm.confirmation.$error.required">La confirmación del password es requerida.</div>
+                    <div ng-show="passwordForm.confirmation.$error.pwCheck && !passwordForm.confirmation.$error.required">El password y la confirmación deben ser iguales.</div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <span ng-bind="passwordFormMessage"></span>
+                <button class="action-button-forgot">Actualizar contraseña</button>
             </fieldset>
         </form>
     </div>

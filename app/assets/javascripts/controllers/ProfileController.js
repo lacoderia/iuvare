@@ -5,15 +5,54 @@
 
 'use strict';
 
-iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "SessionService", "UserService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, SessionService, UserService, DEFAULT_VALUES){
+iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "SessionService", "ProfileService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, SessionService, ProfileService, DEFAULT_VALUES){
 
     $scope.currentUser = {
         name: undefined,
         lastName: undefined,
         email: undefined,
         iuvareId: undefined,
-        xangoId: undefined
+        xangoId: undefined,
+        picture: undefined,
+        pictureUrl: undefined,
+        password: undefined,
+        confirmation: undefined
     };
+
+    $scope.profileFormMessage = '';
+    $scope.passwordFormMessage = '';
+
+    $scope.$watch('currentUser.pictureUrl', function(){
+
+        if($scope.currentUser && $scope.currentUser.pictureUrl) {
+            var imageContainer = $('.profile-form').find('.picture');
+            var image = imageContainer.find('img');
+            image.hide();
+
+            $('<img/>')
+                .attr("src", $scope.currentUser.pictureUrl)
+                .load(function() {
+                    image.attr('src', $scope.currentUser.pictureUrl);
+
+                    var ratio = this.width / this.height;
+
+                    // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                    if (this.width > this.height) {
+                        image.height(imageContainer.height());
+                        image.width(imageContainer.height() * ratio);
+                    } else {
+                        // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                        image.width(imageContainer.width());
+                        image.height(imageContainer.width() / ratio);
+                    }
+
+                    image.show();
+                })
+                .error(function() {
+                });
+        }
+
+    });
 
     $scope.openProfilePictureSelector = function(event) {
         $(event.target).siblings('input').trigger('click');
@@ -34,16 +73,18 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
                 var loadedImage = new Image();
                 loadedImage.src = reader.result;
 
-                var ratio = loadedImage.width / loadedImage.height;
+                loadedImage.onload = function(){
+                    var ratio = loadedImage.width / loadedImage.height;
 
-                // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
-                if (loadedImage.width > loadedImage.height) {
-                    image.height(imageContainer.height());
-                    image.width(imageContainer.height() * ratio);
-                } else {
-                    // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
-                    image.width(imageContainer.width());
-                    image.height(imageContainer.width() / ratio);
+                    // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                    if (loadedImage.width > loadedImage.height) {
+                        image.height(imageContainer.height());
+                        image.width(imageContainer.height() * ratio);
+                    } else {
+                        // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                        image.width(imageContainer.width());
+                        image.height(imageContainer.width() / ratio);
+                    }
                 }
 
             };
@@ -55,16 +96,52 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
     $scope.updateProfile = function() {
         if ($scope.profileForm.$valid) {
 
-            var user = $scope.currentUser;
+            var user = {
+                first_name: $scope.currentUser.name,
+                last_name: $scope.currentUser.lastName,
+                email: $scope.currentUser.email,
+                picture: $scope.currentUser.picture
+            };
 
-            ProfileService.submitWeekCalendar(weekCalendar)
-                .success(function (data) {
-
+            ProfileService.updateProfile(user)
+                .success(function(data){
+                    if(data.success){
+                        $scope.profileFormMessage = 'Los datos fueron actualizados con éxito.';
+                    }
                 })
-                .error(function (response) {
-
+                .error(function(response){
+                    console.log('Hubo un error al actualizar tus datos.');
                 });
 
+        }
+    };
+
+    $scope.resetPasswordForm = function(){
+        $scope.currentUser.password = undefined;
+        $scope.currentUser.confirmation = undefined;
+        $scope.passwordForm.$setPristine();
+        $scope.passwordForm.$setUntouched();
+    };
+
+    $scope.updatePassword = function() {
+        if ($scope.passwordForm.$valid) {
+
+            var user = {
+                password: $scope.currentUser.password,
+                password_confirmation: $scope.currentUser.password_confirmation
+            };
+
+            ProfileService.updateProfile(user)
+                .success(function(data){
+                    if(data.success){
+                        $scope.passwordFormMessage = 'La contraseña fue actualizada con éxito.';
+                        $scope.resetPasswordForm();
+                    }
+                    console.log(data);
+                })
+                .error(function(response){
+                    console.log('Hubo un error al actualizar la contraseña.');
+                });
         }
     };
 
@@ -80,7 +157,11 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
             lastName: SessionService.$get().getLastName(),
             email: SessionService.$get().getEmail(),
             iuvareId: SessionService.$get().getIuvareId(),
-            xangoId: SessionService.$get().getXangoId()
+            xangoId: SessionService.$get().getXangoId(),
+            picture: undefined,
+            pictureUrl: SessionService.$get().getPicture(),
+            password: undefined,
+            confirmation: undefined
         };
 
     };

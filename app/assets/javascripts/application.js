@@ -86,6 +86,7 @@
 //= require services/NetworkService
 //= require services/NavigationService
 //= require services/OfficeService
+//= require services/ProfileService
 //= require services/TestService
 //= require services/UserService
 //= require services/XangoUserService
