@@ -29,6 +29,9 @@ class UsersController < ApplicationController
   def update
     begin
       @user.update!(user_params)
+      if user_params[:password]
+        sign_in(:user, @user)
+      end
       render "update.json"
     rescue Exception => e
       @error = e.message
