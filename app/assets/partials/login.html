@@ -5,7 +5,7 @@
             <hr class="separator-gray">
             <div>
                 <form class="form login-switch-container">
-                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.SIGNIN) }"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.SIGNIN }}">Ingresar</label>
+                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.SIGNIN) }" ng-show="invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.SIGNIN }}">Ingresar</label>
                     <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.SIGNUP) }" ng-show="invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.SIGNUP }}">Registrarse</label>
                     <!--label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.REQUEST) }" ng-show="!invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.REQUEST }}">Solicitar invitación</label-->
                 </form>
