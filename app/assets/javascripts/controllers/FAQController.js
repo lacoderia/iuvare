@@ -1,6 +1,6 @@
 'use strict';
 
-iuvare.controller('FAQController', ["$scope", "$rootScope", "$sce", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $sce, AssetService, AuthService, SessionService, DEFAULT_VALUES){
+iuvare.controller('FAQController', ["$scope", "$rootScope", "$sce", "$location", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $sce, $location, AssetService, AuthService, SessionService, DEFAULT_VALUES){
 
     // Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.FAQ;
@@ -15,7 +15,7 @@ iuvare.controller('FAQController', ["$scope", "$rootScope", "$sce", "AssetServic
         AssetService.getAssetsByType(ASSET_TYPE)
             .success(function(data){
                 if(data.success){
-                    $scope.pdfUrl = $scope.ASSET_PATH + AssetService.assets[0].source;
+                    $scope.pdfUrl = $location.protocol() + "://" + $location.host() + $scope.ASSET_PATH + AssetService.assets[0].source;
                 }
             })
             .error(function (error, status) {
