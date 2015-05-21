@@ -17,8 +17,9 @@ iuvare.factory('CollageService', ['$http', '$q', "$state", 'SessionService', 'DE
         return $http.get(collageServiceURL, {})
             .success(function(data){
                 if(data.success){
-                    var collage_pictures = data.result.collages[0].collage_images;
+                    service.bricks = [];
 
+                    var collage_pictures = data.result.collages[0].collage_images;
                     angular.forEach(collage_pictures, function(collage_picture){
                         var brick = {
                             'id': collage_picture.id,
