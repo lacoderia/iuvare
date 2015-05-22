@@ -13,7 +13,8 @@ var iuvare = angular.module('iuvare',
         'angularUtils.directives.dirPagination',
         'iso.directives',
         'uiGmapgoogle-maps',
-        'chart.js', "ngSanitize",
+        'chart.js',
+        'ngSanitize',
         'com.2fdevs.videogular',
         'com.2fdevs.videogular.plugins.controls',
         'com.2fdevs.videogular.plugins.overlayplay',
@@ -133,7 +134,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }])
     });
 
-    var authenticated = ['$q', 'AuthService', 'SessionService', function ($q, AuthService, SessionService) {
+    var authenticated = ['$rootScope', '$q', 'AuthService', 'SessionService', function ($rootScope, $q, AuthService, SessionService) {
         var deferred = $q.defer();
 
         if(!AuthService.isAuthenticated()){
@@ -142,6 +143,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
                     if(data.data.success){
                         var result = data.data.result;
                         SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count);
+                        $rootScope.$broadcast('getMonthlyEvent');
                         deferred.resolve();
                     }else{
                         deferred.reject('Not logged in');
