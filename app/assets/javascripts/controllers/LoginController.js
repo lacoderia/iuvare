@@ -137,6 +137,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                 .then(
                 function(loginFormMessage) {
                     $scope.loginFormMessage = loginFormMessage;
+                    $rootScope.$broadcast('getMonthlyEvent');
                 }
             );
         }

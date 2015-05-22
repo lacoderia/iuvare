@@ -27,6 +27,7 @@
 //= require bower_components/ngQuickDate/dist/ng-quick-date
 //= require bower_components/lodash/dist/lodash.min
 //= require bower_components/angular-google-maps/dist/angular-google-maps.min
+//= require bower_components/fancybox/source/jquery.fancybox
 
 //= require bower_components/angular-sanitize/angular-sanitize
 //= require bower_components/videogular/videogular
@@ -61,7 +62,6 @@
 //= require controllers/CollageController
 //= require controllers/CycleController
 //= require controllers/DocumentController
-//= require controllers/EventsController
 //= require controllers/FAQController
 //= require controllers/GlobalMenuController
 //= require controllers/HeadquartersController
@@ -81,6 +81,7 @@
 //= require services/AuthService
 //= require services/CollageService
 //= require services/GoalService
+//= require services/EventService
 //= require services/InvitationService
 //= require services/ListService
 //= require services/NetworkService

@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthService", "NavigationService", "SessionService", function($scope, $rootScope, $state, AuthService, NavigationService, SessionService){
+iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, AuthService, EventService, NavigationService, SessionService){
 
     $scope.currentSection = undefined;
     $scope.currentSubsection = undefined;
@@ -27,6 +27,35 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthServ
     $scope.isPublicView = function(){
         return $state.current.authenticationRequired;
     };
+
+    // Event popup
+
+    $rootScope.$on('getMonthlyEvent' ,function(){
+        EventService.getEvent()
+            .success(function(data){
+                if(data.success){
+
+                    if (EventService.event) {
+                        $('<img/>')
+                            .attr("src", EventService.event.picture)
+                            .load(function() {
+                                $('.event-popup').attr('src', EventService.event.picture);
+
+                                $(".event-popup").fancybox({
+                                    'content': '<img src="' + EventService.event.picture + '" alt="" />',
+                                    'showCloseButton': true
+                                }).trigger('click');
+                            })
+                            .error(function() {
+                            });
+                    }
+
+                }
+            })
+            .error(function(){
+                console.log('Hubo un error al obtener el evento del mes.') ;
+            });
+    });
 
     var initController = function(){
 
