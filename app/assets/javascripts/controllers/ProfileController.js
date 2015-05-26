@@ -22,6 +22,8 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
     $scope.profileFormMessage = '';
     $scope.passwordFormMessage = '';
 
+    $scope.showPasswordForm = false;
+
     $scope.$watch('currentUser.pictureUrl', function(){
 
         if($scope.currentUser && $scope.currentUser.pictureUrl) {
@@ -53,6 +55,11 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
         }
 
     });
+
+    $scope.resetMessages = function() {
+        $scope.profileFormMessage = '';
+        $scope.passwordFormMessage = '';
+    };
 
     $scope.openProfilePictureSelector = function(event) {
         $(event.target).siblings('input').trigger('click');
@@ -116,15 +123,23 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
         }
     };
 
+    $scope.togglePasswordForm = function(){
+        $scope.resetMessages();
+        $scope.resetPasswordForm();
+        $scope.showPasswordForm = !$scope.showPasswordForm;
+    };
+
     $scope.resetPasswordForm = function(){
-        $scope.currentUser.password = undefined;
-        $scope.currentUser.confirmation = undefined;
+        $scope.currentUser.password = null;
+        $scope.currentUser.confirmation = null;
         $scope.passwordForm.$setPristine();
         $scope.passwordForm.$setUntouched();
     };
 
     $scope.updatePassword = function() {
         if ($scope.passwordForm.$valid) {
+
+            $scope.resetMessages();
 
             var user = {
                 password: $scope.currentUser.password,
@@ -137,7 +152,6 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
                         $scope.passwordFormMessage = 'La contraseña fue actualizada con éxito.';
                         $scope.resetPasswordForm();
                     }
-                    console.log(data);
                 })
                 .error(function(response){
                     console.log('Hubo un error al actualizar la contraseña.');

@@ -1,7 +1,7 @@
 <div ng-controller="ProfileController as profileCtrl" class="profile-container">
-    <h2 class="section-title">{{ sectionTitle }}</h2>
+    <h2 class="section-title" ng-hide="showPasswordForm">{{ sectionTitle }}</h2>
 
-    <div class="profile-form">
+    <div class="profile-form" ng-hide="showPasswordForm">
         <div class="profile-picture">
             <div class="picture-container">
                 <div class="picture">
@@ -16,52 +16,65 @@
         </div>
         <form novalidate name="profileForm" class="form" ng-submit="updateProfile()">
             <fieldset>
+                <label>Nombre(s)</label>
                 <input type="text" placeholder="Nombre(s)" name="profileFirstName" ng-model="currentUser.name" required>
-                <div ng-show="profileForm.$submitted || profileForm.profileFirstName.$touched">
+                <div class="message" ng-show="profileForm.$submitted || profileForm.profileFirstName.$touched">
                     <span ng-show="profileForm.profileFirstName.$error.required">El nombre es requerido.</span>
                 </div>
+                <label>Apellido(s)</label>
                 <input type="text" placeholder="Apellido(s)" name="profileLastName" ng-model="currentUser.lastName" required>
-                <div ng-show="profileForm.$submitted || profileForm.profileLastName.$touched">
-                    <span ng-show="profileForm.profileLastName.$error.required">Los apellidos son requerido.</span>
+                <div class="message" ng-show="profileForm.$submitted || profileForm.profileLastName.$touched">
+                    <span ng-show="profileForm.profileLastName.$error.required">Los apellidos son requeridos.</span>
                 </div>
+                <label>Correo electrónico</label>
                 <input type="email" placeholder="Correo electrónico" name="profileEmail" ng-model="currentUser.email" readonly required>
-                <div ng-show="profileForm.$submitted || profileForm.profileEmail.$touched">
+                <div class="message" ng-show="profileForm.$submitted || profileForm.profileEmail.$touched">
                     <span ng-show="profileForm.profileEmail.$error.required">El correo electrónico es requerido.</span>
                     <span ng-show="profileForm.profileEmail.$error.email">El correo electrónico no es válido.</span>
                 </div>
+                <label>ID Iuvare</label>
                 <input type="text" placeholder="ID Iuvare" name="profileIuvareId" ng-model="currentUser.iuvareId" readonly required>
-                <div ng-show="profileForm.$submitted || profileForm.profileIuvareId.$touched">
+                <div class="message" ng-show="profileForm.$submitted || profileForm.profileIuvareId.$touched">
                     <span ng-show="profileForm.profileIuvareId.$error.required">El ID Iuvare es requerido.</span>
                 </div>
+                <label>ID Xango</label>
                 <input type="text" placeholder="ID Xango" name="profileXangoId" ng-model="currentUser.xangoId" readonly required>
-                <div ng-show="profileForm.$submitted || profileForm.profileXangoId.$touched">
+                <div class="message" ng-show="profileForm.$submitted || profileForm.profileXangoId.$touched">
                     <span ng-show="profileForm.profileXangoId.$error.required">El ID Xango es requerido.</span>
                 </div>
             </fieldset>
             <fieldset>
-                <span ng-bind="profileFormMessage"></span>
+                <span class="message" ng-bind="profileFormMessage"></span>
                 <button class="action-button-forgot">Actualizar perfil</button>
             </fieldset>
+            <div class="password-link" ng-click="togglePasswordForm()">
+                <a>Cambiar contraseña</a>
+            </div>
         </form>
     </div>
 
-    <div class="password-form">
+    <h2 class="section-title" ng-show="showPasswordForm">Cambiar Password</h2>
+
+    <div class="password-form" ng-show="showPasswordForm">
         <form novalidate name="passwordForm" class="form" ng-submit="updatePassword()">
             <fieldset>
-                <input type="password" placeholder="Password" name="password" ng-model="currentUser.password" minlength="8" required>
-                <div ng-show="passwordForm.$submitted || passwordForm.password.$touched">
+                <label>Nuevo password</label>
+                <input type="password" placeholder="Nuevo password" name="password" ng-model="currentUser.password" minlength="8" required>
+                <div class="message" ng-show="passwordForm.$submitted || passwordForm.password.$touched">
                     <div ng-show="passwordForm.password.$error.required">El password es requerido.</div>
                     <div ng-show="passwordForm.password.$error.minlength">El password debe tener una longitud mínima de 8 caracteres.</div>
                 </div>
-                <input type="password" placeholder="Confirmar password" name="confirmation" ng-model="currentUser.confirmation" pw-check="currentUser.password" required>
-                <div ng-show="passwordForm.$submitted || passwordForm.confirmation.$touched">
+                <label>Confirmar nuevo password</label>
+                <input type="password" placeholder="Confirmar nuevo password" name="confirmation" ng-model="currentUser.confirmation" pw-check="currentUser.password" required>
+                <div class="message" ng-show="passwordForm.$submitted || passwordForm.confirmation.$touched">
                     <div ng-show="passwordForm.confirmation.$error.required">La confirmación del password es requerida.</div>
                     <div ng-show="passwordForm.confirmation.$error.pwCheck && !passwordForm.confirmation.$error.required">El password y la confirmación deben ser iguales.</div>
                 </div>
             </fieldset>
             <fieldset>
-                <span ng-bind="passwordFormMessage"></span>
-                <button class="action-button-forgot">Actualizar contraseña</button>
+                <span class="message" ng-bind="passwordFormMessage"></span>
+                <button class="action-button-forgot">Actualizar password</button>
+                <input type="button" class="action-button-cancel" ng-click="togglePasswordForm()" value="Cancelar" />
             </fieldset>
         </form>
     </div>

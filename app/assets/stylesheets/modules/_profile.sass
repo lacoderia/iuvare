@@ -1,24 +1,30 @@
 .profile-container
 
-  .password-form
+  .password-form, .profile-form
     +rem(padding, 4rem 16rem)
 
-  .profile-form
+
+    font-size: 0
     +rem(padding, 4rem 16rem)
 
     .actions
       text-align: center
       +rem(margin, 1rem 0 3rem)
 
-  .test-form
+    input[type='text'], input[type='password'], input[type='email']
+      width: 80% !important
 
-    p
-      +rem(font-size, 1.8rem)
-      font-weight: 500
     label
-      +rem('margin-right', 3rem)
+      width: 20%
+      font-size: 14px
+
+    .message
+      font-size: 14px
       text-align: center
-      min-width: 150px
+
+    .password-link
+      font-size: 14px
+      text-align: center
 
   .profile-picture
     line-height: 0
