@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, only: [:update]
 
   respond_to :html
 
@@ -30,6 +31,8 @@ class UsersController < ApplicationController
     begin
       @user.update!(user_params)
       if user_params[:password]
+        signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+        @csrf = form_authenticity_token
         sign_in(:user, @user)
       end
       render "update.json"

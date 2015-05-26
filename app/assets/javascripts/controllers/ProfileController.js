@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "SessionService", "ProfileService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, SessionService, ProfileService, DEFAULT_VALUES){
+iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthService", "SessionService", "ProfileService", "DEFAULT_VALUES", function($http, $scope, $rootScope, AuthService, SessionService, ProfileService, DEFAULT_VALUES){
 
     $scope.currentUser = {
         name: undefined,
@@ -150,7 +150,10 @@ iuvare.controller('ProfileController', ["$scope", "$rootScope", "AuthService", "
                 .success(function(data){
                     if(data.success){
                         $scope.passwordFormMessage = 'La contraseña fue actualizada con éxito.';
-                        $scope.resetPasswordForm();
+                        $scope.resetPasswordForm(); 
+                        console.log(data);
+                        $('meta[name=csrf-token]').attr('content', data.result.csrf.csrf);
+                        $http.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
                     }
                 })
                 .error(function(response){
