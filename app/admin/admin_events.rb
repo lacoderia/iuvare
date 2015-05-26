@@ -1,6 +1,6 @@
 ActiveAdmin.register Event, :as => "Eventos" do
 	
-  actions :all, :except => [:show]
+  actions :all, :except => [:show, :destroy]
 
   permit_params :title, :date, :description, :picture
 
