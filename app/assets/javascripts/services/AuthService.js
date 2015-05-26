@@ -1,6 +1,6 @@
 'use strict';
 
-iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', function($http, $q, $state, SessionService){
+iuvare.factory('AuthService', ['$http', '$q', "$state", "$rootScope", 'SessionService', function($http, $q, $state, $rootScope, SessionService){
 
     var signIn = function (credentials) {
         var loginServiceURL = '/users/sign_in.json';
@@ -14,6 +14,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", 'SessionService', functi
                         SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count);
                         $state.go('business.cycle');
                     }
+                    $rootScope.$broadcast('getMonthlyEvent');
                 }
             },
             function(response){

@@ -113,6 +113,10 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
             ProfileService.updateProfile(user)
                 .success(function(data){
                     if(data.success){
+                        SessionService.$get().setFirstName(data.result.first_name);
+                        SessionService.$get().setLastName(data.result.last_name);
+                        SessionService.$get().setPicture(data.result.picture);
+
                         $scope.profileFormMessage = 'Los datos fueron actualizados con éxito.';
                     }
                 })
