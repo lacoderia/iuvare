@@ -47,7 +47,7 @@ ul.downline-tree
         background-color: $color_gray_3
         +border-radius(50%)
         color: $color_gray_2
-        display: table
+        display: block
         height: 100px
         +rem(font-size, 6rem)
         +rem(margin, 0 auto)
@@ -57,21 +57,19 @@ ul.downline-tree
         width: 100px
 
         span
-          display: table-cell
+          display: inline-block
+          margin-top: 10px
           text-align: center
           vertical-align: middle
 
-        .image-container
-          background: red
-          +border-radius(50%)
-          display: inline-block
-          height: 95px
-          overflow: hidden
-          width: 95px
 
-        img
-          max-width: 95px
-          width: 100%
+      img
+        +border-radius(50%)
+        max-height: 100px
+        max-width: 100px
+        min-height: 100px
+        min-width: 100px
+        width: 100%
 
       .downline-name
         +rem(font-size, 1.5rem)
