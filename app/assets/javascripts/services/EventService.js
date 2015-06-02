@@ -14,7 +14,7 @@ iuvare.factory('EventService', ['$http', '$q', 'DEFAULT_VALUES', function($http,
 
         return $http.get(eventServiceURL)
             .success(function(data){
-                if(data.success && data.result.length){
+                if(data.success && data.result){
                     service.event = data.result[0];
                 }
             });

@@ -6,9 +6,10 @@
         <ul class="downline-tree">
             <li>
                 <div class="downline"  class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(currentUser)]" ng-click="setCurrentDownline($event, currentUser)">
-                    <div class="downline-image">
+                    <div class="downline-image" ng-if="!currentUser.getPicture()">
                         <span class="icon-user"></span>
                     </div>
+                    <img ng-if="currentUser.getPicture()" ng-src="{{ currentUser.getPicture() }}" alt="{{ currentUser.getFirstName() }}">
                     <h3 class="downline-name">{{ currentUser.getFirstName() }} {{ currentUser.getLastName() }}</h3>
                     <div ng-if="isCurrentDownline(currentUser)">
                         <div class="downline-test-scores" ng-if="hasTestScores(currentUser)">
@@ -39,10 +40,10 @@
         <ul class="downline-tree">
             <li ng-repeat="downline in downlinesList">
                 <div ng-if="downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]" ng-click="setCurrentDownline($event, downline)">
-                    <div class="downline-image">
-                        <span class="icon-user" ng-if="!downline.getPicture()"></span>
-                        <div class="image-container" ng-if="downline.getPicture()"><img ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}"></div>
+                    <div class="downline-image" ng-if="!downline.getPicture()">
+                        <span class="icon-user"></span>
                     </div>
+                    <img ng-if="downline.getPicture()" ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}">
                     <h3 class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</h3>
                     <div ng-if="isCurrentDownline(downline)">
                         <div class="downline-test-scores" ng-if="hasTestScores(downline)">
