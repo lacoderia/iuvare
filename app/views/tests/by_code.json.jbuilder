@@ -6,7 +6,7 @@ if @test
       json.array! (@test.questions) do |question|
         json.extract! question, :id, :test_id, :text
         json.set! :answers do
-          json.array! (question.answers) do |answer|
+          json.array! (question.answers.shuffle) do |answer|
             json.extract! answer, :id, :question_id, :text
           end
         end
