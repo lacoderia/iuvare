@@ -71,8 +71,12 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
         if (input[0].files && input[0].files[0]) {
             var reader = new FileReader();
 
+            var imageContainer = $(element).parents('.profile-form').find('.picture');
+            imageContainer.removeClass('no-background');
+
             reader.onload = function (e) {
-                var imageContainer = $(element).parents('.profile-form').find('.picture');
+                imageContainer.addClass('no-background');
+
                 var image = imageContainer.find('img');
                 image.attr('src', e.target.result);
                 $scope.currentUser.picture = e.target.result;
