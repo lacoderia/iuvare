@@ -62,7 +62,6 @@ feature 'TestsController' do
 
       first_question_answers = color_test['questions'].first['answers']
       expect(first_question_answers.count).to eql 4
-      expect(first_question_answers.first['text']).to eql "Superficial"
 
       visit("/tests/by_code.json?code=module_1")
       
