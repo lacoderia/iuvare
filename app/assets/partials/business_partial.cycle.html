@@ -16,7 +16,7 @@
                             <div class="test-score" class="test-downlines-count">
                                 <div>
                                     <span class="score">{{ currentUser.getDownlineCount() }}</span>
-                                    <p>Downlines en su red</p>
+                                    <p>Socios en su red</p>
                                 </div>
                             </div>
                             <div class="test-score test-colors">
@@ -25,13 +25,13 @@
                                     <p>Resultado de test de pesonalidad</p>
                                 </div>
                                 <div ng-if="!currentUser.getTestScores().colors">
-                                    Aun no has realizado el Test de personalidad. <br><br> Has clic <a ui-sref="profile.test">aquí</a> para tomarlo
+                                    Aun no has realizado el Test de personalidad. <br><br> Haz clic <a ui-sref="profile.test">aquí</a> para tomarlo
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="global-actions">
-                        <button class="action-button-purple size-medium" ng-click="showInviteView()">Invitar más downlines</button>
+                        <button class="action-button-purple size-medium" ng-click="showInviteView()">Registrar nuevos socios</button>
                     </div>
                 </div>
             </li>
@@ -50,7 +50,7 @@
                             <div class="test-score" class="test-downlines-count">
                                 <div>
                                     <span class="score">{{ downline.getDownlineCount() }}</span>
-                                    <p>Downlines en su red</p>
+                                    <p>Socios en su red</p>
                                 </div>
                             </div>
                             <div class="test-score test-colors">
@@ -59,12 +59,12 @@
                                     <p>Resultado de test de pesonalidad</p>
                                 </div>
                                 <div ng-if="!downline.getTestScores().colors">
-                                    El Downline no ha realizado el Test de personalidad.
+                                    {{ downline.getFirstName() }} no ha realizado el Test de personalidad.
                                 </div>
                             </div>
                         </div>
-                        <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar Downline" ng-click="showDownlineList()"></span>
-                        <span class="downline-action action-button-delete icon-circle-with-cross" title="Eliminar Downline" ng-click="detachDownline(downline)"></span>
+                        <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar socio" ng-click="showDownlineList()"></span>
+                        <span class="downline-action action-button-delete icon-circle-with-cross" title="Quitar socio" ng-click="detachDownline(downline)"></span>
                     </div>
                 </div>
                 <div ng-if="!downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]" ng-click="setCurrentDownline($event, downline)">
@@ -73,7 +73,7 @@
                     </div>
                     <p class="donwline-space-available">Disponible</p>
                     <div ng-if="isCurrentDownline(downline)">
-                        <span class="downline-action action-button-add icon-circle-with-plus" title="Asignar Downline" ng-click="showDownlineList()"></span>
+                        <span class="downline-action action-button-add icon-circle-with-plus" title="Asignar socio" ng-click="showDownlineList()"></span>
                     </div>
                 </div>
                 <ng-downline-list current-user="currentUser" network="downlinesNetworkList" select-downline="attachDownline" downline-position="$index+1" show-downline-list="showDownlineList" hide-downline-list="hideDownlineList"></ng-downline-list>
