@@ -47,6 +47,9 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' },
                 { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' }
             ]
+        },
+        { order: 3, code: 'FAQ', title: 'FAQ', state: 'FAQ',
+            subsections: []
         }
     ],
     CYCLE_STATUS:{
