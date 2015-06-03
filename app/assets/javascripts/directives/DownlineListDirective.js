@@ -24,7 +24,7 @@ iuvareDirectives.directive('ngDownlineList', ['$rootScope', '$timeout', function
                                     '</tr>' +
                                 '</tbody>' +
                             '</table>' +
-                            '<div class="no-network-downlines" ng-show="isEmptyNetwork()">No socios disponibles en tu red.<div><button class="action-button-purple size-medium" ng-click="$parent.showInviteView()">Registrar un socio</button></div></div>'+
+                            '<div class="no-network-downlines" ng-show="isEmptyNetwork()">No hay socios disponibles en tu red.<div><button class="action-button-purple size-medium" ng-click="$parent.showInviteView()">Registrar un socio</button></div></div>'+
                         '</div>' +
                     '</div>',
         scope: {
