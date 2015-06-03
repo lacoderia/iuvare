@@ -10,7 +10,7 @@ iuvare.factory('InvitationService', ['$http', '$q', "$state", 'SessionService', 
         }).then(
             function(data){
                 if(data) {
-                    return "La invitación ha sido enviada con éxito.";
+                    return "Se envió un correo al socio con las instrucciones para ingresar.";
                 }
             },
             function(response){
