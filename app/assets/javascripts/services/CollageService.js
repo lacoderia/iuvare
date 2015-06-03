@@ -16,7 +16,7 @@ iuvare.factory('CollageService', ['$http', '$q', "$state", 'SessionService', 'DE
 
         return $http.get(collageServiceURL, {})
             .success(function(data){
-                if(data.success){
+                if(data.success && data.success.result && data.success.result.collages.length){
                     service.bricks = [];
 
                     var collage_pictures = data.result.collages[0].collage_images;
