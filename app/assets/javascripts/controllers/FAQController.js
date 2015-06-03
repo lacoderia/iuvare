@@ -12,6 +12,8 @@ iuvare.controller('FAQController', ["$scope", "$rootScope", "$sce", "$location",
     // Method to init the controller's default state
     $scope.initController = function(){
 
+        $scope.$emit('setCurrentSection');
+
         AssetService.getAssetsByType(ASSET_TYPE)
             .success(function(data){
                 if(data.success){
