@@ -109,6 +109,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                         $scope.colorTestResult = data.result;
                         $scope.hideTestForm();
                         $scope.setChart($scope.colorTestResult.test_scores);
+                        $scope.colorTestResult.scores = $scope.colorTestResult.test_scores;
+                        SessionService.$get().setTestScores([$scope.colorTestResult]);
                     } else {
                         $scope.testFormMessage = data.error;
                     }
