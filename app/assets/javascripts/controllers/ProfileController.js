@@ -107,6 +107,8 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
     $scope.updateProfile = function() {
         if ($scope.profileForm.$valid) {
 
+            $scope.startSpin('container-spinner');
+
             var user = {
                 first_name: $scope.currentUser.name,
                 last_name: $scope.currentUser.lastName,
@@ -122,6 +124,8 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                         SessionService.$get().setPicture(data.result.picture);
 
                         $scope.profileFormMessage = 'Los datos fueron actualizados con éxito.';
+
+                        $scope.stopSpin('container-spinner');
                     }
                 })
                 .error(function(response){
@@ -154,14 +158,17 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                 password_confirmation: $scope.currentUser.password_confirmation
             };
 
+            $scope.startSpin('container-spinner');
+
             ProfileService.updateProfile(user)
                 .success(function(data){
                     if(data.success){
                         $scope.passwordFormMessage = 'La contraseña fue actualizada con éxito.';
                         $scope.resetPasswordForm(); 
-                        console.log(data);
                         $('meta[name=csrf-token]').attr('content', data.result.csrf.csrf);
                         $http.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+
+                        $scope.stopSpin('container-spinner');
                     }
                 })
                 .error(function(response){

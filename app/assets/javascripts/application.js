@@ -51,6 +51,9 @@
 //= require bower_components/Chart.js/Chart.min
 //= require bower_components/angular-chart.js/dist/angular-chart.min.js
 
+//= require lib/spin
+//= require lib/angular-spinner
+
 
 // Application scripts
 //= require app

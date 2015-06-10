@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, AuthService, EventService, NavigationService, SessionService){
+iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, $timeout, usSpinnerService, AuthService, EventService, NavigationService, SessionService){
 
     $scope.currentSection = undefined;
     $scope.currentSubsection = undefined;
@@ -23,6 +23,17 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "AuthServ
 
     });
 
+    $scope.startSpin = function(spinner){
+        $timeout(function(){
+            usSpinnerService.spin(spinner);
+        }, 0);
+    };
+
+    $scope.stopSpin = function(spinner){
+        $timeout(function(){
+            usSpinnerService.stop(spinner);
+        }, 0);
+    };
 
     $scope.isPublicView = function(){
         return $state.current.authenticationRequired;

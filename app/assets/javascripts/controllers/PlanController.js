@@ -35,10 +35,13 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
                 console.log(error)
             });
 
+        $scope.startSpin('container-spinner');
+
         TestService.getTestByCode(DEFAULT_VALUES.TEST_CODES.PLAN)
             .success(function (data) {
                 if(data.success){
                     $scope.test = data.result;
+                    $scope.stopSpin('container-spinner');
                 }
             })
             .error(function (error, status) {
@@ -108,13 +111,15 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
     };
 
     $scope.sendTest = function () {
+        $scope.startSpin('container-spinner');
+
         var contactId = $scope.plan.contact.id;
         var userId = $scope.plan.user_id;
         ListService.gradeTest($scope.testAnswers, contactId, userId)
             .success(function (data) {
                 testSent = true;
                 $scope.answers = data.result;
-                console.log($scope.answers);
+                $scope.stopSpin('container-spinner');
             })
             .error(function (error,status) {
                 console.log('Ocurrió un error al guardar los resultado del test')

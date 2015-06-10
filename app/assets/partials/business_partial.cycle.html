@@ -5,11 +5,11 @@
     <div class="section-content downline-container" ng-show="!isInviteView()">
         <ul class="downline-tree">
             <li>
-                <div class="downline"  class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(currentUser)]" ng-click="setCurrentDownline($event, currentUser)">
-                    <div class="downline-image" ng-if="!currentUser.getPicture()">
+                <div class="downline"  class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(currentUser)]">
+                    <div class="downline-image" ng-if="!currentUser.getPicture()" ng-click="setCurrentDownline($event, currentUser)">
                         <span class="icon-user"></span>
                     </div>
-                    <img ng-if="currentUser.getPicture()" ng-src="{{ currentUser.getPicture() }}" alt="{{ currentUser.getFirstName() }}">
+                    <img ng-if="currentUser.getPicture()" ng-src="{{ currentUser.getPicture() }}" alt="{{ currentUser.getFirstName() }}" ng-click="setCurrentDownline($event, currentUser)">
                     <h3 class="downline-name">{{ currentUser.getFirstName() }} {{ currentUser.getLastName() }}</h3>
                     <div ng-if="isCurrentDownline(currentUser)">
                         <div class="downline-test-scores" ng-if="hasTestScores(currentUser)">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="global-actions">
-                        <button class="action-button-purple size-medium" ng-click="showInviteView()">Registrar nuevos socios</button>
+                        <button class="action-button-purple size-medium" ng-click="showInviteView($event)">Registrar nuevos socios</button>
                     </div>
                 </div>
             </li>
@@ -39,11 +39,11 @@
 
         <ul class="downline-tree">
             <li ng-repeat="downline in downlinesList">
-                <div ng-if="downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]" ng-click="setCurrentDownline($event, downline)">
-                    <div class="downline-image" ng-if="!downline.getPicture()">
+                <div ng-if="downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]">
+                    <div class="downline-image" ng-if="!downline.getPicture()" ng-click="setCurrentDownline($event, downline)">
                         <span class="icon-user"></span>
                     </div>
-                    <img ng-if="downline.getPicture()" ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}">
+                    <img ng-if="downline.getPicture()" ng-src="{{ downline.getPicture() }}" alt="{{ downline.getFirstName() }}" ng-click="setCurrentDownline($event, downline)">
                     <h3 class="downline-name">{{ downline.getFirstName() }} {{ downline.getLastName() }}</h3>
                     <div ng-if="isCurrentDownline(downline)">
                         <div class="downline-test-scores" ng-if="hasTestScores(downline)">
@@ -67,8 +67,8 @@
                         <span class="downline-action action-button-delete icon-circle-with-cross" title="Quitar socio" ng-click="detachDownline(downline)"></span>
                     </div>
                 </div>
-                <div ng-if="!downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]" ng-click="setCurrentDownline($event, downline)">
-                    <div class="downline-image">
+                <div ng-if="!downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]">
+                    <div class="downline-image" ng-click="setCurrentDownline($event, downline)">
                         <span class="icon-user"></span>
                     </div>
                     <p class="donwline-space-available">Disponible</p>

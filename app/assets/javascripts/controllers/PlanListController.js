@@ -30,10 +30,13 @@ iuvare.controller('PlanListController', ["$scope", "$log", "$rootScope", "AssetS
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        $scope.startSpin('container-spinner');
+
         AssetService.getAssetsByType(ASSET_TYPE)
             .success(function(data){
                 if(data.success){
                     $scope.planList = AssetService.assets;
+                    $scope.stopSpin('container-spinner');
                 }
             })
             .error(function(response){

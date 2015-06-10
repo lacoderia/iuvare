@@ -96,9 +96,12 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        $scope.startSpin('container-spinner');
+
         CollageService.getCollage()
             .success(function(data){
                 $scope.bricks = CollageService.bricks;
+                $scope.stopSpin('container-spinner');
             })
             .error(function(response){
                 console.log('Hubo un error al obtener el collage.');

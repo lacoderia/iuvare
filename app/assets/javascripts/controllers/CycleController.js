@@ -50,6 +50,10 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
         return $scope.editCycle;
     };
 
+    var isEmptyDownline = function(downline) {
+        return downline && typeof downline.getId !== 'function';
+    };
+
     $scope.isCurrentDownline = function(downline){
         return ($scope.currentDownline !== undefined)? ($scope.currentDownline == downline): false;
     };
@@ -58,36 +62,42 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
         $event.preventDefault();
         $rootScope.$broadcast('hideAllDownlineLists');
 
-        if(!$scope.currentDownline){
-            $scope.currentDownline = downline;
-            (Object.keys(downline).length > 1)? $scope.setChart(downline.getTestScores().colors): undefined;
-        }else{
-            if(Object.keys(downline).length <= 1 || Object.keys($scope.currentDownline).length){
+        if($scope.currentDownline != downline) {
+            if(!$scope.currentDownline){
                 $scope.currentDownline = downline;
-                (Object.keys(downline).length > 1)? $scope.setChart(downline.getTestScores().colors): undefined;
-            }else if(downline.getId() != $scope.currentDownline.getId()){
-                $scope.currentDownline = downline;
-                (Object.keys(downline).length > 1)? $scope.setChart(downline.getTestScores().colors): undefined;
+                (!isEmptyDownline(downline))? $scope.setChart(downline.getTestScores().colors): undefined;
+            }else{
+                if(isEmptyDownline(downline) || Object.keys($scope.currentDownline).length){
+                    $scope.currentDownline = downline;
+                    (!isEmptyDownline(downline))? $scope.setChart(downline.getTestScores().colors): undefined;
+                }
             }
+        } else {
+            $scope.currentDownline = undefined;
         }
+
     };
 
     $scope.attachDownline = function(downline, downlinePosition){
+        $scope.startSpin('container-spinner');
         NetworkService.attachDownline(downline, downlinePosition)
             .success(function(data){
                 if(data.success){
                     $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
+                    $scope.stopSpin('container-spinner');
                 }
             });
     };
 
     $scope.detachDownline = function(downline){
+        $scope.startSpin('container-spinner');
         NetworkService.detachDownline(downline)
             .success(function(data){
                 if(data.success){
                     $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
+                    $scope.stopSpin('container-spinner');
                 }
             });
     };
@@ -102,6 +112,8 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
 
     $scope.invite = function () {
         if ($scope.invitationForm.$valid) {
+
+            $scope.startSpin('container-spinner');
             var invitation = {
                 user_id: SessionService.$get().getId(),
                 recipient_name: $scope.invitation.recipient_name,
@@ -112,6 +124,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                 function(invitationFormMessage) {
                     $scope.invitationFormMessage = invitationFormMessage;
                     $scope.resetInvitationForm();
+                    $scope.stopSpin('container-spinner');
                 }
             );
         }
@@ -121,7 +134,8 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
         return showInvite;
     };
 
-    $scope.showInviteView = function () {
+    $scope.showInviteView = function ($event) {
+        $event.stopPropagation();
         showInvite = true;
     };
 
@@ -157,6 +171,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        $scope.startSpin('container-spinner');
 
         // Obtenemos toda la red del usuario
         NetworkService.getAllDownlines()
@@ -164,6 +179,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                 if(data.success){
                     $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
+                    $scope.stopSpin('container-spinner');
                 }
             });
 

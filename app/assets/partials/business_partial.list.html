@@ -20,6 +20,7 @@
                 </div>
                 <div ng-repeat="contact in contactList | filter:contactQuery | orderBy:['order', 'name']"  class="contact">
                     <div class="contact-info-container">
+                        <span us-spinner spinner-key="contact-spinner-{{contact.id}}"></span>
                         <div class="contact-image">
                             <span class="user-image">
                                 <span class="icon-user" ng-if="!contact.picture"></span>
@@ -52,7 +53,7 @@
                                         </div>
                                     </span>
                                     <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
-                                    <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index)"></span>
+                                    <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index, contact.id)"></span>
                                 </div>
                             </div>
 

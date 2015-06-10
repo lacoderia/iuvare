@@ -39,10 +39,13 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        $scope.startSpin('container-spinner');
+
         AssetService.getAssetsByType(ASSET_TYPE)
             .success(function(data){
                 if(data.success){
                     $scope.assetList = AssetService.assets;
+                    $scope.stopSpin('container-spinner');
                 }
             })
             .error(function (error, status) {

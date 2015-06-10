@@ -1,12 +1,14 @@
 <div class="login-wrapper row" ng-controller="PlanController as planCtrl">
     <div class="col-lg-12">
         <div class="plan-container">
+            <span us-spinner spinner-key="container-spinner"></span>
+
             <h2 class="section-title">Bienvenido a Iuvare</h2>
             <hr class="separator-gray">
             <div>
                 <p ng-if="!isTokenSent()">Espere un momento por favor</p>
 
-                <div ng-if="(isTokenSent() && !isValidToken() && !hasVideoEnded() && !hasTestSent()) || !asset.source" class="message-container">
+                <div ng-if="(isTokenSent() && !isValidToken() && !hasVideoEnded() && !hasTestSent()) || asset && !asset.source" class="message-container">
                     <p class="message"><span class="icon-camera message-icon"></span></p>
                     <p class="message">Hubo un problema al cargar el video, por favor, contacta a la persona que te envió el correo.</p>
                 </div>

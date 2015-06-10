@@ -50,6 +50,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
 
     $scope.createTest = function(){
 
+        $scope.startSpin('container-spinner');
+
         TestService.getTestByCode($scope.TEST_CODES.COLOR)
             .success(function(data){
                 if(data.success){
@@ -58,7 +60,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                 } else {
                     console.log(data.error);
                 }
-
+                $scope.stopSpin('container-spinner');
             })
             .error(function(error, status){
                 console.log('Hubo un error al obtener los resultados del test de color.');
@@ -94,6 +96,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
 
         if ($scope.testForm.$valid) {
 
+            $scope.startSpin('container-spinner');
+
             var answers = [];
 
             angular.forEach($scope.colorTest.questions, function(question){
@@ -114,6 +118,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                     } else {
                         $scope.testFormMessage = data.error;
                     }
+
+                    $scope.stopSpin('container-spinner');
                 })
                 .error(function(error, status){
                     console.log(error.error);
@@ -130,6 +136,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        $scope.startSpin('container-spinner');
+
         // Obtenemos las metas del usuario
         TestService.getTestResultByCode($scope.TEST_CODES.COLOR)
             .success(function(data){
@@ -141,6 +149,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                     $scope.colorTestResult = {};
                     console.log(data.error);
                 }
+
+                $scope.stopSpin('container-spinner');
             })
             .error(function (error, status) {
                 console.log('Hubo un error al obtener los resultados del test de color.');

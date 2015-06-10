@@ -26,6 +26,8 @@ iuvare.controller('HeadquartersController', ["$scope", "$log", "$rootScope", "Au
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        $scope.startSpin('container-spinner');
+
         // Obtenemos las sedes de Iuvare
         OfficeService.getOffices()
             .success(function(data){
@@ -50,6 +52,8 @@ iuvare.controller('HeadquartersController', ["$scope", "$log", "$rootScope", "Au
 
                         office.showInfo = false;
                     });
+
+                    $scope.stopSpin('container-spinner');
                 }
             })
             .error(function (error, status) {

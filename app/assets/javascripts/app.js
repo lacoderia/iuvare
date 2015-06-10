@@ -18,7 +18,8 @@ var iuvare = angular.module('iuvare',
         'com.2fdevs.videogular',
         'com.2fdevs.videogular.plugins.controls',
         'com.2fdevs.videogular.plugins.overlayplay',
-        'com.2fdevs.videogular.plugins.buffering'
+        'com.2fdevs.videogular.plugins.buffering',
+        'angularSpinner'
     ]);
 
 iuvare.constant('DEFAULT_VALUES',{

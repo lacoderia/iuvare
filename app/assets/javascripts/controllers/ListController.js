@@ -17,52 +17,6 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.selectedPlan = undefined;
     $scope.statusTransitions = [];
 
-    // Method to init the controller's default state
-    $scope.initController = function(){
-
-        $scope.$emit('setCurrentSection');
-
-        $scope.sectionTitle = $scope.currentSubsection.title;
-
-        ListService.getContactList()
-            .success(function(data){
-                if(data.success){
-                    $scope.contactList = angular.copy(ListService.contacts);
-
-                    AssetService.getAssetsByType(ASSET_TYPE)
-                        .success(function (data) {
-                            if(data.success){
-                                angular.forEach(data.result.assets, function (video, index) {
-                                    $scope.plans.push(video);
-                                    $scope.planDropdown.push({
-                                        text: video.title,
-                                        click: 'setVideo(' + index + ')'
-                                    });
-                                });
-                            }
-                        })
-                        .error(function (error, status) {
-                            console.log('Hubo un error al obtener los planes.');
-                        });
-
-                    ListService.getStatusTransitions()
-                        .success(function (data) {
-                            $scope.statusTransitions = angular.copy(ListService.transitions);
-                        })
-                        .error(function (error, status) {
-                            console.log('Hubo un error al obtener las transiciones de los estatus');
-                            console.log(error);
-                        });
-
-                }
-
-            })
-            .error(function (error, status) {
-                console.log('Hubo un error al obtener los contactos.');
-            });
-
-    };
-
     // Method that toggles a goal's information form
     $scope.toggleContactInfo = function(contactItem){
 
@@ -99,6 +53,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.saveContact = function () {
         if($scope.newContactForm.$valid) {
+            $scope.startSpin('container-spinner');
+
             ListService.saveContact($scope.selectedContact)
                 .success(function(data){
                     if(data.success){
@@ -106,17 +62,20 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                     }
                 })
                 .error(function (error, status) {
-                    console.log('Hubo un error al guardr el contacto.');
+                    console.log('Hubo un error al guardar el contacto.');
                     console.log(error);
                 })
                 .finally(function () {
                     $scope.showContactListView();
+                    $scope.stopSpin('container-spinner');
                 });
         }
     };
 
     $scope.updateContact = function () {
         if($scope.editContactForm.$valid) {
+            $scope.startSpin('container-spinner');
+
             ListService.updateContact($scope.selectedContact)
                 .success(function(data){
                     if(data.success){
@@ -130,11 +89,14 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                 })
                 .finally(function () {
                     $scope.showContactListView();
+                    $scope.stopSpin('container-spinner');
                 });
         }
     };
 
-    $scope.deleteContact = function (contactIndex) {
+    $scope.deleteContact = function (contactIndex, spinnerId) {
+        $scope.startSpin('contact-spinner-' + spinnerId);
+
         ListService.deleteContact(contactIndex)
             .success(function (data) {
                 $scope.contactList = angular.copy(ListService.contacts);
@@ -142,16 +104,20 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
             .error(function (error, status) {
                 console.log('Hubo un error al eliminar el contacto.');
                 console.log(error);
+            })
+            .finally(function(){
+                $scope.stopSpin('contact-spinner-' + spinnerId);
             });
     };
 
     $scope.updateFinalStatus = function (contact, finalStatus) {
+        $scope.startSpin('contact-spinner-' + contact.id);
+
         ListService.updateFinalStatus(contact,finalStatus)
             .success(function(data){
                 if(data.success){
                     $scope.contactList = angular.copy(ListService.contacts);
                 }
-
             })
             .error(function (error, status) {
                 console.log('Hubo un error al actualizar el contacto.');
@@ -159,6 +125,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
             })
             .finally(function () {
                 $scope.showContactListView();
+                $scope.stopSpin('contact-spinner-' + contact.id);
             });
     };
 
@@ -192,9 +159,12 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.sendVideo = function (contact) {
         if($scope.selectedPlan){
+            $scope.startSpin('contact-spinner-' + contact.id);
+
             ListService.sendVideo(contact.id, $scope.selectedPlan.id)
                     .success(function (data) {
                         $scope.contactList = angular.copy(ListService.contacts);
+                        $scope.stopSpin('contact-spinner-' + contact.id);
                     })
                     .error(function (error, status) {
                         console.log('Hubo un erro al enviar un video');
@@ -205,6 +175,57 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.getContactStatus = function (key) {
         return $scope.CONTACT_STATUS[key.toUpperCase()];
+    };
+
+
+    // Method to init the controller's default state
+    $scope.initController = function(){
+
+        $scope.$emit('setCurrentSection');
+
+        $scope.sectionTitle = $scope.currentSubsection.title;
+
+        $scope.startSpin('container-spinner');
+
+        ListService.getContactList()
+            .success(function(data){
+                if(data.success){
+                    $scope.contactList = angular.copy(ListService.contacts);
+
+                    AssetService.getAssetsByType(ASSET_TYPE)
+                        .success(function (data) {
+                            if(data.success){
+                                angular.forEach(data.result.assets, function (video, index) {
+                                    $scope.plans.push(video);
+                                    $scope.planDropdown.push({
+                                        text: video.title,
+                                        click: 'setVideo(' + index + ')'
+                                    });
+                                });
+
+                                ListService.getStatusTransitions()
+                                    .success(function (data) {
+                                        $scope.statusTransitions = angular.copy(ListService.transitions);
+                                        $scope.stopSpin('container-spinner');
+                                    })
+                                    .error(function (error, status) {
+                                        console.log('Hubo un error al obtener las transiciones de los estatus');
+                                        console.log(error);
+                                    });
+                            }
+                        })
+                        .error(function (error, status) {
+                            console.log('Hubo un error al obtener los planes.');
+                        });
+
+
+                }
+
+            })
+            .error(function (error, status) {
+                console.log('Hubo un error al obtener los contactos.');
+            });
+
     };
 
     $scope.initController();

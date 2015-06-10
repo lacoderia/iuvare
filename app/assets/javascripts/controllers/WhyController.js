@@ -89,7 +89,6 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
         angular.forEach($scope.GOAL_TYPES, function (goalType, index) {
 
             var availableGoal = true;
-            console.log($scope.goalsList);
             angular.forEach($scope.goalsList, function(goal) {
                 if (goal.goal_type == goalType.code) {
                    availableGoal = false;
@@ -124,7 +123,10 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
 
     // Method that saves a new goal
     $scope.saveGoal = function(){
-        if ($scope.goalForm.$valid) {
+        if ($scope.goalForm.$valid && $scope.goal.type && $scope.goal.date) {
+
+            $scope.startSpin('container-spinner');
+
             var goal = {
                 user_id: SessionService.$get().getId(),
                 dream: $scope.goal.dream,
@@ -142,6 +144,8 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                         $scope.goalsList.push($scope.goal);
                         $scope.resetGoalForm();
                         $scope.hideGoalForm();
+
+                        $scope.stopSpin('container-spinner');
                     }
                 })
                 .error(function (error, status) {
@@ -161,7 +165,9 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
 
     // Method that updates a goal
     $scope.updateGoal = function(){
-        if ($scope.goalForm.$valid) {
+        if ($scope.goalForm.$valid && $scope.goal.type && $scope.goal.date) {
+            $scope.startSpin('container-spinner');
+
             var goal = {
                 user_id: SessionService.$get().getId(),
                 dream: $scope.goal.dream,
@@ -176,6 +182,8 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                         $scope.updateOriginalGoal($scope.goal);
                         $scope.resetGoalForm();
                         $scope.hideGoalForm();
+
+                        $scope.stopSpin('container-spinner');
                     }
                 })
                 .error(function(error, status){
@@ -205,11 +213,14 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
+        $scope.startSpin('container-spinner');
+
         // Obtenemos las metas del usuario
         GoalService.getGoals()
             .success(function(data){
                 if(data.success){
                     $scope.goalsList = GoalService.goals;
+                    $scope.stopSpin('container-spinner');
                 }
             })
             .error(function (error, status) {
