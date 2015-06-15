@@ -24,6 +24,8 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
     };
     $scope.answers = undefined;
 
+    $scope.testForm = {};
+
     var triggerTest = function () {
 
         ListService.videoEnded($scope.plan.id)
@@ -111,20 +113,26 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
     };
 
     $scope.sendTest = function () {
-        $scope.startSpin('container-spinner');
 
-        var contactId = $scope.plan.contact.id;
-        var userId = $scope.plan.user_id;
-        ListService.gradeTest($scope.testAnswers, contactId, userId)
-            .success(function (data) {
-                testSent = true;
-                $scope.answers = data.result;
-                $scope.stopSpin('container-spinner');
-            })
-            .error(function (error,status) {
-                console.log('Ocurrió un error al guardar los resultado del test')
-                console.log(error);
-            });
+        if ($scope.testForm.form.$valid) {
+            $scope.startSpin('container-spinner');
+
+            var contactId = $scope.plan.contact.id;
+            var userId = $scope.plan.user_id;
+            ListService.gradeTest($scope.testAnswers, contactId, userId)
+                .success(function (data) {
+                    testSent = true;
+                    $scope.answers = data.result;
+                    $scope.stopSpin('container-spinner');
+                })
+                .error(function (error,status) {
+                    console.log('Ocurrió un error al guardar los resultado del test')
+                    console.log(error);
+                });
+        } else {
+            $scope.testFormMessage = 'Todas las preguntas deben tener una respuesta seleccionada.';
+        }
+
     };
 
     $scope.initController();

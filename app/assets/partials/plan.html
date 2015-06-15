@@ -41,7 +41,7 @@
                 <!-- Forma para nuevo test -->
                 <div class="test-form" ng-if="isTokenSent() && isValidToken() && hasVideoEnded() && !hasTestSent()">
                     <p>Casi terminamos, por favor contesta la siguiente encuesta para finalizar.</p>
-                    <form novalidate name="testForm" class="form" ng-submit="sendTest()">
+                    <form novalidate name="testForm.form" class="form" ng-submit="sendTest()">
                         <fieldset>
                             <p class="question">1. {{ test.questions[0].text }}</p>
                             <label  ng-repeat="answer in test.questions[0].answers" class="range-answer-options">
@@ -57,7 +57,7 @@
                             </label>
                         </fieldset>
                         <fieldset>
-                            <div ng-show="testForm.$submitted">
+                            <div ng-show="testForm.form.$submitted">
                                 {{ testFormMessage }}
                             </div>
                             <button class="action-button-forgot">Enviar</button>
@@ -67,12 +67,6 @@
 
                 <div ng-if="hasTestSent()" class="score">
                     <h3>Gracias por tu tiempo, tus respuestas han sido enviadas.</h3>
-                    <p>
-                        Tus respuestas: <br>
-                        <ul>
-                            <li ng-repeat="answer in answers.test_scores">{{ answer.description }}</li>
-                        </ul>
-                    </p>
                 </div>
 
             </div>
