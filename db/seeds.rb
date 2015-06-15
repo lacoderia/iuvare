@@ -499,7 +499,7 @@ tb_q12_answer_4 = Answer.create(question: tb_question_12, text:"Ninguna de las a
 
 #Test despues del plan
 test_plan = Test.create(name: "Plan", test_type: "multiple", code: "plan")
-tp_question_1 = Question.create(test: test_plan, text: "En una escala del 1 al 10, ¿qué nivel de interés despertó en ti la propuesta? (Siendo 1 ningún interés y 10 un gran interés)")
+tb_question_1 = Question.create(test: test_plan, text: "En una escala del 1 al 10, ¿qué nivel de interés despertó en ti la propuesta? (Siendo 1 ningún interés y 10 un gran interés)")
 tp_q1_answer_1 = Answer.create(question: tb_question_1, text:"1")
 tp_q1_answer_2 = Answer.create(question: tb_question_1, text:"2")
 tp_q1_answer_3 = Answer.create(question: tb_question_1, text:"3")
@@ -511,10 +511,10 @@ tp_q1_answer_8 = Answer.create(question: tb_question_1, text:"8")
 tp_q1_answer_9 = Answer.create(question: tb_question_1, text:"9")
 tp_q1_answer_10 = Answer.create(question: tb_question_1, text:"10")
 
-tp_question_2 = Question.create(test: test_plan, text: "¿En que momento te gustaría que me ponga en contacto contigo?")
-tp_q2_answer_1 = Answer.create(question: tb_question_2, text:"Hoy")
-tp_q2_answer_2 = Answer.create(question: tb_question_2, text:"Mañana")
-tp_q2_answer_3 = Answer.create(question: tb_question_2, text:"No es necesario")
+tp_question_2 = Question.create(test: test_plan, text: "¿En qué momento te gustaría que me ponga en contacto contigo?")
+tp_q2_answer_1 = Answer.create(question: tp_question_2, text:"Hoy")
+tp_q2_answer_2 = Answer.create(question: tp_question_2, text:"Mañana")
+tp_q2_answer_3 = Answer.create(question: tp_question_2, text:"No es necesario")
 
 #Assets
 # Convencion de nombres [asset_type]_[author]_[title]
