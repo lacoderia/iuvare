@@ -41,6 +41,8 @@ class TestScore < ActiveRecord::Base
           ts.description = answer.text
         end
         ts.save!
+        #Enviar Correo con respuestas
+        IuvareMailer.send_answers(user, ts).deliver_now
       end
 
       return [ts]

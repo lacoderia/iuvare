@@ -14,4 +14,10 @@ class IuvareMailer < ActionMailer::Base
     mail(to: sender_user.email, subject: "Invitacion a IUVARE - Confidencial")     
   end
 
+  def send_answers(user, test_score)
+    @user = user
+    @test_score = test_score
+    mail(to: user.email, subject: "Plan IUVARE - Finalizado")
+  end
+
 end
