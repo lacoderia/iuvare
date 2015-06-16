@@ -55,6 +55,10 @@
                                     <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
                                     <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index, contact.id)"></span>
                                 </div>
+                                <div ng-if="contact.test_score">
+                                    <p>Nivel de interés (1-10): {{contact.test_score.score}}</p>
+                                    <p>¿Cuándo contactarlo? {{contact.test_score.description}}</p>
+                                </div>
                             </div>
 
                         </div>
