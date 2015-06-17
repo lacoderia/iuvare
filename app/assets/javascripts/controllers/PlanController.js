@@ -33,8 +33,8 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
 
             })
             .error(function (error, status) {
+                $scope.showAlert('Ocurrió un error al terminar el video.', 'danger');
                 console.log('Ocurrió un error al terminar el video');
-                console.log(error)
             });
 
         $scope.startSpin('container-spinner');
@@ -47,8 +47,8 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
                 }
             })
             .error(function (error, status) {
-                console.log('Ocurrió un error al obtener el test');
-                console.log(error)
+                $scope.showAlert('Ocurrió un error al obtener el test.', 'danger');
+                console.log('Ocurrió un error al obtener el test.');
             });
 
     };
@@ -76,9 +76,10 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
                 }
             })
             .error(function (error, status) {
-                console.log('Ocurrió un error al cargar el video');
-                console.log(error)
                 validToken = false;
+
+                $scope.showAlert('Ocurrió un error al cargar el video.', 'danger');
+                console.log('Ocurrió un error al cargar el video.');
             })
             .finally(function () {
                 tokenSent = true;
@@ -126,11 +127,11 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
                     $scope.stopSpin('container-spinner');
                 })
                 .error(function (error,status) {
-                    console.log('Ocurrió un error al guardar los resultado del test')
-                    console.log(error);
+                    $scope.showAlert('Ocurrió un error al guardar los resultado del test. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al guardar los resultado del test. Intenta nuevamente.')
                 });
         } else {
-            $scope.testFormMessage = 'Todas las preguntas deben tener una respuesta seleccionada.';
+            $scope.showAlert('Todas las preguntas deben tener una respuesta seleccionada.', 'warning');
         }
 
     };

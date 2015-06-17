@@ -28,7 +28,6 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
 
     // Variables privadas
     $scope.showTest = false;
-    $scope.testFormMessage = undefined;
     var chartLoaded = false;
 
     // Method that shows the new goal form
@@ -63,7 +62,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                 $scope.stopSpin('container-spinner');
             })
             .error(function(error, status){
-                console.log('Hubo un error al obtener los resultados del test de color.');
+                $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al obtener los resultados del test de color.');
             });
 
     };
@@ -71,7 +71,6 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
     // Method that resets the test form
     $scope.resetTestForm = function(){
         $scope.colorTest = undefined;
-        $scope.testFormMessage = undefined;
         $scope.testForm.$setPristine();
         $scope.testForm.$setUntouched();
     };
@@ -116,17 +115,17 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                         $scope.colorTestResult.scores = $scope.colorTestResult.test_scores;
                         SessionService.$get().setTestScores([$scope.colorTestResult]);
                     } else {
-                        $scope.testFormMessage = data.error;
+                        $scope.showAlert(data.error, 'danger');
                     }
 
                     $scope.stopSpin('container-spinner');
                 })
                 .error(function(error, status){
+                    $scope.showAlert(error.error, 'danger');
                     console.log(error.error);
-                    $scope.testFormMessage = error.error;
                 });
         } else {
-            $scope.testFormMessage = 'Todas las preguntas deben tener una respuesta seleccionada.';
+            $scope.showAlert('Todas las preguntas deben tener una respuesta seleccionada.', 'warning');
         }
     };
 
@@ -147,13 +146,15 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
 
                 } else {
                     $scope.colorTestResult = {};
+                    $scope.showAlert(data.error, 'danger');
                     console.log(data.error);
                 }
 
                 $scope.stopSpin('container-spinner');
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener los resultados del test de color.');
+                $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al obtener los resultados del test de color.');
             });
 
     };

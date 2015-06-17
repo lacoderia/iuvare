@@ -6,11 +6,13 @@
 @import "common/icomoon.css"
 @import "common/typography"
 
+//Import libraries styles
+@import "common/angular-motion.css"
 @import "common/ng-quick-date.css"
 @import "common/ng-quick-date-default-theme.css"
 @import "fancybox/jquery.fancybox.css"
 
-// Import layout sytles
+// Import layout styles
 @import "layout/footer"
 @import "layout/top_nav"
 @import "layout/inner_aside_nav"
@@ -107,6 +109,49 @@ h2.section-title
   text-transform: uppercase
   width: 100%
 
+.alert
+
+  outline: none
+
+  &.top, &.top-left, &.top-right, &.bottom, &.bottom-left, &.bottom-right
+    position: fixed
+    margin: 20px
+
+  &.top, &.top-left, &.top-right
+    top: 0px
+
+  &.top
+    right: 0px
+    left: 0px
+
+  &.top-right
+    right: 0px
+    .close
+      padding-left: 10px
+
+  &.top-left
+    left: 0px
+
+    .close
+      padding-right: 10px
+
+  &.bottom, &.bottom-right, &.bottom-left
+    bottom: 0px
+
+  &.bottom
+    right: 0px
+    left: 0px
+
+  &.bottom-right
+    right: 0px
+
+    .close
+      padding-left: 10px
+
+  &.bottom-left
+    left: 0px
+    .close
+      padding-right: 10px
 
 .form
 

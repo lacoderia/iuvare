@@ -49,7 +49,8 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
                 }
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener las convenciones.');
+                $scope.showAlert('Ocurrió un error al obtener las convenciones.', 'danger');
+                console.log('Ocurrió un error al obtener las convenciones.');
             });
     };
 

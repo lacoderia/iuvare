@@ -87,6 +87,10 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
                     $scope.stopSpin('container-spinner');
                 }
+            })
+            .error(function(error){
+                $scope.showAlert('Ocurrió un error al asignar el socio.', 'danger');
+                console.log('Ocurrió un error al asignar el socio.');
             });
     };
 
@@ -99,6 +103,10 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
                     $scope.stopSpin('container-spinner');
                 }
+            })
+            .error(function(error){
+                $scope.showAlert('Ocurrió un error al desasignar el socio.', 'danger');
+                console.log('Ocurrió un error al desasignar el socio.');
             });
     };
 
@@ -181,6 +189,10 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
                     $scope.stopSpin('container-spinner');
                 }
+            })
+            .error(function(error){
+                $scope.showAlert('Ocurrió un error al obtener tu red. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al obtener tu red. Intenta nuevamente.');
             });
 
         $scope.currentUser = SessionService.$get();

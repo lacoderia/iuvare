@@ -30,7 +30,8 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
             })
             .error(function(response){
                 brick.error = true;
-                console.log('Hubo un error al guardar la imagen.');
+                $scope.showAlert('La imagen no pudo ser guardada. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al guardar la imagen.');
             });
     };
 
@@ -84,7 +85,8 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
                 })
                 .error(function(response){
                     brick.uploading = false;
-                    console.log('Hubo un error al eliminar una imagen.');
+                    $scope.showAlert('La imagen no pudo ser eliminada. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al eliminar una imagen.');
                 });
         }
     };
@@ -104,7 +106,8 @@ iuvare.controller('CollageController', ["$scope", "$rootScope", "CollageService"
                 $scope.stopSpin('container-spinner');
             })
             .error(function(response){
-                console.log('Hubo un error al obtener el collage.');
+                $scope.showAlert('No se pudo obtener tu collage. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al obtener el collage.');
             });
     };
 
