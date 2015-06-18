@@ -39,10 +39,10 @@ class Payment < ActiveRecord::Base
     return result
   end
 
-  def register_notification params
+  def self.register_notification params
     item_name = params[:item_name]
     user_id = params[:custom]
-    amount = params[:mc_gross]
+    amount = params[:mc_gross].to_i
     txn_id = params[:txn_id]
     payment_status = params[:payment_status]
     payment_type = nil
@@ -70,6 +70,9 @@ class Payment < ActiveRecord::Base
       payment = Payment.create(user_id: user_id, paypal_trans_id: txn_id, amount: amount, payment_type: payment_type)
       user.payment_expiration = expiration_date
       user.save!
+      return payment
+    else
+      raise "Notificación de pago no marcado como completado."
     end
   end
   
