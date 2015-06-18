@@ -28,6 +28,7 @@ class SessionsController < Devise::SessionsController
 
   def success
   	@success = true
+        @access_level = User.validate_access(current_user)
   	render "create.json"
   end
 

@@ -19,4 +19,3 @@ class TestScoresController < ApplicationController
       params.require(:test_score).permit(:user_id, :test_id, :score, :description)
     end
 end
-

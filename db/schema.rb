@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518221857) do
+ActiveRecord::Schema.define(version: 20150617185545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,17 @@ ActiveRecord::Schema.define(version: 20150518221857) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "paypal_trans_id"
+    t.float    "amount"
+    t.string   "payment_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "payments", ["paypal_trans_id"], name: "index_payments_on_paypal_trans_id", unique: true, using: :btree
+
   create_table "plans", force: :cascade do |t|
     t.integer  "asset_id"
     t.integer  "contact_id"
@@ -202,6 +213,7 @@ ActiveRecord::Schema.define(version: 20150518221857) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.boolean  "kit_bought",             default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -209,8 +221,14 @@ ActiveRecord::Schema.define(version: 20150518221857) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "assets", "tests"
+  add_foreign_key "collage_images", "collages"
+  add_foreign_key "collages", "users"
+  add_foreign_key "contacts", "users"
   add_foreign_key "goals", "users"
   add_foreign_key "invitations", "users"
+  add_foreign_key "payments", "users"
+  add_foreign_key "plans", "assets"
+  add_foreign_key "plans", "contacts"
   add_foreign_key "questions", "tests"
   add_foreign_key "requests", "users"
   add_foreign_key "roles_users", "roles"

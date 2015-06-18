@@ -5,9 +5,16 @@ feature 'RegistrationsController' do
   describe 'registration process' do
     context 'user creation' do
 
+      it 'successfully creates user and stops login until payment is completed' do
+        upline = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", sponsor_xango_id: "123456", placement_xango_id: "123456", upline_id: upline.id, kit_bought: false }
+        
+
+      end
+
       it 'successfully creates user, logout, valid and invalid login, existing and non-existing session' do
         upline = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "123456", placement_xango_id: "123456", upline_id: upline.id  }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "123456", placement_xango_id: "123456", upline_id: upline.id, kit_bought: true }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
