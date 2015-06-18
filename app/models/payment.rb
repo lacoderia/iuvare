@@ -46,13 +46,17 @@ class Payment < ActiveRecord::Base
     txn_id = params[:txn_id]
     payment_status = params[:payment_status]
     payment_type = nil
-    expiration_date = nil
+    expiration_date = nil    
 
     if payment_status == "Completed"
+
+      user = User.find(user_id)
+
       case amount
       when KIT_PRICE
         payment_type = "Kit de inicio"
         expiration_date = Time.zone.now + FREE_MONTHS.months
+        user.kit_bought = true
       when TWELVE_MONTHS_PRICE
         payment_type = "Doce meses"
         expiration_date = Time.zone.now + 12.months
@@ -64,7 +68,8 @@ class Payment < ActiveRecord::Base
       end
 
       payment = Payment.create(user_id: user_id, paypal_trans_id: txn_id, amount: amount, payment_type: payment_type)
-      User.find(user_id).update_attribute(payment_expiration: expiration_date)
+      user.payment_expiration = expiration_date
+      user.save!
     end
   end
   
