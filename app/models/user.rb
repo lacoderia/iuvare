@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :test_scores
   has_and_belongs_to_many :roles
   has_many :collages
+  has_many :payments
   
   has_attached_file :picture, :styles => { :original => "300x300#" }, :default_url => ""
   validates_attachment_content_type :picture, :content_type => /\Aimage\/.*\Z/
@@ -19,6 +20,8 @@ class User < ActiveRecord::Base
   scope :cycle_downlines, -> (id) {where("upline_id = ? and downline_position is not null", id).order(:downline_position)}
   scope :downline_at_position, -> (id, position) {where(upline_id: id, downline_position: position)}
   scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}
+  
+  FREE_MONTHS = 2
 
   def role?(role)
     return !!self.roles.find_by_name(role)
@@ -65,5 +68,43 @@ class User < ActiveRecord::Base
       downline.save
     end
     downline
+  end
+
+  def self.validate_access user
+    result = {}
+    result[:payment_options] = []
+
+    if not user.kit_bought?
+      result[:valid_account] = false  
+      result[:message] = "Necesitas adquirir tu kit de IUVARE para continuar."
+      result[:payment_options] << Payment.paypal_pay_object("Kit de inicio", user)
+    else
+
+      months_free_date = user.created_at + FREE_MONTHS.months
+      if Time.zone.now > months_free_date
+        if user.payment_expiration
+          if Time.zone.now > user.payment_expiration
+            result[:valid_account] = false  
+            result[:message] = "Tu acceso pagado ha finalizado."
+            result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
+            result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
+          else
+            result[:valid_account] = true  
+            result[:message] = "Acceso pagado."
+          end
+        else
+          result[:valid_account] = false  
+          result[:message] = "Tu acceso por dos meses gratis ha finalizado."
+          result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
+          result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
+        end
+      else
+        result[:valid_account] = true  
+        result[:message] = "Acceso por dos meses gratis."
+      end
+
+    end
+
+    return result
   end
 end

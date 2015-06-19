@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @payment.user_id %>
+</p>
+
+<p>
+  <strong>Paypal trans:</strong>
+  <%= @payment.paypal_trans_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @payment.amount %>
+</p>
+
+<p>
+  <strong>Payment type:</strong>
+  <%= @payment.payment_type %>
+</p>
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>
