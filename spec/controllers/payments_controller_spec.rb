@@ -21,6 +21,7 @@ feature 'PaymentsController' do
           custom: User.last.id,
           mc_gross: 1000,
           txn_id: "txn_id_01",
+          mc_currency: "MXN",
           payment_status: "Created"
         }
 
@@ -39,6 +40,7 @@ feature 'PaymentsController' do
           custom: User.last.id,
           mc_gross: 1001,
           txn_id: "txn_id_01",
+          mc_currency: "MXN",
           payment_status: "Completed"
         }
 
@@ -74,6 +76,7 @@ feature 'PaymentsController' do
           custom: User.last.id,
           mc_gross: 1000,
           txn_id: "txn_id_01",
+          mc_currency: "MXN",
           payment_status: "Completed"
         }
 
@@ -105,6 +108,7 @@ feature 'PaymentsController' do
           custom: User.last.id,
           mc_gross: 90,
           txn_id: "txn_id_02",
+          mc_currency: "MXN",
           payment_status: "Completed"
         }
 
@@ -136,6 +140,7 @@ feature 'PaymentsController' do
           custom: User.last.id,
           mc_gross: 900,
           txn_id: "txn_id_03",
+          mc_currency: "MXN",
           payment_status: "Completed"
         }
 
