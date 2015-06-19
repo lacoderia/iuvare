@@ -45,10 +45,11 @@ class Payment < ActiveRecord::Base
     amount = params[:mc_gross].to_i
     txn_id = params[:txn_id]
     payment_status = params[:payment_status]
+    currency = params[:mc_currency]
     payment_type = nil
     expiration_date = nil    
 
-    if payment_status == "Completed"
+    if payment_status == "Completed" and currency == "MXN"
 
       user = User.find(user_id)
 
