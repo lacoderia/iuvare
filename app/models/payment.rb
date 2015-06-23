@@ -15,19 +15,22 @@ class Payment < ActiveRecord::Base
   validates :payment_type, inclusion: {in: TYPES}
 
   def self.paypal_pay_object payment_type, user
-    item_name = item_number = amount = nil
+    item_name = item_number = amount = shipping = nil
     result = {}
 
     case payment_type
     when "Kit de inicio"
       item_name = "Membresía y kit de inicio IUVARE + 2 meses gratis a iuvare.mx"
       amount = KIT_PRICE
+      shipping = true
     when "Un mes"
       item_name = "Un mes de acceso a iuvare.mx" 
       amount = ONE_MONTH_PRICE
+      shipping = false
     when "Doce meses"
       item_name = "Doce meses de acceso a iuvare.mx (sólo pagas 10 meses)" 
       amount = TWELVE_MONTHS_PRICE
+      shipping = false
     else
       raise "Tipo de pago no registrado"
     end
@@ -35,20 +38,22 @@ class Payment < ActiveRecord::Base
     result[:item_name] = item_name
     result[:custom] = user.id 
     result[:amount] = amount
+    result[:shipping] = shipping
     
     return result
   end
 
-  def register_notification params
+  def self.register_notification params
     item_name = params[:item_name]
     user_id = params[:custom]
-    amount = params[:mc_gross]
+    amount = params[:mc_gross].to_i
     txn_id = params[:txn_id]
     payment_status = params[:payment_status]
+    currency = params[:mc_currency]
     payment_type = nil
     expiration_date = nil    
 
-    if payment_status == "Completed"
+    if payment_status == "Completed" and currency == "MXN"
 
       user = User.find(user_id)
 
@@ -70,6 +75,9 @@ class Payment < ActiveRecord::Base
       payment = Payment.create(user_id: user_id, paypal_trans_id: txn_id, amount: amount, payment_type: payment_type)
       user.payment_expiration = expiration_date
       user.save!
+      return payment
+    else
+      raise "Notificación de pago no marcado como completado."
     end
   end
   
