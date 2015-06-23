@@ -1,8 +1,10 @@
 .aside-nav-container
   background-color: $color_blue_fb
   padding: 0 !important
+  +rem(margin, 0.5rem 0 0 0)
 
-  +rem(margin, 2rem 0 0 0)
+  @media screen and (min-width: $screen-sm-max)
+    +rem(margin, 2rem 0 0 0)
 
   .aside-nav
     color: white
@@ -32,17 +34,29 @@
         li
           display: table-cell
           text-align: center
-          +rem(font-size, 1.6rem)
-          +rem(padding, 0rem 2rem)
+          padding: 0
           position: relative
           width: 100%
+
+          @media screen and (min-width: $screen-sm-max)
+            +rem(padding, 0rem 2rem)
 
           a
             color: white
             display: inline-block
-            +rem(padding, 1rem 0rem)
+            +rem(padding, 0.6rem 0rem 0.4rem)
             text-decoration: none
             width: 100%
+
+            .item-name
+              display: block
+              +rem(font-size, 0.8rem)
+              line-height: 10px
+              +rem(padding, 0 0 0.8rem)
+
+              @media screen and (min-width: $screen-sm-max)
+                +rem(font-size, 1.6rem)
+                +rem(padding, 0.8rem 0 1rem)
 
           &:first-child
             a

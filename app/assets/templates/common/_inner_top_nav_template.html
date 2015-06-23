@@ -1,5 +1,5 @@
 <nav ng-controller="GlobalMenuController as glblMenuController">
-    <ul>
+    <ul iuvare-mobile-menu>
         <li ng-class="{ 'selected':isCurrentSection(item.code) }" ng-repeat="item in NAV_ITEMS"><a ui-sref="{{ item.state }}">{{ item.title }}</a></li>
         <li><a ng-click="logout()">Salir</a></li>
     </ul>

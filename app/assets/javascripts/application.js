@@ -99,3 +99,4 @@
 
 // Directives
 //= require directives/DownlineListDirective
+//= require directives/iuvareMobileMenu

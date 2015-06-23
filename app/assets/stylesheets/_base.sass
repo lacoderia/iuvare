@@ -193,7 +193,10 @@ h2.section-title
     width: 100%
 
 .form-container
-  +rem(padding, 4rem 16rem)
+  +rem(padding, 1rem 2rem)
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(padding, 4rem 16rem)
 
 .list-item-container
   background-color: $color_gray_1
@@ -302,9 +305,14 @@ h2.section-title
 
 .section-container
   background-color: white
-  +rem(margin, 2rem 0)
+  +rem(margin, 0.8rem 0)
   min-height: 500px
-  +rem(padding, 3rem 3.5rem)
+  +rem(padding, 1rem 1.5rem)
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(margin, 2rem 0)
+    min-height: 400px
+    +rem(padding, 3rem 3.5rem)
 
   h2.section-title
     +rem(margin, 0 0 2rem)
@@ -318,7 +326,10 @@ h2.section-title
   height: 3px
 
 .test-form
-  +rem(padding, 0 3rem)
+  padding: 0
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(padding, 0 3rem)
 
   fieldset
     border-bottom: 1px solid $color-gray_3
@@ -326,10 +337,14 @@ h2.section-title
     +rem(padding, 2rem 0)
 
     label
-      +rem('margin-right', 3rem)
       text-align: center
       min-width: 150px
-    
+      +rem(margin-right, 0.5rem)
+
+      @media screen and (min-width: $screen-sm-max)
+        +rem(margin-right, 3rem)
+
+
     p
       +rem(margin, 0)
 
