@@ -303,6 +303,48 @@ h2.section-title
     max-width: 300px
     +rem(margin-bottom, 1.5rem)
 
+
+.score-explanation
+  +rem(margin-top, 2rem)
+
+  table
+    margin: 0 auto
+    max-width: 800px
+    width: 100%
+
+    caption
+      +rem(padding, 0.6rem 1rem)
+
+      &.blue
+        color: white
+        background: $color_blue_2
+
+      &.green
+        color: white
+        background: $color_green_2
+
+      &.red
+        color: white
+        background: $color_red_2
+
+      &.yellow
+        color: $color_gray_2
+        background: $color_yellow_1
+
+    td
+      +rem(padding, 1rem)
+      vertical-align: top
+
+    th
+      background: $color_gray_1
+      +rem(padding, 1rem)
+      text-align: center
+
+    .other-traits
+      list-style: none
+      +rem(margin, 1rem 0)
+      padding: 0
+
 .section-container
   background-color: white
   +rem(margin, 0.8rem 0)

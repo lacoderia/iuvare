@@ -28,6 +28,33 @@
                     </tbody>
                 </table>
             </div>
+            <div class="score-explanation">
+                <table>
+                    <caption ng-class="mainColorDesc.class">Eres {{ mainColorDesc.desc }}</caption>
+                    <thead>
+                        <tr>
+                            <th>Material recomendado</th>
+                            <th>Características de personalidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {{ mainColorDesc.recommended[0].title }} <br>
+                                {{ mainColorDesc.recommended[0].material_location }}
+                            </td>
+                            <td>
+                                <ul>
+                                    <li ng-repeat="trait in mainColorDesc.traits">{{ trait }}</li>
+                                </ul>
+                                <ul class="other-traits">
+                                    <li ng-repeat="other_trait in mainColorDesc.other_traits"><strong>{{ other_trait.title }}:</strong> {{ other_trait.desc }}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="actions">
                 <a class="action-button-purple size-medium" title="Volver a tomar el test" ng-click="createTest()">Volver a tomar el test</a>
             </div>
