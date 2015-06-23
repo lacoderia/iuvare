@@ -65,6 +65,7 @@ feature 'PaymentsController' do
         expect(response['success']).to be true
         expect(response['result']['access_level']['valid_account']).to eql false
         payment_object = response['result']['access_level']['payment_options'][0]
+        expect(payment_object["shipping"]).to be true
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['email']).to eql invitation.recipient_email
         expect(response['result']['downline_position']).to eql 1
@@ -100,6 +101,8 @@ feature 'PaymentsController' do
         expect(response['success']).to be true
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['access_level']['valid_account']).to eql false
+        payment_object = response['result']['access_level']['payment_options'][0]
+        expect(payment_object["shipping"]).to be false 
         logout
 
         # PAGO DE UN MES
@@ -132,6 +135,8 @@ feature 'PaymentsController' do
         expect(response['success']).to be true
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['access_level']['valid_account']).to eql false
+        payment_object = response['result']['access_level']['payment_options'][0]
+        expect(payment_object["shipping"]).to be false 
         logout        
 
         # PAGO DE DOCE MESES

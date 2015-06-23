@@ -15,19 +15,22 @@ class Payment < ActiveRecord::Base
   validates :payment_type, inclusion: {in: TYPES}
 
   def self.paypal_pay_object payment_type, user
-    item_name = item_number = amount = nil
+    item_name = item_number = amount = shipping = nil
     result = {}
 
     case payment_type
     when "Kit de inicio"
       item_name = "Membresía y kit de inicio IUVARE + 2 meses gratis a iuvare.mx"
       amount = KIT_PRICE
+      shipping = true
     when "Un mes"
       item_name = "Un mes de acceso a iuvare.mx" 
       amount = ONE_MONTH_PRICE
+      shipping = false
     when "Doce meses"
       item_name = "Doce meses de acceso a iuvare.mx (sólo pagas 10 meses)" 
       amount = TWELVE_MONTHS_PRICE
+      shipping = false
     else
       raise "Tipo de pago no registrado"
     end
@@ -35,6 +38,7 @@ class Payment < ActiveRecord::Base
     result[:item_name] = item_name
     result[:custom] = user.id 
     result[:amount] = amount
+    result[:shipping] = shipping
     
     return result
   end
