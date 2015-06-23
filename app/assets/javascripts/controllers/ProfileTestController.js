@@ -15,6 +15,9 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
         red: '#B2002F'
     };
 
+    // Holds the main color
+    $scope.mainColorDesc = undefined;
+
     // Array that holds the user's goals list
     $scope.colorTestResult = undefined;
     $scope.dataChart = {
@@ -129,6 +132,16 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
         }
     };
 
+    var getMainColor = function(){
+        var maxScoreColor = $scope.colorTestResult.test_scores[0];
+        angular.forEach($scope.colorTestResult.test_scores, function(score){
+            if(score.score > maxScoreColor.score){
+                maxScoreColor = score;
+            }
+        });
+        return maxScoreColor;
+    };
+
     // Method to init the controller's default state
     $scope.initController = function(){
         $scope.$emit('setCurrentSection');
@@ -143,6 +156,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                 if(data.success){
                     $scope.colorTestResult = data.result;
                     $scope.setChart($scope.colorTestResult.test_scores);
+                    $scope.mainColorDesc = DEFAULT_VALUES.COLOR_DESC[(getMainColor().description).toUpperCase()];
 
                 } else {
                     $scope.colorTestResult = {};

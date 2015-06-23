@@ -123,6 +123,120 @@ iuvare.constant('DEFAULT_VALUES',{
             TRAINING: 'training',
             FAQ: 'FAQ'
         }
+    },
+    COLOR_DESC: {
+        YELLOW: {
+            desc: 'Amarillo',
+            class: 'yellow',
+            recommended: [{title: 'Nuevos profesionales de network marketing', material_location: 'Factor x'}],
+            traits: ['Se afectan cuando existe presión',
+                'Impaciente e impulsivo',
+                'Intenta dominar al tener contacto y es directo',
+                'Usa preguntas desafiantes',
+                'Interrumpe, puede leer cuando tu hablas',
+                'Contacto visual directo y firme, puede ser desafiante y amenazador',
+                'Impaciente',
+                'Apunta con el dedo para enfatizar algo o tomar el control',
+                'Puede aparentar negligencia o rudeza',
+                'Estrecha la mano con fuerza y es asertivo',
+                'No se aparta de los conflictos, se siente cómodo con los mismos'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Fallar'},
+                {title: 'Motivador', desc: 'Poder y fuerza'},
+                {title: 'Valor para la organización', desc:'Persona de resultados'},
+                {title: 'Fuerza de ventas', desc:'Cierre de negocios'}
+            ]
+        },
+        BLUE: {
+            desc: 'Azul',
+            class: 'blue',
+            recommended: [{title: 'Sé el dueño de tu vida', material_location: 'Factor x'}],
+            traits: ['Metódico y organizado',
+                'Aoariencia de sofisticación',
+                'Preocupado por la seguridad',
+                'Reacio a cambiar su STATUS-QUO',
+                'Tendencia a preguntar con el fin de esclarecer',
+                'Ritmo lento, reacciones demoradas cuando expone un problema',
+                'Normalmente buen oyente',
+                'Aborda los problemas cautelosamente',
+                'Apretón de manos amigable',
+                'Prefiere gerenciar que dirigir',
+                'Oficina segura y confortable',
+                'Escritorio organizado con fotos de la familia',
+                'Generalmente muy cortés',
+                'Contacto visual sincero, caluroso, amigable',
+                'Contacto cauteloso',
+                'Posición defensiva y gesticula en una situación competitiva'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Cambios'},
+                {title: 'Motivador', desc: 'Seguridad'},
+                {title: 'Valor para la organización', desc:'Áreas administrativas y soporte'},
+                {title: 'Fuerza de ventas', desc:'Servicio/atención y ayuda'}
+            ]
+        },
+        RED: {
+            desc: 'Rojo',
+            class: 'red',
+            recommended: [{title: 'Placer y Dolor', material_location: 'Factor x'}],
+            traits: ['Entusiasta y amigable',
+                'Frecuentemente desatento a los detalles',
+                'Positivo y verbal',
+                'Gusta de contar historias y anéctodas',
+                'Puede parecer superficial e impulsivo',
+                'Apretón de mano muy amigable',
+                'Desorganizado',
+                'Exhibe fotos trofeos',
+                'Se viste casual, le gustan los colores',
+                'Utiliza últimas tecnologías electrónicas',
+                'Sociable y cortés',
+                'Hospitalario',
+                'Contacto visual amigable',
+                'Sonríe con los ojos',
+                'Mucho movimiento corporal',
+                'Utiliza sus manos al hablar',
+                'Pose un estilo abierto y relajado',
+                'Toca a los demás como señal de amistad y sinceridad',
+                'Cuando está interesado o preocupado posterga decisiones',
+                'Prefiere persuadir o conversar en vez de confrontar agresivamente o hacer exigencias'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Rechazo'},
+                {title: 'Motivador', desc: 'Reconocimiento de personas'},
+                {title: 'Valor para la organización', desc:'Trabajo con/o para personas'},
+                {title: 'Fuerza de ventas', desc:'Apertura de negocios'}
+            ]
+        },
+        GREEN: {
+            desc: 'Verde',
+            class: 'green',
+            recommended: [{title: 'Una magnifica opción ante la crisis', material_location: 'Factor x'}],
+            traits: ['Se prepara con anticipación',
+                'Organizado y puntual',
+                'Sistemático y disciplinado sobre todo con el tiempo',
+                'Tendencia a no compartir sus sentimientos',
+                'Tiene un cuestionario preciso y detallado',
+                'Apretón de manos suelto, breve a veces nervioso',
+                'Usa pausas para pensar',
+                'Muy orientado a los hechos y evidencias',
+                'Difícil de convencer ',
+                'Escritorio organizado e impersonal',
+                'Puede reír nerviosamente',
+                'Todo encaja en su sistema función',
+                'Mut político y diplomático',
+                'Forma de vestir cuidadosa y conservadora',
+                'Evita contacto visual particularmente en una situación hostil',
+                'Tiende a ser cauteloso y no expresa sentimientos a través de sus gestos',
+                'Parece frío y poco expresivo'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Conflictos'},
+                {title: 'Motivador', desc: 'Reglas y procedimientos'},
+                {title: 'Valor para la organización', desc:'Áreas técnicas y de calidad'},
+                {title: 'Fuerza de ventas', desc:'Contratos y aspectos técnicos'}
+            ]
+        }
     }
 });
 
