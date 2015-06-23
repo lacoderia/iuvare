@@ -27,27 +27,27 @@ iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
         { order: 1, code: 'BUSINESS', title: 'Negocio', state: 'business.cycle',
             subsections: [
-                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'LIST', title: 'Lista', state: 'business.list' },
-                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list' },
-                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters' }
+                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle', icon: 'icon-sitemap' },
+                { order:2, code: 'LIST', title: 'Lista', state: 'business.list', icon: 'icon-list' },
+                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
+                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
             subsections: [
-                { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio' },
-                { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar' },
-                { order:3, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention' },
-                { order:4, code: 'TRAINING', title: 'Capacitaciones', state: 'system.training' },
-                { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document' }
+                { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio', icon: 'icon-headphones' },
+                { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar', icon: 'icon-conferencias' },
+                { order:3, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention', icon: 'icon-convenciones' },
+                { order:4, code: 'TRAINING', title: 'Capacitaciones', state: 'system.training', icon: 'icon-mortar-board' },
+                { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' }
             ]
         },
         { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
             subsections: [
-                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
-                { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' },
-                { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' },
-                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' }
+                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why', icon: 'icon-flag-checkered' },
+                { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage', icon: 'icon-pictures' },
+                { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test', icon: 'icon-chart' },
+                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile', icon: 'icon-profile' }
             ]
         },
         { order: 3, code: 'FAQ', title: 'FAQ', state: 'FAQ',

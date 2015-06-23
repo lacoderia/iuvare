@@ -1,16 +1,27 @@
 .office-info
-  display: inline-block
-  vertical-align: top
-  width: 40%
+  display: block
+  +rem(margin-top, 1rem)
+
+  @media screen and (min-width: $screen-sm-max)
+    display: inline-block
+    margin-top: 0
+    vertical-align: top
+    width: 40%
 
 .office-map
-  display: inline-block
-  +rem(margin-right, 20px)
-  max-height: 300px
-  max-width: 300px
+  display: block
+  +rem(margin, 0 auto)
+  max-height: 200px
+  max-width: 200px
   overflow: hidden
-  vertical-align: top
-  width: 40%
+
+  @media screen and (min-width: $screen-sm-max)
+    display: inline-block
+    +rem(margin-right, 20px)
+    max-height: 300px
+    max-width: 300px
+    vertical-align: top
+    width: 40%
 
 .office-name
   +rem(font-size, 1.8rem)
