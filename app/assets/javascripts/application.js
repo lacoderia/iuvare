@@ -70,6 +70,7 @@
 //= require controllers/HeadquartersController
 //= require controllers/ListController
 //= require controllers/LoginController
+//= require controllers/PaymentController
 //= require controllers/PlanController
 //= require controllers/PlanListController
 //= require controllers/ProfileController

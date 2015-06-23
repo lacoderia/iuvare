@@ -1,0 +1,29 @@
+<div class="row" ng-controller="PaymentController as paymentCtrl">
+    <div class="col-lg-12 section-container">
+        <div>
+            <h2 class="section-title">Pagos</h2>
+            {{ description }}
+
+            <div ng-repeat="product in products">
+                <div>{{product.item_name}}</div>
+                <script src="assets/lib/paypal-button.min.js?merchant=58P3LXBRGP3JE"
+                        data-amount="{{product.amount}}"
+                        data-button="buynow"
+                        data-callback="http://sandbox.iuvare.mx/payments/ipn"
+                        data-cancel-return="http://www.successooo.com.mx"
+                        data-currency="MXN"
+                        data-custom="{{product.custom}}"
+                        data-env="sandbox"
+                        data-host="http://www.sandbox.paypal.com"
+                        data-lc="es_ES"
+                        data-name="{{product.item_name}}"
+                        data-no_shipping="{{ (product.shipping ? '2' : '1') }}"
+                        data-number="1"
+                        data-return="http://www.success.com.mx"
+                        async></script>
+            </div>
+
+
+        </div>
+    </div>
+</div>
