@@ -17,6 +17,7 @@
 //= require jquery_ujs
 //= require bower_components/angular/angular.min
 //= require directives/DirectivesModule
+//= require bower_components/angular-animate/angular-animate.js
 //= require bower_components/angular-strap/dist/angular-strap.min
 //= require bower_components/angular-strap/dist/angular-strap.tpl.js
 //= require bower_components/angular-resource/angular-resource.min
@@ -100,3 +101,4 @@
 
 // Directives
 //= require directives/DownlineListDirective
+//= require directives/iuvareMobileMenu

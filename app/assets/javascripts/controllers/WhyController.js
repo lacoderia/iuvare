@@ -149,7 +149,8 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                     }
                 })
                 .error(function (error, status) {
-                    console.log('Hubo un error al guardar la meta. ');
+                    $scope.showAlert('Ocurrió un error al guardar la meta. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al guardar la meta.');
                 });
         }
     };
@@ -187,7 +188,8 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                     }
                 })
                 .error(function(error, status){
-                    console.log('Hubo un error al actualizar la meta. ');
+                    $scope.showAlert('Ocurrió un error al actualizar la meta. Intenta nuevamente.' ,'danger');
+                    console.log('Ocurrió un error al actualizar la meta.');
                 });
         }
     };
@@ -224,7 +226,8 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                 }
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener las metas.');
+                $scope.showAlert('Ocurrió un error al obtener las metas. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al obtener las metas.');
             });
 
     };

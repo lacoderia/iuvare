@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, $timeout, usSpinnerService, AuthService, EventService, NavigationService, SessionService){
+iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "$alert", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, $timeout, $alert, usSpinnerService, AuthService, EventService, NavigationService, SessionService){
 
     $scope.currentSection = undefined;
     $scope.currentSubsection = undefined;
@@ -25,6 +25,19 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
 
     $scope.logout = function(){
         AuthService.logout();
+    };
+
+    $scope.showAlert = function(content, type){
+        $alert({
+            animation: 'am-fade-and-slide-top',
+            container: 'body',
+            content: content,
+            dismissable: true,
+            duration: 5,
+            placement: 'top-right',
+            show: true,
+            type: type
+        });
     };
 
     $scope.startSpin = function(spinner){
@@ -68,7 +81,7 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
                 }
             })
             .error(function(){
-                console.log('Hubo un error al obtener el evento del mes.') ;
+                console.log('Ocurrió un error al obtener el evento del mes.') ;
             });
     });
 

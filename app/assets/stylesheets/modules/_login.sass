@@ -1,9 +1,12 @@
 .login-container, .forgot-container
   background-color: white
-  +rem(margin, 10rem auto)
+  +rem(margin, 2rem auto)
   +rem(padding, 0.1rem 0 0 0)
   text-align: center
-  width: 500px
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(margin, 10rem auto)
+    max-width: 500px
 
   form
     text-align: center
@@ -22,6 +25,14 @@
     fieldset
       input, textarea, button
         display: block
+
+    fieldset:nth-child(1)
+      +rem(padding, 2rem)
+
+      @media screen and (min-width: $screen-sm-max)
+        +rem(padding, 4rem)
+
+      input
         +rem(margin-top, 1rem)
         width: 100%
 

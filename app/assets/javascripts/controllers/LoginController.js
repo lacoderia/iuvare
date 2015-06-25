@@ -162,7 +162,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                 })
                 .error(function(error, status){
                     xangoUser.dbId = undefined;
-                    xangoUser.message = 'Hubo un error al obtener el usuario con ese id';
+                    xangoUser.message = 'Ocurrió un error al obtener el usuario con ese id';
                     formField.$setValidity('userExists', false);
                 });
         } else {
@@ -200,6 +200,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                     }
                 );
             } else {
+                $scope.showAlert('Para enviar la solicitud de registro todos los campos deben ser válidos.', 'warning');
                 console.log('Para enviar la solicitud de registro todos los campos deben ser válidos.');
             }
         }else{

@@ -49,7 +49,8 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
                 }
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener los audios.');
+                $scope.showAlert('Ocurrió un error al obtener los audios.', 'danger');
+                console.log('Ocurrió un error al obtener los audios.');
             });
     };
 

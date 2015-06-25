@@ -62,8 +62,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                     }
                 })
                 .error(function (error, status) {
-                    console.log('Hubo un error al guardar el contacto.');
-                    console.log(error);
+                    $scope.showAlert('Ocurrió un error al guardar el contacto. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al guardar el contacto.');
                 })
                 .finally(function () {
                     $scope.showContactListView();
@@ -84,8 +84,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
                 })
                 .error(function (error, status) {
-                    console.log('Hubo un error al actualizar el contacto.');
-                    console.log(error);
+                    $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al actualizar el contacto.');
                 })
                 .finally(function () {
                     $scope.showContactListView();
@@ -102,8 +102,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                 $scope.contactList = angular.copy(ListService.contacts);
             })
             .error(function (error, status) {
-                console.log('Hubo un error al eliminar el contacto.');
-                console.log(error);
+                $scope.showAlert('Ocurrió un error al eliminar el contacto. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al eliminar el contacto.');
             })
             .finally(function(){
                 $scope.stopSpin('contact-spinner-' + spinnerId);
@@ -120,8 +120,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                 }
             })
             .error(function (error, status) {
-                console.log('Hubo un error al actualizar el contacto.');
-                console.log(error);
+                $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al actualizar el contacto.');
             })
             .finally(function () {
                 $scope.showContactListView();
@@ -167,8 +167,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                         $scope.stopSpin('contact-spinner-' + contact.id);
                     })
                     .error(function (error, status) {
-                        console.log('Hubo un erro al enviar un video');
-                        console.log(error);
+                        $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger');
+                        console.log('Ocurrió un error al enviar el video');
                     });
         }
     };
@@ -209,21 +209,22 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                                         $scope.stopSpin('container-spinner');
                                     })
                                     .error(function (error, status) {
-                                        console.log('Hubo un error al obtener las transiciones de los estatus');
-                                        console.log(error);
+                                        $scope.showAlert('Ocurrió un error al obtener los contactos. Intenta nuevamente.', 'danger');
+                                        console.log('Ocurrió un error al obtener las transiciones de los estatus');
                                     });
                             }
                         })
                         .error(function (error, status) {
-                            console.log('Hubo un error al obtener los planes.');
+                            $scope.showAlert('Ocurrió un error al obtener los contactos. Intenta nuevamente.', 'danger');
+                            console.log('Ocurrió un error al obtener los planes.');
                         });
-
 
                 }
 
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener los contactos.');
+                $scope.showAlert('Ocurrió un error al obtener los contactos. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al obtener los contactos.');
             });
 
     };

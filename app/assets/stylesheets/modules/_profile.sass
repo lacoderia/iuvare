@@ -1,10 +1,11 @@
 .profile-container
 
   .password-form, .profile-form
-    +rem(padding, 4rem 16rem)
-
     font-size: 0
-    +rem(padding, 4rem 16rem)
+    +rem(padding, 1rem 2rem)
+
+    @media screen and (min-width: $screen-sm-max)
+      +rem(padding, 4rem 16rem)
 
     .actions
       text-align: center
@@ -17,8 +18,11 @@
       background-color: transparent
 
     label
-      width: 20%
       font-size: 14px
+
+      @media screen and (min-width: $screen-sm-max)
+        width: 20%
+
 
     .message
       font-size: 14px
