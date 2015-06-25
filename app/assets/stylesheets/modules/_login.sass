@@ -25,14 +25,6 @@
     fieldset
       input, textarea, button
         display: block
-
-    fieldset:nth-child(1)
-      +rem(padding, 2rem)
-
-      @media screen and (min-width: $screen-sm-max)
-        +rem(padding, 4rem)
-
-      input
         +rem(margin-top, 1rem)
         width: 100%
 
@@ -41,7 +33,11 @@
         width: auto
 
     fieldset:nth-child(1)
-      +rem(padding, 4rem)
+      +rem(padding, 2rem)
+
+      @media screen and (min-width: $screen-sm-max)
+        +rem(padding, 4rem)
+
 
   h2.section-title
     color: $color_gray_2
