@@ -113,7 +113,8 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                 first_name: $scope.currentUser.name,
                 last_name: $scope.currentUser.lastName,
                 email: $scope.currentUser.email,
-                picture: $scope.currentUser.picture
+                picture: $scope.currentUser.picture,
+                iuvare_id: $scope.currentUser.iuvareId
             };
 
             ProfileService.updateProfile(user)
@@ -122,6 +123,8 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                         SessionService.$get().setFirstName(data.result.first_name);
                         SessionService.$get().setLastName(data.result.last_name);
                         SessionService.$get().setPicture(data.result.picture);
+                        SessionService.$get().setIuvareId(data.result.iuvare_id);
+                        $scope.currentUser.isIuvareId = SessionService.$get().getIuvareId();
 
                         $scope.profileFormMessage = 'Los datos fueron actualizados con éxito.';
 
@@ -189,6 +192,7 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
             lastName: SessionService.$get().getLastName(),
             email: SessionService.$get().getEmail(),
             iuvareId: SessionService.$get().getIuvareId(),
+            isIuvareId: SessionService.$get().getIuvareId(),
             xangoId: SessionService.$get().getXangoId(),
             picture: undefined,
             pictureUrl: SessionService.$get().getPicture(),

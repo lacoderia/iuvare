@@ -82,7 +82,6 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", "$rootScope", 'SessionSe
         }).then(
             function(data){
                 if(data.data.success){
-                    console.log(data);
                     return "Tu contraseña ha sido restaurada. Ahora puedes ingresar con tu nueva contraseña.";
                 }
             },

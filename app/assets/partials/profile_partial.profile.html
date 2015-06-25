@@ -33,7 +33,7 @@
                     <span ng-show="profileForm.profileEmail.$error.email">El correo electrónico no es válido.</span>
                 </div>
                 <label>ID Iuvare</label>
-                <input type="text" placeholder="ID Iuvare" name="profileIuvareId" ng-model="currentUser.iuvareId" readonly required>
+                <input type="text" placeholder="ID Iuvare" name="profileIuvareId" ng-model="currentUser.iuvareId" ng-readonly="currentUser.isIuvareId" required>
                 <div class="message" ng-show="profileForm.$submitted || profileForm.profileIuvareId.$touched">
                     <span ng-show="profileForm.profileIuvareId.$error.required">El ID Iuvare es requerido.</span>
                 </div>

@@ -32,7 +32,7 @@ iuvare.factory('CollageService', ['$http', '$q', "$state", 'SessionService', 'DE
                     });
                 }
             });
-    };
+    }
 
     function savePicture(picture) {
 
@@ -43,13 +43,13 @@ iuvare.factory('CollageService', ['$http', '$q', "$state", 'SessionService', 'DE
             picture: picture.src,
             order: picture.order
             });
-    };
+    }
 
     function deletePicture(picture) {
 
         var collageServiceURL = '/collage_images/' + picture.id + '.json';
 
         return $http.delete(collageServiceURL);
-    };
+    }
 
 }]);

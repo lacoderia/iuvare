@@ -7,24 +7,30 @@
 
   form
     text-align: center
+
+    .checkbox-label
+      background-color: $color_gray_3
+      border: none
+      color: $color_gray_2
+      +rem(font-size, $medium-font)
+      font-weight: 600
+      height: 50px
+      +rem(padding, 0 2rem)
+      text-align: left
+      width: 100%
+
     fieldset
       input, textarea, button
         display: block
+        +rem(margin-top, 1rem)
+        width: 100%
+
+      button[type='checkbox button']
+        display: inline-block
+        width: auto
 
     fieldset:nth-child(1)
       +rem(padding, 4rem)
-
-      input
-        +rem(margin-top, 1rem)
-        width: 100%
-
-      textarea
-        +rem(margin-top, 1rem)
-        width: 100%
-
-      button
-        +rem(margin-top, 1rem)
-        width: 100%
 
   h2.section-title
     color: $color_gray_2

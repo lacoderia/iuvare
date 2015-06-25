@@ -19,7 +19,8 @@ var iuvare = angular.module('iuvare',
         'com.2fdevs.videogular.plugins.controls',
         'com.2fdevs.videogular.plugins.overlayplay',
         'com.2fdevs.videogular.plugins.buffering',
-        'angularSpinner'
+        'angularSpinner',
+        'ui.checkbox'
     ]);
 
 iuvare.constant('DEFAULT_VALUES',{
@@ -171,7 +172,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             function(data){
                 if(data.data.success){
                     var result = data.data.result;
-                    console.log(result);
                     SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count, result.access_level);
                     $rootScope.$broadcast('getMonthlyEvent');
                     deferred.resolve();
@@ -214,6 +214,14 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('payment-success',{
             url: "/pagos-exito",
             templateUrl: '/assets/payment_success.html',
+            defaultState: 'login',
+            authenticationRequired: false,
+            resolve: {
+                refreshSession: refreshSession
+            }
+        }).state('payment-error',{
+            url: "/pagos-error",
+            templateUrl: '/assets/payment_error.html',
             defaultState: 'login',
             authenticationRequired: false,
             resolve: {

@@ -23,6 +23,10 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
 
     });
 
+    $scope.logout = function(){
+        AuthService.logout();
+    };
+
     $scope.startSpin = function(spinner){
         $timeout(function(){
             usSpinnerService.spin(spinner);
