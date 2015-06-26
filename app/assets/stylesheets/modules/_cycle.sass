@@ -6,12 +6,15 @@ ul.downline-tree
   width: 100%
 
   li
-    display: inline-block
+    display: block
     +rem(margin, 0 2rem)
     +rem(padding, 1rem)
     position: relative
     vertical-align: top
-    width: 18%
+
+    @media screen and (min-width: $screen-sm-max)
+      display: inline-block
+      width: 18%
 
     .downline
 

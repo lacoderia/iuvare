@@ -49,7 +49,8 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
                 }
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener los seminarios.');
+                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger');
+                console.log('Ocurrió un error al obtener los seminarios.');
             });
     };
 

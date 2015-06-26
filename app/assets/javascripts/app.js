@@ -8,6 +8,7 @@ var iuvare = angular.module('iuvare',
     [   'ngResource',
         'iuvareDirectives',
         'ui.router',
+        'ngAnimate',
         'mgcrea.ngStrap',
         'ngQuickDate',
         'angularUtils.directives.dirPagination',
@@ -26,27 +27,27 @@ iuvare.constant('DEFAULT_VALUES',{
     SECTIONS: [
         { order: 1, code: 'BUSINESS', title: 'Negocio', state: 'business.cycle',
             subsections: [
-                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle' },
-                { order:2, code: 'LIST', title: 'Lista', state: 'business.list' },
-                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list' },
-                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters' }
+                { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle', icon: 'icon-sitemap' },
+                { order:2, code: 'LIST', title: 'Lista', state: 'business.list', icon: 'icon-list' },
+                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
+                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
             subsections: [
-                { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio' },
-                { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar' },
-                { order:3, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention' },
-                { order:4, code: 'TRAINING', title: 'Capacitaciones', state: 'system.training' },
-                { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document' }
+                { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio', icon: 'icon-headphones' },
+                { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar', icon: 'icon-conferencias' },
+                { order:3, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention', icon: 'icon-convenciones' },
+                { order:4, code: 'TRAINING', title: 'Capacitaciones', state: 'system.training', icon: 'icon-mortar-board' },
+                { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' }
             ]
         },
         { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
             subsections: [
-                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why' },
-                { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage' },
-                { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test' },
-                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile' }
+                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why', icon: 'icon-flag-checkered' },
+                { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage', icon: 'icon-pictures' },
+                { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test', icon: 'icon-chart' },
+                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile', icon: 'icon-profile' }
             ]
         },
         { order: 3, code: 'FAQ', title: 'FAQ', state: 'FAQ',
@@ -121,6 +122,120 @@ iuvare.constant('DEFAULT_VALUES',{
             CONVENTION: 'convention',
             TRAINING: 'training',
             FAQ: 'FAQ'
+        }
+    },
+    COLOR_DESC: {
+        YELLOW: {
+            desc: 'Amarillo',
+            class: 'yellow',
+            recommended: [{title: 'Nuevos profesionales de network marketing', material_location: 'Factor x'}],
+            traits: ['Se afectan cuando existe presión',
+                'Impaciente e impulsivo',
+                'Intenta dominar al tener contacto y es directo',
+                'Usa preguntas desafiantes',
+                'Interrumpe, puede leer cuando tu hablas',
+                'Contacto visual directo y firme, puede ser desafiante y amenazador',
+                'Impaciente',
+                'Apunta con el dedo para enfatizar algo o tomar el control',
+                'Puede aparentar negligencia o rudeza',
+                'Estrecha la mano con fuerza y es asertivo',
+                'No se aparta de los conflictos, se siente cómodo con los mismos'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Fallar'},
+                {title: 'Motivador', desc: 'Poder y fuerza'},
+                {title: 'Valor para la organización', desc:'Persona de resultados'},
+                {title: 'Fuerza de ventas', desc:'Cierre de negocios'}
+            ]
+        },
+        BLUE: {
+            desc: 'Azul',
+            class: 'blue',
+            recommended: [{title: 'Sé el dueño de tu vida', material_location: 'Factor x'}],
+            traits: ['Metódico y organizado',
+                'Aoariencia de sofisticación',
+                'Preocupado por la seguridad',
+                'Reacio a cambiar su STATUS-QUO',
+                'Tendencia a preguntar con el fin de esclarecer',
+                'Ritmo lento, reacciones demoradas cuando expone un problema',
+                'Normalmente buen oyente',
+                'Aborda los problemas cautelosamente',
+                'Apretón de manos amigable',
+                'Prefiere gerenciar que dirigir',
+                'Oficina segura y confortable',
+                'Escritorio organizado con fotos de la familia',
+                'Generalmente muy cortés',
+                'Contacto visual sincero, caluroso, amigable',
+                'Contacto cauteloso',
+                'Posición defensiva y gesticula en una situación competitiva'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Cambios'},
+                {title: 'Motivador', desc: 'Seguridad'},
+                {title: 'Valor para la organización', desc:'Áreas administrativas y soporte'},
+                {title: 'Fuerza de ventas', desc:'Servicio/atención y ayuda'}
+            ]
+        },
+        RED: {
+            desc: 'Rojo',
+            class: 'red',
+            recommended: [{title: 'Placer y Dolor', material_location: 'Factor x'}],
+            traits: ['Entusiasta y amigable',
+                'Frecuentemente desatento a los detalles',
+                'Positivo y verbal',
+                'Gusta de contar historias y anéctodas',
+                'Puede parecer superficial e impulsivo',
+                'Apretón de mano muy amigable',
+                'Desorganizado',
+                'Exhibe fotos trofeos',
+                'Se viste casual, le gustan los colores',
+                'Utiliza últimas tecnologías electrónicas',
+                'Sociable y cortés',
+                'Hospitalario',
+                'Contacto visual amigable',
+                'Sonríe con los ojos',
+                'Mucho movimiento corporal',
+                'Utiliza sus manos al hablar',
+                'Pose un estilo abierto y relajado',
+                'Toca a los demás como señal de amistad y sinceridad',
+                'Cuando está interesado o preocupado posterga decisiones',
+                'Prefiere persuadir o conversar en vez de confrontar agresivamente o hacer exigencias'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Rechazo'},
+                {title: 'Motivador', desc: 'Reconocimiento de personas'},
+                {title: 'Valor para la organización', desc:'Trabajo con/o para personas'},
+                {title: 'Fuerza de ventas', desc:'Apertura de negocios'}
+            ]
+        },
+        GREEN: {
+            desc: 'Verde',
+            class: 'green',
+            recommended: [{title: 'Una magnifica opción ante la crisis', material_location: 'Factor x'}],
+            traits: ['Se prepara con anticipación',
+                'Organizado y puntual',
+                'Sistemático y disciplinado sobre todo con el tiempo',
+                'Tendencia a no compartir sus sentimientos',
+                'Tiene un cuestionario preciso y detallado',
+                'Apretón de manos suelto, breve a veces nervioso',
+                'Usa pausas para pensar',
+                'Muy orientado a los hechos y evidencias',
+                'Difícil de convencer ',
+                'Escritorio organizado e impersonal',
+                'Puede reír nerviosamente',
+                'Todo encaja en su sistema función',
+                'Mut político y diplomático',
+                'Forma de vestir cuidadosa y conservadora',
+                'Evita contacto visual particularmente en una situación hostil',
+                'Tiende a ser cauteloso y no expresa sentimientos a través de sus gestos',
+                'Parece frío y poco expresivo'
+            ],
+            other_traits: [
+                {title: 'Miedo básico', desc: 'Conflictos'},
+                {title: 'Motivador', desc: 'Reglas y procedimientos'},
+                {title: 'Valor para la organización', desc:'Áreas técnicas y de calidad'},
+                {title: 'Fuerza de ventas', desc:'Contratos y aspectos técnicos'}
+            ]
         }
     }
 });

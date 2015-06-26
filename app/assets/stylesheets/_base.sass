@@ -6,11 +6,13 @@
 @import "common/icomoon.css"
 @import "common/typography"
 
+//Import libraries styles
+@import "common/angular-motion.css"
 @import "common/ng-quick-date.css"
 @import "common/ng-quick-date-default-theme.css"
 @import "fancybox/jquery.fancybox.css"
 
-// Import layout sytles
+// Import layout styles
 @import "layout/footer"
 @import "layout/top_nav"
 @import "layout/inner_aside_nav"
@@ -107,6 +109,49 @@ h2.section-title
   text-transform: uppercase
   width: 100%
 
+.alert
+
+  outline: none
+
+  &.top, &.top-left, &.top-right, &.bottom, &.bottom-left, &.bottom-right
+    position: fixed
+    margin: 20px
+
+  &.top, &.top-left, &.top-right
+    top: 0px
+
+  &.top
+    right: 0px
+    left: 0px
+
+  &.top-right
+    right: 0px
+    .close
+      padding-left: 10px
+
+  &.top-left
+    left: 0px
+
+    .close
+      padding-right: 10px
+
+  &.bottom, &.bottom-right, &.bottom-left
+    bottom: 0px
+
+  &.bottom
+    right: 0px
+    left: 0px
+
+  &.bottom-right
+    right: 0px
+
+    .close
+      padding-left: 10px
+
+  &.bottom-left
+    left: 0px
+    .close
+      padding-right: 10px
 
 .form
 
@@ -148,7 +193,10 @@ h2.section-title
     width: 100%
 
 .form-container
-  +rem(padding, 4rem 16rem)
+  +rem(padding, 1rem 2rem)
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(padding, 4rem 16rem)
 
 .list-item-container
   background-color: $color_gray_1
@@ -255,11 +303,58 @@ h2.section-title
     max-width: 300px
     +rem(margin-bottom, 1.5rem)
 
+
+.score-explanation
+  +rem(margin-top, 2rem)
+
+  table
+    margin: 0 auto
+    max-width: 800px
+    width: 100%
+
+    caption
+      +rem(padding, 0.6rem 1rem)
+
+      &.blue
+        color: white
+        background: $color_blue_2
+
+      &.green
+        color: white
+        background: $color_green_2
+
+      &.red
+        color: white
+        background: $color_red_2
+
+      &.yellow
+        color: $color_gray_2
+        background: $color_yellow_1
+
+    td
+      +rem(padding, 1rem)
+      vertical-align: top
+
+    th
+      background: $color_gray_1
+      +rem(padding, 1rem)
+      text-align: center
+
+    .other-traits
+      list-style: none
+      +rem(margin, 1rem 0)
+      padding: 0
+
 .section-container
   background-color: white
-  +rem(margin, 2rem 0)
+  +rem(margin, 0.8rem 0)
   min-height: 500px
-  +rem(padding, 3rem 3.5rem)
+  +rem(padding, 1rem 1.5rem)
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(margin, 2rem 0)
+    min-height: 400px
+    +rem(padding, 3rem 3.5rem)
 
   h2.section-title
     +rem(margin, 0 0 2rem)
@@ -273,7 +368,10 @@ h2.section-title
   height: 3px
 
 .test-form
-  +rem(padding, 0 3rem)
+  padding: 0
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(padding, 0 3rem)
 
   fieldset
     border-bottom: 1px solid $color-gray_3
@@ -281,10 +379,14 @@ h2.section-title
     +rem(padding, 2rem 0)
 
     label
-      +rem('margin-right', 3rem)
       text-align: center
       min-width: 150px
-    
+      +rem(margin-right, 0.5rem)
+
+      @media screen and (min-width: $screen-sm-max)
+        +rem(margin-right, 3rem)
+
+
     p
       +rem(margin, 0)
 

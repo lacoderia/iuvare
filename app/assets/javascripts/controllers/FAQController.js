@@ -21,7 +21,8 @@ iuvare.controller('FAQController', ["$scope", "$rootScope", "$sce", "$location",
                 }
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener el FAQ.');
+                $scope.showAlert('Ocurrió un error al obtener el FAQ. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al obtener el FAQ.');
             });
     };
 

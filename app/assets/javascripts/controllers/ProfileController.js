@@ -19,9 +19,6 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
         confirmation: undefined
     };
 
-    $scope.profileFormMessage = '';
-    $scope.passwordFormMessage = '';
-
     $scope.showPasswordForm = false;
 
     $scope.$watch('currentUser.pictureUrl', function(){
@@ -51,15 +48,11 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                     image.show();
                 })
                 .error(function() {
+                    $scope.showAlert('Ocurrió un error al procesar la imagen. Inténtalo nuevamente.', 'danger');
                 });
         }
 
     });
-
-    $scope.resetMessages = function() {
-        $scope.profileFormMessage = '';
-        $scope.passwordFormMessage = '';
-    };
 
     $scope.openProfilePictureSelector = function(event) {
         $(event.target).siblings('input').trigger('click');
@@ -69,10 +62,11 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
     $scope.selectProfilePicture = function(element) {
         var input = $(element);
         if (input[0].files && input[0].files[0]) {
-            var reader = new FileReader();
 
             var imageContainer = $(element).parents('.profile-form').find('.picture');
             imageContainer.removeClass('no-background');
+
+            var reader = new FileReader();
 
             reader.onload = function (e) {
                 imageContainer.addClass('no-background');
@@ -98,6 +92,13 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                     }
                 }
 
+                loadedImage.onerror = function() {
+                    $scope.showAlert('Ocurrió un error al procesar la imagen. Intenta nuevamente.', 'danger');
+                }
+            };
+
+            reader.onerror = function (error) {
+                $scope.showAlert('Ocurrió un error al procesar la imagen. Intenta nuevamente.', 'danger');
             };
 
             reader.readAsDataURL(input[0].files[0]);
@@ -123,20 +124,19 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                         SessionService.$get().setLastName(data.result.last_name);
                         SessionService.$get().setPicture(data.result.picture);
 
-                        $scope.profileFormMessage = 'Los datos fueron actualizados con éxito.';
-
+                        $scope.showAlert('Los datos fueron actualizados con éxito.', 'success');
                         $scope.stopSpin('container-spinner');
                     }
                 })
                 .error(function(response){
-                    console.log('Hubo un error al actualizar tus datos.');
+                    $scope.showAlert('Ocurrió un error al actualizar tus datos. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al actualizar tus datos.');
                 });
 
         }
     };
 
     $scope.togglePasswordForm = function(){
-        $scope.resetMessages();
         $scope.resetPasswordForm();
         $scope.showPasswordForm = !$scope.showPasswordForm;
     };
@@ -151,8 +151,6 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
     $scope.updatePassword = function() {
         if ($scope.passwordForm.$valid) {
 
-            $scope.resetMessages();
-
             var user = {
                 password: $scope.currentUser.password,
                 password_confirmation: $scope.currentUser.password_confirmation
@@ -163,16 +161,17 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
             ProfileService.updateProfile(user)
                 .success(function(data){
                     if(data.success){
-                        $scope.passwordFormMessage = 'La contraseña fue actualizada con éxito.';
-                        $scope.resetPasswordForm(); 
+                        $scope.resetPasswordForm();
                         $('meta[name=csrf-token]').attr('content', data.result.csrf.csrf);
                         $http.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 
+                        $scope.showAlert('La contraseña fue actualizada con éxito.', 'success');
                         $scope.stopSpin('container-spinner');
                     }
                 })
                 .error(function(response){
-                    console.log('Hubo un error al actualizar la contraseña.');
+                    $scope.showAlert('Ocurrió un error al actualizar la contraseña. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al actualizar la contraseña. Intenta nuevamente.');
                 });
         }
     };

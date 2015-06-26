@@ -49,7 +49,8 @@ iuvare.controller('DocumentController', ["$scope", "$rootScope", "AssetService",
                 }
             })
             .error(function (error, status) {
-                console.log('Hubo un error al obtener los documentos.');
+                $scope.showAlert('Ocurrió un error al obtener los documentos.', 'danger');
+                console.log('Ocurrió un error al obtener los documentos.');
             });
     };
 
