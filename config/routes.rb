@@ -43,7 +43,6 @@ Rails.application.routes.draw do
   resources :contacts do
     collection do
       get 'by_user'
-      get 'transitions'
     end
   end
 

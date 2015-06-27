@@ -3,21 +3,6 @@ feature 'ContactsController' do
   let!(:contact){ create(:contact, user: user, name: "Imperium") }
 
   describe 'contact associations' do
-
-    context 'transitions' do 
-      
-      it 'returns correct transitions' do
-        visit "#{transitions_contacts_path}.json"
-        response = JSON.parse(page.body)
-        expect(response['success']).to be true
-        transitions = response['result']['transitions']
-        expect(transitions.count).to be 5
-        expect(transitions['to_invite']['previous']).to be nil
-        expect(transitions['to_close']['next'].count).to be 2
-        expect(transitions['registered']['next']).to be nil
-      end
-
-    end
       
     context 'by_user' do
       let!(:test_score){ create(:test_score, user: user, contact: contact) }
