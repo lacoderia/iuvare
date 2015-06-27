@@ -62,6 +62,7 @@ class Payment < ActiveRecord::Base
         payment_type = "Kit de inicio"
         expiration_date = Time.zone.now + FREE_MONTHS.months
         user.kit_bought = true
+        self.send_email_to_buyer params, user.email
       when TWELVE_MONTHS_PRICE
         payment_type = "Doce meses"
         expiration_date = Time.zone.now + 12.months
@@ -79,6 +80,27 @@ class Payment < ActiveRecord::Base
     else
       raise "Notificación de pago no marcado como completado."
     end
+  end
+
+  def self.send_email_to_buyer params, email
+
+    body = ""
+
+    address_country = params[:address_country] 
+    address_city = params[:address_city]
+    address_name = params[:address_name]
+    address_state = params[:address_state]
+    address_street = params[:address_street]
+    address_zip = params[:address_zip]
+    contact_phone = params[:contact_phone]
+    first_name = params[:first_name]
+    last_name = params[:last_name]
+
+    body += "<p>Comprador: #{first_name} #{last_name}, #{email} #{contact_phone}</p><br/>"
+    body += "<p>Receptor: #{address_name} </p>"
+    body += "<p>#{address_street} #{address_state} #{address_city} #{address_zip} #{address_country}</p>"
+    
+    IuvareMailer.send_delivery_info("contacto@iuvare.com.mx", body).deliver_now
   end
   
 end
