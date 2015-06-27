@@ -9,6 +9,7 @@ if @success
                         json.item_name po[:item_name]
                         json.custom po[:custom]
                         json.amount po[:amount]
+                        json.shipping po[:shipping]
                       end
                     end
                   end
