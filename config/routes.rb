@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     collection do
       get 'by_asset_type' 
       get 'by_keyword_and_asset_type' 
+      get 'stream'
     end
   end
 
