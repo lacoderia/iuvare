@@ -51,7 +51,6 @@ Rails.application.routes.draw do
     collection do
       get 'by_asset_type' 
       get 'by_keyword_and_asset_type' 
-      get 'stream'
     end
   end
 
@@ -117,6 +116,7 @@ Rails.application.routes.draw do
   #get "watch_video", :to => "plans#watch_video"
 
   root :to => "display#index"
+  get "stream", :to => "assets#stream"
   get "login", :to => "display#index"
   get "register", :to => "display#index"
   get "plan", :to => "display#index"

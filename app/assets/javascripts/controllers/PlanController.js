@@ -65,9 +65,11 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
                     $scope.asset.config = {
                         preload: "none",
                         sources : [
-                            {src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.mp4'), type: "video/mp4"},
-                            {src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.webm'), type: "video/webm"},
-                            {src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.ogg'), type: "video/ogg"}
+                            //{src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.mp4'), type: "video/mp4"},
+                            {src: $sce.trustAsResourceUrl("/stream?asset_type=plan&source=" + "plan_Jorge_Arzamendi_Plan_Jorge_Arzamendi" + ".mp4"), type: "video/mp4"},
+                            {src: $sce.trustAsResourceUrl("/stream?asset_type=plan&source=" + "plan_Jorge_Arzamendi_Plan_Jorge_Arzamendi" + ".webm"), type: "video/webm"},
+                            //{src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.webm'), type: "video/webm"},
+                            //{src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + $scope.asset.source + '.ogg'), type: "video/ogg"}
                         ],
                         theme : "/assets/bower_components/videogular-themes-default/videogular.css"
                     };
