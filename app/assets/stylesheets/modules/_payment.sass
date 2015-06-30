@@ -1,0 +1,79 @@
+.payment-description
+  color: $color-gray_2
+  +rem(font-size, 2.5rem)
+  text-align: center
+
+.payment-container
+  +rem(margin, 4rem auto)
+  max-width: 800px
+
+  .payment-items-table
+    border-radius: 10px 10px 0 0
+    +rem(margin, 2rem auto 3rem)
+    max-width: 800px
+    overflow: hidden
+    width: 100%
+
+    thead
+      background: $color-purple_1
+      color: white
+
+      th
+        +rem(font-size, 1.5rem)
+        +rem(padding, 0.8rem 1rem)
+
+    tbody
+      td
+        +rem(padding, 2rem)
+        vertical-align: top
+
+
+      td.total
+        border-left: 1px solid $color-gray_1
+        text-align: left
+
+        form
+          text-align: center
+
+        span
+          font-weight: bold
+
+
+          &.total-amount
+            color: $color-gray_2
+            display: block
+            +rem(font-size, 1.8rem)
+            +rem(margin-bottom, 3rem)
+
+          &.total-desc
+            color: $color-gray_3
+            display: block
+            +rem(font-size, 1.6rem)
+            font-weight: bold
+
+          &.total-security
+            display: block
+            +rem(margin-bottom, 0.5rem)
+            text-align: center
+            width: 100%
+
+            img
+              display: inline-block
+              margin-left: 8px
+              max-width: 80px
+              width: 100%
+
+          &.icon-locked
+            color: green
+
+      td.other-scenarios
+        display: block
+        +rem(margin, 2rem 0)
+        text-align: center !important
+
+        p
+
+          &:first-child
+            +rem(margin-top, 0.5rem)
+
+
