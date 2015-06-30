@@ -53,6 +53,7 @@
 //= require bower_components/angular-chart.js/dist/angular-chart.min.js
 //= require lib/amcharts/amcharts
 //= require lib/amcharts/funnel
+//= require bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js
 
 //= require lib/spin
 //= require lib/angular-spinner
@@ -73,6 +74,7 @@
 //= require controllers/HeadquartersController
 //= require controllers/ListController
 //= require controllers/LoginController
+//= require controllers/PaymentController
 //= require controllers/PlanController
 //= require controllers/PlanListController
 //= require controllers/ProfileController
