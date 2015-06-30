@@ -35,7 +35,6 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
                         });
                     }
                 }
-                return 'TEXTO DE SUCCESS';
             });
 
 
@@ -121,7 +120,7 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
         return service.contacts;
     };
 
-    var updateFinalStatus = function(contact, finalStatus){
+    var updateContactStatus = function(contact, status){
 
         var contactServiceURL = '/contacts/' + contact.id + '.json';
 
@@ -131,7 +130,7 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
             email: contact.email,
             phone: contact.phone,
             description: contact.description,
-            status: finalStatus
+            status: status
         };
 
         return $http.put(contactServiceURL, {
@@ -155,21 +154,6 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
             });
 
         return service.contacts;
-    };
-
-    var getStatusTransitions = function () {
-
-        var contactServiceURL = '/contacts/transitions.json';
-
-        return $http.get(contactServiceURL, {})
-            .success(function (data) {
-                if(data.success){
-                    service.transitions = data.result.transitions;
-                }
-            });
-
-        return service.transitions;
-
     };
 
     var sendVideo = function (contactId, assetId) {
@@ -249,8 +233,7 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
         saveContact: saveContact,
         updateContact: updateContact,
         deleteContact: deleteContact,
-        updateFinalStatus: updateFinalStatus,
-        getStatusTransitions: getStatusTransitions,
+        updateContactStatus: updateContactStatus,
         sendVideo: sendVideo,
         watchVideo: watchVideo,
         videoEnded: videoEnded,

@@ -21,7 +21,8 @@ var iuvare = angular.module('iuvare',
         'com.2fdevs.videogular.plugins.overlayplay',
         'com.2fdevs.videogular.plugins.buffering',
         'angularSpinner',
-        'ui.checkbox'
+        'ui.checkbox',
+        'angular-svg-round-progress'
     ]);
 
 iuvare.constant('DEFAULT_VALUES',{
@@ -108,11 +109,12 @@ iuvare.constant('DEFAULT_VALUES',{
         PLAN: 'plan'
     },
     CONTACT_STATUS: {
-        TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },
-        CONTACTED: { order:2, code:'contacted', title: 'Contactado', class: 'contacted' },
-        TO_INVITE: { order:3, code:'to_invite', title: 'Por invitar', class: 'to-invite' },
-        REGISTERED: { order:4, code:'registered', title: 'Registrado', class: 'registered' },
-        RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
+        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out', color: '#FF0000'},
+        TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite', color:'#E0E0E0'},
+        CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted', color: '#E0F3DB'},
+        TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close', color: '#A7F392'},
+        TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register', color: '#6BF347'},
+        REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered', color: '#7CB66D'}
     },
     ASSETS:{
         PATH: '/assets/',

@@ -51,9 +51,10 @@
 //= require bower_components/angular-isotope/dist/angular-isotope.js
 //= require bower_components/Chart.js/Chart.min
 //= require bower_components/angular-chart.js/dist/angular-chart.min.js
+//= require bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js
+//= require bower_components/angular-svg-round-progressbar/build/roundProgress.js
 //= require lib/amcharts/amcharts
 //= require lib/amcharts/funnel
-//= require bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js
 
 //= require lib/spin
 //= require lib/angular-spinner
