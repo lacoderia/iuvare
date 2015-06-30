@@ -44,6 +44,7 @@ feature 'AssetsController' do
         assets = response['result']['assets']
         expect(assets.count).to eql 1
         expect(assets.first['id']).to eql asset.id
+        expect(assets.first['stream_url']).to eql "/stream?asset_type=#{asset.asset_type}&source=#{asset.source}"
         expect(assets.first['test']['name']).to eql "Prueba test"
 
         visit "#{by_keyword_and_asset_type_assets_path}.json?asset_type=#{asset.asset_type}&keyword=#{'description'}"

@@ -50,6 +50,7 @@ feature 'PlansController' do
         response = JSON.parse(page.body)
         expect(response['success']).to be true
         plan_object = response['result']
+        expect(plan_object['asset']['stream_url']).to eql "/stream?asset_type=#{asset.asset_type}&source=#{asset.source}"
 
         # Sending video to him again because he missed it
         send_video_request = {contact_id: contact.id, user_id: user.id, asset_id: asset.id}
