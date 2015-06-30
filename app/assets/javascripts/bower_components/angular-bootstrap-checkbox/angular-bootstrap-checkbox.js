@@ -62,8 +62,9 @@ angular.module("ui.checkbox", []).directive("checkbox", function() {
 			}, true);
 
 			// On click swap value and trigger onChange function
-			elem.bind("click", function() {
+			elem.bind("click", function(e) {
 				scope.$apply(function() {
+                    e.preventDefault();
 					if(modelCtrl.$modelValue === falseValue) {
 						modelCtrl.$setViewValue(trueValue);
 					} else {

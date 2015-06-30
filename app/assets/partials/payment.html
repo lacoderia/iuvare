@@ -1,0 +1,41 @@
+<div class="row" ng-controller="PaymentController as paymentCtrl">
+    <div class="col-lg-12 section-container">
+        <h2 class="section-title">Pagos</h2>
+        <p class="payment-description">{{ description }}</p>
+        <div class="payment-container">
+
+            <div class="payment-items-table" ng-repeat="product in products">
+                <h3 class="item-title">Comprar membresía Iuvare</h3>
+                <div class="payment-info">
+                    <p class="item-name">{{ product.item_name }}</p>
+                    <div class="item-total">
+                        <span class="total-desc">Total</span>
+                        <span class="total-amount">{{ product.amount | currency:"MXN $" }}</span>
+                        <span class="total-security"><span class="icon-locked"></span> <img src="/assets/paypal-logo.jpg" alt="PayPal"></span>
+                        <script src="assets/lib/paypal-button.min.js?merchant=58P3LXBRGP3JE"
+                                data-amount="{{product.amount}}"
+                                data-button="buynow"
+                                data-callback="http://sandbox.iuvare.mx/payments/ipn"
+                                data-cancel-return="http://www.successooo.com.mx"
+                                data-currency="MXN"
+                                data-custom="{{product.custom}}"
+                                data-env="sandbox"
+                                data-host="http://www.sandbox.paypal.com"
+                                data-lc="es_ES"
+                                data-name="{{product.item_name}}"
+                                data-no_shipping="{{ (product.shipping ? '2' : '1') }}"
+                                data-number="1"
+                                data-return="http://www.success.com.mx"
+                                async>
+                        </script>
+                    </div>
+                </div>
+                <div class="other-scenarios">
+                    <p>¿Ya pagaste? Haz click <a ng-click="logout()">aquí</a></p>
+                    <p>¿Sigues teniendo un problema? escríbenos <a href="mailto:correo@iuvare.mx">correodepruebas@iuvare.mx</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

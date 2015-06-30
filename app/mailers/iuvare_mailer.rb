@@ -20,4 +20,9 @@ class IuvareMailer < ActionMailer::Base
     mail(to: user.email, subject: "Plan IUVARE - Finalizado")
   end
 
+  def send_delivery_info(email, body)
+    @body = body
+    mail(to: email, subject: "Kit IUVARE - Comprado")
+  end
+
 end

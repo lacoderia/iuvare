@@ -11,7 +11,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", "$rootScope", 'SessionSe
                 if(data){
                     var result = data.data.result;
                     if(result.id){
-                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count);
+                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count, result.access_level);
                         $state.go('business.cycle');
                     }
                     $rootScope.$broadcast('getMonthlyEvent');
@@ -33,7 +33,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", "$rootScope", 'SessionSe
             function(data){
                 var result = data.data.result;
                 if(result.id){
-                    SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id);
+                    SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.access_level);
                     $state.go('business.cycle');
                 }
             },
@@ -82,7 +82,6 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", "$rootScope", 'SessionSe
         }).then(
             function(data){
                 if(data.data.success){
-                    console.log(data);
                     return "Tu contraseña ha sido restaurada. Ahora puedes ingresar con tu nueva contraseña.";
                 }
             },
@@ -95,7 +94,6 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", "$rootScope", 'SessionSe
     var getCurrentSession = function(){
         var sessionServiceURL = '/session.json';
         return $http.get(sessionServiceURL, {});
-
     };
     
     var isAuthenticated = function () {

@@ -65,6 +65,7 @@ feature 'PaymentsController' do
         expect(response['success']).to be true
         expect(response['result']['access_level']['valid_account']).to eql false
         payment_object = response['result']['access_level']['payment_options'][0]
+        expect(payment_object["shipping"]).to be true
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['email']).to eql invitation.recipient_email
         expect(response['result']['downline_position']).to eql 1
@@ -77,7 +78,16 @@ feature 'PaymentsController' do
           mc_gross: 1000,
           txn_id: "txn_id_01",
           mc_currency: "MXN",
-          payment_status: "Completed"
+          payment_status: "Completed",
+          address_country: "Mexico",
+          address_city: "DF",
+          address_name: "Romulo Remo",
+          address_state: "México",
+          address_street: "Torre Blanca 244", 
+          address_zip: "08879",
+          contact_phone: "343434534",
+          first_name: "De Mujer",
+          last_name: "Corazón de un Don Juan"
         }
 
         with_rack_test_driver do
@@ -100,6 +110,8 @@ feature 'PaymentsController' do
         expect(response['success']).to be true
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['access_level']['valid_account']).to eql false
+        payment_object = response['result']['access_level']['payment_options'][0]
+        expect(payment_object["shipping"]).to be false 
         logout
 
         # PAGO DE UN MES
@@ -132,6 +144,8 @@ feature 'PaymentsController' do
         expect(response['success']).to be true
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['access_level']['valid_account']).to eql false
+        payment_object = response['result']['access_level']['payment_options'][0]
+        expect(payment_object["shipping"]).to be false 
         logout        
 
         # PAGO DE DOCE MESES
