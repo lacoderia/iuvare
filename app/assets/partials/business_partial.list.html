@@ -40,19 +40,24 @@
                             <div class="contact-phone" ng-if="contact.phone"><span class="icon-phone icon"></span> {{ contact.phone }}</div>
                             <div ng-if="contact.showInfo">
                                 <div class="contact-description">{{ contact.description }}</div>
-                                <div class="contact-actions">
+                                <div class="progress-wrapper">
+                                    <div class="progress"  ng-style="{'font-size': getFontSize()}">{{ ((getContactStatus(contact.status).order/5)*100) | number:0 }}%</div>
                                     <div round-progress
-                                         max="max"
-                                         current="getProgressPercentage()"
-                                         color="#45ccce"
+                                         max="5"
+                                         current="getContactStatus(contact.status).order"
+                                         color="{{getContactStatus(contact.status).color}}"
                                          bgcolor="#eaeaea"
-                                         radius="100"
-                                         stroke="20"
-                                         semi="true"
-                                         rounded="true"
-                                         clockwise="false"
+                                         radius="50"
+                                         stroke="12"
+                                         semi="false"
+                                         rounded="false"
+                                         clockwise="true"
                                          iterations="50"
                                          animation="easeInOutQuart"></div>
+                                </div>
+                                <div class="contact-actions">
+
+                                    <br/>
                                     <div ng-if="contact.status == CONTACT_STATUS.TO_INVITE.code">
                                         <div>
                                             <legend>¿Cómo deseas invitar al prospecto?</legend>
