@@ -24,12 +24,7 @@ class Asset < ActiveRecord::Base
 
     video_extension = File.extname(filepath)[1..-1]
 
-    send_file filepath,
-      filename: File.basename(filepath),
-      type: Mime::Type.lookup_by_extension(video_extension),
-      disposition: 'inline',
-      stream: true,
-      buffer_size: 4096
-
+    return [filepath, video_extension]
+    
   end
 end

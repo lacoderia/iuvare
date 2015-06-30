@@ -14,7 +14,14 @@ class AssetsController < ApplicationController
   end
 
   def stream
-    Asset.stream_file params[:asset_type], params[:source]
+    stream_params = Asset.stream_file params[:asset_type], params[:source]
+    send_file stream_params[0],
+      filename: File.basename(stream_params[0]),
+      type: Mime::Type.lookup_by_extension(stream_params[1]),
+      disposition: 'inline',
+      stream: true,
+      buffer_size: 4096
+
   end
 
   private
