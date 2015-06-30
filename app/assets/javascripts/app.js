@@ -29,8 +29,9 @@ iuvare.constant('DEFAULT_VALUES',{
             subsections: [
                 { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle', icon: 'icon-sitemap' },
                 { order:2, code: 'LIST', title: 'Lista', state: 'business.list', icon: 'icon-list' },
-                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
-                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
+                { order:3, code: 'PROGRESS', title: 'Avance', state: 'business.progress', icon: 'icon-plan' },
+                { order:4, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
+                { order:5, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
@@ -332,6 +333,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'PLAN',
+            authenticationRequired: true
+        }).state('business.progress',{
+            url: "/avance",
+            templateUrl: '/assets/business_partial.progress.html',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'PROGRESS',
             authenticationRequired: true
         }).state('profile',{
             url: "/perfil",
