@@ -1,37 +1,42 @@
 .payment-description
   color: $color-gray_2
-  +rem(font-size, 2.5rem)
+  +rem(font-size, 1.2rem)
   text-align: center
 
+  @media screen and (min-width: $screen-sm-max)
+    +rem(font-size, 2rem)
+    +rem(font-size, 2.5rem)
+
 .payment-container
-  +rem(margin, 4rem auto)
+  +rem(margin, 1rem auto)
   max-width: 800px
 
+  @media screen and (min-width: $screen-sm-max)
+    +rem(margin, 4rem auto)
+
   .payment-items-table
-    border-radius: 10px 10px 0 0
-    +rem(margin, 2rem auto 3rem)
+    +rem(margin, 1rem auto 3rem)
     max-width: 800px
     overflow: hidden
     width: 100%
 
-    thead
+    @media screen and (min-width: $screen-sm-max)
+      +rem(margin, 2rem auto 3rem)
+
+    h3.item-title
       background: $color-purple_1
+      border-radius: 10px 10px 0 0
       color: white
+      +rem(font-size, 1.5rem)
+      +rem(margin, 0)
+      +rem(padding, 0.8rem 2rem)
 
-      th
-        +rem(font-size, 1.5rem)
-        +rem(padding, 0.8rem 1rem)
+    .payment-info
+      border: 1px solid  $color-gray_5
+      +rem(margin-bottom, 2rem)
+      +rem(padding, 2rem)
 
-    tbody
-      td
-        +rem(padding, 2rem)
-        vertical-align: top
-
-
-      td.total
-        border-left: 1px solid $color-gray_1
-        text-align: left
-
+      .item-total
         form
           text-align: center
 
@@ -43,10 +48,13 @@
             color: $color-gray_2
             display: block
             +rem(font-size, 1.8rem)
-            +rem(margin-bottom, 3rem)
+            +rem(margin-bottom, 0.5rem)
+
+            @media screen and (min-width: $screen-sm-max)
+              +rem(margin-bottom, 1.5rem)
 
           &.total-desc
-            color: $color-gray_3
+            color: $color-gray_2
             display: block
             +rem(font-size, 1.6rem)
             font-weight: bold
@@ -64,16 +72,8 @@
               width: 100%
 
           &.icon-locked
-            color: green
-
-      td.other-scenarios
-        display: block
-        +rem(margin, 2rem 0)
-        text-align: center !important
-
-        p
-
-          &:first-child
-            +rem(margin-top, 0.5rem)
+            color: $color-blue_fb
+            +rem(font-size, 1.8rem)
+            vertical-align: middle
 
 
