@@ -27,8 +27,9 @@ iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
             colors: undefined
         };
         var _downlineCount = undefined;
+        var _accessLevel = undefined;
 
-        this.createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount) {
+        this.createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount, accessLevel) {
             this.setId(id);
             this.setFirstName(firstName);
             this.setLastName(lastName);
@@ -47,6 +48,7 @@ iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
             this.setUplineId(uplineId);
             this.setTestScores(testScores);
             this.setDownlineCount(downlineCount);
+            this.setAccessLevel(accessLevel);
         };
 
         this.getId = function(){
@@ -193,12 +195,20 @@ iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
             return _testScores;
         };
 
-        this.setDownlineCount = function(downlineConunt){
-            _downlineCount = downlineConunt;
+        this.setDownlineCount = function(downlineCount){
+            _downlineCount = downlineCount;
         };
 
         this.getDownlineCount = function(){
             return _downlineCount;
+        };
+
+        this.setAccessLevel = function(accessLevel){
+            _accessLevel = accessLevel;
+        };
+
+        this.getAccessLevel = function(){
+            return _accessLevel;
         };
 
         this.isCycleMember = function(uplineId){
@@ -208,13 +218,13 @@ iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
     }
 
 
-    var createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount) {
+    var createUser = function (id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount, accessLevel) {
 
         // Se crea una nueva instancia de Usario
         var user = new User();
 
         //Se asignan variables a través de un método constructor
-        user.createUser(id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount)
+        user.createUser(id, firstName, lastName, email, xangoId, xangoRank, iuvareId, sponsorXangoId, sponsorIuvareId, placementeXangoId, placementeIuvareId, active, downlinePosition, paymentExpiration, picture, uplineId, testScores, downlineCount, accessLevel);
 
         return user;
     };

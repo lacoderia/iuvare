@@ -1,0 +1,79 @@
+.payment-description
+  color: $color-gray_2
+  +rem(font-size, 1.2rem)
+  text-align: center
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(font-size, 2rem)
+    +rem(font-size, 2.5rem)
+
+.payment-container
+  +rem(margin, 1rem auto)
+  max-width: 800px
+
+  @media screen and (min-width: $screen-sm-max)
+    +rem(margin, 4rem auto)
+
+  .payment-items-table
+    +rem(margin, 1rem auto 3rem)
+    max-width: 800px
+    overflow: hidden
+    width: 100%
+
+    @media screen and (min-width: $screen-sm-max)
+      +rem(margin, 2rem auto 3rem)
+
+    h3.item-title
+      background: $color-purple_1
+      border-radius: 10px 10px 0 0
+      color: white
+      +rem(font-size, 1.5rem)
+      +rem(margin, 0)
+      +rem(padding, 0.8rem 2rem)
+
+    .payment-info
+      border: 1px solid  $color-gray_5
+      +rem(margin-bottom, 2rem)
+      +rem(padding, 2rem)
+
+      .item-total
+        form
+          text-align: center
+
+        span
+          font-weight: bold
+
+
+          &.total-amount
+            color: $color-gray_2
+            display: block
+            +rem(font-size, 1.8rem)
+            +rem(margin-bottom, 0.5rem)
+
+            @media screen and (min-width: $screen-sm-max)
+              +rem(margin-bottom, 1.5rem)
+
+          &.total-desc
+            color: $color-gray_2
+            display: block
+            +rem(font-size, 1.6rem)
+            font-weight: bold
+
+          &.total-security
+            display: block
+            +rem(margin-bottom, 0.5rem)
+            text-align: center
+            width: 100%
+
+            img
+              display: inline-block
+              margin-left: 8px
+              max-width: 80px
+              width: 100%
+
+          &.icon-locked
+            color: $color-blue_fb
+            +rem(font-size, 1.8rem)
+            vertical-align: middle
+
+

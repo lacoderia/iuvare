@@ -23,6 +23,10 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
 
     });
 
+    $scope.logout = function(){
+        AuthService.logout();
+    };
+
     $scope.showAlert = function(content, type){
         $alert({
             animation: 'am-fade-and-slide-top',
