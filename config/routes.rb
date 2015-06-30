@@ -125,6 +125,7 @@ Rails.application.routes.draw do
   get "negocio", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
   get "negocio/lista", :to => "display#index"
+  get "negocio/avance", :to => "display#index"
   get "negocio/sedes", :to => "display#index"
   get "negocio/lista-plan", :to => "display#index"
   get "sistema", :to => "display#index"

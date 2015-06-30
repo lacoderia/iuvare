@@ -51,6 +51,8 @@
 //= require bower_components/angular-isotope/dist/angular-isotope.js
 //= require bower_components/Chart.js/Chart.min
 //= require bower_components/angular-chart.js/dist/angular-chart.min.js
+//= require lib/amcharts/amcharts
+//= require lib/amcharts/funnel
 //= require bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js
 
 //= require lib/spin
@@ -77,6 +79,7 @@
 //= require controllers/PlanListController
 //= require controllers/ProfileController
 //= require controllers/ProfileTestController
+//= require controllers/ProgressController
 //= require controllers/SeminarController
 //= require controllers/SubmenuController
 //= require controllers/TrainingController
@@ -94,6 +97,7 @@
 //= require services/NavigationService
 //= require services/OfficeService
 //= require services/ProfileService
+// = require services/ProgressService
 //= require services/TestService
 //= require services/UserService
 //= require services/XangoUserService
