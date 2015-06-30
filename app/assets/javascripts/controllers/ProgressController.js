@@ -13,18 +13,19 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
 
         "type": "funnel",
         "balloonText": "[[title]]:<b>[[value]]</b>",
-        "labelPosition": "right",
+        "color": "#515151",
+        "labelPosition": "center",
         "neckHeight": "0%",
         "neckWidth": "0%",
         "colors": [
-            "#2E176E",
-            "#580092",
-            "#67369C",
-            "#40498B",
-            "#1E2E49"
+            "#E0E0E0",
+            "#E0F3DB",
+            "#A7F392",
+            "#6BF347",
+            "#7CB66D"
         ],
         "marginLeft": 15,
-        "marginRight": 160,
+        "marginRight": 15,
         "titleField": "title",
         "valueField": "value",
         "fontSize": 12,

@@ -17,7 +17,7 @@ iuvare.factory('ProgressService', ['$http', '$q', 'DEFAULT_VALUES', function($ht
 
         angular.forEach(progress, function(progressItem){
             var funnelItem = {
-                title: progressItem.title,
+                title: (progressItem.title).toUpperCase(),
                 value: progressItem.total
             };
 
