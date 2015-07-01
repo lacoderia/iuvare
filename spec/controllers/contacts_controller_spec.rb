@@ -3,7 +3,7 @@ feature 'ContactsController' do
   let!(:contact){ create(:contact, user: user, name: "Imperium") }
 
   describe 'contact associations' do
-          
+    
     context 'by_user' do
       
       let!(:test_score){ create(:test_score, user: user, contact: contact) }
@@ -115,6 +115,8 @@ feature 'ContactsController' do
         contact.rule_out!
         expect(contact.status).to eql 'ruled_out'
         contact.update_attribute(:status, 'to_close')
+        contact.is_interested!
+        expect(contact.status).to eql 'to_register'
         contact.register!
         expect(contact.status).to eql 'registered'
       end

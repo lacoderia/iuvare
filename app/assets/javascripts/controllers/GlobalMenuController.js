@@ -13,14 +13,6 @@ iuvare.controller('GlobalMenuController', ["$scope", "$rootScope", "$state", "Au
         return ($scope.currentSection)? $scope.currentSection.code == sectionCode : false;
     };
 
-    $scope.logout = function(){
-        AuthService.logout();
-    };
-
-    $scope.logout = function(){
-        AuthService.logout();
-    };
-
     // Method to init the controller's default state
     $scope.initController = function(){
     };

@@ -37,7 +37,11 @@
                             <div ng-show="signupForm.signupConfirmation.$error.required">La confirmación del password es requerida.</div>
                             <div ng-show="signupForm.signupConfirmation.$error.pwCheck && !signupForm.signupConfirmation.$error.required">El password y la confirmación deben ser iguales.</div>
                         </div>
-                        <input type="text" placeholder="ID Iuvare" name="signupIuvareId" ng-model="newUser.iuvareId" required>
+                        <div class="checkbox-label">
+                            <checkbox type="checkbox" ng-model="requireIuvareId"></checkbox>
+                            <span>Tengo un Iuvare ID</span>
+                        </div>
+                        <input type="text" placeholder="ID Iuvare" name="signupIuvareId" ng-model="newUser.iuvareId" ng-required="requireIuvareId" ng-show="requireIuvareId">
                         <div ng-show="signupForm.$submitted || signupForm.signupIuvareId.$touched">
                             <span ng-show="signupForm.signupIuvareId.$error.required">El ID Iuvare es requerido.</span>
                         </div>

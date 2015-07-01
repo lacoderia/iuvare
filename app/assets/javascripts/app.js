@@ -20,7 +20,9 @@ var iuvare = angular.module('iuvare',
         'com.2fdevs.videogular.plugins.controls',
         'com.2fdevs.videogular.plugins.overlayplay',
         'com.2fdevs.videogular.plugins.buffering',
-        'angularSpinner'
+        'angularSpinner',
+        'ui.checkbox',
+        'angular-svg-round-progress'
     ]);
 
 iuvare.constant('DEFAULT_VALUES',{
@@ -29,8 +31,9 @@ iuvare.constant('DEFAULT_VALUES',{
             subsections: [
                 { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle', icon: 'icon-sitemap' },
                 { order:2, code: 'LIST', title: 'Lista', state: 'business.list', icon: 'icon-list' },
-                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
-                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
+                { order:3, code: 'PROGRESS', title: 'Avance', state: 'business.progress', icon: 'icon-plan' },
+                { order:4, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
+                { order:5, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
@@ -106,12 +109,14 @@ iuvare.constant('DEFAULT_VALUES',{
         PLAN: 'plan'
     },
     CONTACT_STATUS: {
-        TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },
-        CONTACTED: { order:2, code:'contacted', title: 'Contactado', class: 'contacted' },
-        TO_INVITE: { order:3, code:'to_invite', title: 'Por invitar', class: 'to-invite' },
-        REGISTERED: { order:4, code:'registered', title: 'Registrado', class: 'registered' },
-        RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
+        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out'},
+        TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite'},
+        CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted'},
+        TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close'},
+        TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register'},
+        REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered'}
     },
+    CONTACT_STATUS_COLORS : ['#FF0000', '#E0E0E0', '#E0F3DB', '#A7F392', '#6BF347', '#7CB66D'],
     ASSETS:{
         PATH: '/assets/',
         TYPES: {
@@ -253,7 +258,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }])
     });
 
-    var authenticated = ['$rootScope', '$q', 'AuthService', 'SessionService', function ($rootScope, $q, AuthService, SessionService) {
+    var authenticated = ['$rootScope', '$state', '$q', 'AuthService', 'SessionService', function ($rootScope, $state, $q, AuthService, SessionService) {
         var deferred = $q.defer();
 
         if(!AuthService.isAuthenticated()){
@@ -261,7 +266,7 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
                 function(data){
                     if(data.data.success){
                         var result = data.data.result;
-                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count);
+                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count, result.access_level);
                         $rootScope.$broadcast('getMonthlyEvent');
                         deferred.resolve();
                     }else{
@@ -275,6 +280,28 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         } else {
             deferred.resolve();
         }
+
+        return deferred.promise;
+    }];
+
+    var refreshSession = ['$rootScope', '$state', '$q', 'AuthService', 'SessionService', function ($rootScope, $state, $q, AuthService, SessionService) {
+        var deferred = $q.defer();
+
+        AuthService.getCurrentSession().then(
+            function(data){
+                if(data.data.success){
+                    var result = data.data.result;
+                    SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count, result.access_level);
+                    $rootScope.$broadcast('getMonthlyEvent');
+                    deferred.resolve();
+                }else{
+                    deferred.reject('Not logged in');
+                }
+            },
+            function(response){
+                deferred.reject('Not logged in');
+            }
+        );
 
         return deferred.promise;
     }];
@@ -295,6 +322,30 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             templateUrl: '/assets/plan.html',
             defaultState: 'login',
             authenticationRequired: false
+        }).state('payment',{
+            url: "/pagos",
+            templateUrl: '/assets/payment.html',
+            defaultState: 'login',
+            authenticationRequired: false,
+            resolve: {
+                authenticated: authenticated
+            }
+        }).state('payment-success',{
+            url: "/pagos-exito",
+            templateUrl: '/assets/payment_success.html',
+            defaultState: 'login',
+            authenticationRequired: false,
+            resolve: {
+                refreshSession: refreshSession
+            }
+        }).state('payment-error',{
+            url: "/pagos-error",
+            templateUrl: '/assets/payment_error.html',
+            defaultState: 'login',
+            authenticationRequired: false,
+            resolve: {
+                refreshSession: refreshSession
+            }
         }).state('business',{
             url: "/negocio",
             templateUrl: '/assets/business_partial.html',
@@ -304,6 +355,9 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             authenticationRequired: true,
             resolve: {
                 authenticated: authenticated
+            },
+            data: {
+                checkPayment: true
             }
         }).state('business.cycle',{
             url: "/ciclo",
@@ -333,6 +387,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             section: 'BUSINESS',
             subsection: 'PLAN',
             authenticationRequired: true
+        }).state('business.progress',{
+            url: "/avance",
+            templateUrl: '/assets/business_partial.progress.html',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'PROGRESS',
+            authenticationRequired: true
         }).state('profile',{
             url: "/perfil",
             templateUrl: '/assets/profile_partial.html',
@@ -342,6 +403,9 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             authenticationRequired: true,
             resolve: {
                 authenticated: authenticated
+            },
+            data: {
+                checkPayment: true
             }
         }).state('profile.why',{
             url: "/mis-metas",
@@ -377,7 +441,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: undefined,
-            authenticationRequired: true
+            authenticationRequired: true,
+            resolve: {
+                authenticated: authenticated
+            },
+            data: {
+                checkPayment: true
+            }
         }).state('system.audio',{
             url: "/audios",
             templateUrl: '/assets/system_partial.audio.html',
@@ -419,12 +489,26 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'FAQ',
             subsection: undefined,
-            authenticationRequired: true
+            authenticationRequired: true,
+            resolve: {
+                authenticated: authenticated
+            },
+            data: {
+                checkPayment: true
+            }
         });
 
 }]);
 
-iuvare.run(function ($rootScope, $state, $log) {
+iuvare.run(function ($rootScope, $state, $log, SessionService) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        if(toState.data && toState.data.checkPayment){
+            if(SessionService.$get().getAccessLevel() && !SessionService.$get().getAccessLevel().valid_account){
+                $state.go('payment');
+            }
+        }
+    });
+
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams) {
         // Redirect user to our login page
         $state.go(toState.defaultState);
