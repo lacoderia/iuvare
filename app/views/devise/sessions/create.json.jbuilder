@@ -14,7 +14,8 @@ if @success
                     end
                   end
                 end
-		json.extract! @user, :id, :first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :xango_rank, :active, :downline_position, :picture, :payment_expiration, :upline_id, :kit_bought
+		json.extract! @user, :id, :first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :xango_rank, :active, :downline_position, :picture, :upline_id, :kit_bought
+                json.payment_expiration @user.payment_expiration ? @user.payment_expiration : (@user.created_at + User::FREE_MONTHS.months)
 		json.downline_count @user.downlines.size
 		if @user.test_scores.size > 0
 			json.set! :test_scores do
