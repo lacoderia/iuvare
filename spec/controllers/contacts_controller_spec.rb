@@ -3,26 +3,14 @@ feature 'ContactsController' do
   let!(:contact){ create(:contact, user: user, name: "Imperium") }
 
   describe 'contact associations' do
-
-    context 'transitions' do 
-      
-      it 'returns correct transitions' do
-        visit "#{transitions_contacts_path}.json"
-        response = JSON.parse(page.body)
-        expect(response['success']).to be true
-        transitions = response['result']['transitions']
-        expect(transitions.count).to be 5
-        expect(transitions['to_invite']['previous']).to be nil
-        expect(transitions['to_close']['next'].count).to be 2
-        expect(transitions['registered']['next']).to be nil
-      end
-
-    end
-      
+          
     context 'by_user' do
+      
       let!(:test_score){ create(:test_score, user: user, contact: contact) }
 
       it 'gets contacts for user' do
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         visit "#{by_user_contacts_path}.json?user_id=#{user.id}"
         response = JSON.parse(page.body)
         expect(response['success']).to be true
@@ -36,6 +24,8 @@ feature 'ContactsController' do
       end
 
       it 'gets no contacts for user' do
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         visit "#{by_user_contacts_path}.json?user_id=10"
         response = JSON.parse(page.body)
         expect(response['success']).to be true
@@ -53,6 +43,8 @@ feature 'ContactsController' do
 
     context 'destroy' do
       it 'removes contact in contact list' do
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         with_rack_test_driver do
           page.driver.delete "#{contacts_path}/#{contact.id}.json" 
         end
@@ -65,6 +57,7 @@ feature 'ContactsController' do
     context 'create and update' do
 
       it 'creates contact in contact list' do
+        login_with_service u = { email: user.email, password: '12345678' }
 
         new_contact_request = {contact:{user_id: user.id, name: 'Filomeno', email: 'filo@meno.com', phone: '67432341', description: 'León'}}
         with_rack_test_driver do
@@ -96,6 +89,8 @@ feature 'ContactsController' do
 
       it 'should raise errors on create' do
         new_contact_request = {contact:{user_id: user.id, name: 'Filomeno', email: 'filo@meno.com', phone: '67432341', description: 'León', status:'no_existe'}}
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         with_rack_test_driver do
           page.driver.post "#{contacts_path}.json", new_contact_request
         end
@@ -126,6 +121,8 @@ feature 'ContactsController' do
 
       it 'should raise errors on invalid transitions' do
         update_contact_request = {contact:{status: 'registered'} }
+        login_with_service u = { email: user.email, password: '12345678' }
+
         with_rack_test_driver do
           page.driver.put "#{contacts_path}/#{contact.id}.json", update_contact_request
         end

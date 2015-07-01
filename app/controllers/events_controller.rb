@@ -1,5 +1,7 @@
 class EventsController < InheritedResources::Base
   
+  authorize_resource
+  
   def current
     @events = Event.current
   end
