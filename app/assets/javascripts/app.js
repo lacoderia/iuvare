@@ -109,13 +109,14 @@ iuvare.constant('DEFAULT_VALUES',{
         PLAN: 'plan'
     },
     CONTACT_STATUS: {
-        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out', color: '#FF0000'},
-        TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite', color:'#E0E0E0'},
-        CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted', color: '#E0F3DB'},
-        TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close', color: '#A7F392'},
-        TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register', color: '#6BF347'},
-        REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered', color: '#7CB66D'}
+        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out'},
+        TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite'},
+        CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted'},
+        TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close'},
+        TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register'},
+        REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered'}
     },
+    CONTACT_STATUS_COLORS : ['#FF0000', '#E0E0E0', '#E0F3DB', '#A7F392', '#6BF347', '#7CB66D'],
     ASSETS:{
         PATH: '/assets/',
         TYPES: {

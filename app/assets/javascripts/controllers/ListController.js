@@ -9,6 +9,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     //Public variables
     $scope.CONTACT_STATUS = DEFAULT_VALUES.CONTACT_STATUS;
+    $scope.CONTACT_STATUS_COLORS = DEFAULT_VALUES.CONTACT_STATUS_COLORS;
     $scope.contactList = [];
     $scope.selectedContact = {};
     $scope.contactQuery = undefined;

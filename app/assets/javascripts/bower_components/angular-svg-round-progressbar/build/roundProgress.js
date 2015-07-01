@@ -44,7 +44,8 @@ angular.module('angular-svg-round-progress').constant('roundProgressConfig', {
     bgcolor:        "#eaeaea",
     stroke:         15,
     iterations:     50,
-    animation:      "easeOutCubic"
+    animation:      "easeOutCubic",
+    states:         []
 });
 
 'use strict';
@@ -66,7 +67,7 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
     };
 
     // credit to http://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
-    service.updateState = function(val, total, R, ring, size, isSemicircle) {
+    service.updateState = function(val, total, R, ring, size, isSemicircle, currentIteration, states) {
 
         if(!size) return ring;
 
@@ -81,6 +82,12 @@ angular.module('angular-svg-round-progress').service('roundProgressService', [fu
                 "M", start.x, start.y,
                 "A", R, R, 0, arcSweep, 0, end.x, end.y
             ].join(" ");
+
+        var breakPoint = type / states.length - 1;
+
+        ring.css({
+            "stroke":           states[Math.floor(perc/breakPoint) + 1]
+        });
 
         return ring.attr('d', d);
     };
@@ -292,7 +299,8 @@ angular.module('angular-svg-round-progress')
                     bgcolor:        "@",
                     stroke:         "@",
                     iterations:     "@",
-                    animation:      "@"
+                    animation:      "@",
+                    states:         "="
                 },
                 link: function (scope, element) {
                     var ring        = element.find('path'),
@@ -359,6 +367,7 @@ angular.module('angular-svg-round-progress')
                         var radius              = options.radius;
                         var circleSize          = radius - (options.stroke/2);
                         var elementSize         = radius*2;
+                        var states              = options.states;
 
                         if(angular.isNumber(resetValue)){
                             // the reset value fixes problems with animation, caused when limiting the scope.current
@@ -374,7 +383,9 @@ angular.module('angular-svg-round-progress')
                                 circleSize,
                                 ring,
                                 elementSize,
-                                options.semi);
+                                options.semi,
+                                currentIteration,
+                                states);
 
                             if(currentIteration < totalIterations){
                                 $window.requestAnimationFrame(animation);
@@ -383,7 +394,7 @@ angular.module('angular-svg-round-progress')
                         })();
                     };
 
-                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, iterations]', function(newValue, oldValue, scope){
+                    scope.$watchCollection('[current, max, semi, rounded, clockwise, radius, color, bgcolor, stroke, iterations, states]', function(newValue, oldValue, scope){
 
                         // pretty much the same as angular.extend,
                         // but this skips undefined values and internal angular keys
