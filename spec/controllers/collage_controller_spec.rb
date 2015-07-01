@@ -12,6 +12,8 @@ feature 'CollageController' do
 
       it 'gets a collage for user and alters it' do
 
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         with_rack_test_driver do
           page.driver.delete "#{collage_images_path}/#{collage_image_2.id}.json" 
         end
@@ -38,6 +40,8 @@ feature 'CollageController' do
   context 'create_by_user_id' do
 
     it 'creates a collage from scratch for user' do
+
+      login_with_service u = { email: user.email, password: '12345678' }
       
       visit "#{by_user_collages_path}.json?user_id=#{user.id}"
       response = JSON.parse(page.body)
@@ -68,6 +72,9 @@ feature 'CollageController' do
       test_file = "moto.jpg" 
       picture = Rack::Test::UploadedFile.new(Rails.root + "spec/images/#{test_file}", 'image/jpg')
       new_collage_image_request = {picture: picture, order: 1, user_id: 1000}
+      
+      login_with_service u = { email: user.email, password: '12345678' }
+      
       with_rack_test_driver do
         page.driver.post "#{create_by_user_id_collage_images_path}.json", new_collage_image_request
       end

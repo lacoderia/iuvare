@@ -1,4 +1,7 @@
 class ContactsController < ApplicationController 
+  
+  authorize_resource
+
   before_action :set_contact, only: [:update, :destroy]
 
   respond_to :json
