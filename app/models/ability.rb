@@ -8,10 +8,11 @@ class Ability
     
     can :manage, :display
     can :create, :registration
-    can :create, :session
+    can [:create, :get], :session
     can [:create, :update], :password
     can :ipn, Payment
     can :by_xango_id, User
+    can [:finish_video, :watch_video], Plan
 
     if user.instance_of? User
       #answers, no individual use of it
@@ -23,10 +24,10 @@ class Ability
       can [:create, :update, :destroy, :by_user], Goal
       can :create, Invitation
       can :ordered_by_name, Office
-      can [:send_video, :finish_video, :watch_video], Plan
+      can [:send_video], Plan
       #questions, no individual use of it
       can [:create, :accept, :reject], Request
-      can [:create, :get, :destroy], :session
+      can :destroy, :session
       can :grade_test, TestScore
       can [:by_code, :by_user, :by_code_and_user], Test
       can [:update, :all, :cycle, :change_position], User

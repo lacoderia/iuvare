@@ -1,10 +1,14 @@
 feature 'InvitationsController' do
+
   let!(:user){ create(:user) }
+  
   describe 'request process' do
     context 'request creation' do
 
       it 'successfully creates invitation' do
           new_invitation = { recipient_name: "Pedrito Bodoque", recipient_email: "dmiramon@gmail.com", user_id:user.id}
+          login_with_service u = { email: user.email, password: '12345678' }
+
           # Validates request creation
           with_rack_test_driver do
               page.driver.post "/invitations.json", { invitation: new_invitation}

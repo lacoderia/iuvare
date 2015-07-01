@@ -3,8 +3,11 @@ feature 'RequestsController' do
   describe 'request process' do
     context 'request creation' do
 
+      #TODO: QUITAR COMPLETAMENTE ESTA FUNCIONALIDAD
       it 'successfully creates request' do
           new_request = { source_name: "Pedrito Bodoque", source_email: "dmiramon@gmail.com", source_text: "Me quiero registrar y soy de MAP", user_id:user.id}
+          login_with_service u = { email: user.email, password: '12345678' }
+          
           # Validates request creation
           with_rack_test_driver do
               page.driver.post "/requests.json", { request: new_request}
@@ -17,6 +20,8 @@ feature 'RequestsController' do
 
       it 'successfully creates request, accepts request, invalid accepts request' do
           new_request = { source_name: "Pedrito Bodoque", source_email: "dmiramon@gmail.com", source_text: "Me quiero registrar y soy de MAP", user_id:user.id}
+          login_with_service u = { email: user.email, password: '12345678' }
+          
           # Validates request creation
           page1 = nil
           with_rack_test_driver do
@@ -48,6 +53,8 @@ feature 'RequestsController' do
 
       it 'successfully creates request, rejects request, invalid rejects request' do
           new_request = { source_name: "Pedrito Bodoque", source_email: "dmiramon@gmail.com", source_text: "Me quiero registrar y soy de MAP", user_id:user.id}
+          login_with_service u = { email: user.email, password: '12345678' }
+          
           # Validates request creation
           page1 = nil
           with_rack_test_driver do
