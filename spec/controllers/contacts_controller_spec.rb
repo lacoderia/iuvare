@@ -38,11 +38,12 @@ feature 'ContactsController' do
   end
 
   describe 'contact CRUD and status transition' do
-    
-    #params.require(:contact).permit(:user_id, :name, :email, :phone, :description, :status)
 
     context 'destroy' do
-      it 'removes contact in contact list' do
+      #TEST contact destruction with associated plans
+      let!(:plan){ create(:plan, contact: contact)}
+
+      it 'removes contact in contact list witha associated plan' do
         login_with_service u = { email: user.email, password: '12345678' }
         
         with_rack_test_driver do
