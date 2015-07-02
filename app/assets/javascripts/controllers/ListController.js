@@ -6,12 +6,16 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
     var addingContact = false;
     var editingContact = false;
+    var audioGuideVisible = false;
 
     //Public variables
     $scope.CONTACT_STATUS = DEFAULT_VALUES.CONTACT_STATUS;
     $scope.CONTACT_STATUS_COLORS = DEFAULT_VALUES.CONTACT_STATUS_COLORS;
+    $scope.AUDIO_GUIDE = {
+        source: DEFAULT_VALUES.ASSETS.PATH + 'audio_Jorge_Arzamendi_Como_prospectar.mp3'
+    }
     $scope.contactList = [];
-    $scope.selectedContact = {};
+    $scope.selectedContact = undefined;
     $scope.contactQuery = undefined;
     $scope.inviteOptionsDropdown = [
         {text: 'En línea - Enviar plan', code: 'online', click: 'setInvitationOption(0)'},
@@ -20,9 +24,6 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.plans = [];
     $scope.planDropdown = [];
     $scope.selectedPlan = undefined;
-    $scope.stepCompleted ={
-        confirmation: undefined
-    };
 
     // Method that toggles a goal's information form
     $scope.toggleContactInfo = function(contactItem){
@@ -47,6 +48,18 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.isEditingContact = function () {
         return editingContact;
+    };
+
+    $scope.isThereSelectedContact = function(){
+        return ($scope.selectedContact)? true: false;
+    };
+
+    $scope.isAudioGuideVisible = function(){
+        return audioGuideVisible;
+    };
+
+    $scope.showAudioGuide = function(){
+        audioGuideVisible = true;
     };
 
     $scope.createContact = function () {
@@ -145,31 +158,33 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         }
     };
 
-    $scope.completeStep = function(contact, status){
-        if($scope.stepCompleted.confirmation){
-            $scope.startSpin('contact-spinner-' + contact.id);
+    $scope.changeContactStatus = function(contact){
+        $scope.selectedContact = contact;
+    };
 
-            ListService.updateContactStatus(contact, status)
-                .success(function(data){
-                    if(data.success){
-                        $scope.contactList = angular.copy(ListService.contacts);
-                    }
-                })
-                .error(function (error, status) {
-                    $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
-                    console.log('Ocurrió un error al actualizar el contacto.');
-                })
-                .finally(function () {
-                    $scope.showContactListView();
-                    $scope.stopSpin('contact-spinner-' + contact.id);
-                    $scope.stepCompleted.confirmation = undefined;
-                });
-        }
+    $scope.completeStep = function(contact, status){
+        $scope.startSpin('contact-spinner-' + contact.id);
+
+        ListService.updateContactStatus(contact, status)
+            .success(function(data){
+                if(data.success){
+                    $scope.contactList = angular.copy(ListService.contacts);
+                }
+            })
+            .error(function (error, status) {
+                $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al actualizar el contacto.');
+            })
+            .finally(function () {
+                $scope.showContactListView();
+                $scope.stopSpin('contact-spinner-' + contact.id);
+            });
     };
 
     $scope.showContactListView = function () {
         addingContact = false;
         editingContact = false;
+        audioGuideVisible = false;
         $scope.selectedContact = undefined;
         $scope.selectedPlan = undefined;
         $scope.selectedInvitationOption = undefined;
@@ -206,7 +221,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
             .success(function(data){
                 if(data.success){
                     $scope.contactList = angular.copy(ListService.contacts);
-
+                    $scope.contactList[0].status = 'ruled_out';
                     AssetService.getAssetsByType(ASSET_TYPE)
                         .success(function (data) {
                             if(data.success){
