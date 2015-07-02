@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :collages
   has_many :payments
+  has_many :contacts
   
   has_attached_file :picture, :styles => { :original => "300x300#" }, :default_url => ""
   validates_attachment_content_type :picture, :content_type => /\Aimage\/.*\Z/
@@ -46,6 +47,16 @@ class User < ActiveRecord::Base
       self.errors.add(:email, "Ya existe un usuario registrado con ese correo electrónico.")
       false
     end
+  end
+
+  def progress
+    result = {}
+    result[:to_invite] = self.contacts.count
+    result[:contacted] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out')").count
+    result[:to_close] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out', 'contacted')").count
+    result[:to_register] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out', 'contacted', 'to_close')").count
+    result[:registered] = self.contacts.where(status: "registered").count
+    return result
   end
 
   def self.get_all_downlines user_id

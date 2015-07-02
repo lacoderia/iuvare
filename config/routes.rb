@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get 'by_xango_id'
+      get 'progress'
     end
   end
 

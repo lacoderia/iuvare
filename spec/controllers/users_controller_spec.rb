@@ -58,6 +58,37 @@ feature 'UsersController' do
 
     end
 
+    context 'progress' do
+      
+      let!(:user){create(:user, xango_id: "12066412", first_name: "Ricardo")}
+      let!(:contact_1){create(:contact, user: user, status: "to_invite")}
+      let!(:contact_2){create(:contact, user: user, status: "to_invite")}
+      let!(:contact_3){create(:contact, user: user, status: "contacted")}
+      let!(:contact_4){create(:contact, user: user, status: "contacted")}
+      let!(:contact_5){create(:contact, user: user, status: "to_close")}
+      let!(:contact_6){create(:contact, user: user, status: "to_close")}
+      let!(:contact_7){create(:contact, user: user, status: "to_register")}
+      let!(:contact_8){create(:contact, user: user, status: "to_register")}
+      let!(:contact_9){create(:contact, user: user, status: "registered")}
+      let!(:contact_10){create(:contact, user: user, status: "registered")}
+      let!(:contact_11){create(:contact, user: user, status: "ruled_out")}
+      let!(:contact_12){create(:contact, user: user, status: "ruled_out")}
+
+      it 'sucsessfully counts the funnel progress' do
+        login_with_service u = { email: user.email, password: '12345678' }
+        
+        visit "#{progress_users_path}.json"
+        response = JSON.parse(page.body)
+        funnel = response['result']
+        expect(funnel["to_invite"]).to eql 12
+        expect(funnel["contacted"]).to eql 8
+        expect(funnel["to_close"]).to eql 6
+        expect(funnel["to_register"]).to eql 4
+        expect(funnel["registered"]).to eql 2
+        
+      end
+    end
+
     context 'user downlines' do
 
       it 'successfully logins, gets all downlines, logs out, invalid gets all downlines' do
