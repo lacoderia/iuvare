@@ -22,7 +22,8 @@ var iuvare = angular.module('iuvare',
         'com.2fdevs.videogular.plugins.buffering',
         'angularSpinner',
         'ui.checkbox',
-        'angular-svg-round-progress'
+        'angular-svg-round-progress',
+        'angularMoment'
     ]);
 
 iuvare.constant('DEFAULT_VALUES',{

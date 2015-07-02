@@ -53,6 +53,7 @@
 //= require bower_components/angular-chart.js/dist/angular-chart.min.js
 //= require bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js
 //= require bower_components/angular-svg-round-progressbar/build/roundProgress.js
+//= require bower_components/angular-moment/angular-moment.js
 //= require lib/amcharts/amcharts
 //= require lib/amcharts/funnel
 
