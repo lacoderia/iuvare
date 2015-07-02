@@ -43,14 +43,13 @@ Rails.application.routes.draw do
   resources :contacts do
     collection do
       get 'by_user'
-      get 'transitions'
     end
   end
 
   resources :assets do
     collection do
-      get 'by_asset_type' 
-      get 'by_keyword_and_asset_type' 
+      get 'by_asset_type'
+      get 'by_keyword_and_asset_type'
     end
   end
 
@@ -112,10 +111,11 @@ Rails.application.routes.draw do
     get 'logout', :to => "devise/sessions#destroy"
     get 'session', :to => "sessions#get"
   end
-  
+
   #get "watch_video", :to => "plans#watch_video"
 
   root :to => "display#index"
+  get "stream", :to => "assets#stream"
   get "login", :to => "display#index"
   get "register", :to => "display#index"
   get "plan", :to => "display#index"
@@ -125,6 +125,7 @@ Rails.application.routes.draw do
   get "negocio", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
   get "negocio/lista", :to => "display#index"
+  get "negocio/avance", :to => "display#index"
   get "negocio/sedes", :to => "display#index"
   get "negocio/lista-plan", :to => "display#index"
   get "sistema", :to => "display#index"

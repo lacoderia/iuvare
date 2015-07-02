@@ -1,5 +1,7 @@
 class CollageImagesController < ApplicationController
   
+  authorize_resource 
+  
   before_action :set_collage_image, only: [:destroy]
 
   respond_to :json

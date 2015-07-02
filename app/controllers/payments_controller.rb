@@ -1,5 +1,7 @@
 class PaymentsController < InheritedResources::Base
 
+  authorize_resource
+
   respond_to :json
 
   def ipn

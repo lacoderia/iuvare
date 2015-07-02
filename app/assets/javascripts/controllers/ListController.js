@@ -9,13 +9,20 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     //Public variables
     $scope.CONTACT_STATUS = DEFAULT_VALUES.CONTACT_STATUS;
+    $scope.CONTACT_STATUS_COLORS = DEFAULT_VALUES.CONTACT_STATUS_COLORS;
     $scope.contactList = [];
     $scope.selectedContact = {};
     $scope.contactQuery = undefined;
-    $scope.planDropdown = [];
+    $scope.inviteOptionsDropdown = [
+        {text: 'En línea - Enviar plan', code: 'online', click: 'setInvitationOption(0)'},
+        {text: 'Por teléfono - Concretar cita', code: 'call', click: 'setInvitationOption(1)'}
+    ];
     $scope.plans = [];
+    $scope.planDropdown = [];
     $scope.selectedPlan = undefined;
-    $scope.statusTransitions = [];
+    $scope.stepCompleted ={
+        confirmation: undefined
+    };
 
     // Method that toggles a goal's information form
     $scope.toggleContactInfo = function(contactItem){
@@ -110,23 +117,54 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
             });
     };
 
-    $scope.updateFinalStatus = function (contact, finalStatus) {
-        $scope.startSpin('contact-spinner-' + contact.id);
+    $scope.getContactStatus = function (key) {
+        return $scope.CONTACT_STATUS[key.toUpperCase()];
+    };
 
-        ListService.updateFinalStatus(contact,finalStatus)
-            .success(function(data){
-                if(data.success){
+    $scope.setInvitationOption = function(selectedOptionIndex){
+        $scope.selectedInvitationOption = $scope.inviteOptionsDropdown[selectedOptionIndex];
+    };
+
+    $scope.setVideo = function (index) {
+        $scope.selectedPlan = $scope.plans[index];
+    };
+
+    $scope.sendVideo = function (contact) {
+        if($scope.selectedPlan){
+            $scope.startSpin('contact-spinner-' + contact.id);
+
+            ListService.sendVideo(contact.id, $scope.selectedPlan.id)
+                .success(function (data) {
                     $scope.contactList = angular.copy(ListService.contacts);
-                }
-            })
-            .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
-                console.log('Ocurrió un error al actualizar el contacto.');
-            })
-            .finally(function () {
-                $scope.showContactListView();
-                $scope.stopSpin('contact-spinner-' + contact.id);
-            });
+                    $scope.stopSpin('contact-spinner-' + contact.id);
+                })
+                .error(function (error, status) {
+                    $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al enviar el video');
+                });
+        }
+    };
+
+    $scope.completeStep = function(contact, status){
+        if($scope.stepCompleted.confirmation){
+            $scope.startSpin('contact-spinner-' + contact.id);
+
+            ListService.updateContactStatus(contact, status)
+                .success(function(data){
+                    if(data.success){
+                        $scope.contactList = angular.copy(ListService.contacts);
+                    }
+                })
+                .error(function (error, status) {
+                    $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
+                    console.log('Ocurrió un error al actualizar el contacto.');
+                })
+                .finally(function () {
+                    $scope.showContactListView();
+                    $scope.stopSpin('contact-spinner-' + contact.id);
+                    $scope.stepCompleted.confirmation = undefined;
+                });
+        }
     };
 
     $scope.showContactListView = function () {
@@ -134,6 +172,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         editingContact = false;
         $scope.selectedContact = undefined;
         $scope.selectedPlan = undefined;
+        $scope.selectedInvitationOption = undefined;
     };
 
     $scope.showButton = function(contact, action){
@@ -151,30 +190,6 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
         return showButton;
 
-    };
-
-    $scope.setVideo = function (index) {
-        $scope.selectedPlan = $scope.plans[index];
-    };
-
-    $scope.sendVideo = function (contact) {
-        if($scope.selectedPlan){
-            $scope.startSpin('contact-spinner-' + contact.id);
-
-            ListService.sendVideo(contact.id, $scope.selectedPlan.id)
-                    .success(function (data) {
-                        $scope.contactList = angular.copy(ListService.contacts);
-                        $scope.stopSpin('contact-spinner-' + contact.id);
-                    })
-                    .error(function (error, status) {
-                        $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger');
-                        console.log('Ocurrió un error al enviar el video');
-                    });
-        }
-    };
-
-    $scope.getContactStatus = function (key) {
-        return $scope.CONTACT_STATUS[key.toUpperCase()];
     };
 
 
@@ -203,15 +218,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                                     });
                                 });
 
-                                ListService.getStatusTransitions()
-                                    .success(function (data) {
-                                        $scope.statusTransitions = angular.copy(ListService.transitions);
-                                        $scope.stopSpin('container-spinner');
-                                    })
-                                    .error(function (error, status) {
-                                        $scope.showAlert('Ocurrió un error al obtener los contactos. Intenta nuevamente.', 'danger');
-                                        console.log('Ocurrió un error al obtener las transiciones de los estatus');
-                                    });
+                                $scope.stopSpin('container-spinner');
                             }
                         })
                         .error(function (error, status) {

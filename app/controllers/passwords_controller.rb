@@ -1,5 +1,7 @@
 class PasswordsController < Devise::PasswordsController
   
+  authorize_resource :class => false
+  
   skip_before_filter :verify_authenticity_token, :only => [:create, :update]
 
   def create

@@ -1,4 +1,7 @@
 class TestsController < ApplicationController 
+  
+  authorize_resource
+  
   before_action :set_test, only: [:show, :edit, :update, :destroy]
 
   respond_to :json

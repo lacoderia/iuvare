@@ -21,7 +21,9 @@ var iuvare = angular.module('iuvare',
         'com.2fdevs.videogular.plugins.overlayplay',
         'com.2fdevs.videogular.plugins.buffering',
         'angularSpinner',
-        'ui.checkbox'
+        'ui.checkbox',
+        'angular-svg-round-progress',
+        'angularMoment'
     ]);
 
 iuvare.constant('DEFAULT_VALUES',{
@@ -30,8 +32,9 @@ iuvare.constant('DEFAULT_VALUES',{
             subsections: [
                 { order:1, code: 'CYCLE', title: 'Ciclo', state: 'business.cycle', icon: 'icon-sitemap' },
                 { order:2, code: 'LIST', title: 'Lista', state: 'business.list', icon: 'icon-list' },
-                { order:3, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
-                { order:4, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
+                { order:3, code: 'PROGRESS', title: 'Avance', state: 'business.progress', icon: 'icon-plan' },
+                { order:4, code: 'PLAN', title: 'Plan', state: 'business.plan_list', icon: 'icon-plan' },
+                { order:5, code: 'HEADQUARTERS', title: 'Sedes', state: 'business.headquarters', icon: 'icon-sedes' }
             ]
         },
         { order: 2, code: 'SYSTEM', title:'Sistema', state: 'system.audio',
@@ -107,12 +110,14 @@ iuvare.constant('DEFAULT_VALUES',{
         PLAN: 'plan'
     },
     CONTACT_STATUS: {
-        TO_CLOSE: { order:1, code:'to_close', title: 'Por cerrar', class: 'to-close' },
-        CONTACTED: { order:2, code:'contacted', title: 'Contactado', class: 'contacted' },
-        TO_INVITE: { order:3, code:'to_invite', title: 'Por invitar', class: 'to-invite' },
-        REGISTERED: { order:4, code:'registered', title: 'Registrado', class: 'registered' },
-        RULED_OUT: { order:5, code:'ruled_out', title: 'Descartado', class: 'ruled-out' }
+        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out'},
+        TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite'},
+        CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted'},
+        TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close'},
+        TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register'},
+        REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered'}
     },
+    CONTACT_STATUS_COLORS : ['#FF0000', '#E0E0E0', '#E0F3DB', '#A7F392', '#6BF347', '#7CB66D'],
     ASSETS:{
         PATH: '/assets/',
         TYPES: {
@@ -382,6 +387,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'BUSINESS',
             subsection: 'PLAN',
+            authenticationRequired: true
+        }).state('business.progress',{
+            url: "/avance",
+            templateUrl: '/assets/business_partial.progress.html',
+            defaultState: 'login',
+            section: 'BUSINESS',
+            subsection: 'PROGRESS',
             authenticationRequired: true
         }).state('profile',{
             url: "/perfil",

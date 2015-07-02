@@ -1,4 +1,5 @@
 class OfficesController < ApplicationController 
+  authorize_resource
   
   respond_to :html, :json
 	

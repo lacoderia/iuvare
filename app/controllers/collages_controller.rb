@@ -1,5 +1,7 @@
 class CollagesController < ApplicationController
 
+  authorize_resource
+
   respond_to :json
 
   def by_user

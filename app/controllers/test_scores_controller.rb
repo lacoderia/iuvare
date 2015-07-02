@@ -1,5 +1,7 @@
 class TestScoresController < ApplicationController
   
+  authorize_resource
+  
   respond_to :json
 
   def grade_test
