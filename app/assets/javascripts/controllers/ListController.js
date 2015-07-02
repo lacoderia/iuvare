@@ -20,9 +20,6 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.plans = [];
     $scope.planDropdown = [];
     $scope.selectedPlan = undefined;
-    $scope.stepCompleted ={
-        confirmation: undefined
-    };
 
     // Method that toggles a goal's information form
     $scope.toggleContactInfo = function(contactItem){
@@ -154,25 +151,22 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     };
 
     $scope.completeStep = function(contact, status){
-        if($scope.stepCompleted.confirmation){
-            $scope.startSpin('contact-spinner-' + contact.id);
+        $scope.startSpin('contact-spinner-' + contact.id);
 
-            ListService.updateContactStatus(contact, status)
-                .success(function(data){
-                    if(data.success){
-                        $scope.contactList = angular.copy(ListService.contacts);
-                    }
-                })
-                .error(function (error, status) {
-                    $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
-                    console.log('Ocurrió un error al actualizar el contacto.');
-                })
-                .finally(function () {
-                    $scope.showContactListView();
-                    $scope.stopSpin('contact-spinner-' + contact.id);
-                    $scope.stepCompleted.confirmation = undefined;
-                });
-        }
+        ListService.updateContactStatus(contact, status)
+            .success(function(data){
+                if(data.success){
+                    $scope.contactList = angular.copy(ListService.contacts);
+                }
+            })
+            .error(function (error, status) {
+                $scope.showAlert('Ocurrió un error al actualizar el contacto. Intenta nuevamente.', 'danger');
+                console.log('Ocurrió un error al actualizar el contacto.');
+            })
+            .finally(function () {
+                $scope.showContactListView();
+                $scope.stopSpin('contact-spinner-' + contact.id);
+            });
     };
 
     $scope.showContactListView = function () {
