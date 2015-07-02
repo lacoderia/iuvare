@@ -42,6 +42,8 @@
                 <div class="message" ng-show="profileForm.$submitted || profileForm.profileXangoId.$touched">
                     <span ng-show="profileForm.profileXangoId.$error.required">El ID Xango es requerido.</span>
                 </div>
+                <label>Estatus de suscripción</label>
+                <span class="suscription">{{currentUser.accessLevel.message}} Vigente hasta el {{currentUser.expirationDate | amDateFormat:'D/MM/YYYY'}}</span>
             </fieldset>
             <fieldset>
                 <button class="action-button-forgot">Actualizar perfil</button>
