@@ -14,6 +14,7 @@ iuvare.factory('ProgressService', ['$http', '$q', 'DEFAULT_VALUES', function($ht
 
     var getProgress = function(){
         var total = 0;
+        funnelData = [];
 
         angular.forEach(progress, function(progressItem){
             var funnelItem = {

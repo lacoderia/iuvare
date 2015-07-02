@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:url('/assets/icomoon.eot?a579qi');
-    src:url('/assets/icomoon.eot?#iefixa579qi') format('embedded-opentype'),
-    url('/assets/icomoon.ttf?a579qi') format('truetype'),
-    url('/assets/icomoon.woff?a579qi') format('woff'),
-    url('/assets/icomoon.svg?a579qi#icomoon') format('svg');
+    src:url('/assets/icomoon.eot?-ogcfn');
+    src:url('/assets/icomoon.eot?#iefix-ogcfn') format('embedded-opentype'),
+    url('/assets/icomoon.ttf?-ogcfn') format('truetype'),
+    url('/assets/icomoon.woff?-ogcfn') format('woff'),
+    url('/assets/icomoon.svg?-ogcfn#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -23,6 +23,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-funnel:before {
+    content: "\e620";
+}
 .icon-conferencias:before {
     content: "\e613";
 }
