@@ -22,12 +22,12 @@
     @media screen and (min-width: $screen-sm-max)
       display: inline-block
       min-height: 260px
-      margin-right: 2%
+      margin-right: 0
       vertical-align: top
       width: 49%
 
-      &:nth-child(3n+3)
-        margin-right: 0%
+      &:nth-child(2n+2)
+        margin-right: 2%
 
     .contact-profile
       +rem(font-size, 0)
@@ -85,6 +85,16 @@
         vertical-align: top
         width: 50%
 
+        &:after
+          background-color: red
+          bottom: 10%
+          content: ''
+          height: 80%
+          left: -2px
+          position: absolute
+          width: 2px
+          z-index: 2
+
       .contact-status
         +rem(font-size, 1.5rem)
         +rem(margin, 1rem 0)
@@ -130,13 +140,23 @@
 
       &:after
         background-color: $color-gray_3
-        bottom: 10%
+        top: -2px
         content: ''
-        height: 80%
-        left: -2px
+        height: 2px
+        left: 10%
         position: absolute
-        width: 2px
+        width: 80%
         z-index: 2
+
+        @media screen and (min-width: $screen-sm-max)
+          background-color: $color-gray_3
+          top: 10%
+          content: ''
+          height: 80%
+          left: -2px
+          position: absolute
+          width: 2px
+          z-index: 2
 
 
 
@@ -266,6 +286,9 @@
 
       p
         text-align: center
+
+      span.glyphicon-ok
+        font-size: 12px !important
 
     .contact-discard-button
       bottom: 0
