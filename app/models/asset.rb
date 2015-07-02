@@ -17,4 +17,14 @@ class Asset < ActiveRecord::Base
 
   scope :by_asset_type, -> (asset_type){where(asset_type: asset_type)}
   scope :by_keyword, -> (keyword){where("LOWER(title) like '%#{keyword}%' OR LOWER(description) like '%#{keyword}%' OR LOWER(author) like '%#{keyword}%'")}
+
+  def self.stream_file asset_type, source
+
+    filepath = "#{ENV["PATH_TO_ASSETS"]}/#{asset_type}s/" + source
+
+    video_extension = File.extname(filepath)[1..-1]
+
+    return [filepath, video_extension]
+    
+  end
 end

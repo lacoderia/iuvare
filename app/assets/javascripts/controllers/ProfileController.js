@@ -196,7 +196,9 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
             picture: undefined,
             pictureUrl: SessionService.$get().getPicture(),
             password: undefined,
-            confirmation: undefined
+            confirmation: undefined,
+            expirationDate: SessionService.$get().getPaymentExpiration(),
+            accessLevel: SessionService.$get().getAccessLevel()
         };
 
     };

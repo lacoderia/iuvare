@@ -6,6 +6,8 @@ feature 'GoalsController' do
 
     it 'has correct associations' do
 
+      login_with_service u = { email: user.email, password: '12345678' }
+      
       visit "#{by_user_goals_path}.json?user_id=#{user.id}"
       response = JSON.parse(page.body)
       expect(response['success']).to be true
@@ -29,6 +31,7 @@ feature 'GoalsController' do
   describe 'CRUD' do
 
     it 'should do create and update operations from services correctly' do
+      login_with_service u = { email: user.email, password: '12345678' }
 
       new_goal_request = {goal:{dream: 'New Dream', goal: 'New Goal', date: "2015-04-04", user_id: user.id, goal_type: 'be'} }
       with_rack_test_driver do

@@ -115,6 +115,7 @@ Rails.application.routes.draw do
   #get "watch_video", :to => "plans#watch_video"
 
   root :to => "display#index"
+  get "stream", :to => "assets#stream"
   get "login", :to => "display#index"
   get "register", :to => "display#index"
   get "plan", :to => "display#index"

@@ -1,4 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
+  
+  authorize_resource :class => false
+
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params

@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   def register token
     user = User.find_by_email(self.email)
-  	unless user
+    unless user
       invitations = Invitation.where("recipient_email = ? AND token = ?", self.email, token)
     	if invitations.size == 1
         if self.upline_id
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
           end
         else
           result[:valid_account] = false  
-          result[:message] = "Tu acceso por dos meses gratis ha finalizado."
+          result[:message] = "Tu acceso por #{FREE_MONTHS} meses gratis ha finalizado."
           result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
           result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
         end

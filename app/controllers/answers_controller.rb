@@ -1,5 +1,7 @@
 class AnswersController < InheritedResources::Base
 
+  authorize_resource 
+
   private
 
     def answer_params

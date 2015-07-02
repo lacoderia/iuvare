@@ -1,5 +1,7 @@
 class QuestionsController < InheritedResources::Base
 
+  authorize_resource
+
   private
 
     def question_params

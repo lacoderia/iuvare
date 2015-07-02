@@ -1,4 +1,6 @@
 feature 'OfficesController' do
+  
+  let!(:user){ create(:user) }
 	
   describe 'offices' do
 
@@ -10,7 +12,8 @@ feature 'OfficesController' do
 
       it 'has sorted info' do
 
-				visit "#{ordered_by_name_offices_path}.json"
+        login_with_service u = { email: user.email, password: '12345678' }
+	visit "#{ordered_by_name_offices_path}.json"
 
         response = JSON.parse(page.body)
         expect(response['success']).to be true
