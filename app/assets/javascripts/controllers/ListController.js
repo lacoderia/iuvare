@@ -11,7 +11,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.CONTACT_STATUS = DEFAULT_VALUES.CONTACT_STATUS;
     $scope.CONTACT_STATUS_COLORS = DEFAULT_VALUES.CONTACT_STATUS_COLORS;
     $scope.contactList = [];
-    $scope.selectedContact = {};
+    $scope.selectedContact = undefined;
     $scope.contactQuery = undefined;
     $scope.inviteOptionsDropdown = [
         {text: 'En línea - Enviar plan', code: 'online', click: 'setInvitationOption(0)'},
@@ -47,6 +47,10 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.isEditingContact = function () {
         return editingContact;
+    };
+
+    $scope.isThereSelectedContact = function(){
+        return ($scope.selectedContact)? true: false;
     };
 
     $scope.createContact = function () {
@@ -145,6 +149,10 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         }
     };
 
+    $scope.changeContactStatus = function(contact){
+        $scope.selectedContact = contact;
+    };
+
     $scope.completeStep = function(contact, status){
         if($scope.stepCompleted.confirmation){
             $scope.startSpin('contact-spinner-' + contact.id);
@@ -206,7 +214,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
             .success(function(data){
                 if(data.success){
                     $scope.contactList = angular.copy(ListService.contacts);
-
+                    $scope.contactList[0].status = 'ruled_out';
                     AssetService.getAssetsByType(ASSET_TYPE)
                         .success(function (data) {
                             if(data.success){

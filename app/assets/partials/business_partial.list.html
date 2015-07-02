@@ -2,156 +2,182 @@
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div class="section-content contact-container">
-        <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact()">
+        <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isThereSelectedContact()">
             <input type="text" placeholder="Busca un contacto: Ej. Jorge Hernández" ng-model="contactQuery">
         </form>
 
-        <div ng-show="!isContactListEmpty() && !isAddingContact()" class="message-container">
+        <div ng-show="!isContactListEmpty() && !isAddingContact() && !isThereSelectedContact()" class="message-container">
             <p class="message">Aún no cuentas con algún contacto</p>
             <div class="actions">
                 <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createContact()">Agregar nuevo contacto</a>
             </div>
         </div>
 
-        <div ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact()">
+        <div ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isThereSelectedContact()">
             <div class="contact-list">
                 <div class="actions">
-                    <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createContact()">Agregar nuevo contacto</a>
+                    <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>
                 </div>
                 <div ng-repeat="contact in contactList | filter:contactQuery | orderBy:['order', 'name']"  class="contact">
-                    <div class="contact-info-container">
+                    <div class="contact-profile">
                         <span us-spinner spinner-key="contact-spinner-{{contact.id}}"></span>
                         <div class="contact-image">
                             <span class="user-image">
                                 <span class="icon-user" ng-if="!contact.picture"></span>
                                 <div class="image-container"><img ng-src="{{ contact.picture }}" alt="{{ contact.name }}" ng-if="contact.picture"></div>
                             </span>
+                            <p class="contact-name">{{ contact.name }}</p>
                         </div>
                         <div class="contact-info">
-                            <div class="contact-name">{{ contact.name }}</div>
-                            <div class="contact-status">
-                                <span class="status" ng-class="getContactStatus(contact.status).class">{{ getContactStatus(contact.status).title }}</span>
-                                <!--span class="status-actions" ng-show="showButton(contact, 'close-workflow')">
-                                    <a class="register-contact" title="Registrar" ng-click="updateFinalStatus(contact, CONTACT_STATUS.REGISTERED.code)"><span class="icon-add-user"></span></a>
-                                    <a class="discard-contact" title="Descartar" ng-click="updateFinalStatus(contact, CONTACT_STATUS.RULED_OUT.code)"><span class="icon-remove-user"></span></a>
-                                </span-->
-                            </div>
-                            <div class="contact-email" ng-if="contact.email"><span class="icon-envelope icon"></span> <a href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a></div>
-                            <div class="contact-phone" ng-if="contact.phone"><span class="icon-phone icon"></span> {{ contact.phone }}</div>
-                            <div ng-if="contact.showInfo">
-                                <div class="contact-description">{{ contact.description }}</div>
-                                <div class="progress-wrapper">
-                                    <div class="progress"  ng-style="{'font-size': getFontSize()}">{{ ((getContactStatus(contact.status).order/5)*100) | number:0 }}%</div>
-                                    <div round-progress
-                                         max="5"
-                                         current="getContactStatus(contact.status).order"
-                                         color="{{getContactStatus(contact.status).color}}"
-                                         bgcolor="#eaeaea"
-                                         radius="50"
-                                         stroke="12"
-                                         semi="false"
-                                         rounded="false"
-                                         clockwise="true"
-                                         iterations="200"
-                                         animation="easeInOutQuart"
-                                         states="CONTACT_STATUS_COLORS"></div>
-                                </div>
-                                <div class="contact-actions">
-
-                                    <br/>
-                                    <div ng-if="contact.status == CONTACT_STATUS.TO_INVITE.code">
-                                        <div>
-                                            <legend>¿Cómo deseas invitar al prospecto?</legend>
-
-                                            <button type="button" name="inviteOptionList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="inviteOptionsDropdown">
-                                                <span ng-if="!selectedInvitationOption">Selecciona un metodo de contacto</span>
-                                                <span ng-if="selectedInvitationOption">{{ selectedInvitationOption.text }}</span>
-                                                <span class="caret"></span>
-                                            </button>
-                                        </div>
-
-                                        <div ng-if="selectedInvitationOption.code=='online'">
-                                            <div class="send-video-legend">Enviar plan: </div>
-                                            <div class="send-video-actions">
-                                                <button type="button" name="planList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="planDropdown">
-                                                    <span ng-if="!selectedPlan">Selecciona un plan</span>
-                                                    <span ng-if="selectedPlan">{{ selectedPlan.title }}</span>
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <button class="action-button-send icon-arrow-circle-right" title="Enviar plan" ng-click="sendVideo(contact)" ng-disabled="!selectedPlan"></button>
-                                            </div>
-                                        </div>
-                                        <div ng-if="selectedInvitationOption.code=='call'">
-                                            <div class="send-video-legend">¿Necesitas guía para hacer la llamada? Haz click aquí</div>
-                                            <div>¿Ya concretaste una cita?</div>
-                                            <div class="checkbox-label">
-                                                <checkbox type="checkbox" ng-model="stepCompleted.confirmation"></checkbox>
-                                                <span>Si, ya concreté una cita.</span>
-                                            </div>
-                                            <button class="action-button-send icon-arrow-circle-right" title="Continuar" ng-click="completeStep(contact, CONTACT_STATUS.CONTACTED.code)" ng-disabled="!stepCompleted"></button>
-
-                                        </div>
-                                    </div>
-                                    <div ng-if="contact.status == CONTACT_STATUS.CONTACTED.code">
-                                        <div>
-                                            <div>¿Tu prospecto ya vio el plan?</div>
-                                            <div class="checkbox-label">
-                                                <checkbox type="checkbox" ng-model="stepCompleted.confirmation"></checkbox>
-                                                <span>Si, ya vio el plan.</span>
-                                            </div>
-                                            <button class="action-button-send icon-arrow-circle-right" title="Continuar" ng-click="completeStep(contact, CONTACT_STATUS.TO_CLOSE.code)" ng-disabled="!stepCompleted"></button>
-                                        </div>
-                                    </div>
-                                    <div ng-if="contact.status == CONTACT_STATUS.TO_CLOSE.code">
-                                        <div>
-                                            <div>¿A tu prospecto le interesó el plan?</div>
-                                            <div class="checkbox-label">
-                                                <checkbox type="checkbox" ng-model="stepCompleted.confirmation"></checkbox>
-                                                <span>Si, le interesó el plan.</span>
-                                            </div>
-                                            <button class="action-button-send icon-arrow-circle-right" title="Continuar" ng-click="completeStep(contact, CONTACT_STATUS.TO_REGISTER.code)" ng-disabled="!stepCompleted"></button>
-                                        </div>
-                                    </div>
-                                    <div ng-if="contact.status == CONTACT_STATUS.TO_REGISTER.code">
-                                        <div>
-                                            <div>¿Tu prospecto ya se inscribió?</div>
-                                            <div class="checkbox-label">
-                                                <checkbox type="checkbox" ng-model="stepCompleted.confirmation"></checkbox>
-                                                <span>Si, ya se inscribió</span>
-                                            </div>
-                                            <button class="action-button-send icon-arrow-circle-right" title="Continuar" ng-click="completeStep(contact, CONTACT_STATUS.REGISTERED.code)" ng-disabled="!stepCompleted"></button>
-                                        </div>
-                                    </div>
-                                    <div ng-if="contact.status == CONTACT_STATUS.REGISTERED.code">
-                                        <div>
-                                            <div>El proceso de inscripción fue completado con éxito.</div>
-                                        </div>
-                                    </div>
-                                    <div ng-if="contact.status == CONTACT_STATUS.RULED_OUT.code">
-                                        <div>
-                                            <div>¿Deseas comenzar el proceso nuevamente?</div>
-                                            <div class="checkbox-label">
-                                                <checkbox type="checkbox" ng-model="stepCompleted.confirmation"></checkbox>
-                                                <span>Si, comenzar el proceso.</span>
-                                            </div>
-                                            <button class="action-button-send icon-arrow-circle-right" title="Continuar" ng-click="completeStep(contact, CONTACT_STATUS.TO_INVITE.code)" ng-disabled="!stepCompleted"></button>
-                                        </div>
-                                    </div>
-
-                                    <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
-                                    <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index, contact.id)"></span>
-                                </div>
-                                <div ng-if="contact.test_score">
-                                    <p>Nivel de interés (1-10): {{contact.test_score.score}}</p>
-                                    <p>¿Cuándo contactarlo? {{contact.test_score.description}}</p>
-                                </div>
-                            </div>
-
+                            <p class="contact-email" ng-if="contact.email"><a href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a></p>
+                            <p class="contact-phone" ng-if="contact.phone">{{ contact.phone }}</p>
                         </div>
-                        <div class="contact-detail-toggle-icon" ng-click="toggleContactInfo(contact)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[contact.showInfo]"></span></div>
+                        <div class="actions">
+                            <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
+                            <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index, contact.id)"></span>
+                        </div>
+                    </div>
+                    <div class="contact-progress">
+                        <h3 class="contact-status">{{ getContactStatus(contact.status).title }}</h3>
+                        <div class="progress-wrapper">
+                            <div class="progress">{{ ((getContactStatus(contact.status).order/5)*100) | number:0 }}%</div>
+                            <div round-progress
+                                 max="5"
+                                 current="getContactStatus(contact.status).order"
+                                 color="{{getContactStatus(contact.status).color}}"
+                                 bgcolor="#eaeaea"
+                                 radius="45"
+                                 stroke="12"
+                                 semi="false"
+                                 rounded="false"
+                                 clockwise="true"
+                                 iterations="50"
+                                 animation="easeInOutQuart"
+                                 states="CONTACT_STATUS_COLORS"></div>
+                        </div>
+                        <button class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="changeContactStatus(contact)">Modifica el estatus</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="contact-form" ng-if="isContactListEmpty() && !isAddingContact() && !isEditingContact() && isThereSelectedContact()">
+            <span us-spinner spinner-key="contact-spinner-{{selectedContact.id}}"></span>
+            <div class="contact-detail">
+                <div class="contact-profile">
+                    <div class="contact-image">
+                            <span class="user-image">
+                                <span class="icon-user" ng-if="!selectedContact.picture"></span>
+                                <div class="image-container"><img ng-src="{{ selectedContact.picture }}" alt="{{ selectedContact.name }}" ng-if="selectedContact.picture"></div>
+                            </span>
+                        <p class="contact-name">{{ selectedContact.name }}</p>
+                    </div>
+                    <div class="contact-info">
+                        <p class="contact-email" ng-if="selectedContact.email"><a href="mailto:{{ selectedContact.email }}" title="Enviar correo">{{ selectedContact.email }}</a></p>
+                        <p class="contact-phone" ng-if="selectedContact.phone">{{ selectedContact.phone }}</p>
+                    </div>
+                    <div class="actions">
+                        <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(selectedContact)"></span>
+                        <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index, selectedContact.id)"></span>
+                    </div>
+                </div>
+                <div class="contact-progress">
+                    <h3 class="contact-status">{{ getContactStatus(selectedContact.status).title }}</h3>
+                    <div class="progress-wrapper">
+                        <div class="progress">{{ ((getContactStatus(selectedContact.status).order/5)*100) | number:0 }}%</div>
+                        <div round-progress
+                             max="5"
+                             current="getContactStatus(selectedContact.status).order"
+                             color="{{getContactStatus(selectedContact.status).color}}"
+                             bgcolor="#eaeaea"
+                             radius="45"
+                             stroke="12"
+                             semi="false"
+                             rounded="false"
+                             clockwise="true"
+                             iterations="50"
+                             animation="easeInOutQuart"
+                             states="CONTACT_STATUS_COLORS"></div>
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    <div ng-if="selectedContact.status == CONTACT_STATUS.TO_INVITE.code">
+                        <p class="step-question">¿Cómo deseas invitar a {{ selectedContact.name }}?</p>
+                        <button type="button" name="inviteOptionList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="inviteOptionsDropdown">
+                            <span ng-if="!selectedInvitationOption">Selecciona un metodo de contacto</span>
+                            <span ng-if="selectedInvitationOption">{{ selectedInvitationOption.text }}</span>
+                            <span class="caret"></span>
+                        </button>
+
+                        <div class="action" ng-if="selectedInvitationOption.code=='online'">
+                            <div class="send-video-actions">
+                                <p>Enviar el plan:</p>
+                                <button type="button" name="planList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="planDropdown">
+                                    <span ng-if="!selectedPlan">Selecciona un plan</span>
+                                    <span ng-if="selectedPlan">{{ selectedPlan.title }}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <button class="action-button-purple size-medium all-space" title="Enviar plan" ng-click="sendVideo(selectedContact)" ng-disabled="!selectedPlan">Enviar y continuar el proceso</button>
+                            </div>
+                        </div>
+
+                        <div class="action" ng-if="selectedInvitationOption.code=='call'">
+                            <div class="send-video-actions">
+                                <p class="step-question">¿Ya concretaste una cita?</p>
+                                <div class="checkbox-label">
+                                    <checkbox type="checkbox" ng-model="stepCompleted.confirmation"></checkbox>
+                                    <span>Si, ya concreté una cita</span>
+                                </div>
+                                <button class="action-button-purple size-medium all-space" ng-class="{ true:'', false:'disabled'  }[stepCompleted.confirmation]" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.CONTACTED.code)" ng-disabled="!stepCompleted">Continuar con el proceso</button>
+                                <p class="help">¿Necesitas guía para hacer la llamada? <a ui-sref="system.audio" title="Guía para contactar un prospecto">Haz click aquí</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="selectedContact.status == CONTACT_STATUS.CONTACTED.code">
+                        <p class="step-question">¿ {{ selectedContact.name }} ya conoce el plan?</p>
+                        <div class="action">
+                            <div class="send-video-actions">
+                                <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.TO_CLOSE.code)">Continuar con el proceso</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="selectedContact.status == CONTACT_STATUS.TO_CLOSE.code">
+                        <p class="step-question">¿A {{ selectedContact.name }} le interesó el plan?</p>
+                        <div class="action">
+                            <div class="send-video-actions">
+                                <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.TO_REGISTER.code)">Sí, continuar con el proceso</button>
+                                <button class="action-button-orange size-medium all-space" title="Enviar a seguimiento" ng-click="completeStep(selectedContact, CONTACT_STATUS.RULED_OUT.code)">No, enviar a seguimiento</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="selectedContact.status == CONTACT_STATUS.TO_REGISTER.code">
+                        <p class="step-question">¿{{ selectedContact.name }} ya se inscribió?</p>
+                        <div class="action">
+                            <div class="send-video-actions">
+                                <div class="checkbox-label">
+                                    <checkbox type="checkbox" ng-model="stepCompleted.confirmation"></checkbox>
+                                    <span>Si, ya se inscribió</span>
+                                </div>
+                                <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.REGISTERED.code)">Registrar prospecto</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="selectedContact.status != CONTACT_STATUS.TO_CLOSE.code" class="contact-discard-button">
+                        <a class="discard-contact" ng-click="completeStep(selectedContact, CONTACT_STATUS.RULED_OUT.code)">Enviar prospecto a seguimiento</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <form>
+                <fieldset>
+                    <input type="button" class="action-button-cancel" ng-click="showContactListView()" value="Cancelar" />
+                </fieldset>
+            </form>
         </div>
 
         <div class="contact-form" ng-show="isAddingContact() && !isEditingContact()">

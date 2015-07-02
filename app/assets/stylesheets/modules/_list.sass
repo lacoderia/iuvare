@@ -15,104 +15,284 @@
     background-color: $color_gray_1
     border: 1px solid $color_gray_4
     +border-radius(5px)
-    position: relative
-    +rem(margin, 1rem 0)
-    +rem(padding, 2rem)
+    font-size: 0
+    +rem(margin, 2rem 0rem)
+    padding: 0
 
-    .contact-info-container
+    @media screen and (min-width: $screen-sm-max)
       display: inline-block
-      width: 70%
+      min-height: 200px
+      margin-right: 2%
       vertical-align: top
+      width: 49%
 
-      .contact-actions
-        +rem(font-size, 3rem)
-        +rem(margin-top, 2rem)
+      &:nth-child(3n+3)
+        margin-right: 0%
 
-        span
-          vertical-align: middle
+    .contact-profile
+      +rem(font-size, 0)
+      +rem(padding, 3rem)
+      position: relative
+      text-align: center
+      z-index: 0
 
-      .contact-detail-toggle-icon
-        cursor: pointer
-        +rem(font-size, 2rem)
-        position: absolute
-        +rem(right, 2rem)
-        top: 25px
+      @media screen and (min-width: $screen-sm-max)
+        display: inline-block
+        vertical-align: top
+        width: 50%
 
       .contact-image
-        display: inline-block
-        +rem(margin-right, 1rem)
-        text-align: center
-        vertical-align: top
+        +rem(margin-bottom, 1.2rem)
+        text-align: left
 
+        .contact-name
+          display: inline-block
+          +rem(font-size, 2rem)
+          +rem(margin, 0 0 0 1rem)
+          vertical-align: middle
+
+        .user-image
+          text-align: center
+          vertical-align: middle
 
       .contact-info
+        text-align: left
+
+        .contact-email, .contact-phone
+          +rem(font-size, 1.3rem)
+          line-height: 20px
+          margin: 0
+          padding: 0
+
+      .actions
+        +rem(margin-top, 1rem)
+        text-align: right
+
+        span
+          +rem(font-size, 3rem)
+
+
+    .contact-progress
+      +rem(font-size, 0)
+      position: relative
+      +rem(padding, 3rem 2rem)
+      text-align: center
+      z-index: 0
+
+      @media screen and (min-width: $screen-sm-max)
         display: inline-block
         vertical-align: top
-
-        .icon
-          +rem(font-size, 1.2rem)
-          +rem(margin-right, 0.5rem)
-
-        .send-video-legend
-          +rem(font-size, 1.5rem)
-
-        .send-video-actions
-          +rem(margin-bottom, 1rem)
-
-          span, button
-            vertical-align: middle
-
-          button.action-button-send
-            background-color: transparent
-            border: none
-
-          button.dropdown
-            min-width: 242px
-            max-width: 242px
-            overflow: hidden
-            text-overflow: ellipsis
-
-
-      .contact-name
-        +rem(font-size, 2.2rem)
-
-      .contact-email
-        +rem(font-size, 1.5rem)
-        font-weight: normal
-        +rem(margin, 1.2rem 0 0)
+        width: 50%
 
       .contact-status
-        +rem(margin, 1rem 0 0)
+        +rem(font-size, 1.5rem)
+        +rem(margin, 1rem 0)
+        text-align: center
 
-        .status-actions
-          +rem(margin-left, 2rem)
+      .progress-wrapper
+        position: relative
 
-          a
-            +border-radius(50%)
-            display: inline-block
-            +rem(margin-right, 0.8rem)
-            +rem(padding, 0.2rem 0.8rem)
-            text-decoration: none
+        .progress
+          background-color: transparent
+          border: none
+          box-shadow: none
+          +rem(font-size, 2rem)
+          font-weight: 300
+          display: inline-block
+          height: 40px
+          left: 40%
+          margin: 0
+          position: absolute
+          text-align: center
+          top: 50%
+          width: 55px
+          transform: translate(-10%, -50%)
 
-            &.register-contact
-              background-color: $color_gray_2
-              color: $color_gray_5
+      .contact-actions
+        +rem(font-size, 1.3rem)
+        line-height: 18px
+        +rem(margin, 1rem 0 2rem)
 
-              &:hover
-                background-color: $color_gray_5
-                color: $color_gray_2
+        .dropdown
+          +rem(font-size, 1.2rem)
+          width: 100%
 
-            &.discard-contact
-              background-color: $color_gray_2
-              color: $color_gray_5
+        button.all-space
+          width: 100%
 
-              &:hover
-                background-color: $color_gray_5
-                color: $color_gray_2
+        .process-question
+          +rem(margin-bottom, 2rem)
+
+        .send-video-legend
+          margin-bottom: 10px
+          text-align: left
+
+      &:after
+        background-color: $color-gray_3
+        bottom: 10%
+        content: ''
+        height: 80%
+        left: -2px
+        position: absolute
+        width: 2px
+        z-index: 2
 
 
-    &:hover
-      background-color: $color_gray_3
+
+.contact-detail
+  font-size: 0
+  +rem(margin, 2rem 0rem)
+  padding: 0
+
+  @media screen and (min-width: $screen-sm-max)
+    min-height: 390px
+
+  .contact-profile
+    +rem(font-size, 0)
+    +rem(padding, 3rem)
+    position: relative
+    text-align: center
+    z-index: 0
+
+    @media screen and (min-width: $screen-sm-max)
+      display: inline-block
+      vertical-align: top
+      width: 30%
+
+    .contact-image
+      +rem(margin-bottom, 1.2rem)
+      text-align: left
+
+      .contact-name
+        display: inline-block
+        +rem(font-size, 2rem)
+        +rem(margin, 0 0 0 1rem)
+        vertical-align: middle
+
+      .user-image
+        text-align: center
+        vertical-align: middle
+
+    .contact-info
+      text-align: left
+
+      .contact-email, .contact-phone
+        +rem(font-size, 1.3rem)
+        line-height: 20px
+        margin: 0
+        padding: 0
+
+    .actions
+      +rem(margin-top, 1rem)
+      text-align: right
+
+      span
+        +rem(font-size, 3rem)
+
+
+  .contact-progress
+    +rem(font-size, 0)
+    position: relative
+    +rem(padding, 3rem 2rem)
+    text-align: center
+    z-index: 0
+
+    @media screen and (min-width: $screen-sm-max)
+      display: inline-block
+      vertical-align: top
+      width: 30%
+
+    .contact-status
+      +rem(font-size, 1.5rem)
+      +rem(margin, 1rem 0)
+      text-align: center
+
+    .progress-wrapper
+      position: relative
+
+      .progress
+        background-color: transparent
+        border: none
+        box-shadow: none
+        +rem(font-size, 2rem)
+        font-weight: 300
+        display: inline-block
+        height: 40px
+        left: 50%
+        margin: 0
+        position: absolute
+        text-align: center
+        top: 50%
+        width: 55px
+        transform: translate(-50%, -50%)
+
+    &:after
+      background-color: $color-gray_3
+      bottom: 10%
+      content: ''
+      height: 80%
+      left: -2px
+      position: absolute
+      width: 2px
+      z-index: 2
+
+  .contact-actions
+    +rem(font-size, 0)
+    position: relative
+    min-height: 340px
+    +rem(padding, 3rem 2rem)
+    text-align: left
+    z-index: 0
+
+    p
+      +rem(font-size, 1.5rem)
+
+    @media screen and (min-width: $screen-sm-max)
+      display: inline-block
+      vertical-align: top
+      width: 40%
+
+    .action
+      +rem(font-size, 1.5rem)
+      +rem(margin-top, 2rem)
+
+      .action-button-purple
+        +rem(margin, 0 0 1rem)
+
+        &.disabled
+          cursor: auto
+          opacity: 0.5
+
+
+    .checkbox-label
+      +rem(margin-bottom, 1rem)
+      text-align: center
+
+      span
+        +rem(font-size, 1.5rem)
+
+    .contact-discard-button
+      bottom: 0
+      +rem(margin, 2rem 0 0 0)
+      position: absolute
+      right: 20px
+
+    .dropdown
+      +rem(margin-bottom, 1rem)
+      width: 100%
+
+    button.all-space
+      width: 100%
+
+    .help
+      +rem(font-size, 1.2rem)
+      +rem(margin, 2rem 0rem 1rem)
+
+
+    .step-question
+      +rem(font-size, 1.8rem)
+      +rem(margin-top, 0.5rem)
+
 
 .status
   border: 1px solid
@@ -143,3 +323,10 @@
     background: $color_green_1
     border-color: $color_green_2
     color: white
+
+.discard-contact
+  color: $color_orange_1
+  +rem(font-size, 1.2rem)
+
+  &:hover
+    color: $color-red_2
