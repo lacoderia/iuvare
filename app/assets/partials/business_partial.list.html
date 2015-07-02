@@ -55,7 +55,8 @@
                                  animation="easeInOutQuart"
                                  states="CONTACT_STATUS_COLORS"></div>
                         </div>
-                        <button class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="changeContactStatus(contact)">Modifica el estatus</button>
+                        <button ng-if="contact.status != CONTACT_STATUS.RULED_OUT.code && contact.status != CONTACT_STATUS.REGISTERED.code" class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="changeContactStatus(contact)">Modifica el estatus</button>
+                        <button ng-if="contact.status == CONTACT_STATUS.RULED_OUT.code" class="action-button-purple size-medium all-space" title="Comenzar el proceso nuevamente" ng-click="completeStep(contact, CONTACT_STATUS.TO_INVITE.code)">Comienza nuevamente</button>
                     </div>
                 </div>
             </div>
