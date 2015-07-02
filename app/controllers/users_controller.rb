@@ -96,6 +96,18 @@ class UsersController < ApplicationController
     render "by_xango_id.json"
   end
 
+  def progress
+    if current_user
+      @funnel = current_user.progress
+      @success = true
+      render "progress.json"
+    else
+      @success = false
+      @error = not_signed_error
+      render "progress.json", status: 500
+    end    
+  end
+
   private
     def set_user
       @user = User.find(params[:id])

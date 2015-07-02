@@ -30,7 +30,7 @@ class Ability
       can :destroy, :session
       can :grade_test, TestScore
       can [:by_code, :by_user, :by_code_and_user], Test
-      can [:update, :all, :cycle, :change_position], User
+      can [:update, :all, :cycle, :change_position, :progress], User
 
       if user.role? :premier
         can :manage, Event 
