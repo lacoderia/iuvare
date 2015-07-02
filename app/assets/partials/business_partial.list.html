@@ -18,7 +18,7 @@
                 <div class="actions">
                     <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>
                 </div>
-                <div ng-repeat="contact in contactList | filter:contactQuery | orderBy:['order', 'name']"  class="contact">
+                <div ng-repeat="contact in contactList | filter:contactQuery | orderBy:['name']"  class="contact">
                     <div class="contact-profile">
                         <span us-spinner spinner-key="contact-spinner-{{contact.id}}"></span>
                         <div class="contact-image">
@@ -128,7 +128,12 @@
                                 <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.CONTACTED.code)">Si, continuar con el proceso</button>
                                 <p>o</p>
                                 <button class="action-button-orange size-medium all-space" title="Enviar a seguimiento" ng-click="completeStep(selectedContact, CONTACT_STATUS.RULED_OUT.code)">Enviar a seguimiento</button>
-                                <p class="help">¿Necesitas guía para hacer la llamada? <a ui-sref="system.audio" title="Guía para contactar un prospecto">Haz click aquí</a></p>
+                                <hr>
+                                <p class="help"><strong>¿Necesitas guía para hacer la llamada?</strong> Escucha el siguiente audio con la guía para prospectar <a ng-click="showAudioGuide()">aquí</a></p>
+                                <audio controls ng-if="isAudioGuideVisible()">
+                                    <source ng-src="{{ AUDIO_GUIDE.source }}">
+                                </audio>
+
                             </div>
                         </div>
                     </div>
