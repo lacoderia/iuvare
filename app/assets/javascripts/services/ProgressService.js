@@ -2,35 +2,34 @@
 
 iuvare.factory('ProgressService', ['$http', '$q', 'DEFAULT_VALUES', function($http, $q, DEFAULT_VALUES){
 
-    var progress = [
-        { title: 'Prospectos', total: 20 },
-        { title: 'Invitados', total: 30 },
-        { title: 'Ya vieron el plan', total: 40 },
-        { title: 'Por inscribir', total: 20 },
-        { title: 'Inscritos', total: 10 }
-    ];
-
-    var funnelData = [];
-
     var getProgress = function(){
-        var total = 0;
-        funnelData = [];
 
-        angular.forEach(progress, function(progressItem){
-            var funnelItem = {
-                title: (progressItem.title).toUpperCase(),
-                value: progressItem.total
-            };
+        var progressServiceURL = '/users/progress.json';
+        service.funnelData = [];
 
-            funnelData.push(funnelItem);
-        });
+        return $http.get(progressServiceURL, {})
+            .success(function(data){
+                if(data.success){
+                    angular.forEach(data.result, function(progressItem, key){
 
-        return funnelData;
+                        var statusTitle = (DEFAULT_VALUES.CONTACT_STATUS[(key).toUpperCase()]).title;
+
+                        var funnelItem = {
+                            title: statusTitle,
+                            value: progressItem
+                        };
+
+                        service.funnelData.push(funnelItem);
+                    });
+                }
+            });
+
+        return service.funnelData;
     };
 
 
     var service = {
-        funnelData: funnelData,
+        funnelData: [],
         getProgress: getProgress
     };
 
