@@ -2,7 +2,10 @@
   background-color: white
   +rem(margin, 10rem auto)
   +rem(padding, 1rem 2rem 2rem)
-  width: 800px
+  width: 100%
+
+  @media screen and (min-width: $screen-sm-max)
+    width: 800px
 
   h2.section-title
     color: $color_gray_2
