@@ -1,5 +1,5 @@
 class IuvareMailer < ActionMailer::Base
-  default from: "\"Iuvare\" <info@iuvare.mx>"
+  default from: "\"Iuvare\" <contacto@iuvare.com.mx>"
 
   def send_invitation(invitation)
   	@user = invitation.user.first_name
