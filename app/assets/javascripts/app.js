@@ -117,7 +117,7 @@ iuvare.constant('DEFAULT_VALUES',{
         TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register'},
         REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered'}
     },
-    CONTACT_STATUS_COLORS : ['#FF0000', '#E0E0E0', '#E0F3DB', '#A7F392', '#6BF347', '#7CB66D'],
+    CONTACT_STATUS_COLORS : ['#FF0000', '#E0E0E0', '#E0F3DB', '#B1F3A2', '#8EF375', '#07F33A'],
     ASSETS:{
         PATH: '/assets/',
         TYPES: {
