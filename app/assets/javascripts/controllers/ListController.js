@@ -150,6 +150,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                 .success(function (data) {
                     $scope.contactList = angular.copy(ListService.contacts);
                     $scope.stopSpin('contact-spinner-' + contact.id);
+                    $scope.showAlert('El plan fue enviado con éxito.', 'success');
                 })
                 .error(function (error, status) {
                     $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger');
@@ -221,7 +222,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
             .success(function(data){
                 if(data.success){
                     $scope.contactList = angular.copy(ListService.contacts);
-                    $scope.contactList[0].status = 'ruled_out';
+
                     AssetService.getAssetsByType(ASSET_TYPE)
                         .success(function (data) {
                             if(data.success){
