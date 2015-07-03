@@ -11,8 +11,7 @@
 .office-map
   display: block
   +rem(margin, 0 auto)
-  max-height: 200px
-  max-width: 200px
+  max-height: 250px
   overflow: hidden
 
   @media screen and (min-width: $screen-sm-max)
@@ -23,12 +22,15 @@
     vertical-align: top
     width: 40%
 
+  .angular-google-map-container
+    height: 300px
+
+    @media screen and (min-width: $screen-sm-max)
+      height: 250px
+
 .office-name
   +rem(font-size, 1.8rem)
   +rem(margin-bottom, 1rem)
 
 .item-video
   text-align: center
-
-.angular-google-map-container
-  height: 400px
