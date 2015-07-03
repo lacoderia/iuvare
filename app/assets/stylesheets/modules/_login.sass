@@ -12,15 +12,22 @@
     text-align: center
 
     .checkbox-label
-      background-color: $color_gray_3
       border: none
       color: $color_gray_2
       +rem(font-size, $medium-font)
       font-weight: 600
-      height: 50px
+      +rem(margin-top, 0.5rem)
       +rem(padding, 0 2rem)
       text-align: left
+      vertical-align: middle
       width: 100%
+
+      span
+        display: inline-block
+
+      .checkbox-label-span
+        +rem(margin-left, 0.5rem)
+        vertical-align: sub
 
     fieldset
       input, textarea, button
