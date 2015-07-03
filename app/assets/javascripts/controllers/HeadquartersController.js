@@ -47,7 +47,10 @@ iuvare.controller('HeadquartersController', ["$scope", "$log", "$rootScope", "Au
                                     longitude: office.longitude
                                 }
                             },
-                            zoom: 16
+                            zoom: 16,
+                            options: {
+                                disableDefaultUI: true
+                            }
                         };
 
                         office.showInfo = false;
