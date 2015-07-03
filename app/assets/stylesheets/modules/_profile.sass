@@ -12,15 +12,25 @@
       +rem(margin, 1rem 0 3rem)
 
     input[type='text'], input[type='password'], input[type='email']
-      width: 80% !important
+      width: 100% !important
+
+      @media screen and (min-width: $screen-sm-max)
+        width: 80% !important
 
     input:read-only
       background-color: transparent
+      height: auto !important
+
+      @media screen and (min-width: $screen-sm-max)
+        height: 50px
 
     label
       font-size: 14px
+      +rem(margin-top, 1.5rem)
+      width: 100%
 
       @media screen and (min-width: $screen-sm-max)
+        margin: 0
         width: 20%
 
     .message
@@ -40,8 +50,14 @@
       display: inline-block
       +rem(font-size, $medium-font)
       font-weight: 600
-      +rem(padding, 2rem)
-      width: 80%
+      +rem(margin-bottom, 3rem)
+      +rem(padding, 0 2rem)
+      width: 100%
+
+      @media screen and (min-width: $screen-sm-max)
+        +rem(margin-bottom, 0rem)
+        +rem(padding, 2rem)
+        width: 80%
 
   .profile-picture
     line-height: 0
@@ -52,16 +68,23 @@
       border-top-left-radius: 10px
       border-top-right-radius: 10px
       display: inline-block
-      width: 220px
+      width: 100px
+
+      @media screen and (min-width: $screen-sm-max)
+        width: 150px
 
       .picture
         background: url('/assets/person.png') no-repeat white
         background-size: cover
         +border-radius(50%)
-        height: 220px
+        height: 100px
         overflow: hidden
         position: relative
-        width: 220px
+        width: 100px
+
+        @media screen and (min-width: $screen-sm-max)
+          height: 150px
+          width: 150px
 
         &.no-background
           background: none
