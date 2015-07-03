@@ -41,6 +41,9 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
         $scope.$emit('setCurrentSection');
 
         $scope.sectionTitle = $scope.currentSubsection.title;
+
+        $scope.startSpin('container-spinner');
+
         ProgressService.getProgress()
             .success(function(data){
                 if(data.success){
@@ -50,11 +53,13 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
                     chart.addListener('rendered', function(){
                         $('.amcharts-chart-div').find('a').hide();
                     });
+
+                    $scope.stopSpin('container-spinner');
                 }
             })
             .error(function(error){
-                $scope.showAlert('Ocurrió un error al asignar el socio.', 'danger');
-                console.log('Ocurrió un error al asignar el socio.');
+                $scope.showAlert('Ocurrió un error al obtener el avance.', 'danger');
+                console.log('Ocurrió un error al obtener el avance.');
             });
     };
 
