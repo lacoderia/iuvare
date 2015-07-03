@@ -10,7 +10,7 @@
                 </div>
                 <div ng-if="office.showInfo">
                     <div class="office-map">
-                        <ui-gmap-google-map center="office.map.center" zoom="office.map.zoom">
+                        <ui-gmap-google-map center="office.map.center" zoom="office.map.zoom" options="office.map.options">
                             <ui-gmap-marker coords="office.map.marker.coords" idkey="office.map.marker.id">
                             </ui-gmap-marker>
                         </ui-gmap-google-map>
