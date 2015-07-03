@@ -1,4 +1,5 @@
 class InvitationsController < ApplicationController
+  authorize_resource
 
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json

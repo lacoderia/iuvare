@@ -1,4 +1,6 @@
 class GoalsController < ApplicationController
+
+  authorize_resource
   
   before_action :set_goal, only: [:update, :destroy]
 

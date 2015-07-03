@@ -29,6 +29,8 @@ feature 'UsersController' do
         expect(response['result']['id']).to eql user.id
         expect(response['result']['picture']).to eql "" 
 
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         test_file = "moto.jpg" 
         picture = Rack::Test::UploadedFile.new(Rails.root + "spec/images/#{test_file}", 'image/jpg')
         update_user_request = {user:{first_name: "Arturo", picture: picture, password: 'ABCDEFG123', password_confirmation: 'ABCDEFG123'} }
@@ -45,6 +47,7 @@ feature 'UsersController' do
         response = JSON.parse(page.body)
         expect(response['success']).to be true 
 
+        #Error, el password modificado no es igual
         update_user_request = {user:{password: 'ABCDEFG1234', password_confirmation: 'ABCDEFG12345'} }
         with_rack_test_driver do
           page.driver.put "#{users_path}/#{user.id}.json", update_user_request 
@@ -74,10 +77,13 @@ feature 'UsersController' do
         expect(response1['result'][0]['picture']).to eql ""
         #logout
         logout
+        
         #invalid gets all downlines
-        visit("/downlines/all.json")
-        response2 = JSON.parse(page.body)
-        expect(response2['success']).to be false
+        begin
+          visit("/downlines/all.json")
+        rescue Exception => e
+          expect(e.message).to eql "You are not authorized to access this page."
+        end
       end
 
       it 'successfully logins, gets cycle downlines, logs out, invalid gets cycle downlines' do
@@ -99,10 +105,14 @@ feature 'UsersController' do
         expect(response1['result'][0]['picture']).to eql ""
         #logout
         logout
+
         #invalid gets cycle downlines
-        visit("/downlines/cycle.json")
-        response2 = JSON.parse(page.body)
-        expect(response2['success']).to be false
+        begin
+          visit("/downlines/cycle.json")
+        rescue Exception => e
+          expect(e.message).to eql "You are not authorized to access this page."
+        end
+
       end
 
       it 'successfully logins, changes downline position, logs out' do
@@ -130,13 +140,15 @@ feature 'UsersController' do
         down2 = User.create(first_name: "Reina", last_name: "Premier", email: "downline2@xango.com", xango_id: "222222", iuvare_id: "222", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 1)
         down3 = User.create(first_name: "Conde", last_name: "Premier", email: "downline3@xango.com", xango_id: "333333", iuvare_id: "333", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 3)
         down4 = User.create(first_name: "Condesa", last_name: "Premier", email: "downline4@xango.com", xango_id: "444444", iuvare_id: "444", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
-        #gets cycle downlines
-        with_rack_test_driver do
-          page.driver.post "/downlines/#{down4.id}/change_position.json", { position: 1}
+        
+        begin
+          with_rack_test_driver do
+            page.driver.post "/downlines/#{down4.id}/change_position.json", { position: 1}
+          end
+        rescue Exception => e
+          expect(e.message).to eql "You are not authorized to access this page."
         end
-        response = JSON.parse(page.body)
-        expect(response['success']).to be false 
-        expect(response['error']).to eql "Tu sesión es inválida o ya expiró. Vuelve a iniciar sesión e intenta de nuevo."
+
       end
 
     end

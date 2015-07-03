@@ -6,10 +6,14 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
     var addingContact = false;
     var editingContact = false;
+    var audioGuideVisible = false;
 
     //Public variables
     $scope.CONTACT_STATUS = DEFAULT_VALUES.CONTACT_STATUS;
     $scope.CONTACT_STATUS_COLORS = DEFAULT_VALUES.CONTACT_STATUS_COLORS;
+    $scope.AUDIO_GUIDE = {
+        source: DEFAULT_VALUES.ASSETS.PATH + 'audio_Jorge_Arzamendi_Como_prospectar.mp3'
+    }
     $scope.contactList = [];
     $scope.selectedContact = undefined;
     $scope.contactQuery = undefined;
@@ -48,6 +52,14 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.isThereSelectedContact = function(){
         return ($scope.selectedContact)? true: false;
+    };
+
+    $scope.isAudioGuideVisible = function(){
+        return audioGuideVisible;
+    };
+
+    $scope.showAudioGuide = function(){
+        audioGuideVisible = true;
     };
 
     $scope.createContact = function () {
@@ -172,6 +184,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.showContactListView = function () {
         addingContact = false;
         editingContact = false;
+        audioGuideVisible = false;
         $scope.selectedContact = undefined;
         $scope.selectedPlan = undefined;
         $scope.selectedInvitationOption = undefined;

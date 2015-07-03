@@ -1,4 +1,7 @@
 class RequestsController < ApplicationController
+  
+  authorize_resource 
+  
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json

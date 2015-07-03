@@ -52,6 +52,9 @@ feature 'TestsController' do
   describe 'GET tests' do
 
     it 'gets correctly questions and answers by code' do
+      
+      login_with_service u = { email: user.email, password: '12345678' }
+      
       visit("/tests/by_code.json?code=color")
       
       response = JSON.parse(page.body)
@@ -87,6 +90,8 @@ feature 'TestsController' do
   describe 'Evaluate percentage test_type' do
 
     it 'evaluates correctly questions and answers' do
+      
+      login_with_service u = { email: user.email, password: '12345678' }
 
       answers = [{id: fq_answer_1.id}, {id: sq_answer_1.id}]
       with_rack_test_driver do
@@ -139,6 +144,8 @@ feature 'TestsController' do
   describe 'Evaluate correct_incorrect test_type' do
 
     it 'evaluates correctly questions and answers' do
+      
+      login_with_service u = { email: user.email, password: '12345678' }
 
       answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}, {id: qq_answer_1.id}]
       with_rack_test_driver do
@@ -186,6 +193,8 @@ feature 'TestsController' do
     let!(:contact){ create(:contact, user: user) }
 
     it 'Saves multiple answers as test_scores' do
+      
+      login_with_service u = { email: user.email, password: '12345678' }
 
       answers = [{id: tqq_answer_1.id}, {id: tqs_answer_1.id}]
       with_rack_test_driver do
@@ -234,6 +243,9 @@ feature 'TestsController' do
   describe 'error handling' do
 
     it 'should raise errors for test questions without answers' do
+      
+      login_with_service u = { email: user.email, password: '12345678' }
+      
       answers = [{id: fq_answer_1.id}, {id: fq_answer_2.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: personality_test.code, answers: answers}
@@ -246,6 +258,9 @@ feature 'TestsController' do
     end
 
     it 'should raise errors for different number of questions and answers submited for test' do
+      
+      login_with_service u = { email: user.email, password: '12345678' }
+      
       answers = [{id: tq_answer_1.id}, {id: cq_answer_1.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: module1_test.code, answers: answers}
@@ -257,6 +272,8 @@ feature 'TestsController' do
     end
 
     it 'should raise errors for multiple type test without contact_id' do
+      
+      login_with_service u = { email: user.email, password: '12345678' }
 
       answers = [{id: tqq_answer_1.id}, {id: tqs_answer_1.id}]
       with_rack_test_driver do

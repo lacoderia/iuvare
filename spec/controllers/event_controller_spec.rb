@@ -1,5 +1,6 @@
 feature 'EventsController' do
   let(:starting_datetime) { Time.zone.parse('12 May 2015 13:00:00') }
+  let!(:user){ create(:user) }
 	
   describe 'events' do
 
@@ -16,6 +17,8 @@ feature 'EventsController' do
       it 'should get past event' do
 			
 	Timecop.travel(Time.zone.local(2015, 4, 25, 13, 30, 0))
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         visit "#{current_events_path}.json"
 
         response = JSON.parse(page.body)
@@ -27,6 +30,8 @@ feature 'EventsController' do
       it 'should get current event' do
 			
 	Timecop.travel(Time.zone.local(2015, 5, 1, 13, 30, 0))
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         visit "#{current_events_path}.json"
 
         response = JSON.parse(page.body)
@@ -38,6 +43,8 @@ feature 'EventsController' do
       it 'should get next event' do
 			
 	Timecop.travel(Time.zone.local(2015, 6, 5, 13, 30, 0))
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         visit "#{current_events_path}.json"
 
         response = JSON.parse(page.body)
@@ -49,6 +56,8 @@ feature 'EventsController' do
       it 'should get no events' do
 			
         Timecop.travel(Time.zone.local(2015, 7, 5, 13, 30, 0))
+        login_with_service u = { email: user.email, password: '12345678' }
+        
         visit "#{current_events_path}.json"
 
         response = JSON.parse(page.body)

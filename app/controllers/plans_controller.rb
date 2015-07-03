@@ -1,4 +1,7 @@
 class PlansController <  ApplicationController
+
+  authorize_resource
+
   before_action :set_plan, only: [:finish_video]
 
   respond_to :json

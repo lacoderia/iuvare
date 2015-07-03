@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  authorize_resource
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, only: [:update]
 
