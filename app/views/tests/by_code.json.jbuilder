@@ -20,6 +20,8 @@ if @test
     end
   end
 else
-  json.success false
-  json.error @error
+  json.success true 
+  json.set! :result do
+    json.nil!    
+  end
 end

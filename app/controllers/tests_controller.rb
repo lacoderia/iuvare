@@ -28,9 +28,6 @@ class TestsController < ApplicationController
 
   def by_code
     @test = Test.by_code(params[:code])
-    if not @test
-      @error = "No se encontró el test."
-    end
     render "by_code.json"
   end
   
@@ -40,9 +37,6 @@ class TestsController < ApplicationController
 
   def by_code_and_user
     @test = Test.by_code_and_user(params[:test_code], params[:user_id])
-    if not @test
-      @error = "No se encontró el test con ese usuario."
-    end
     render "by_code_and_user.json"
   end
 
