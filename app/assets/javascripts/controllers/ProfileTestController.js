@@ -153,7 +153,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
         // Obtenemos las metas del usuario
         TestService.getTestResultByCode($scope.TEST_CODES.COLOR)
             .success(function(data){
-                if(data.success){
+                if(data.success && data.result){
                     $scope.colorTestResult = data.result;
                     $scope.setChart($scope.colorTestResult.test_scores);
                     $scope.mainColorDesc = DEFAULT_VALUES.COLOR_DESC[(getMainColor().description).toUpperCase()];
