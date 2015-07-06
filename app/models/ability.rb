@@ -13,6 +13,7 @@ class Ability
     can :ipn, Payment
     can :by_xango_id, User
     can [:finish_video, :watch_video], Plan
+    can :stream, Asset
 
     if user.instance_of? User
       #answers, no individual use of it
