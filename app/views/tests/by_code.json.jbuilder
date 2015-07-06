@@ -3,17 +3,21 @@ if @test
   json.set! :result do
     json.extract! @test, :id, :name, :test_type, :code
     json.set! :questions do
-      json.array! (@test.questions) do |question|
+      if @test.code == "color"
+        questions = @test.questions.shuffle
+      else
+        questions = @test.questions
+      end
+        json.array! (questions) do |question|
         json.extract! question, :id, :test_id, :text
         json.set! :answers do
           if @test.code == "color"
-            json.array! (question.answers.shuffle) do |answer|
-              json.extract! answer, :id, :question_id, :text
-            end
+            answers = question.answers.shuffle
           else
-            json.array! (question.answers) do |answer|
-              json.extract! answer, :id, :question_id, :text
-            end
+            answers = question.answers
+          end
+          json.array! (answers) do |answer|
+            json.extract! answer, :id, :question_id, :text
           end
         end
       end
