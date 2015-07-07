@@ -114,10 +114,10 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         }
     };
 
-    $scope.deleteContact = function (contactIndex, spinnerId) {
-        $scope.startSpin('contact-spinner-' + spinnerId);
+    $scope.deleteContact = function (contactId) {
+        $scope.startSpin('contact-spinner-' + contactId);
 
-        ListService.deleteContact(contactIndex)
+        ListService.deleteContact(contactId)
             .success(function (data) {
                 $scope.contactList = angular.copy(ListService.contacts);
             })
@@ -126,7 +126,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                 console.log('Ocurrió un error al eliminar el contacto.');
             })
             .finally(function(){
-                $scope.stopSpin('contact-spinner-' + spinnerId);
+                $scope.stopSpin('contact-spinner-' + contactId);
             });
     };
 

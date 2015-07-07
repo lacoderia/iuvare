@@ -108,13 +108,20 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
 
     };
 
-    var deleteContact = function (contactIndex) {
+    var deleteContact = function (contactId) {
 
-        var contactServiceURL = '/contacts/' + service.contacts[contactIndex].id + '.json';
+        var contactServiceURL = '/contacts/' + contactId + '.json';
 
         return $http.delete(contactServiceURL, {})
             .success(function (data) {
-                service.contacts.splice(contactIndex,1);
+
+                for( var contactIndex = 0; contactIndex < service.contacts.length; contactIndex++){
+                    var contact = service.contacts[contactIndex];
+                    if(contact.id == contactId){
+                        service.contacts.splice(contactIndex,1);
+                        break;
+                    }
+                }
             });
 
         return service.contacts;
