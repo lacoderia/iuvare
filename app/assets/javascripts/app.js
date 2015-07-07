@@ -42,7 +42,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio', icon: 'icon-headphones' },
                 { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar', icon: 'icon-conferencias' },
                 { order:3, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention', icon: 'icon-convenciones' },
-                { order:4, code: 'TRAINING', title: 'Capacitaciones', state: 'system.training', icon: 'icon-mortar-board' },
+                { order:4, code: 'TRAINING', title: 'Talleres', state: 'system.training', icon: 'icon-mortar-board' },
                 { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' }
             ]
         },
@@ -110,12 +110,12 @@ iuvare.constant('DEFAULT_VALUES',{
         PLAN: 'plan'
     },
     CONTACT_STATUS: {
-        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out'},
-        TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite'},
-        CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted'},
-        TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close'},
-        TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register'},
-        REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered'}
+        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out', progress_value: 0},
+        TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite', progress_value: 40},
+        CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted', progress_value: 30},
+        TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close', progress_value: 15},
+        TO_REGISTER: { order:4, code:'to_register', title: 'Por inscribir', class: 'to-register', progress_value: 10},
+        REGISTERED: { order:5, code:'registered', title: 'Inscrito', class: 'registered', progress_value: 5}
     },
     CONTACT_STATUS_COLORS : ['#FF0000', '#E0E0E0', '#E0F3DB', '#B1F3A2', '#8EF375', '#07F33A'],
     ASSETS:{
@@ -243,7 +243,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 {title: 'Fuerza de ventas', desc:'Contratos y aspectos técnicos'}
             ]
         }
-    }
+    },
 });
 
 iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {

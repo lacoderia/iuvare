@@ -14,10 +14,10 @@
         <div ng-show="areAssetsAvailable()">
             <div class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
-                    <div>
+                    <div ng-click="toggleAssetInfo(asset)">
                         <div class="asset-name">{{ asset.title }}</div>
                         <div class="asset-author">{{ asset.author }}</div>
-                        <div class="asset-detail-toggle-icon" ng-click="toggleAssetInfo(asset)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
+                        <div class="asset-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
                     </div>
 
                     <div class="asset-info" ng-if="asset.showInfo">

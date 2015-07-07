@@ -13,10 +13,12 @@ iuvare.factory('ProgressService', ['$http', '$q', 'DEFAULT_VALUES', function($ht
                     angular.forEach(data.result, function(progressItem, key){
 
                         var statusTitle = (DEFAULT_VALUES.CONTACT_STATUS[(key).toUpperCase()]).title;
+                        var progressValue = (DEFAULT_VALUES.CONTACT_STATUS[(key).toUpperCase()]).progress_value;
 
                         var funnelItem = {
                             title: statusTitle,
-                            value: progressItem
+                            value: progressValue,
+                            real_value: progressItem
                         };
 
                         service.funnelData.push(funnelItem);

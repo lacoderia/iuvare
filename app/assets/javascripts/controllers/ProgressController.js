@@ -12,11 +12,12 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
     var funnelOptions = {
 
         "type": "funnel",
-        "balloonText": "[[title]]:<b>[[value]]</b>",
+        "balloonText": "[[title]]:<b>[[real_value]]</b>",
         "color": "#515151",
+        "labelText": "[[title]]: [[real_value]]",
         "labelPosition": "center",
-        "neckHeight": "0%",
-        "neckWidth": "0%",
+        "neckHeight": "10%",
+        "neckWidth": "5%",
         "colors": [
             DEFAULT_VALUES.CONTACT_STATUS_COLORS[1],
             DEFAULT_VALUES.CONTACT_STATUS_COLORS[2],
@@ -49,7 +50,7 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
                 if(data.success){
                     funnelOptions.dataProvider = ProgressService.funnelData;
 
-                    var chart = AmCharts.makeChart('chartdiv', funnelOptions, 1000);
+                    var chart = AmCharts.makeChart('chartdiv', funnelOptions, 500);
                     chart.addListener('rendered', function(){
                         $('.amcharts-chart-div').find('a').hide();
                     });
