@@ -16,8 +16,8 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
         "color": "#515151",
         "labelText": "[[title]]: [[real_value]]",
         "labelPosition": "center",
-        "neckHeight": "10%",
-        "neckWidth": "5%",
+        "neckHeight": "0%",
+        "neckWidth": "10%",
         "colors": [
             DEFAULT_VALUES.CONTACT_STATUS_COLORS[1],
             DEFAULT_VALUES.CONTACT_STATUS_COLORS[2],
