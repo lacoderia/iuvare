@@ -3,14 +3,8 @@
         <div class="login-container" ng-show="isCurrentView(VIEW.LOGIN)">
             <h2 class="section-title">Socio</h2>
             <hr class="separator-gray">
-            <div>
-                <form class="form login-switch-container">
-                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.SIGNIN) }" ng-show="invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.SIGNIN }}">Ingresar</label>
-                    <label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.SIGNUP) }" ng-show="invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.SIGNUP }}">Registrarse</label>
-                    <!--label class="login-switch size-medium" ng-class="{ checked: isCurrentLoginView(LOGIN_VIEW.REQUEST) }" ng-show="!invitationToken"><input type="radio" ng-model="currentLoginView" value="{{ LOGIN_VIEW.REQUEST }}">Solicitar invitación</label-->
-                </form>
-            </div>
             <div class="signup-form" ng-show="isCurrentLoginView(LOGIN_VIEW.SIGNUP)">
+                <h3>Registrarse a Iuvare</h3>
                 <form novalidate name="signupForm" class="form" ng-submit="signUp()">
                     <fieldset>
                         <span>{{ signupFormMessage }}</span>
@@ -67,6 +61,9 @@
                         </div>
                     </fieldset>
                     <fieldset>
+                        <a ng-click="showLoginView()" ng-show="invitationToken">¿Ya eres socio Iuvare y tienes una cuenta registrada?</a>
+                    </fieldset>
+                    <fieldset>
                         <button class="action-button-login">Registrar</button>
                     </fieldset>
                 </form>
@@ -87,6 +84,8 @@
                     </fieldset>
                     <fieldset>
                         <div class="signup-forgot">
+                            <a ng-click="showSignUpView()" ng-show="invitationToken">¿Eres nuevo en Iuvare y no tienes una cuenta?</a>
+                            <br>
                             <a href="" ng-click="showForgotView()">¿Olvidaste tu contraseña?</a>
                         </div>
                         <button class="action-button-login">Login</button>

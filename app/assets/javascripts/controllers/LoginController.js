@@ -114,6 +114,11 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         $scope.currentLoginView = $scope.LOGIN_VIEW.SIGNIN;
     };
 
+    // Method that toggles to signup view
+    $scope.showSignUpView = function () {
+        $scope.currentLoginView = $scope.LOGIN_VIEW.SIGNUP;
+    };
+
     // Method that toggles to forgot view
     $scope.showForgotView = function () {
         $scope.currentView = $scope.VIEW.FORGOT;
