@@ -65,7 +65,7 @@
     <!-- Forma para nuevo test -->
     <div class="test-form" ng-show="showTest">
         <form novalidate name="testForm" class="form" ng-submit="gradeTest()">
-            <legend>Test de personalidad</legend>
+            <p class="test-instructions"> <span class="instructions-title">Instrucciones</span> {{ colorTest.instructions }} </p>
             <fieldset ng-repeat="question in colorTest.questions">
                 <p>{{ ($index+1) + ". " + question.text }}</p>
                 <label ng-repeat="answer in question.answers" class="profile-tests">
