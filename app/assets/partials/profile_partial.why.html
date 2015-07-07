@@ -47,11 +47,11 @@
                     <div ng-show="goalForm.$submitted || goalForm.$dirty">
                         <span ng-show="!goal.type">Debes seleccionar una meta.</span>
                     </div>
-                    <input type="text" placeholder="Sueño" name="goalDream" ng-model="goal.dream" required>
+                    <textarea placeholder="Sueño" name="goalDream" ng-model="goal.dream" required></textarea>
                     <div ng-show="goalForm.$submitted || goalForm.goalDream.$touched">
                         <span ng-show="goalForm.goalDream.$error.required">El sueño es requerido.</span>
                     </div>
-                    <textarea placeholder="Meta" name="goalGoal" ng-model="goal.goal" required></textarea>
+                    <input type="text" placeholder="Meta, Ej: Premier 100k" name="goalGoal" ng-model="goal.goal" required>
                     <div ng-show="goalForm.$submitted || goalForm.goalGoal.$touched">
                         <span ng-show="goalForm.goalGoal.$error.required">La meta es requerida.</span>
                     </div>
