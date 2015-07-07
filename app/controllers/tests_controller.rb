@@ -47,7 +47,7 @@ class TestsController < ApplicationController
     end
 
     def test_params
-      params.require(:test).permit(:name, :test_type, :code)
+      params.require(:test).permit(:name, :test_type, :code, :instructions)
     end
 end
 

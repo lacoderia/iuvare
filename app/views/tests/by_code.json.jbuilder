@@ -1,7 +1,7 @@
 if @test
   json.success true
   json.set! :result do
-    json.extract! @test, :id, :name, :test_type, :code
+    json.extract! @test, :id, :name, :test_type, :code, :instructions
     json.set! :questions do
       if @test.code == "color"
         questions = @test.questions.shuffle

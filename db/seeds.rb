@@ -10,7 +10,7 @@ user = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier
 #Invitation.create(user_id: user.id, recipient_email:"correo@correo.com", token:"cualquiercosa")
 
 #Test de Personalidad
-personality_test = Test.create(name: "Test de personalidad", test_type: "percentage", code: "color")
+personality_test = Test.create(name: "Test de personalidad", test_type: "percentage", code: "color", instructions: "Piensa en las palabras, en lo que significan y no en lo que te gustaría, realmente piensa cual se asemeja más a ti o con cual te sientes más identificado.")
 
 pt_first_question = Question.create(test: personality_test, text: "")
 pt_q1_answer_1 = Answer.create(question: pt_first_question, text: "Superficial", answer_type: "red")
