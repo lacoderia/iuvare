@@ -536,6 +536,7 @@ asset_11 = Asset.create(title: "Placer y dolor", description: " ", author: "Este
 asset_12 = Asset.create(title: "¿Por que un collage?", description: " ", author: "Estela Salinas", source: "audio_Estela_Salinas_Por_que_un_collage.mp3", asset_type: "audio")
 asset_13 = Asset.create(title: "Se el dueño de tu vida", description: " ", author: "Estela Salinas", source: "audio_Estela_Salinas_Se_el_dueno_de_tu_vida.mp3", asset_type: "audio")
 asset_13_1 = Asset.create(title: "Como prospectar", description: " ", author: "Jorge Arzamendi", source: "audio_Jorge_Arzamendi_Como_prospectar.mp3", asset_type: "audio")
+asset_13_2 = Asset.create(title: "Proceso de cierre", description: " ", author: "Circe Rodríguez", source: "audio_Circe_Rodriguez_Proceso_de_cierre.mp3", asset_type: "audio")
 
 #asset_14 = Asset.create(title: "El cierre 1", description: " ", author: "Iuvare", source: "audio_Iuvare_El_cierre_1.mp3", asset_type: "audio")
 #asset_15 = Asset.create(title: "El cierre 2", description: " ", author: "Iuvare", source: "audio_Iuvare_El_cierre_2.mp3", asset_type: "audio")

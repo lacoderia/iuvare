@@ -30,9 +30,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="global-actions">
-                        <button class="action-button-purple size-medium" ng-click="showInviteView($event)">Registrar nuevos socios</button>
-                    </div>
                 </div>
             </li>
         </ul>
@@ -79,6 +76,11 @@
                 <ng-downline-list current-user="currentUser" network="downlinesNetworkList" select-downline="attachDownline" downline-position="$index+1" show-downline-list="showDownlineList" hide-downline-list="hideDownlineList"></ng-downline-list>
             </li>
         </ul>
+
+        <div class="global-actions">
+            <button class="action-button-purple size-medium" ng-click="showInviteView($event)">Registrar nuevos socios</button>
+        </div>
+
     </div>
 
     <!-- Forma para invitar Downlines -->
@@ -100,7 +102,7 @@
                 </fieldset>
                 <fieldset>
                     <button class="action-button-login">Registrar</button>
-                    <input type="button" class="action-button-cancel" ng-click="hideInviteView()" value="Cancelar" />
+                    <input type="button" class="action-button-cancel" ng-click="hideInviteView()" value="Regresar a mi Ciclo" />
                 </fieldset>
             </form>
         </div>

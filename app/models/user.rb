@@ -31,18 +31,19 @@ class User < ActiveRecord::Base
   def register token
     user = User.find_by_email(self.email)
     unless user
-      invitations = Invitation.where("recipient_email = ? AND token = ?", self.email, token)
-    	if invitations.size == 1
+      invitations = Invitation.where("token = ? and used = ?", token, false)
+      if invitations.size == 1
         if self.upline_id
           upline = User.find(self.upline_id)
           downline_no = upline.downlines.where("downline_position is not null").count
           self.downline_position = downline_no + 1 if downline_no < 4
         end
-    		self.save
-    	else
-    		self.errors.add(:email, "Necesitas una invitación válida para poderte registrar. Solicítala a tu upline o premier.")
-    		false
-    	end
+        invitations.first.update_attribute("used", true)
+        self.save
+      else
+        self.errors.add(:email, "Necesitas una invitación válida para poderte registrar. Solicítala a tu upline o premier.")
+        false
+      end
     else
       self.errors.add(:email, "Ya existe un usuario registrado con ese correo electrónico.")
       false
