@@ -160,6 +160,9 @@ h2.section-title
     .close
       padding-right: 10px
 
+.clickable
+  cursor: pointer
+
 .form
 
   input, button
@@ -212,14 +215,14 @@ h2.section-title
   +border-radius(5px)
   position: relative
   +rem(margin, 1rem 0)
-  +rem(padding, 2rem)
+  padding: 0
 
   .item-info
     +rem(margin, 1rem 0)
 
   .item-name
     +rem(font-size, 1.8rem)
-    +rem(margin-bottom, 1rem)
+    +rem(margin-bottom, 0.6rem)
 
   .item-detail-toggle-icon
     cursor: pointer
@@ -251,6 +254,9 @@ h2.section-title
     display: block
     +rem(margin, 2rem 0)
     text-align: center
+
+.padding-container
+  +rem(padding, 2rem)
 
 .quickdate
   width: 100%

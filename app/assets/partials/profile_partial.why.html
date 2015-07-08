@@ -14,18 +14,18 @@
     <div ng-show="goalsList && goalsList.length && !showGoal">
         <div class="goals-list">
             <div ng-repeat="goal in goalsList | orderBy:'type.code'" class="goal">
-                <div>
-                    <div class="goal-name">{{ goal.type.name }}</div>
-                    <div class="goal-detail-toggle-icon" ng-click="toggleGoalInfo(goal)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[goal.showInfo]"></span></div>
-                </div>
 
-                <div class="goal-info" ng-show="goal.showInfo">
-                    <div>{{ goal.dream }}</div>
-                    <div>{{ goal.goal }}</div>
-                    <div>{{ goal.date | formatDate }}</div>
-                    <a class="action-button-blue size-medium" title="Editar meta" ng-click="editGoal(goal)">Editar</a>
-                </div>
+                    <div ng-click="toggleGoalInfo(goal)" class="clickable padding-container">
+                        <div class="goal-name">{{ goal.type.name }}</div>
+                        <div class="goal-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[goal.showInfo]"></span></div>
+                    </div>
 
+                    <div class="goal-info padding-container" ng-show="goal.showInfo">
+                        <div>{{ goal.dream }}</div>
+                        <div>{{ goal.goal }}</div>
+                        <div>{{ goal.date | formatDate }}</div>
+                        <a class="action-button-blue size-medium" title="Editar meta" ng-click="editGoal(goal)">Editar</a>
+                    </div>
 
             </div>
         </div>

@@ -3,37 +3,39 @@
         <div>
             <h2 class="section-title">Plan</h2>
             <div class="list-item-container" ng-repeat="plan in planList">
-                <div>
-                    <div class="item-name">{{ plan.title }}</div>
-                    <div class="item-detail-toggle-icon" ng-click="togglePlanInfo(plan)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[plan.showInfo]"></span></div>
-                </div>
-                <div ng-if="plan.showInfo">
-                    <div class="item-info">
-                        <div>Autor: {{ plan.author }}</div>
-                        <div>Descripción: {{ plan.description }}</div>
+                <div class="item-container">
+                    <div ng-click="togglePlanInfo(plan)" class="clickable padding-container">
+                        <div class="item-name">{{ plan.title }}</div>
+                        <div class="item-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[plan.showInfo]"></span></div>
                     </div>
+                    <div ng-if="plan.showInfo" class="padding-container">
+                        <div class="item-info">
+                            <div>Autor: {{ plan.author }}</div>
+                            <div>Descripción: {{ plan.description }}</div>
+                        </div>
 
-                    <videogular vg-theme="plan.config.theme">
-                        <vg-media vg-src="plan.config.sources">
-                        </vg-media>
+                        <videogular vg-theme="plan.config.theme">
+                            <vg-media vg-src="plan.config.sources">
+                            </vg-media>
 
-                        <vg-controls>
-                            <vg-play-pause-button></vg-play-pause-button>
-                            <vg-time-display>{{ currentTime | millSecondsToTimeString }}</vg-time-display>
-                            <vg-scrub-bar>
-                                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                            </vg-scrub-bar>
-                            <vg-time-display>{{ timeLeft | millSecondsToTimeString }}</vg-time-display>
-                            <vg-volume>
-                                <vg-mute-button></vg-mute-button>
-                                <vg-volume-bar></vg-volume-bar>
-                            </vg-volume>
-                            <vg-fullscreen-button></vg-fullscreen-button>
-                        </vg-controls>
+                            <vg-controls>
+                                <vg-play-pause-button></vg-play-pause-button>
+                                <vg-time-display>{{ currentTime | millSecondsToTimeString }}</vg-time-display>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                </vg-scrub-bar>
+                                <vg-time-display>{{ timeLeft | millSecondsToTimeString }}</vg-time-display>
+                                <vg-volume>
+                                    <vg-mute-button></vg-mute-button>
+                                    <vg-volume-bar></vg-volume-bar>
+                                </vg-volume>
+                                <vg-fullscreen-button></vg-fullscreen-button>
+                            </vg-controls>
 
-                        <vg-overlay-play></vg-overlay-play>
-                    </videogular>
+                            <vg-overlay-play></vg-overlay-play>
+                        </videogular>
 
+                    </div>
                 </div>
             </div>
         </div>
