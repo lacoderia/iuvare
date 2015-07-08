@@ -22,9 +22,16 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    @invitation = Invitation.new(invitation_params)
-    @invitation.generate_invitation
-    respond_with(@invitation)
+    begin
+      @invitation = Invitation.new(invitation_params)
+      @invitation.generate_invitation
+      @success = true
+      render 'create.json'
+    rescue Exception => e
+      @success = false
+      @error = e.message
+      render 'create.json', status: 500
+    end
   end
 
   def update

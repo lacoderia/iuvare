@@ -18,6 +18,18 @@ feature 'InvitationsController' do
           expect(response['result']['token']).not_to eql nil
           expect(response['result']['recipient_email']).to eql "dmiramon@gmail.com"
       end
+
+      it 'raises error on incorrect invitation' do
+        new_invitation = { recipient_name: "Pedrito Bodoque", recipient_email: "dmiramon@gmail.com", user_id:-1}
+        login_with_service u = { email: user.email, password: '12345678' }
+
+        # Validates request creation
+        with_rack_test_driver do
+          page.driver.post "/invitations.json", { invitation: new_invitation}
+        end
+        response = JSON.parse(page.body)
+        expect(response['success']).to be false
+      end
     end
   end
 end

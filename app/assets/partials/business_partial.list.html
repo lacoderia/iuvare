@@ -55,7 +55,7 @@
                                  animation="easeInOutQuart"
                                  states="CONTACT_STATUS_COLORS"></div>
                         </div>
-                        <button ng-if="contact.status != CONTACT_STATUS.RULED_OUT.code && contact.status != CONTACT_STATUS.REGISTERED.code" class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="changeContactStatus(contact)">Modifica el estatus</button>
+                        <button ng-if="contact.status != CONTACT_STATUS.RULED_OUT.code && contact.status != CONTACT_STATUS.REGISTERED.code" class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="selectContact(contact)">Siguiente paso</button>
                         <button ng-if="contact.status == CONTACT_STATUS.RULED_OUT.code" class="action-button-purple size-medium all-space" title="Comenzar el proceso nuevamente" ng-click="completeStep(contact, CONTACT_STATUS.TO_INVITE.code)">Comienza nuevamente</button>
                     </div>
                 </div>
@@ -76,10 +76,6 @@
                     <div class="contact-info">
                         <p class="contact-email" ng-if="selectedContact.email"><a href="mailto:{{ selectedContact.email }}" title="Enviar correo">{{ selectedContact.email }}</a></p>
                         <p class="contact-phone" ng-if="selectedContact.phone">{{ selectedContact.phone }}</p>
-                    </div>
-                    <div class="actions">
-                        <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(selectedContact)"></span>
-                        <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact($index, selectedContact.id)"></span>
                     </div>
                 </div>
                 <div class="contact-progress">
@@ -118,7 +114,7 @@
                                     <span ng-if="selectedPlan">{{ selectedPlan.title }}</span>
                                     <span class="caret"></span>
                                 </button>
-                                <button class="action-button-purple size-medium all-space" title="Enviar plan" ng-click="sendVideo(selectedContact)" ng-disabled="!selectedPlan">Enviar y continuar el proceso</button>
+                                <button class="action-button-purple size-medium all-space" title="Enviar plan" ng-click="sendVideo(selectedContact)" ng-disabled="!selectedPlan" ng-class="{ 'disabled' : !selectedPlan }">Enviar y continuar el proceso</button>
                             </div>
                         </div>
 
@@ -129,17 +125,16 @@
                                 <p>o</p>
                                 <button class="action-button-orange size-medium all-space" title="Enviar a seguimiento" ng-click="completeStep(selectedContact, CONTACT_STATUS.RULED_OUT.code)">Enviar a seguimiento</button>
                                 <hr>
-                                <p class="help"><strong>¿Necesitas guía para hacer la llamada?</strong> Escucha el siguiente audio con la guía para prospectar <a ng-click="showAudioGuide()">aquí</a></p>
+                                <div><strong>¿Necesitas guía para hacer la llamada?</strong> Escucha el siguiente audio con la guía para prospectar <a ng-click="showAudioGuide()">aquí</a></div>
                                 <audio controls ng-if="isAudioGuideVisible()">
-                                    <source ng-src="{{ AUDIO_GUIDE.source }}">
+                                    <source ng-src="{{ AUDIO_GUIDES.CALL.source }}">
                                 </audio>
-
                             </div>
                         </div>
                     </div>
 
                     <div ng-if="selectedContact.status == CONTACT_STATUS.CONTACTED.code">
-                        <p class="step-question">¿ {{ selectedContact.name }} ya conoce el plan?</p>
+                        <p class="step-question">¿ {{ selectedContact.name }} ya vio el plan?</p>
                         <div class="action">
                             <div class="send-video-actions">
                                 <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.TO_CLOSE.code)">Si, continuar con el proceso</button>
@@ -150,7 +145,7 @@
                     </div>
 
                     <div ng-if="selectedContact.status == CONTACT_STATUS.TO_CLOSE.code">
-                        <p class="step-question">¿A {{ selectedContact.name }} le interesó el plan?</p>
+                        <p class="step-question">¿A {{ selectedContact.name }} le interesó el negocio?</p>
                         <div class="action">
                             <div class="send-video-actions">
                                 <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.TO_REGISTER.code)">Si, continuar con el proceso</button>
@@ -167,6 +162,18 @@
                                 <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.REGISTERED.code)">Registrar prospecto</button>
                                 <p>o</p>
                                 <button class="action-button-orange size-medium all-space" title="Enviar a seguimiento" ng-click="completeStep(selectedContact, CONTACT_STATUS.RULED_OUT.code)">Enviar a seguimiento</button>
+                                <hr>
+                                <div>
+                                    Asegurate de revisar los siguientes links:
+                                    <ul>
+                                        <li><a href="http://www.xangousa.myvoffice.com/pdf/en/MEX-SPA-DISTAPP.pdf" target="_blank">Documento de solicitud de xango</a><br/></li>
+                                        <li><a href="https://4.xango.com.mx/opportunity/signup" target="_blank">Link a inscripción por Internet de xango</a><br/></li>
+                                        <li><a ng-click="showAudioCloseGuide()">Audio de cierre</a></li>
+                                    </ul>
+                                    <audio controls ng-if="isAudioCloseGuideVisible()">
+                                        <source ng-src="{{ AUDIO_GUIDES.CLOSE.source }}">
+                                    </audio>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -176,7 +183,7 @@
 
             <form>
                 <fieldset>
-                    <input type="button" class="action-button-cancel" ng-click="showContactListView()" value="Cancelar" />
+                    <input type="button" class="action-button-cancel" ng-click="showContactListView()" value="Regresar a la lista" />
                 </fieldset>
             </form>
         </div>

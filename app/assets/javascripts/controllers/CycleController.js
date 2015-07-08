@@ -128,13 +128,21 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                 recipient_email: $scope.invitation.recipient_email
             };
 
-            InvitationService.sendInvitation(invitation).then(
-                function(invitationFormMessage) {
-                    $scope.invitationFormMessage = invitationFormMessage;
+            InvitationService.sendInvitation(invitation)
+                .success(function(data){
+                    if(data.success){
+                        $scope.invitationFormMessage = 'Se envió un correo al socio con las instrucciones para ingresar.';
+                    }
+                })
+                .error(function(error){
+                    $scope.invitationFormMessage = 'Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.';
+                    console.log(error.error);
+                })
+
+                .finally(function() {
                     $scope.resetInvitationForm();
                     $scope.stopSpin('container-spinner');
-                }
-            );
+                });
         }
     };
 

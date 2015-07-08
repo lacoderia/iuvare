@@ -110,7 +110,7 @@ iuvare.constant('DEFAULT_VALUES',{
         PLAN: 'plan'
     },
     CONTACT_STATUS: {
-        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out'},
+        RULED_OUT: { order:0, code:'ruled_out', title: 'En seguimiento', class: 'ruled-out'},
         TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite'},
         CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted'},
         TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close'},
