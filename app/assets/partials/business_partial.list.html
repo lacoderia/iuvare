@@ -1,19 +1,19 @@
 <div ng-controller="ListController as listCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <div class="section-content contact-container">
+    <div ng-show="pageLoaded" class="section-content contact-container">
         <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isThereSelectedContact()">
             <input type="text" placeholder="Busca un contacto: Ej. Jorge Hernández" ng-model="contactQuery">
         </form>
 
-        <div ng-show="!isContactListEmpty() && !isAddingContact() && !isThereSelectedContact()" class="message-container">
+        <div ng-show="isContactListEmpty() && !isAddingContact() && !isThereSelectedContact()" class="message-container">
             <p class="message">Aún no cuentas con algún contacto</p>
             <div class="actions">
                 <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createContact()">Agregar nuevo contacto</a>
             </div>
         </div>
 
-        <div ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isThereSelectedContact()">
+        <div ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isThereSelectedContact()">
             <div class="contact-list">
                 <div class="actions">
                     <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>

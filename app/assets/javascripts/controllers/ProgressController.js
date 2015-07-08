@@ -60,7 +60,7 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
                 }
             })
             .error(function(error){
-                $scope.showAlert('Ocurrió un error al obtener el avance.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener el avance.', 'danger', false);
                 console.log('Ocurrió un error al obtener el avance.');
             });
     };

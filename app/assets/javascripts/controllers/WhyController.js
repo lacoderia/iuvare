@@ -7,6 +7,9 @@
 
 iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "GoalService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, GoalService, SessionService, DEFAULT_VALUES){
 
+    // Public variables
+    $scope.pageLoaded = false;
+
     $scope.GOAL_TYPES = DEFAULT_VALUES.GOAL_TYPES;
     $scope.GOAL_MODES = DEFAULT_VALUES.GOAL_MODES;
 
@@ -149,7 +152,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                     }
                 })
                 .error(function (error, status) {
-                    $scope.showAlert('Ocurrió un error al guardar la meta. Intenta nuevamente.', 'danger');
+                    $scope.showAlert('Ocurrió un error al guardar la meta. Intenta nuevamente.', 'danger', false);
                     console.log('Ocurrió un error al guardar la meta.');
                 });
         }
@@ -188,7 +191,7 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                     }
                 })
                 .error(function(error, status){
-                    $scope.showAlert('Ocurrió un error al actualizar la meta. Intenta nuevamente.' ,'danger');
+                    $scope.showAlert('Ocurrió un error al actualizar la meta. Intenta nuevamente.' ,'danger', false);
                     console.log('Ocurrió un error al actualizar la meta.');
                 });
         }
@@ -223,10 +226,11 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
                 if(data.success){
                     $scope.goalsList = GoalService.goals;
                     $scope.stopSpin('container-spinner');
+                    $scope.pageLoaded = true;
                 }
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener las metas. Intenta nuevamente.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener las metas. Intenta nuevamente.', 'danger', false);
                 console.log('Ocurrió un error al obtener las metas.');
             });
 

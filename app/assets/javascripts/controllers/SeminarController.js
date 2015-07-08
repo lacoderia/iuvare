@@ -7,6 +7,8 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
     var playlable = true;
 
     // Public variables
+    $scope.pageLoaded = false;
+
     $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
@@ -46,10 +48,11 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
                 if(data.success){
                     $scope.assetList = AssetService.assets;
                     $scope.stopSpin('container-spinner');
+                    $scope.pageLoaded = true;
                 }
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger', false);
                 console.log('Ocurrió un error al obtener los seminarios.');
             });
     };
