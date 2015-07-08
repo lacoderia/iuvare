@@ -1,25 +1,27 @@
 'use strict';
 
-iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetService", "AuthService", "ListService", "SessionService", "DEFAULT_VALUES", function($scope, $log, $rootScope, AssetService, AuthService, ListService, SessionService, DEFAULT_VALUES){
+iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetService", "AuthService", "InvitationService", "ListService", "SessionService", "DEFAULT_VALUES", function($scope, $log, $rootScope, AssetService, AuthService, InvitationService, ListService, SessionService, DEFAULT_VALUES){
 
     //Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
     var addingContact = false;
     var editingContact = false;
     var audioGuideVisible = false;
+    var audioCloseGuideVisible = false;
 
     //Public variables
     $scope.CONTACT_STATUS = DEFAULT_VALUES.CONTACT_STATUS;
     $scope.CONTACT_STATUS_COLORS = DEFAULT_VALUES.CONTACT_STATUS_COLORS;
-    $scope.AUDIO_GUIDE = {
-        source: DEFAULT_VALUES.ASSETS.PATH + 'audio_Jorge_Arzamendi_Como_prospectar.mp3'
-    }
+    $scope.AUDIO_GUIDES = {
+        CALL: {source: DEFAULT_VALUES.ASSETS.PATH + 'audio_Jorge_Arzamendi_Como_prospectar.mp3'},
+        CLOSE: {source: DEFAULT_VALUES.ASSETS.PATH + 'audio_Circe_Rodriguez_Proceso_de_cierre.mp3'}
+    };
     $scope.contactList = [];
     $scope.selectedContact = undefined;
     $scope.contactQuery = undefined;
     $scope.inviteOptionsDropdown = [
-        {text: 'En línea - Enviar plan', code: 'online', click: 'setInvitationOption(0)'},
-        {text: 'Por teléfono - Concretar cita', code: 'call', click: 'setInvitationOption(1)'}
+        {text: 'Por teléfono, invitarlo a ver el plan en vivo', code: 'call', click: 'setInvitationOption(0)'},
+        {text: 'Por internet, enviarle el video del plan por mail', code: 'online', click: 'setInvitationOption(1)'}
     ];
     $scope.plans = [];
     $scope.planDropdown = [];
@@ -62,6 +64,14 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         audioGuideVisible = true;
     };
 
+    $scope.isAudioCloseGuideVisible = function(){
+        return audioCloseGuideVisible;
+    };
+
+    $scope.showAudioCloseGuide = function(){
+        audioCloseGuideVisible = true;
+    };
+
     $scope.createContact = function () {
         addingContact = true;
     };
@@ -69,6 +79,23 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.editContact = function (contact) {
         editingContact = true;
         $scope.selectedContact = contact;
+    };
+
+    $scope.refreshContacts = function () {
+        $scope.contactList = angular.copy(ListService.contacts);
+
+        for(var i=0; i < $scope.contactList.length; i++){
+            if($scope.contactList[i].id == $scope.selectedContact.id){
+                $scope.selectContact($scope.contactList[i]);
+            }
+        }
+
+        addingContact = false;
+        editingContact = false;
+        audioGuideVisible = false;
+        audioCloseGuideVisible = false;
+        $scope.selectedPlan = undefined;
+        $scope.selectedInvitationOption = undefined;
     };
 
     $scope.saveContact = function () {
@@ -148,28 +175,55 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
             ListService.sendVideo(contact.id, $scope.selectedPlan.id)
                 .success(function (data) {
-                    $scope.contactList = angular.copy(ListService.contacts);
+                    $scope.refreshContacts();
                     $scope.stopSpin('contact-spinner-' + contact.id);
-                    $scope.showAlert('El plan fue enviado con éxito.', 'success');
+                    $scope.showAlert('El mail con el enlace al plan ha sido enviado a tu correo. Asegurate de reenviárselo a tu prospecto.', 'success', false);
                 })
                 .error(function (error, status) {
-                    $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger');
+                    $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger', false);
                     console.log('Ocurrió un error al enviar el video');
                 });
         }
     };
 
-    $scope.changeContactStatus = function(contact){
+    $scope.selectContact = function(contact){
         $scope.selectedContact = contact;
     };
 
     $scope.completeStep = function(contact, status){
         $scope.startSpin('contact-spinner-' + contact.id);
 
+        if (status == $scope.CONTACT_STATUS.REGISTERED.code) {
+            var invitation = {
+                user_id: SessionService.$get().getId(),
+                recipient_name: contact.name,
+                recipient_email: contact.email
+            };
+
+            InvitationService.sendInvitation(invitation)
+                .success(function(data){
+                    if(data.success){
+                        $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
+
+                        $scope.updateContactStatus(contact, status);
+                    }
+                })
+                .error(function(error){
+                    $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
+                    console.log(error.error);
+                    $scope.stopSpin('contact-spinner-' + contact.id);
+                });
+        } else {
+            $scope.updateContactStatus(contact, status);
+        }
+
+    };
+
+    $scope.updateContactStatus = function(contact, status) {
         ListService.updateContactStatus(contact, status)
             .success(function(data){
                 if(data.success){
-                    $scope.contactList = angular.copy(ListService.contacts);
+                    $scope.refreshContacts();
                 }
             })
             .error(function (error, status) {
@@ -177,7 +231,6 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                 console.log('Ocurrió un error al actualizar el contacto.');
             })
             .finally(function () {
-                $scope.showContactListView();
                 $scope.stopSpin('contact-spinner-' + contact.id);
             });
     };
@@ -186,6 +239,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         addingContact = false;
         editingContact = false;
         audioGuideVisible = false;
+        audioCloseGuideVisible = false;
         $scope.selectedContact = undefined;
         $scope.selectedPlan = undefined;
         $scope.selectedInvitationOption = undefined;

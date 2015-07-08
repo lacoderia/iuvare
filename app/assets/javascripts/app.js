@@ -110,7 +110,7 @@ iuvare.constant('DEFAULT_VALUES',{
         PLAN: 'plan'
     },
     CONTACT_STATUS: {
-        RULED_OUT: { order:0, code:'ruled_out', title: 'Descartado', class: 'ruled-out', progress_value: 0},
+        RULED_OUT: { order:0, code:'ruled_out', title: 'En seguimiento', class: 'ruled-out', progress_value: 0},
         TO_INVITE: { order:1, code:'to_invite', title: 'Prospecto', class: 'to-invite', progress_value: 25},
         CONTACTED: { order:2, code:'contacted', title: 'Invitado', class: 'contacted', progress_value: 25},
         TO_CLOSE: { order:3, code:'to_close', title: 'Plan visto', class: 'to-close', progress_value: 25},
@@ -243,7 +243,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 {title: 'Fuerza de ventas', desc:'Contratos y aspectos técnicos'}
             ]
         }
-    },
+    }
 });
 
 iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {

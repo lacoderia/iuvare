@@ -7,17 +7,7 @@ iuvare.factory('InvitationService', ['$http', '$q', "$state", 'SessionService', 
 
         return $http.post(inviteServiceURL, {
             invitation: invitation
-        }).then(
-            function(data){
-                if(data) {
-                    return "Se envió un correo al socio con las instrucciones para ingresar.";
-                }
-            },
-            function(response){
-                console.log(response);
-                return response.data.error;
-            }
-        );
+        });
     };
 
     var sendRequest = function (request) {

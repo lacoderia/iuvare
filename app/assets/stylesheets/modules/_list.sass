@@ -120,25 +120,6 @@
           width: 100%
           transform: translate(0%, -50%)
 
-      .contact-actions
-        +rem(font-size, 1.3rem)
-        line-height: 18px
-        +rem(margin, 1rem 0 2rem)
-
-        .dropdown
-          +rem(font-size, 1.2rem)
-          width: 100%
-
-        button.all-space
-          width: 100%
-
-        .process-question
-          +rem(margin-bottom, 2rem)
-
-        .send-video-legend
-          margin-bottom: 10px
-          text-align: left
-
       &:after
         background-color: $color-gray_3
         top: -2px
@@ -304,7 +285,12 @@
 
     .dropdown
       +rem(margin-bottom, 1rem)
+      white-space: normal
       width: 100%
+
+    .dropdown-menu
+      a
+        white-space: normal
 
     button.all-space
       width: 100%
