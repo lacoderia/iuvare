@@ -16,8 +16,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Object that holds the three possible login tab views
     $scope.LOGIN_VIEW = {
         SIGNIN: 0,
-        SIGNUP: 1,
-        REQUEST: 2
+        SIGNUP: 1
     };
 
     // Object that holds the three possible login tab views

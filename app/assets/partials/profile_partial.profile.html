@@ -18,30 +18,20 @@
             <fieldset>
                 <label>Nombre(s)</label>
                 <input type="text" placeholder="Nombre(s)" name="profileFirstName" ng-model="currentUser.name" required>
-                <div class="message" ng-show="profileForm.$submitted || profileForm.profileFirstName.$touched">
+                <div class="message required-message" ng-show="profileForm.$submitted || profileForm.profileFirstName.$touched">
                     <span ng-show="profileForm.profileFirstName.$error.required">El nombre es requerido.</span>
                 </div>
                 <label>Apellido(s)</label>
                 <input type="text" placeholder="Apellido(s)" name="profileLastName" ng-model="currentUser.lastName" required>
-                <div class="message" ng-show="profileForm.$submitted || profileForm.profileLastName.$touched">
+                <div class="message required-message" ng-show="profileForm.$submitted || profileForm.profileLastName.$touched">
                     <span ng-show="profileForm.profileLastName.$error.required">Los apellidos son requeridos.</span>
                 </div>
                 <label>Correo electrónico</label>
                 <input type="email" placeholder="Correo electrónico" name="profileEmail" ng-model="currentUser.email" readonly required>
-                <div class="message" ng-show="profileForm.$submitted || profileForm.profileEmail.$touched">
-                    <span ng-show="profileForm.profileEmail.$error.required">El correo electrónico es requerido.</span>
-                    <span ng-show="profileForm.profileEmail.$error.email">El correo electrónico no es válido.</span>
-                </div>
                 <label>ID Iuvare</label>
                 <input type="text" placeholder="ID Iuvare" name="profileIuvareId" ng-model="currentUser.iuvareId" ng-readonly="currentUser.isIuvareId" required>
-                <div class="message" ng-show="profileForm.$submitted || profileForm.profileIuvareId.$touched">
-                    <span ng-show="profileForm.profileIuvareId.$error.required">El ID Iuvare es requerido.</span>
-                </div>
                 <label>ID Xango</label>
                 <input type="text" placeholder="ID Xango" name="profileXangoId" ng-model="currentUser.xangoId" readonly required>
-                <div class="message" ng-show="profileForm.$submitted || profileForm.profileXangoId.$touched">
-                    <span ng-show="profileForm.profileXangoId.$error.required">El ID Xango es requerido.</span>
-                </div>
                 <label>Estatus de suscripción</label>
                 <span class="suscription">{{currentUser.accessLevel.message}} Vigente hasta el {{currentUser.expirationDate | amDateFormat:'D/MM/YYYY'}}</span>
             </fieldset>
@@ -61,13 +51,13 @@
             <fieldset>
                 <label>Nuevo password</label>
                 <input type="password" placeholder="Nuevo password" name="password" ng-model="currentUser.password" minlength="8" required>
-                <div class="message" ng-show="passwordForm.$submitted || passwordForm.password.$touched">
+                <div class="message required-message" ng-show="passwordForm.$submitted || passwordForm.password.$touched">
                     <div ng-show="passwordForm.password.$error.required">El password es requerido.</div>
                     <div ng-show="passwordForm.password.$error.minlength">El password debe tener una longitud mínima de 8 caracteres.</div>
                 </div>
                 <label>Confirmar nuevo password</label>
                 <input type="password" placeholder="Confirmar nuevo password" name="confirmation" ng-model="currentUser.confirmation" pw-check="currentUser.password" required>
-                <div class="message" ng-show="passwordForm.$submitted || passwordForm.confirmation.$touched">
+                <div class="message required-message" ng-show="passwordForm.$submitted || passwordForm.confirmation.$touched">
                     <div ng-show="passwordForm.confirmation.$error.required">La confirmación del password es requerida.</div>
                     <div ng-show="passwordForm.confirmation.$error.pwCheck && !passwordForm.confirmation.$error.required">El password y la confirmación deben ser iguales.</div>
                 </div>

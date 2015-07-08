@@ -170,6 +170,7 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
 
                         $scope.showAlert('La contraseña fue actualizada con éxito.', 'success');
                         $scope.stopSpin('container-spinner');
+                        $scope.togglePasswordForm();
                     }
                 })
                 .error(function(response){
