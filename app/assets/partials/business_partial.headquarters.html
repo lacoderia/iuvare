@@ -4,11 +4,11 @@
             <h2 class="section-title">Sedes</h2>
 
             <div class="list-item-container" ng-repeat="office in officesList">
-                <div>
+                <div class="padding-container clickable" ng-click="toggleOfficeInfo(office)">
                     <div class="office-name">{{ office.name }}</div>
-                    <div class="item-detail-toggle-icon" ng-click="toggleOfficeInfo(office)"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[office.showInfo]"></span></div>
+                    <div class="item-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[office.showInfo]"></span></div>
                 </div>
-                <div ng-if="office.showInfo">
+                <div ng-if="office.showInfo" class="padding-container">
                     <div class="office-map">
                         <ui-gmap-google-map center="office.map.center" zoom="office.map.zoom" options="office.map.options">
                             <ui-gmap-marker coords="office.map.marker.coords" idkey="office.map.marker.id">
