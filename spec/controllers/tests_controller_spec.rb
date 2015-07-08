@@ -81,8 +81,8 @@ feature 'TestsController' do
       visit("/tests/by_code.json?code=ABC")
       
       response = JSON.parse(page.body)
-      expect(response['success']).to be false
-      expect(response['error']).to eql "No se encontró el test."
+      expect(response['success']).to be true 
+      expect(response['result']).to be nil
     end
 
   end
@@ -134,8 +134,8 @@ feature 'TestsController' do
       visit("/tests/by_code_and_user.json?test_code=ABC&user_id=#{user.id}")
       
       response = JSON.parse(page.body)
-      expect(response['success']).to be false 
-      expect(response['error']).to eql "No se encontró el test con ese usuario."
+      expect(response['success']).to be true 
+      expect(response['error']).to be nil 
 
     end
         

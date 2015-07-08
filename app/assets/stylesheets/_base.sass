@@ -97,6 +97,7 @@ h2.section-title
 .action-button-login, .action-button-forgot
   background-color: $color-blue_3
   border: none
+  border-radius: 0
   color: white
   +rem(font-size, $large-font)
   font-weight: 400
@@ -107,6 +108,7 @@ h2.section-title
 .action-button-cancel
   background-color: $color_blue_fb
   border: none
+  border-radius: 0
   color: white
   +rem(font-size, $large-font)
   font-weight: 400
@@ -166,6 +168,7 @@ h2.section-title
   input[type='text'], input[type='email'], input[type='password']
     background-color: $color_gray_3
     border: none
+    border-radius: 0
     color: $color_gray_2
     +rem(font-size, $medium-font)
     font-weight: 600
@@ -371,6 +374,19 @@ h2.section-title
   background-color: $color_gray_1
   border: 0
   height: 3px
+
+.test-instructions
+  border: 1px solid $color_gray_3
+  color: $color_gray_2
+  +rem(font-size, 1.5rem)
+  +rem(margin-bottom, 1rem)
+  +rem(padding, 2rem 3rem)
+
+  .instructions-title
+    display: block
+    font-size: 2rem
+    font-weight: bold
+    +rem(margin-bottom, 1rem)
 
 .test-form
   padding: 0
