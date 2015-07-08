@@ -201,10 +201,7 @@
                         <span ng-show="newContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
                         <span ng-show="newContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
                     </div>
-                    <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="selectedContact.phone" required>
-                    <div ng-show="newContactForm.$submitted || newContactForm.contactPhone.$touched">
-                        <span ng-show="newContactForm.contactPhone.$error.required">El teléfono de contacto es requerido.</span>
-                    </div>
+                    <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="selectedContact.phone">
                     <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Notas"></textarea>
                 </fieldset>
                 <fieldset>
