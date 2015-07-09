@@ -1,9 +1,10 @@
 feature 'PlansController' do
 
-  let(:starting_datetime) { Time.zone.parse('01 Jan 2015 13:00:00') }  
-  let!(:user){ create(:user) }
-  let!(:contact){ create(:contact, user: user, name: "Imperium") }
-  let!(:asset){ create(:asset, :plan) }
+  let(:starting_datetime){ Time.zone.parse('01 Jan 2015 13:00:00') }  
+  let!(:user){create(:user)}
+  let!(:contact){create(:contact, user: user, name: "Imperium")}
+  let!(:asset){create(:asset, :plan)}
+  let!(:after_plan_test){create(:test, name: "Nivel de interés", test_type: "multiple", code: "plan")}
 
   describe 'sending and watching video flow' do    
 
@@ -73,6 +74,12 @@ feature 'PlansController' do
         expect(response['success']).to be true
         updated_contact_object = response['result']['contact']
         expect(updated_contact_object['status']).to eql 'to_close'  
+
+        #Getting the test after the plan
+        visit "#{by_code_tests_path}.json?code=plan"
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        expect(response['result']['code']).to eql "plan"
 
         login_with_service u = { email: user.email, password: '12345678' }
         # Sending video to him again because he requested it

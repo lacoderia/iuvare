@@ -194,8 +194,6 @@ feature 'TestsController' do
 
     it 'Saves multiple answers as test_scores' do
       
-      login_with_service u = { email: user.email, password: '12345678' }
-
       answers = [{id: tqq_answer_1.id}, {id: tqs_answer_1.id}]
       with_rack_test_driver do
         page.driver.post "/test_scores/grade_test.json", { user_id: user.id, test_code: after_plan_test.code, answers: answers, contact_id: contact.id }
@@ -225,6 +223,8 @@ feature 'TestsController' do
       tsf = test_scores.first
       expect(tsf["score"]).to eql tqq_answer_2.text.to_f
       expect(tsf["description"]).to eql tqs_answer_2.text
+
+      login_with_service u = { email: user.email, password: '12345678' }
 
       visit("/tests/by_user.json?user_id=#{user.id}")
       response = JSON.parse(page.body)
