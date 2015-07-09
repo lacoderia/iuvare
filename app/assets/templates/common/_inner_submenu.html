@@ -1,7 +1,7 @@
 <aside class="aside-nav" ng-controller="SubmenuController as submenuCtrl">
     <nav class="current-index">
         <ul>
-            <li ng-class="{ 'selected':isCurrentSubsection(item.code) }" ng-repeat="item in subsections | orderBy:['order']"><a ui-sref="{{ item.state }}" title="{{ item.title }}"><span class="hidden-lg hidden-md hidden-sm" ng-class="item.icon"></span> <span class="item-name">{{ item.title }}</span></a></li>
+            <li ng-class="{ 'selected':isCurrentSubsection(item.code) }" ng-repeat="item in subsections | orderBy:['order']"><a ui-sref="{{ item.state }}" ui-sref-opts="{reload: true}" title="{{ item.title }}"><span class="hidden-lg hidden-md hidden-sm" ng-class="item.icon"></span> <span class="item-name">{{ item.title }}</span></a></li>
         </ul>
     </nav>
 </aside>
