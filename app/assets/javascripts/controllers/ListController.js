@@ -29,6 +29,16 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.planDropdown = [];
     $scope.selectedPlan = undefined;
 
+    // Object that holds the new contact values
+    $scope.newContact = {
+        name: undefined,
+        email: '',
+        phone: undefined,
+        description: undefined
+    };
+
+    var originalNewContact = angular.copy($scope.newContact);
+
     // Method that toggles a goal's information form
     $scope.toggleContactInfo = function(contactItem){
 
@@ -74,13 +84,21 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         audioCloseGuideVisible = true;
     };
 
+    // Method that resets the invitation form
+    $scope.resetContactForm = function(){
+        $scope.newContact = angular.copy(originalNewContact);
+        $scope.newContactForm.$setPristine();
+        $scope.newContactForm.$setUntouched();
+    };
+
     $scope.createContact = function () {
+        $scope.resetContactForm();
         addingContact = true;
     };
 
     $scope.editContact = function (contact) {
         editingContact = true;
-        $scope.selectedContact = contact;
+        $scope.selectContact(contact);
     };
 
     $scope.refreshContacts = function () {
@@ -106,7 +124,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         if($scope.newContactForm.$valid) {
             $scope.startSpin('container-spinner');
 
-            ListService.saveContact($scope.selectedContact)
+            ListService.saveContact($scope.newContact)
                 .success(function(data){
                     if(data.success){
                         $scope.contactList = angular.copy(ListService.contacts);

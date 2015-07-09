@@ -28,9 +28,6 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
         type: undefined
     };
 
-    // Object that holds the reference to the currently selected goal
-    $scope.selectedGoal = undefined;
-
     // Variables privadas
     $scope.showNewGoal = false;
     $scope.currentGoalMode = undefined;
@@ -65,22 +62,21 @@ iuvare.controller('WhyController', ["$scope", "$rootScope", "AuthService", "Goal
 
     };
 
-    $scope.createGoal = function(goal){
+    $scope.createGoal = function(){
+        $scope.resetGoalForm();
         $scope.goal = angular.copy(originalGoal);
-        $scope.selectedGoal = goal;
         $scope.showGoalForm($scope.GOAL_MODES.NEW);
     };
 
     $scope.editGoal = function(goal){
+        $scope.resetGoalForm();
         $scope.goal = angular.copy(goal);
-        $scope.selectedGoal = goal;
         $scope.showGoalForm($scope.GOAL_MODES.EDIT);
     };
 
     // Method that resets the goal form
     $scope.resetGoalForm = function(){
         $scope.goal = angular.copy(originalGoal);
-        $scope.selectedGoal = undefined;
         $scope.goalForm.$setPristine();
         $scope.goalForm.$setUntouched();
     };

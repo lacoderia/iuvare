@@ -18,7 +18,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
     // Object that holds the invitation values
     $scope.invitation = {
         recipient_name: undefined,
-        recipient_email: undefined
+        recipient_email: ''
     };
 
     $scope.dataChart = {
@@ -131,11 +131,11 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
             InvitationService.sendInvitation(invitation)
                 .success(function(data){
                     if(data.success){
-                        $scope.invitationFormMessage = 'Se envió un correo al socio con las instrucciones para ingresar.';
+                        $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
                     }
                 })
                 .error(function(error){
-                    $scope.invitationFormMessage = 'Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.';
+                    $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
                     console.log(error.error);
                 })
 
@@ -152,10 +152,12 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
 
     $scope.showInviteView = function ($event) {
         $event.stopPropagation();
+        $scope.resetInvitationForm();
         showInvite = true;
     };
 
     $scope.hideInviteView = function () {
+        $scope.resetInvitationForm();
         showInvite = false;
     };
 

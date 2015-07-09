@@ -192,17 +192,17 @@
             <form novalidate name="newContactForm" class="form" ng-submit="saveContact()">
                 <fieldset>
                     <legend>Agregar contacto</legend>
-                    <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="selectedContact.name" required>
+                    <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="newContact.name" required>
                     <div class="required-message" ng-show="newContactForm.$submitted || newContactForm.contactName.$touched">
                         <span ng-show="newContactForm.contactName.$error.required">El nombre de contacto es requerido.</span>
                     </div>
-                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email" required>
+                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="newContact.email" required>
                     <div class="required-message" ng-show="newContactForm.$submitted || newContactForm.contactMail.$touched">
                         <span ng-show="newContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
                         <span ng-show="newContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
                     </div>
-                    <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="selectedContact.phone">
-                    <textarea name="contactDescription" ng-model="selectedContact.description" placeholder="Notas"></textarea>
+                    <input type="text" placeholder="Teléfono de contacto" name="contactPhone" ng-model="newContact.phone">
+                    <textarea name="contactDescription" ng-model="newContact.description" placeholder="Notas"></textarea>
                 </fieldset>
                 <fieldset>
                     <button class="action-button-forgot">Guardar contacto</button>

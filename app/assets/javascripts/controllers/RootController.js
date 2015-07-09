@@ -28,7 +28,7 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
     };
 
     $scope.showAlert = function(content, type, duration){
-        if (duration === undefined) duration = 5;
+        if (duration === undefined) duration = 7;
 
         $alert({
             animation: 'am-fade-and-slide-top',

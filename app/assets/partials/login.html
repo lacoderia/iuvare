@@ -1,5 +1,7 @@
 <div class="login-wrapper row" ng-controller="LoginController as loginCtrl">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <span us-spinner spinner-key="container-spinner"></span>
+
         <div class="login-container" ng-show="isCurrentView(VIEW.LOGIN)">
             <h2 class="section-title">Socio</h2>
             <hr class="separator-gray">
@@ -7,7 +9,7 @@
                 <h3>Registrarse a Iuvare</h3>
                 <form novalidate name="signupForm" class="form" ng-submit="signUp()">
                     <fieldset>
-                        <span>{{ signupFormMessage }}</span>
+                        <span class="required-message">{{ signupFormMessage }}</span>
                         <input type="text" placeholder="Nombres" name="signupFirstName" ng-model="newUser.firstName" required>
                         <div ng-show="signupForm.$submitted || signupForm.signupFirstName.$touched">
                             <span class="required-message" ng-show="signupForm.signupFirstName.$error.required">El nombre es requerido.</span>
@@ -71,7 +73,7 @@
             <div class="login-form" ng-show="isCurrentLoginView(LOGIN_VIEW.SIGNIN)">
                 <form novalidate name="loginForm" class="form" ng-submit="signIn()">
                     <fieldset>
-                        <span>{{ loginFormMessage }}</span>
+                        <span class="required-message">{{ loginFormMessage }}</span>
                         <input type="email" placeholder="Correo electrónico" name="loginEmail" ng-model="credentials.email" required>
                         <div class="required-message" ng-show="loginForm.$submitted || loginForm.loginEmail.$touched">
                             <span ng-show="loginForm.loginEmail.$error.required">El correo electrónico es requerido.</span>
@@ -107,7 +109,6 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <span>{{ forgotFormMessage }}</span>
                         <button class="action-button-forgot">Recuperar</button>
                         <input type="button" class="action-button-cancel" ng-click="showLoginView()" value="Cancelar" />
                     </fieldset>
@@ -129,7 +130,6 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <span>{{ resetFormMessage }}</span>
                         <button class="action-button-forgot">Cambiar contraseña</button>
                         <input type="button" class="action-button-cancel" ng-click="showLoginView()" value="Cancelar" />
                     </fieldset>

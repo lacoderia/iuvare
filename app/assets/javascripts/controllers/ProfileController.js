@@ -10,7 +10,7 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
     $scope.currentUser = {
         name: undefined,
         lastName: undefined,
-        email: undefined,
+        email: '',
         iuvareId: undefined,
         xangoId: undefined,
         picture: undefined,

@@ -27,7 +27,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
 
     // Object that holds the username and password values
     $scope.credentials = {
-        email: undefined,
+        email: '',
         password: undefined
     };
 
@@ -35,9 +35,9 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     $scope.newUser = {
         firstName: undefined,
         lastName: undefined,
-        email: undefined,
-        password: undefined,
-        passwordConfirmation: undefined,
+        email: '',
+        password: '',
+        passwordConfirmation: '',
         iuvareId: undefined,
         xangoId: undefined,
         sponsorIuvareId: undefined,
@@ -46,17 +46,9 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         placementXango: {}
     };
 
-    // Object that holds new request parameters
-    $scope.request = {
-        premier: undefined,
-        name: undefined,
-        email: undefined,
-        message: undefined
-    };
-
     // Object that holds the recover password data
     $scope.forgot = {
-        email: undefined
+        email: ''
     };
 
     // Object that holds the recover password data
@@ -67,22 +59,10 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     };
 
     // Variables privadas
-    var originalRequest = angular.copy($scope.request);
+    var originalCredentials = angular.copy($scope.credentials);
+    var originalNewUser = angular.copy($scope.newUser);
     var originalForgot = angular.copy($scope.forgot);
     var originalReset = angular.copy($scope.reset);
-
-    // Array that holds the premiers listing
-    $scope.premierDropdown = [];
-    $scope.premiers = [
-        {id: 1, name:'Rodrigo García'}
-    ];
-
-    angular.forEach($scope.premiers, function (premier, index) {
-        $scope.premierDropdown.push({
-            text: premier.name,
-            click: 'setPremier(' + index + ')'
-        });
-    });
 
     $scope.invitationToken = undefined;
     $scope.loginFormMessage = '';
@@ -109,17 +89,20 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
 
     // Method that toggles to login view
     $scope.showLoginView = function () {
+        $scope.resetLoginForm();
         $scope.currentView = $scope.VIEW.LOGIN;
         $scope.currentLoginView = $scope.LOGIN_VIEW.SIGNIN;
     };
 
     // Method that toggles to signup view
     $scope.showSignUpView = function () {
+        $scope.resetSignupForm();
         $scope.currentLoginView = $scope.LOGIN_VIEW.SIGNUP;
     };
 
     // Method that toggles to forgot view
     $scope.showForgotView = function () {
+        $scope.resetForgotForm();
         $scope.currentView = $scope.VIEW.FORGOT;
         $scope.currentForgotView = $scope.FORGOT_VIEW.FORGOT;
     };
@@ -132,6 +115,13 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that returns if the parameter view is the current login view
     $scope.isCurrentLoginView = function (view) {
         return (view == $scope.currentLoginView);
+    };
+
+    // Method that resets the login form
+    $scope.resetLoginForm = function(){
+        $scope.credentials = angular.copy(originalCredentials);
+        $scope.loginForm.$setPristine();
+        $scope.loginForm.$setUntouched();
     };
 
     // Method to authenticate a user
@@ -177,6 +167,13 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
 
     };
 
+    // Method that resets the login form
+    $scope.resetSignupForm = function(){
+        $scope.newUser = angular.copy(originalNewUser);
+        $scope.signupForm.$setPristine();
+        $scope.signupForm.$setUntouched();
+    };
+
     // Method to register a new user
     $scope.signUp = function () {
         if($scope.invitationToken){
@@ -213,41 +210,6 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         }
     };
 
-    // Method that sets the selected premier on the dropdown
-    $scope.setPremier = function(index){
-        if ($scope.request) {
-            $scope.request.premier = $scope.premiers[index];
-        }
-    };
-
-    // Method that resets the invitation request form
-    $scope.resetRequestForm = function(){
-        $scope.request = angular.copy(originalRequest);
-        $scope.requestForm.$setPristine();
-        $scope.requestForm.$setUntouched();
-    };
-
-    // Method that sends an invitation request
-    $scope.sendRequest = function(){
-        if($scope.requestForm.$valid){
-
-            var request = {
-                user_id: $scope.request.premier.id,
-                source_name: $scope.request.name,
-                source_email: $scope.request.email,
-                source_text: $scope.request.message
-            };
-
-            InvitationService.sendRequest(request)
-                .then(
-                function(requestFormMessage) {
-                    $scope.requestFormMessage = requestFormMessage;
-                    $scope.resetRequestForm();
-                }
-            );
-        }
-    };
-
     // Method that resets the password recovery form
     $scope.resetForgotForm = function(){
         $scope.forgot = angular.copy(originalForgot);
@@ -258,6 +220,9 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that sends a password recovery mail
     $scope.recoverPassword = function () {
         if($scope.forgotForm.$valid){
+
+            $scope.startSpin('container-spinner');
+
             var forgot = {
                 email: $scope.forgot.email
             };
@@ -265,8 +230,10 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
             AuthService.recoverPassword(forgot)
                 .then(
                 function(forgotFormMessage) {
-                    $scope.forgotFormMessage = forgotFormMessage;
+                    $scope.showAlert(forgotFormMessage, 'success', false);
+                    $scope.stopSpin('container-spinner');
                     $scope.resetForgotForm();
+                    $scope.showLoginView();
                 }
             );
         }
@@ -282,6 +249,9 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that sends a password recovery mail
     $scope.resetPassword = function () {
         if($scope.resetForm.$valid){
+
+            $scope.startSpin('container-spinner');
+
             var reset = {
                 reset_password_token: $scope.reset.token,
                 password: $scope.reset.password,
@@ -291,8 +261,10 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
             AuthService.resetPassword(reset)
                 .then(
                 function(resetFormMessage) {
-                    $scope.resetFormMessage = resetFormMessage;
+                    $scope.showAlert(resetFormMessage, 'success', false);
+                    $scope.stopSpin('container-spinner');
                     $scope.resetResetForm();
+                    $scope.showLoginView();
                 }
             );
         }
