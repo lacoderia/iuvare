@@ -2,6 +2,8 @@ class PlansController <  ApplicationController
 
   authorize_resource
 
+  before_action :set_plan, only: [:finish_video]
+
   respond_to :json
 
   def send_video
@@ -14,7 +16,6 @@ class PlansController <  ApplicationController
 
   def finish_video
     begin
-      @plan = Plan.find(params[:id])
       @plan = Plan.finish_video(@plan)
     rescue Exception => e
       @error = e.message
@@ -31,6 +32,10 @@ class PlansController <  ApplicationController
   end
 
   private
+
+    def set_plan
+      @plan = Plan.find(params[:id])
+    end
 
     def plan_params
       params.require(:plan).permit(:asset_id, :contact_id, :token, :expiration, :description)
