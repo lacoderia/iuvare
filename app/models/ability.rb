@@ -15,6 +15,7 @@ class Ability
     can [:finish_video, :watch_video], Plan
     can :stream, Asset
     can :by_code, Test
+    can :grade_test, TestScore
 
     if user.instance_of? User
       #answers, no individual use of it
@@ -30,7 +31,6 @@ class Ability
       #questions, no individual use of it
       can [:create, :accept, :reject], Request
       can :destroy, :session
-      can :grade_test, TestScore
       can [:by_user, :by_code_and_user], Test
       can [:update, :all, :cycle, :change_position, :progress], User
 
