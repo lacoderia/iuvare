@@ -37,6 +37,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
     $scope.showTestForm = function(){
         $scope.showTest = true;
         chartLoaded = true;
+        $rootScope.scrollToTop();
     };
 
     // Method that hides the new goal form
@@ -44,6 +45,12 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
         $scope.resetTestForm();
         $scope.showTest = false;
         chartLoaded = false;
+
+        if($scope.colorTestResult && $scope.colorTestResult.test_scores){
+            $scope.setChart($scope.colorTestResult.test_scores);
+        }
+
+        $rootScope.scrollToTop();
     };
 
     $scope.isChartLoaded = function(){
@@ -81,6 +88,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
     $scope.setChart = function(testScores){
         $scope.dataChart.labels = [];
         $scope.dataChart.data = [];
+        $scope.dataChart.colours = [];
 
         angular.forEach(testScores, function (score) {
             $scope.dataChart.labels.push(score.description_spanish);
@@ -115,8 +123,9 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                         $scope.colorTestResult = data.result;
                         $scope.hideTestForm();
                         $scope.setChart($scope.colorTestResult.test_scores);
-                        $scope.colorTestResult.scores = $scope.colorTestResult.test_scores;
                         SessionService.$get().setTestScores([$scope.colorTestResult]);
+
+                        $scope.mainColorDesc = DEFAULT_VALUES.COLOR_DESC[(getMainColor().description).toUpperCase()];
                     } else {
                         $scope.showAlert(data.error, 'danger', false);
                     }

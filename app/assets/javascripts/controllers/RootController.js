@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "$alert", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, $timeout, $alert, usSpinnerService, AuthService, EventService, NavigationService, SessionService){
+iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "$alert", "$window", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, $timeout, $alert, $window, usSpinnerService, AuthService, EventService, NavigationService, SessionService){
 
     $scope.currentSection = undefined;
     $scope.currentSubsection = undefined;
@@ -52,6 +52,10 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
         $timeout(function(){
             usSpinnerService.stop(spinner);
         }, 0);
+    };
+
+    $rootScope.scrollToTop = function(){
+        $window.scrollTo(0,0);
     };
 
     $scope.isPublicView = function(){
