@@ -98,7 +98,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
 
     $scope.editContact = function (contact) {
         editingContact = true;
-        $scope.selectContact(contact);
+        $scope.selectContact(angular.copy(contact));
     };
 
     $scope.refreshContacts = function () {
