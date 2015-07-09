@@ -33,7 +33,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
 
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al terminar el video.', 'danger');
+                $scope.showAlert('Ocurrió un error al terminar el video.', 'danger', false);
                 console.log('Ocurrió un error al terminar el video');
             });
 
@@ -47,7 +47,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
                 }
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener el test.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener el test.', 'danger', false);
                 console.log('Ocurrió un error al obtener el test.');
             });
 
@@ -78,7 +78,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
             .error(function (error, status) {
                 validToken = false;
 
-                $scope.showAlert('Ocurrió un error al cargar el video.', 'danger');
+                $scope.showAlert('Ocurrió un error al cargar el video.', 'danger', false);
                 console.log('Ocurrió un error al cargar el video.');
             })
             .finally(function () {
@@ -127,7 +127,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
                     $scope.stopSpin('container-spinner');
                 })
                 .error(function (error,status) {
-                    $scope.showAlert('Ocurrió un error al guardar los resultado del test. Intenta nuevamente.', 'danger');
+                    $scope.showAlert('Ocurrió un error al guardar los resultado del test. Intenta nuevamente.', 'danger', false);
                     console.log('Ocurrió un error al guardar los resultado del test. Intenta nuevamente.')
                 });
         } else {

@@ -1,56 +1,56 @@
 <div ng-controller="SeminarController as seminarCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <div class="section-content seminar-container">
+    <div ng-show="pageLoaded" class="section-content seminar-container">
         <form class="form">
             <input type="text" placeholder="Busca un seminario: Ej. Introducción a Xango" ng-model="assetQuery">
         </form>
-    </div>
 
-    <div ng-show="!areAssetsAvailable()" class="message-container">
-        <p class="message">No hay seminarios disponibles</p>
-    </div>
-
-    <!-- Listado de assets  -->
-    <div ng-show="areAssetsAvailable()">
-        <div class="assets-list">
-            <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
-                <div ng-click="toggleAssetInfo(asset)">
-                    <div class="asset-name">{{ asset.title }}</div>
-                    <div class="asset-author">{{ asset.author }}</div>
-                    <div class="asset-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
-                </div>
-
-                <div class="asset-info" ng-if="asset.showInfo">
-                    <div>{{ asset.description }}</div>
-                    <videogular vg-theme="asset.config.theme">
-                        <vg-media vg-src="asset.config.sources">
-                        </vg-media>
-
-                        <vg-controls>
-                            <vg-play-pause-button></vg-play-pause-button>
-                            <vg-time-display>{{ currentTime | millSecondsToTimeString }}</vg-time-display>
-                            <vg-scrub-bar>
-                                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                            </vg-scrub-bar>
-                            <vg-time-display>{{ timeLeft | millSecondsToTimeString }}</vg-time-display>
-                            <vg-volume>
-                                <vg-mute-button></vg-mute-button>
-                                <vg-volume-bar></vg-volume-bar>
-                            </vg-volume>
-                            <vg-fullscreen-button></vg-fullscreen-button>
-                        </vg-controls>
-
-                        <vg-overlay-play></vg-overlay-play>
-                    </videogular>
-
-                    <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este video.</div>
-                </div>
-
-
-            </div>
+        <div ng-show="!areAssetsAvailable()" class="message-container">
+            <p class="message">No hay seminarios disponibles</p>
         </div>
-        <dir-pagination-controls></dir-pagination-controls>
+
+        <!-- Listado de assets  -->
+        <div ng-show="areAssetsAvailable()">
+            <div class="assets-list">
+                <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
+                    <div ng-click="toggleAssetInfo(asset)">
+                        <div class="asset-name">{{ asset.title }}</div>
+                        <div class="asset-author">{{ asset.author }}</div>
+                        <div class="asset-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
+                    </div>
+
+                    <div class="asset-info" ng-if="asset.showInfo">
+                        <div>{{ asset.description }}</div>
+                        <videogular vg-theme="asset.config.theme">
+                            <vg-media vg-src="asset.config.sources">
+                            </vg-media>
+
+                            <vg-controls>
+                                <vg-play-pause-button></vg-play-pause-button>
+                                <vg-time-display>{{ currentTime | millSecondsToTimeString }}</vg-time-display>
+                                <vg-scrub-bar>
+                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                </vg-scrub-bar>
+                                <vg-time-display>{{ timeLeft | millSecondsToTimeString }}</vg-time-display>
+                                <vg-volume>
+                                    <vg-mute-button></vg-mute-button>
+                                    <vg-volume-bar></vg-volume-bar>
+                                </vg-volume>
+                                <vg-fullscreen-button></vg-fullscreen-button>
+                            </vg-controls>
+
+                            <vg-overlay-play></vg-overlay-play>
+                        </videogular>
+
+                        <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este video.</div>
+                    </div>
+
+
+                </div>
+            </div>
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
     </div>
 
 </div>

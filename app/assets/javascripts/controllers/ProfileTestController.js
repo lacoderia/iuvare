@@ -65,7 +65,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                 $scope.stopSpin('container-spinner');
             })
             .error(function(error, status){
-                $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger', false);
                 console.log('Ocurrió un error al obtener los resultados del test de color.');
             });
 
@@ -118,13 +118,13 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                         $scope.colorTestResult.scores = $scope.colorTestResult.test_scores;
                         SessionService.$get().setTestScores([$scope.colorTestResult]);
                     } else {
-                        $scope.showAlert(data.error, 'danger');
+                        $scope.showAlert(data.error, 'danger', false);
                     }
 
                     $scope.stopSpin('container-spinner');
                 })
                 .error(function(error, status){
-                    $scope.showAlert(error.error, 'danger');
+                    $scope.showAlert(error.error, 'danger', false);
                     console.log(error.error);
                 });
         } else {
@@ -161,7 +161,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
 
                     } else {
                         $scope.colorTestResult = {};
-                        $scope.showAlert(data.error, 'danger');
+                        $scope.showAlert(data.error, 'danger', false);
                         console.log(data.error);
                     }
                 } else {
@@ -172,7 +172,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                 $scope.stopSpin('container-spinner');
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger', false);
                 console.log('Ocurrió un error al obtener los resultados del test de color.');
             });
 

@@ -48,7 +48,7 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                     image.show();
                 })
                 .error(function() {
-                    $scope.showAlert('Ocurrió un error al procesar la imagen. Inténtalo nuevamente.', 'danger');
+                    $scope.showAlert('Ocurrió un error al procesar la imagen. Inténtalo nuevamente.', 'danger', false);
                 });
         }
 
@@ -93,12 +93,12 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                 }
 
                 loadedImage.onerror = function() {
-                    $scope.showAlert('Ocurrió un error al procesar la imagen. Intenta nuevamente.', 'danger');
+                    $scope.showAlert('Ocurrió un error al procesar la imagen. Intenta nuevamente.', 'danger', false);
                 }
             };
 
             reader.onerror = function (error) {
-                $scope.showAlert('Ocurrió un error al procesar la imagen. Intenta nuevamente.', 'danger');
+                $scope.showAlert('Ocurrió un error al procesar la imagen. Intenta nuevamente.', 'danger', false);
             };
 
             reader.readAsDataURL(input[0].files[0]);
@@ -132,7 +132,7 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                     }
                 })
                 .error(function(response){
-                    $scope.showAlert('Ocurrió un error al actualizar tus datos. Intenta nuevamente.', 'danger');
+                    $scope.showAlert('Ocurrió un error al actualizar tus datos. Intenta nuevamente.', 'danger', false);
                     console.log('Ocurrió un error al actualizar tus datos.');
                 });
 
@@ -174,7 +174,7 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                     }
                 })
                 .error(function(response){
-                    $scope.showAlert('Ocurrió un error al actualizar la contraseña. Intenta nuevamente.', 'danger');
+                    $scope.showAlert('Ocurrió un error al actualizar la contraseña. Intenta nuevamente.', 'danger', false);
                     console.log('Ocurrió un error al actualizar la contraseña. Intenta nuevamente.');
                 });
         }

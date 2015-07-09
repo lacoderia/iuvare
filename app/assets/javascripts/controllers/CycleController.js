@@ -89,7 +89,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                 }
             })
             .error(function(error){
-                $scope.showAlert('Ocurrió un error al asignar el socio.', 'danger');
+                $scope.showAlert('Ocurrió un error al asignar el socio.', 'danger', false);
                 console.log('Ocurrió un error al asignar el socio.');
             });
     };
@@ -105,7 +105,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                 }
             })
             .error(function(error){
-                $scope.showAlert('Ocurrió un error al desasignar el socio.', 'danger');
+                $scope.showAlert('Ocurrió un error al desasignar el socio.', 'danger', false);
                 console.log('Ocurrió un error al desasignar el socio.');
             });
     };
@@ -199,7 +199,7 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
                 }
             })
             .error(function(error){
-                $scope.showAlert('Ocurrió un error al obtener tu red. Intenta nuevamente.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener tu red. Intenta nuevamente.', 'danger', false);
                 console.log('Ocurrió un error al obtener tu red. Intenta nuevamente.');
             });
 

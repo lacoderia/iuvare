@@ -40,7 +40,7 @@ iuvare.controller('PlanListController', ["$scope", "$log", "$rootScope", "AssetS
                 }
             })
             .error(function(response){
-                $scope.showAlert('Ocurrió un error al obtener el plan.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener el plan.', 'danger', false);
                 console.log('Ocurrió un error al obtener el plan.');
             });
 

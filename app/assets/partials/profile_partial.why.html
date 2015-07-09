@@ -1,19 +1,18 @@
 <div ng-controller="WhyController as whyCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <!-- Sección de Listado de metas vacía -->
-
-    <div ng-show="goalsList && goalsList.length == 0 && !showGoal" class="message-container">
-        <p class="message">Aún no cuentas con ninguna meta</p>
-        <div class="actions">
-            <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createGoal()">Agregar una nueva meta</a>
+    <div ng-show="pageLoaded" class="section-content goals-container">
+        <!-- Sección de Listado de metas vacía -->
+        <div ng-show="goalsList && goalsList.length == 0 && !showGoal" class="message-container">
+            <p class="message">Aún no cuentas con ninguna meta</p>
+            <div class="actions">
+                <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createGoal()">Agregar una nueva meta</a>
+            </div>
         </div>
-    </div>
-
-    <!-- Listado de metas  -->
-    <div ng-show="goalsList && goalsList.length && !showGoal">
-        <div class="goals-list">
-            <div ng-repeat="goal in goalsList | orderBy:'type.code'" class="goal">
+        <!-- Listado de metas  -->
+        <div ng-show="goalsList && goalsList.length && !showGoal">
+            <div class="goals-list">
+                <div ng-repeat="goal in goalsList | orderBy:'type.code'" class="goal">
 
                     <div ng-click="toggleGoalInfo(goal)" class="clickable padding-container">
                         <div class="goal-name">{{ goal.type.name }}</div>
@@ -27,44 +26,44 @@
                         <a class="action-button-blue size-medium" title="Editar meta" ng-click="editGoal(goal)">Editar</a>
                     </div>
 
+                </div>
             </div>
+            <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createGoal()" ng-show="goalsList.length < GOAL_TYPES.length">Agregar una nueva meta</a>
         </div>
-        <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createGoal()" ng-show="goalsList.length < GOAL_TYPES.length">Agregar una nueva meta</a>
 
-    </div>
-
-    <!-- Forma para nueva meta -->
-    <div class="goal-form" ng-show="showGoal">
-        <div class="form-container">
-            <form novalidate name="goalForm" class="form" ng-submit="callSubmitAction(currentGoalMode.action)">
-                <fieldset>
-                    <legend>{{ currentGoalMode.description }}</legend>
-                    <button type="button" name="goalType" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="goalTypeDropdown" ng-disabled="currentGoalMode == GOAL_MODES.EDIT">
-                        <span ng-if="!goal.type">Selecciona una meta</span>
-                        <span ng-if="goal.type">{{ goal.type.name }}</span>
-                        <span class="caret" ng-hide="currentGoalMode == GOAL_MODES.EDIT"></span>
-                    </button>
-                    <div class="required-message" ng-show="goalForm.$submitted || goalForm.$dirty">
-                        <span ng-show="!goal.type">Debes seleccionar una meta.</span>
-                    </div>
-                    <textarea placeholder="Sueño" name="goalDream" ng-model="goal.dream" required></textarea>
-                    <div class="required-message" ng-show="goalForm.$submitted || goalForm.goalDream.$touched">
-                        <span ng-show="goalForm.goalDream.$error.required">El sueño es requerido.</span>
-                    </div>
-                    <input type="text" placeholder="Meta, Ej: Premier 100k" name="goalGoal" ng-model="goal.goal" required>
-                    <div class="required-message" ng-show="goalForm.$submitted || goalForm.goalGoal.$touched">
-                        <span ng-show="goalForm.goalGoal.$error.required">La meta es requerida.</span>
-                    </div>
-                    <quick-datepicker ng-model='goal.date' label-format="dd/MM/yyyy" disable-timepicker='true' disable-datepicker='true' disable-close-button="true" date-format="dd/MM/yyyy" placeholder="Selecciona una fecha"></quick-datepicker>
-                    <div class="required-message" ng-show="goalForm.$submitted || goalForm.$dirty">
-                        <span ng-show="!goal.date">Debes seleccionar una fecha.</span>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <button class="action-button-forgot">{{ currentGoalMode.button }}</button>
-                    <input type="button" class="action-button-cancel" ng-click="hideGoalForm()" value="Regresar a mis Metas" />
-                </fieldset>
-            </form>
+        <!-- Forma para nueva meta -->
+        <div class="goal-form" ng-show="showGoal">
+            <div class="form-container">
+                <form novalidate name="goalForm" class="form" ng-submit="callSubmitAction(currentGoalMode.action)">
+                    <fieldset>
+                        <legend>{{ currentGoalMode.description }}</legend>
+                        <button type="button" name="goalType" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="goalTypeDropdown" ng-disabled="currentGoalMode == GOAL_MODES.EDIT">
+                            <span ng-if="!goal.type">Selecciona una meta</span>
+                            <span ng-if="goal.type">{{ goal.type.name }}</span>
+                            <span class="caret" ng-hide="currentGoalMode == GOAL_MODES.EDIT"></span>
+                        </button>
+                        <div class="required-message" ng-show="goalForm.$submitted || goalForm.$dirty">
+                            <span ng-show="!goal.type">Debes seleccionar una meta.</span>
+                        </div>
+                        <textarea placeholder="Sueño" name="goalDream" ng-model="goal.dream" required></textarea>
+                        <div class="required-message" ng-show="goalForm.$submitted || goalForm.goalDream.$touched">
+                            <span ng-show="goalForm.goalDream.$error.required">El sueño es requerido.</span>
+                        </div>
+                        <input type="text" placeholder="Meta, Ej: Premier 100k" name="goalGoal" ng-model="goal.goal" required>
+                        <div class="required-message" ng-show="goalForm.$submitted || goalForm.goalGoal.$touched">
+                            <span ng-show="goalForm.goalGoal.$error.required">La meta es requerida.</span>
+                        </div>
+                        <quick-datepicker ng-model='goal.date' label-format="dd/MM/yyyy" disable-timepicker='true' disable-datepicker='true' disable-close-button="true" date-format="dd/MM/yyyy" placeholder="Selecciona una fecha"></quick-datepicker>
+                        <div class="required-message" ng-show="goalForm.$submitted || goalForm.$dirty">
+                            <span ng-show="!goal.date">Debes seleccionar una fecha.</span>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <button class="action-button-forgot">{{ currentGoalMode.button }}</button>
+                        <input type="button" class="action-button-cancel" ng-click="hideGoalForm()" value="Regresar a mis Metas" />
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
 

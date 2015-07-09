@@ -60,7 +60,7 @@ iuvare.controller('HeadquartersController', ["$scope", "$log", "$rootScope", "Au
                 }
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener las sedes. Intenta nuevamente.', 'danger');
+                $scope.showAlert('Ocurrió un error al obtener las sedes. Intenta nuevamente.', 'danger', false);
                 console.log('Ocurrió un error al obtener las sedes.');
             });
 
