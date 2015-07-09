@@ -54,7 +54,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         return editingContact;
     };
 
-    $scope.isThereSelectedContact = function(){
+    $scope.isSelectedContact = function(){
         return ($scope.selectedContact)? true: false;
     };
 
@@ -86,9 +86,11 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     $scope.refreshContacts = function () {
         $scope.contactList = angular.copy(ListService.contacts);
 
-        for(var i=0; i < $scope.contactList.length; i++){
-            if($scope.contactList[i].id == $scope.selectedContact.id){
-                $scope.selectContact($scope.contactList[i]);
+        if($scope.isSelectedContact()){
+            for(var i=0; i < $scope.contactList.length; i++){
+                if($scope.contactList[i].id == $scope.selectedContact.id){
+                    $scope.selectContact($scope.contactList[i]);
+                }
             }
         }
 

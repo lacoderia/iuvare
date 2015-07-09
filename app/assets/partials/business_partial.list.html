@@ -2,18 +2,18 @@
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content contact-container">
-        <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isThereSelectedContact()">
+        <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
             <input type="text" placeholder="Busca un contacto: Ej. Jorge Hernández" ng-model="contactQuery">
         </form>
 
-        <div ng-show="isContactListEmpty() && !isAddingContact() && !isThereSelectedContact()" class="message-container">
+        <div ng-show="isContactListEmpty() && !isAddingContact() && !isSelectedContact()" class="message-container">
             <p class="message">Aún no cuentas con algún contacto</p>
             <div class="actions">
                 <a class="action-button-purple size-medium" title="Agregar una nueva meta" ng-click="createContact()">Agregar nuevo contacto</a>
             </div>
         </div>
 
-        <div ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isThereSelectedContact()">
+        <div ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
             <div class="contact-list">
                 <div class="actions">
                     <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="contact-form" ng-if="isContactListEmpty() && !isAddingContact() && !isEditingContact() && isThereSelectedContact()">
+        <div class="contact-form" ng-if="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && isSelectedContact()">
             <span us-spinner spinner-key="contact-spinner-{{selectedContact.id}}"></span>
             <div class="contact-detail">
                 <div class="contact-profile">
