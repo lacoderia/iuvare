@@ -199,7 +199,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
                 .success(function (data) {
                     $scope.refreshContacts();
                     $scope.stopSpin('contact-spinner-' + contact.id);
-                    $scope.showAlert('El mail con el enlace al plan ha sido enviado a tu correo. Asegurate de reenviárselo a tu prospecto.', 'success', false);
+                    $scope.showAlert('El mail con el enlace al plan ha sido enviado a tu correo. Asegúrate de reenviárselo a tu prospecto.', 'success', false);
                 })
                 .error(function (error, status) {
                     $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger', false);
