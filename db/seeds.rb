@@ -652,13 +652,12 @@ asset_107 = Asset.create(title: "Plan Enrique Flores", description:"Plan de nego
 asset_108 = Asset.create(title: "FAQ", description:"Documento PDF del FAQ", author:"FAQ", source: "FAQ.pdf", asset_type: "FAQ")
 
 #Sedes
-sede_1 = Office.create(name: "Morelia", address: "Aristeo Mercado 969 Col. Nueva chapultepec", latitude: "19.6871535", longitude: "-101.1677894", description: "", schedule: "Plan: Lunes a viernes 8:00pm")
-sede_2 = Office.create(name: "México - El Ruedo", address: "Augusto Rodin #110 Esq. Maximino Ávila Camacho. Col. Ciudad de los deportes", latitude: "19.3838687", longitude: "-99.1807992", description: "", schedule: "Plan: Lunes a Viernes 4:00pm 6:00pm 8:00pm y Sábado 9:00am")
-sede_3 = Office.create(name: "Guadalajara", address: "Av. Abedules 329 Col. Los Pinos Zapopan Jal.", latitude: "20.6818078", longitude: "-103.4054869", description: "", schedule: "Plan: Lunes a Viernes 10:00am, 6:00pm, 8:00pm y Sábado 10:00am")
-sede_4 = Office.create(name: "Toluca", address: "Manuel Campos Mena 202 Col. Morelos, C.P. 50120 Toluca, Estado de México", latitude: "19.274334", longitude: "-99.664789", description: "", schedule: "Plan: Martes a Viernes: 7:00pm, 3er y 4to Lunes: 7:00pm, Lunes: 10:30am, Miércoles 10:00am. 
-Taller de Salud: Viernes: 5:00pm")
+sede_1 = Office.create(name: "Morelia", address: "Leon Guzman 78, Col. Centro", latitude: "19.704424", longitude: "-101.196846", description: "", schedule: "Plan: Lunes a viernes 8:00pm")
+sede_2 = Office.create(name: "México - El Ruedo", address: "Augusto Rodin #110 Esq. Maximino Ávila Camacho. Col. Ciudad de los deportes", latitude: "19.3838687", longitude: "-99.1807992", description: "", schedule: "Plan: Lunes a Viernes 6:00pm 8:00pm y Sábado 9:00am")
+sede_3 = Office.create(name: "Guadalajara", address: "Plaza Bonita local sub ancla 1, Av. México 3370, Monraz, CP 44670", latitude: "20.678718", longitude: "-103.402447", description: "", schedule: "Plan: Lunes a Viernes 10:00am, 6:00pm, 8:00pm y Sábado 10:00am")
+sede_4 = Office.create(name: "Toluca", address: "Heriberto Enríquez 361 LT 201 Col. Real de San Javier, Metepec", latitude: "19.262383", longitude: "-99.644541", description: "", schedule: "Plan: Lunes 10:30am, Miércoles 10:00am, Sábado 9:00am, Lunes a Viernes 7:00pm")
 sede_5 = Office.create(name: "Querétaro", address: "Ejército Republicano 139 Int. 104 Col. Carretas", latitude: "20.5892049", longitude: "-100.3731074", description: "", schedule: "Plan: Martes y Jueves 8:00pm, Sábado 10:00am")
 #sede_6 = Office.create(name: "México - Big Ben", address: "Cerro de las Campanas No. 3 Torre 1 Piso 6 Edi. Big Ben Col. San Andrés Atenco Tlalnepantla, Edo. de México.", latitude: "19.5413723", longitude: "-99.2148748", description: "", schedule: "Plan: Miércoles 8:00pm")
-sede_7 = Office.create(name: "México - Corporativo", address: "Corporativo Nápoles Av. Insurgentes Sur 863 Piso 1 Col. Nápoles", latitude: "19.3881774", longitude: "-99.1748896", description: "", schedule: "Plan: Lunes a Viernes 10:00am")
-sede_8 = Office.create(name: "Tepic", address: "Calle España # 36 esquina con Lisboa. Col. Ciudad del valle", latitude: "21.4888035", longitude: "-104.8831049", description: "", schedule: "Plan: Lunes a Viernes 8:00pm")
-sede_9 = Office.create(name: "Pto. Vallarta", address: "Plaza Marina Local D-11, en Marina Vallarta", latitude: "20.672099", longitude: "-105.251222", description: "", schedule: "Plan: Lunes a Viernes 10:30am y 8:00pm")
+sede_7 = Office.create(name: "México - Corporativo", address: "Corporativo Nápoles Av. Insurgentes Sur 863 Piso 1 Col. Nápoles", latitude: "19.3881774", longitude: "-99.1748896", description: "", schedule: "Plan: Mares y Jueves 10:00am")
+sede_8 = Office.create(name: "Tepic", address: "Prisciliano Sanchez 232. Colonia San Antonio", latitude: "21.501437", longitude: "-104.89028", description: "", schedule: "Plan: Lunes a Viernes 8:00pm")
+#sede_9 = Office.create(name: "Pto. Vallarta", address: "Plaza Marina Local D-11, en Marina Vallarta", latitude: "20.672099", longitude: "-105.251222", description: "", schedule: "Plan: Lunes a Viernes 10:30am y 8:00pm")
