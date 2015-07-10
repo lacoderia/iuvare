@@ -616,7 +616,7 @@ asset_83 = Asset.create(title: "Convencion IUVARE 2011", description: "Nuestra P
 
 #asset_type = seminar
 asset_62 = Asset.create(title: "Tailandia 2010 día uno", description: "Jorge Arzamendi Tailandia 2010 día uno", author: "Jorge Arzamendi", source: "seminar_Jorge_Arzamendi_Tailandia_2010_dia_uno", asset_type: "seminar")
-asset_56 = Asset.create(title: "Tailandia 2010 día dos", description: "Circe Rodríguez Tailandia 2010 día dos", author: "Circe Rodriguez", source: "seminar_Circe_Rodriguez_Tailandia_2010_dia_dos", asset_type: "seminar")
+asset_56 = Asset.create(title: "Tailandia 2010 día dos", description: "Circe Rodríguez Tailandia 2010 día dos", author: "Circe Rodríguez", source: "seminar_Circe_Rodriguez_Tailandia_2010_dia_dos", asset_type: "seminar")
 asset_61 = Asset.create(title: "Tailandia 2010 día tres", description: "Raul Villegas Tailandia 2010 día tres", author: "Raul Villegas", source: "seminar_Raul_Villegas_Tailandia_2010_dia_tres", asset_type: "seminar")
 asset_60 = Asset.create(title: "Tailandia 2010 día cuatro", description: "Liz Salinas Tailandia 2010 día cuatro", author: "Liz Salinas", source: "seminar_Liz_Salinas_Tailandia_2010_dia_cuatro", asset_type: "seminar")
 asset_63 = Asset.create(title: "Tailandia 2010 día cinco", description: "Estela Salinas Tailandia 2010 día cinco", author: "Estela Salinas", source: "seminar_Estela_Salinas_Tailandia_2010_dia_cinco", asset_type: "seminar")
@@ -633,8 +633,8 @@ asset_91 = Asset.create(title: "Seminario febrero 2012", description: "Jorge Arz
 #asset_92 = Asset.create(title: "La vida como debe ser", description: "Massimo del Moro La vida como debe ser", author: "Massimo del Moro", source: "seminar_Massimo_del_Moro_La_vida_como_debe_ser", asset_type: "seminar")
 asset_93 = Asset.create(title: "Seminario mayo 2012", description: "Premier 100k Marisa Dodero durante su seminario en mayo 2012", author: "Marisa Dodero", source: "seminar_Marisa_Dodero_Seminario_mayo_2012", asset_type: "seminar")
 asset_94 = Asset.create(title: "Seminario enero 2012 pt1", description: "Primera parte del Seminario de Enrique Flores (8 de enero 2012)", author: "Enrique Flores", source: "seminar_Enrique_Flores_Seminario_enero_2012_pt1", asset_type: "seminar")
-asset_95 = Asset.create(title: "El árbol rojo del multinivel pt1", description: "El árbol rojo del multinivel (Parte 1)", author: "Mario Rodriguez Padres", source: "seminar_Mario_Rodriguez_Padres_El_arbol_rojo_del_multinivel_pt1", asset_type: "seminar")
-asset_96 = Asset.create(title: "El árbol rojo del multinivel pt2", description: "El árbol rojo del multinivel (Parte 2)", author: "Mario Rodriguez Padres", source: "seminar_Mario_Rodriguez_Padres_El_arbol_rojo_del_multinivel_pt2", asset_type: "seminar")
+asset_95 = Asset.create(title: "El árbol rojo del multinivel pt1", description: "El árbol rojo del multinivel (Parte 1)", author: "Mario Rodríguez Padres", source: "seminar_Mario_Rodriguez_Padres_El_arbol_rojo_del_multinivel_pt1", asset_type: "seminar")
+asset_96 = Asset.create(title: "El árbol rojo del multinivel pt2", description: "El árbol rojo del multinivel (Parte 2)", author: "Mario Rodríguez Padres", source: "seminar_Mario_Rodriguez_Padres_El_arbol_rojo_del_multinivel_pt2", asset_type: "seminar")
 asset_97 = Asset.create(title: "Yo creador absoluto", description: "Seminario impartido por Estela Salinas en junio de 2012", author: "Estela Salinas", source: "seminar_Estela_Salinas_Yo_creador_absoluto", asset_type: "seminar")
 asset_98 = Asset.create(title: "Seminario marzo 2012 pt1", description: "Seminario impartido por Ron White durante el mes de marzo de 2012 (Parte 1)", author: "Ron White", source: "seminar_Ron_White_Seminario_marzo_2012_pt1", asset_type: "seminar")
 asset_99 = Asset.create(title: "Seminario marzo 2012 pt2", description: "Seminario impartido por Ron White durante el mes de marzo de 2012 (Parte 2)", author: "Ron White", source: "seminar_Ron_White_Seminario_marzo_2012_pt2", asset_type: "seminar")
@@ -662,5 +662,3 @@ sede_5 = Office.create(name: "Querétaro", address: "Ejército Republicano 139 I
 sede_7 = Office.create(name: "México - Corporativo", address: "Corporativo Nápoles Av. Insurgentes Sur 863 Piso 1 Col. Nápoles", latitude: "19.3881774", longitude: "-99.1748896", description: "", schedule: "Plan: Lunes a Viernes 10:00am")
 sede_8 = Office.create(name: "Tepic", address: "Calle España # 36 esquina con Lisboa. Col. Ciudad del valle", latitude: "21.4888035", longitude: "-104.8831049", description: "", schedule: "Plan: Lunes a Viernes 8:00pm")
 sede_9 = Office.create(name: "Pto. Vallarta", address: "Plaza Marina Local D-11, en Marina Vallarta", latitude: "20.672099", longitude: "-105.251222", description: "", schedule: "Plan: Lunes a Viernes 10:30am y 8:00pm")
-
-ActiveRecord::Base.connection.execute("CREATE EXTENSION unaccent;")
