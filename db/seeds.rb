@@ -663,3 +663,4 @@ sede_7 = Office.create(name: "México - Corporativo", address: "Corporativo Náp
 sede_8 = Office.create(name: "Tepic", address: "Calle España # 36 esquina con Lisboa. Col. Ciudad del valle", latitude: "21.4888035", longitude: "-104.8831049", description: "", schedule: "Plan: Lunes a Viernes 8:00pm")
 sede_9 = Office.create(name: "Pto. Vallarta", address: "Plaza Marina Local D-11, en Marina Vallarta", latitude: "20.672099", longitude: "-105.251222", description: "", schedule: "Plan: Lunes a Viernes 10:30am y 8:00pm")
 
+ActiveRecord::Base.connection.execute("CREATE EXTENSION unaccent;")
