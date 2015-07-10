@@ -31,21 +31,31 @@ class User < ActiveRecord::Base
   def register token
     user = User.find_by_email(self.email)
     unless user
-      invitations = Invitation.where("token = ? and used = ?", token, false)
-      if invitations.size == 1
-        if self.upline_id
-          upline = User.find(self.upline_id)
-          downline_no = upline.downlines.where("downline_position is not null").count
-          self.downline_position = downline_no + 1 if downline_no < 4
-        end
-        invitations.first.update_attribute("used", true)
-        self.save
-      else
-        self.errors.add(:email, "Necesitas una invitación válida para poderte registrar. Solicítala a tu upline o premier.")
+      if self.xango_id == self.sponsor_xango_id or self.xango_id == self.placement_xango_id
+        self.errors.add(:registration, "Tu ID de Xango no puede ser igual que el de tu auspiciador.")
         false
+      else
+        invitations = Invitation.where("token = ? and used = ?", token, false)
+        if invitations.size == 1
+          if not (invitations.first.user.xango_id == self.sponsor_xango_id or invitations.first.user.xango_id == self.placement_xango_id)
+            self.errors.add(:registration, "El ID Xango en patrocinio o colocación debe el de la persona que te mandó la invitación.")
+            false
+          else
+            if self.upline_id
+              upline = User.find(self.upline_id)
+              downline_no = upline.downlines.where("downline_position is not null").count
+              self.downline_position = downline_no + 1 if downline_no < 4
+            end
+            invitations.first.update_attribute("used", true)
+            self.save
+          end
+        else
+          self.errors.add(:registration, "Necesitas una invitación válida para poderte registrar. Solicítala a tu upline o premier.")
+          false
+        end
       end
     else
-      self.errors.add(:email, "Ya existe un usuario registrado con ese correo electrónico.")
+      self.errors.add(:registration, "Ya existe un usuario registrado con ese correo electrónico.")
       false
     end
   end

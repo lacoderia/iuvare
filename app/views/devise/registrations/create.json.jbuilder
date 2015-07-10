@@ -18,5 +18,5 @@ if @success
                 json.payment_expiration @user.payment_expiration ? @user.payment_expiration : (@user.created_at + User::FREE_MONTHS.months)
 	end
 else
-  json.error @user.errors.messages[:email][0]
+  json.error @user.errors.messages[:registration][0]
 end
