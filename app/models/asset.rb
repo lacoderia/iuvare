@@ -16,7 +16,7 @@ class Asset < ActiveRecord::Base
   validates :asset_type, inclusion: {in: TYPES.map{ |pairs| pairs[0] } }
 
   scope :by_asset_type, -> (asset_type){where(asset_type: asset_type)}
-  scope :by_keyword, -> (keyword){where("LOWER(UNACCENT(title)) like '%#{keyword}%' OR LOWER(UNACCENT(description)) like '%#{keyword}%' OR LOWER(UNACCENT(author)) like '%#{keyword}%'")}
+  scope :by_keyword, -> (keyword){where("lower(unaccent(title)) like '%#{keyword}%' OR lower(unaccent(description)) like '%#{keyword}%' OR lower(unaccent(author)) like '%#{keyword}%'")}
 
   def self.stream_file asset_type, source
 
