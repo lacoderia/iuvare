@@ -119,7 +119,7 @@ iuvare.controller('PlanController', ["$scope", "$location", "$rootScope", "$sce"
             $scope.startSpin('container-spinner');
 
             var contactId = $scope.plan.contact.id;
-            var userId = $scope.plan.user_id;
+            var userId = $scope.plan.contact.user_id;
             ListService.gradeTest($scope.testAnswers, contactId, userId)
                 .success(function (data) {
                     testSent = true;

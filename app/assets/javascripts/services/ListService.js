@@ -217,7 +217,6 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
 
         answers.interest = JSON.parse(answers.interest);
         answers.contactTime = JSON.parse(answers.contactTime);
-        userId = 1;
         var contactServiceURL = '/test_scores/grade_test.json';
 
         return $http.post(contactServiceURL, {
