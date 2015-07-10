@@ -42,7 +42,7 @@
                             <span ng-if="goal.type">{{ goal.type.name }}</span>
                             <span class="caret" ng-hide="currentGoalMode == GOAL_MODES.EDIT"></span>
                         </button>
-                        <div class="required-message" ng-show="goalForm.$submitted || goalForm.$dirty">
+                        <div class="required-message" ng-show="goalForm.$submitted">
                             <span ng-show="!goal.type">Debes seleccionar una meta.</span>
                         </div>
                         <textarea placeholder="Sueño" name="goalDream" ng-model="goal.dream" required></textarea>
@@ -54,7 +54,7 @@
                             <span ng-show="goalForm.goalGoal.$error.required">La meta es requerida.</span>
                         </div>
                         <quick-datepicker ng-model='goal.date' label-format="dd/MM/yyyy" disable-timepicker='true' disable-datepicker='true' disable-close-button="true" date-format="dd/MM/yyyy" placeholder="Selecciona una fecha"></quick-datepicker>
-                        <div class="required-message" ng-show="goalForm.$submitted || goalForm.$dirty">
+                        <div class="required-message" ng-show="goalForm.$submitted">
                             <span ng-show="!goal.date">Debes seleccionar una fecha.</span>
                         </div>
                     </fieldset>

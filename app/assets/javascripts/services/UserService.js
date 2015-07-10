@@ -180,12 +180,11 @@ iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
         };
 
         this.setTestScores = function(testScores){
-
             angular.forEach(testScores, function(test){
 
                 switch(test.code){
                     case DEFAULT_VALUES.TEST_CODES.COLOR:
-                        _testScores.colors = test.scores;
+                        _testScores.colors = test.test_scores;
                         break;
                 }
             });
