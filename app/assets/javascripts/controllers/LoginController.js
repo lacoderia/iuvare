@@ -67,6 +67,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     $scope.invitationToken = undefined;
     $scope.loginFormMessage = '';
     $scope.signupFormMessage = '';
+    $scope.requireIuvareId = true;
 
     // Method to init the controller's default state
     $scope.initController = function(){
@@ -171,6 +172,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that resets the login form
     $scope.resetSignupForm = function(){
         $scope.newUser = angular.copy(originalNewUser);
+        $scope.requireIuvareId = true;
         $scope.signupFormMessage = '';
         $scope.signupForm.$setPristine();
         $scope.signupForm.$setUntouched();
