@@ -120,6 +120,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that resets the login form
     $scope.resetLoginForm = function(){
         $scope.credentials = angular.copy(originalCredentials);
+        $scope.loginFormMessage = '';
         $scope.loginForm.$setPristine();
         $scope.loginForm.$setUntouched();
     };
@@ -170,6 +171,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method that resets the login form
     $scope.resetSignupForm = function(){
         $scope.newUser = angular.copy(originalNewUser);
+        $scope.signupFormMessage = '';
         $scope.signupForm.$setPristine();
         $scope.signupForm.$setUntouched();
     };
