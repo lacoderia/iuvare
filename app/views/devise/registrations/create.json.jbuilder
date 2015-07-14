@@ -16,7 +16,8 @@ if @success
                 end
 		json.extract! @user, :id, :first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :xango_rank, :active, :downline_position, :upline_id, :kit_bought
                 json.payment_expiration @user.payment_expiration ? @user.payment_expiration : (@user.created_at + User::FREE_MONTHS.months)
+		json.downline_count @user.downlines.size
 	end
 else
-  json.error @user.errors.messages[:email][0]
+  json.error @user.errors.messages[:registration][0]
 end
