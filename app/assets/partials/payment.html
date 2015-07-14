@@ -11,20 +11,18 @@
                         <span class="total-desc">Total</span>
                         <span class="total-amount">{{ product.amount | currency:"MXN $" }}</span>
                         <span class="total-security"><span class="icon-locked"></span> <img src="/assets/paypal-logo.jpg" alt="PayPal"></span>
-                        <script src="assets/lib/paypal-button.min.js?merchant=58P3LXBRGP3JE"
+                        <script src="assets/lib/paypal-button.min.js?merchant=US2BWLTEARVJA"
                                 data-amount="{{product.amount}}"
                                 data-button="buynow"
-                                data-callback="http://sandbox.iuvare.mx/payments/ipn"
-                                data-cancel-return="http://www.successooo.com.mx"
+                                data-callback="http://socios.iuvare.mx/payments/ipn"
+                                data-cancel-return="http://socios.iuvare.mx/pagos-error"
                                 data-currency="MXN"
                                 data-custom="{{product.custom}}"
-                                data-env="sandbox"
-                                data-host="http://www.sandbox.paypal.com"
+                                data-host="www.paypal.com"
                                 data-lc="es_ES"
                                 data-name="{{product.item_name}}"
                                 data-no_shipping="{{ (product.shipping ? '2' : '1') }}"
-                                data-number="1"
-                                data-return="http://www.success.com.mx"
+                                data-return="http://socios.iuvare.mx/pagos-exito"
                                 async>
                         </script>
                     </div>
@@ -32,7 +30,7 @@
             </div>
             <div class="other-scenarios">
                 <p>¿Ya pagaste? Haz click <a ng-click="logout()">aquí</a></p>
-                <p>¿Sigues teniendo un problema? escríbenos <a href="mailto:correo@iuvare.mx">correodepruebas@iuvare.mx</a></p>
+                <p>¿Sigues teniendo un problema? escríbenos <a href="mailto:contacto@iuvare.com.mx">contacto@iuvare.com.mx</a></p>
             </div>
         </div>
     </div>
