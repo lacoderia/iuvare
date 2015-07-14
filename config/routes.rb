@@ -121,8 +121,8 @@ Rails.application.routes.draw do
   get "register", :to => "display#index"
   get "plan", :to => "display#index"
   get "pagos", :to => "display#index"
-  get "pagos-exito", :to => "display#index"
-  get "pagos-error", :to => "display#index"
+  match "pagos-exito", :to => "display#index", :via => [:post, :get]
+  match "pagos-error", :to => "display#index", :via => [:post, :get]
   get "negocio", :to => "display#index"
   get "negocio/ciclo", :to => "display#index"
   get "negocio/lista", :to => "display#index"
