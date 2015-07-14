@@ -5,9 +5,8 @@
         <div class="payment-container">
 
             <div class="payment-items-table" ng-repeat="product in products">
-                <h3 class="item-title">Comprar membresía Iuvare</h3>
+                <h3 class="item-title">{{ product.item_name }}</h3>
                 <div class="payment-info">
-                    <p class="item-name">{{ product.item_name }}</p>
                     <div class="item-total">
                         <span class="total-desc">Total</span>
                         <span class="total-amount">{{ product.amount | currency:"MXN $" }}</span>
@@ -30,12 +29,11 @@
                         </script>
                     </div>
                 </div>
-                <div class="other-scenarios">
-                    <p>¿Ya pagaste? Haz click <a ng-click="logout()">aquí</a></p>
-                    <p>¿Sigues teniendo un problema? escríbenos <a href="mailto:correo@iuvare.mx">correodepruebas@iuvare.mx</a></p>
-                </div>
             </div>
-
+            <div class="other-scenarios">
+                <p>¿Ya pagaste? Haz click <a ng-click="logout()">aquí</a></p>
+                <p>¿Sigues teniendo un problema? escríbenos <a href="mailto:correo@iuvare.mx">correodepruebas@iuvare.mx</a></p>
+            </div>
         </div>
     </div>
 </div>
