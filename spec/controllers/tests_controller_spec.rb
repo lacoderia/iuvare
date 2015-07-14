@@ -101,7 +101,7 @@ feature 'TestsController' do
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       expect(response['result']['id']).to eql personality_test.id
-      test_scores = response['result']['test_scores']
+      test_scores = response['result']['scores']
       
       expect(test_scores.count).to eql 4
       yellow = test_scores.select{|ts| ts['description'] == "yellow"}[0]
@@ -117,7 +117,7 @@ feature 'TestsController' do
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       expect(response['result']['id']).to eql personality_test.id
-      test_scores = response['result']['test_scores']
+      test_scores = response['result']['scores']
       
       expect(test_scores.count).to eql 4
       blue = test_scores.select{|ts| ts['description'] == "blue"}[0]
@@ -128,8 +128,8 @@ feature 'TestsController' do
       expect(response['success']).to be true
       test = response['result']
       expect(test['code']).to eql personality_test.code
-      expect(test['test_scores'].count).to eql Test::PERCENTAGE_ANSWER_TYPES_BY_CODE[personality_test.code].count
-      expect(test['test_scores'].select{ |s| s['description'] == 'blue'}.first['score']).to eql 100.0
+      expect(test['scores'].count).to eql Test::PERCENTAGE_ANSWER_TYPES_BY_CODE[personality_test.code].count
+      expect(test['scores'].select{ |s| s['description'] == 'blue'}.first['score']).to eql 100.0
 
       visit("/tests/by_code_and_user.json?test_code=ABC&user_id=#{user.id}")
       
@@ -155,7 +155,7 @@ feature 'TestsController' do
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       expect(response['result']['id']).to eql module1_test.id
-      test_scores = response['result']['test_scores']
+      test_scores = response['result']['scores']
 
       expect(test_scores.count).to eql 1
       ts = test_scores.first
@@ -169,7 +169,7 @@ feature 'TestsController' do
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       expect(response['result']['id']).to eql module1_test.id
-      test_scores = response['result']['test_scores']
+      test_scores = response['result']['scores']
 
       expect(test_scores.count).to eql 1
       ts = test_scores.first
@@ -181,8 +181,8 @@ feature 'TestsController' do
       tests = response['result']['tests']
       expect(tests.first['code']).to eql module1_test.code
 
-      expect(tests.first['test_scores'].count).to eql 1
-      expect(tests.first['test_scores'].first['score']).to eql 100.0
+      expect(tests.first['scores'].count).to eql 1
+      expect(tests.first['scores'].first['score']).to eql 100.0
           
     end
 
@@ -202,7 +202,7 @@ feature 'TestsController' do
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       expect(response['result']['id']).to eql after_plan_test.id
-      test_scores = response['result']['test_scores']
+      test_scores = response['result']['scores']
 
       expect(test_scores.count).to eql 1
       tsf = test_scores.first
@@ -217,7 +217,7 @@ feature 'TestsController' do
       response = JSON.parse(page.body)
       expect(response['success']).to be true
       expect(response['result']['id']).to eql after_plan_test.id
-      test_scores = response['result']['test_scores']
+      test_scores = response['result']['scores']
 
       expect(test_scores.count).to eql 1
       tsf = test_scores.first
@@ -232,9 +232,9 @@ feature 'TestsController' do
       tests = response['result']['tests']
       expect(tests.first['code']).to eql after_plan_test.code
 
-      expect(tests.first['test_scores'].count).to eql 1
-      expect(tests.first['test_scores'].first['description']).to eql tqs_answer_2.text
-      expect(tests.first['test_scores'].first['score']).to eql tqq_answer_2.text.to_f
+      expect(tests.first['scores'].count).to eql 1
+      expect(tests.first['scores'].first['description']).to eql tqs_answer_2.text
+      expect(tests.first['scores'].first['score']).to eql tqq_answer_2.text.to_f
 
     end
 

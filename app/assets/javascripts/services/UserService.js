@@ -184,7 +184,7 @@ iuvare.factory('UserService', ['DEFAULT_VALUES', function(DEFAULT_VALUES){
 
                 switch(test.code){
                     case DEFAULT_VALUES.TEST_CODES.COLOR:
-                        _testScores.colors = test.test_scores;
+                        _testScores.colors = test.scores;
                         break;
                 }
             });

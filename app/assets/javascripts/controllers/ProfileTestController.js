@@ -46,8 +46,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
         $scope.showTest = false;
         chartLoaded = false;
 
-        if($scope.colorTestResult && $scope.colorTestResult.test_scores){
-            $scope.setChart($scope.colorTestResult.test_scores);
+        if($scope.colorTestResult && $scope.colorTestResult.scores){
+            $scope.setChart($scope.colorTestResult.scores);
         }
 
         $rootScope.scrollToTop();
@@ -122,7 +122,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                     if(data.success){
                         $scope.colorTestResult = data.result;
                         $scope.hideTestForm();
-                        $scope.setChart($scope.colorTestResult.test_scores);
+                        $scope.setChart($scope.colorTestResult.scores);
                         SessionService.$get().setTestScores([$scope.colorTestResult]);
 
                         $scope.mainColorDesc = DEFAULT_VALUES.COLOR_DESC[(getMainColor().description).toUpperCase()];
@@ -142,8 +142,8 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
     };
 
     var getMainColor = function(){
-        var maxScoreColor = $scope.colorTestResult.test_scores[0];
-        angular.forEach($scope.colorTestResult.test_scores, function(score){
+        var maxScoreColor = $scope.colorTestResult.scores[0];
+        angular.forEach($scope.colorTestResult.scores, function(score){
             if(score.score > maxScoreColor.score){
                 maxScoreColor = score;
             }
@@ -165,7 +165,7 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                 if(data.result){
                     if(data.success){
                         $scope.colorTestResult = data.result;
-                        $scope.setChart($scope.colorTestResult.test_scores);
+                        $scope.setChart($scope.colorTestResult.scores);
                         $scope.mainColorDesc = DEFAULT_VALUES.COLOR_DESC[(getMainColor().description).toUpperCase()];
 
                     } else {
