@@ -116,7 +116,10 @@ feature 'UsersController' do
         visit("/downlines/all.json")
         response1 = JSON.parse(page.body)
         expect(response1['success']).to be true
-        expect(response1['result'].length).to eql 0 
+        expect(response1['result'].length).to eql 1 
+        expect(response1['result'][0]['first_name']).to eql "Mucho"
+        expect(response1['result'][0]['upline_id']).to eql up.id
+        expect(response1['result'][0]['picture']).to eql ""
         #logout
         logout
         
