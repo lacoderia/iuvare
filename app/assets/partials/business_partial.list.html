@@ -2,8 +2,28 @@
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content contact-container">
-        <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
+        <form class="form" ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
             <input type="text" placeholder="Busca un contacto: Ej. Jorge Hernández" ng-model="contactQuery">
+            <div class="checkbox-label">
+                <checkbox type="checkbox" ng-model="filter['to_invite']"></checkbox>
+                <span class="checkbox-label-span">Prospecto</span>
+            </div>
+            <div class="checkbox-label">
+                <checkbox type="checkbox" ng-model="filter['contacted']"></checkbox>
+                <span class="checkbox-label-span">Invitado</span>
+            </div>
+            <div class="checkbox-label">
+                <checkbox type="checkbox" ng-model="filter['to_close']"></checkbox>
+                <span class="checkbox-label-span">Plan visto</span>
+            </div>
+            <div class="checkbox-label">
+                <checkbox type="checkbox" ng-model="filter['to_register']"></checkbox>
+                <span class="checkbox-label-span">Por inscribir</span>
+            </div>
+            <div class="checkbox-label">
+                <checkbox type="checkbox" ng-model="filter['registered']"></checkbox>
+                <span class="checkbox-label-span">Inscrito</span>
+            </div>
         </form>
 
         <div ng-show="isContactListEmpty() && !isAddingContact() && !isSelectedContact()" class="message-container">
@@ -18,7 +38,10 @@
                 <div class="actions">
                     <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>
                 </div>
-                <div ng-repeat="contact in contactList | filter:contactQuery | orderBy:['name']"  class="contact">
+                <div ng-show="!filteredContactList.length">
+                    No existen contactos que cumplan con esos filtros
+                </div>
+                <div ng-repeat="contact in (filteredContactList = (contactList | filter:filterByContactStatus | filter:contactQuery | orderBy:[sortByContactStatus, 'name']) )"  class="contact">
                     <div class="contact-profile">
                         <span us-spinner spinner-key="contact-spinner-{{contact.id}}"></span>
                         <div class="contact-image">
@@ -196,7 +219,7 @@
                     <div class="required-message" ng-show="newContactForm.$submitted || newContactForm.contactName.$touched">
                         <span ng-show="newContactForm.contactName.$error.required">El nombre de contacto es requerido.</span>
                     </div>
-                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="newContact.email" required>
+                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="newContact.email">
                     <div class="required-message" ng-show="newContactForm.$submitted || newContactForm.contactMail.$touched">
                         <span ng-show="newContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
                         <span ng-show="newContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
@@ -219,7 +242,7 @@
                     <div class="required-message" ng-show="editContactForm.$submitted || editContactForm.contactName.$touched">
                         <span ng-show="editContactForm.contactName.$error.required">El nombre de contacto es requerido.</span>
                     </div>
-                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email" required>
+                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email">
                     <div class="required-message" ng-show="editContactForm.$submitted || editContactForm.contactMail.$touched">
                         <span ng-show="editContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
                         <span ng-show="editContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
@@ -234,5 +257,30 @@
             </form>
         </div>
     </div>
+
+    <script type="text/ng-template" id="modal/mail_request_modal.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" ng-show="content">
+                        <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <form novalidate name="mailRequestForm" class="form" ng-submit="mailRequestForm.$valid && retryCompleteStep(selectedContact, CONTACT_STATUS.REGISTERED.code)" form-autofill-fix>
+                            <fieldset>
+                                <legend>Email de registro</legend>
+                                <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.requestedEmail" required>
+                                <div class="required-message" ng-show="mailRequestForm.$submitted || mailRequestForm.contactMail.$touched">
+                                    <span ng-show="mailRequestForm.contactMail.$error.required">El correo electrónico es requerido.</span>
+                                    <span ng-show="mailRequestForm.contactMail.$error.email">El correo electrónico no es válido.</span>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <button class="action-button-forgot">Registrar</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 
 </div>
