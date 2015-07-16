@@ -57,7 +57,7 @@
                         </div>
                         <div class="actions">
                             <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
-                            <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact(contact.id)"></span>
+                            <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="confirmDeleteContact(contact)"></span>
                         </div>
                     </div>
                     <div class="contact-progress">
@@ -262,7 +262,7 @@
         <div class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-body" ng-show="content">
+                    <div class="modal-body">
                         <button type="button" class="close" ng-click="$hide()">&times;</button>
                         <form novalidate name="mailRequestForm" class="form" ng-submit="mailRequestForm.$valid && retryCompleteStep(selectedContact, CONTACT_STATUS.REGISTERED.code)" form-autofill-fix>
                             <fieldset>
@@ -275,6 +275,27 @@
                             </fieldset>
                             <fieldset>
                                 <button class="action-button-forgot">Registrar</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="modal/confirm_delete_modal.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <form novalidate class="form" ng-submit="deleteContact(clickedContact.id)">
+                            <fieldset>
+                                <legend>¿Estás seguro que deseas eliminar?</legend>
+                            </fieldset>
+                            <fieldset>
+                                <button class="action-button-forgot">Eliminar</button>
+                                <input type="button" class="action-button-cancel" ng-click="$hide()" value="Cancelar" />
                             </fieldset>
                         </form>
                     </div>

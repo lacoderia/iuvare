@@ -191,7 +191,26 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         }
     };
 
+    $scope.$on('confirmDeleteModal.hide', function(){
+        $scope.clickedContact = undefined;
+    });
+
+    $scope.confirmDeleteContact = function(contact) {
+        $scope.clickedContact = contact;
+
+        $scope.confirmDeleteModal = $modal({
+            backdrop: true,
+            placement: 'center',
+            prefixEvent: 'confirmDeleteModal',
+            scope: $scope,
+            show: true,
+            templateUrl: 'modal/confirm_delete_modal.tpl.html'
+        });
+    };
+
     $scope.deleteContact = function (contactId) {
+        $scope.confirmDeleteModal.hide();
+
         $scope.startSpin('contact-spinner-' + contactId);
 
         ListService.deleteContact(contactId)
@@ -240,7 +259,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         $scope.selectedContact = contact;
     };
 
-    $scope.$on('modal.hide', function(){
+    $scope.$on('emailRequestModal.hide', function(){
         $scope.stopSpin('contact-spinner-' + $scope.selectedContact.id);
     });
 
@@ -272,14 +291,13 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
             } else {
                 $scope.stopSpin('contact-spinner-' + contact.id);
 
-                $scope.requestEmailModal = $modal({
-                    title: 'My Title',
-                    content: 'My Content',
-                    show: true,
-                    templateUrl: 'modal/mail_request_modal.tpl.html',
+                $scope.emailRequestModal = $modal({
                     backdrop: true,
+                    placement: 'center',
+                    prefixEvent: 'emailRequestModal',
                     scope: $scope,
-                    placement: 'center'
+                    show: true,
+                    templateUrl: 'modal/mail_request_modal.tpl.html'
                 });
             }
 
@@ -290,7 +308,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
     };
 
     $scope.retryCompleteStep = function(contact, status){
-        $scope.requestEmailModal.hide();
+        $scope.emailRequestModal.hide();
 
         $scope.startSpin('contact-spinner-' + contact.id);
 
