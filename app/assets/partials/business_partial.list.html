@@ -4,26 +4,6 @@
     <div ng-show="pageLoaded" class="section-content contact-container">
         <form class="form" ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
             <input type="text" placeholder="Busca un contacto: Ej. Jorge Hernández" ng-model="contactQuery">
-            <div class="checkbox-label">
-                <checkbox type="checkbox" ng-model="filter['to_invite']"></checkbox>
-                <span class="checkbox-label-span">Prospecto</span>
-            </div>
-            <div class="checkbox-label">
-                <checkbox type="checkbox" ng-model="filter['contacted']"></checkbox>
-                <span class="checkbox-label-span">Invitado</span>
-            </div>
-            <div class="checkbox-label">
-                <checkbox type="checkbox" ng-model="filter['to_close']"></checkbox>
-                <span class="checkbox-label-span">Plan visto</span>
-            </div>
-            <div class="checkbox-label">
-                <checkbox type="checkbox" ng-model="filter['to_register']"></checkbox>
-                <span class="checkbox-label-span">Por inscribir</span>
-            </div>
-            <div class="checkbox-label">
-                <checkbox type="checkbox" ng-model="filter['registered']"></checkbox>
-                <span class="checkbox-label-span">Inscrito</span>
-            </div>
         </form>
 
         <div ng-show="isContactListEmpty() && !isAddingContact() && !isSelectedContact()" class="message-container">
@@ -35,6 +15,28 @@
 
         <div ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
             <div class="contact-list">
+                <div class="contact-filters">
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['to_invite']" >
+                        <span class="checkbox-label-span">Prospecto</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['contacted']" >
+                        <span class="checkbox-label-span">Invitado</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['to_close']" >
+                        <span class="checkbox-label-span">Plan visto</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['to_register']" >
+                        <span class="checkbox-label-span">Por inscribir</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['registered']" >
+                        <span class="checkbox-label-span">Inscrito</span>
+                    </label>
+                </div>
                 <div class="actions">
                     <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>
                 </div>
