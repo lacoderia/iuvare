@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar socio" ng-click="showDownlineList()"></span>
-                        <span class="downline-action action-button-delete icon-circle-with-cross" title="Quitar socio" ng-click="detachDownline(downline)"></span>
+                        <span class="downline-action action-button-delete icon-circle-with-cross" title="Quitar socio" ng-click="confirmDetachDownline()"></span>
                     </div>
                 </div>
                 <div ng-if="!downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]">
@@ -107,4 +107,29 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal de confirmación de borrado de downline -->
+    <script type="text/ng-template" id="modal/cycle_confirm_delete_modal.tpl.html">
+        <div class="modal delete-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <h3>Remover socio de mi red directa</h3>
+                        <p>
+                            Esta acción no elimina al socio de la red, sólamente dejará de ser tu socio directo.
+                            <br><br>
+                            ¿Estás seguro que deseas remover a {{ currentDownline._firstName + " " + currentDownline._lastName }} de tu red directa?
+                        </p>
+                        <form novalidate class="form" ng-submit="detachDownline()">
+                            <fieldset class="actions-container">
+                                <button class="action-button action-button-delete-medium">Sí, remover</button>
+                                <input type="button" class="action-button action-button-cancel-medium" ng-click="$hide()" value="No, Cancelar" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 </div>

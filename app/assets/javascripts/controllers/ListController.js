@@ -1,6 +1,6 @@
 'use strict';
 
-iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetService", "AuthService", "InvitationService", "ListService", "SessionService", "DEFAULT_VALUES", function($scope, $log, $rootScope, AssetService, AuthService, InvitationService, ListService, SessionService, DEFAULT_VALUES){
+iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "AssetService", "AuthService", "InvitationService", "ListService", "SessionService", "DEFAULT_VALUES", function($scope, $log, $rootScope, $modal, AssetService, AuthService, InvitationService, ListService, SessionService, DEFAULT_VALUES){
 
     //Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
@@ -38,6 +38,34 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
     };
 
     var originalNewContact = angular.copy($scope.newContact);
+
+    $scope.filter = {
+        to_invite: false,
+        contacted: false,
+        to_close: false,
+        to_register: false,
+        registered: false
+    };
+
+    $scope.filterByContactStatus = function (contact) {
+        return $scope.filter[$scope.getContactStatus(contact.status).code] || noFilter($scope.filter);
+    };
+
+    function noFilter(filterObj) {
+        for (var key in filterObj) {
+            if (filterObj[key]) {
+                // There is at least one checkbox checked
+                return false;
+            }
+        }
+
+        // No checkbox was found to be checked
+        return true;
+    }
+
+    $scope.sortByContactStatus = function(contact) {
+        return $scope.getContactStatus(contact.status).order;
+    };
 
     // Method that toggles a goal's information form
     $scope.toggleContactInfo = function(contactItem){
@@ -163,7 +191,26 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         }
     };
 
+    $scope.$on('confirmDeleteModal.hide', function(){
+        $scope.clickedContact = undefined;
+    });
+
+    $scope.confirmDeleteContact = function(contact) {
+        $scope.clickedContact = contact;
+
+        $scope.confirmDeleteModal = $modal({
+            backdrop: true,
+            placement: 'center',
+            prefixEvent: 'confirmDeleteModal',
+            scope: $scope,
+            show: true,
+            templateUrl: 'modal/list_confirm_delete_modal.tpl.html'
+        });
+    };
+
     $scope.deleteContact = function (contactId) {
+        $scope.confirmDeleteModal.hide();
+
         $scope.startSpin('contact-spinner-' + contactId);
 
         ListService.deleteContact(contactId)
@@ -216,29 +263,84 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "AssetServi
         $scope.startSpin('contact-spinner-' + contact.id);
 
         if (status == $scope.CONTACT_STATUS.REGISTERED.code) {
-            var invitation = {
-                user_id: SessionService.$get().getId(),
-                recipient_name: contact.name,
-                recipient_email: contact.email
-            };
 
-            InvitationService.sendInvitation(invitation)
-                .success(function(data){
-                    if(data.success){
-                        $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
+            if (contact.email) {
+                var invitation = {
+                    user_id: SessionService.$get().getId(),
+                    recipient_name: contact.name,
+                    recipient_email: contact.email
+                };
 
-                        $scope.updateContactStatus(contact, status);
-                    }
-                })
-                .error(function(error){
-                    $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
-                    console.log(error.error);
-                    $scope.stopSpin('contact-spinner-' + contact.id);
+                InvitationService.sendInvitation(invitation)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
+
+                            $scope.updateContactStatus(contact, status);
+                        }
+                    })
+                    .error(function(error){
+                        $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
+                        console.log(error.error);
+                        $scope.stopSpin('contact-spinner-' + contact.id);
+                    });
+            } else {
+                $scope.stopSpin('contact-spinner-' + contact.id);
+
+                $scope.emailRequestModal = $modal({
+                    backdrop: true,
+                    placement: 'center',
+                    prefixEvent: 'emailRequestModal',
+                    scope: $scope,
+                    show: true,
+                    templateUrl: 'modal/mail_request_modal.tpl.html'
                 });
+            }
+
         } else {
             $scope.updateContactStatus(contact, status);
         }
 
+    };
+
+    $scope.retryCompleteStep = function(contact, status){
+        $scope.startSpin('contact-spinner-' + contact.id);
+
+        $scope.emailRequestModal.hide();
+
+        var contactCopy = angular.copy(contact);
+        contactCopy.email = contactCopy.requestedEmail;
+
+        var invitation = {
+            user_id: SessionService.$get().getId(),
+            recipient_name: contactCopy.name,
+            recipient_email: contactCopy.email
+        };
+
+        ListService.updateContact(contact)
+            .success(function(data){
+                if(data.success){
+                    $scope.contactList = angular.copy(ListService.contacts);
+
+                    InvitationService.sendInvitation(invitation)
+                        .success(function(data){
+                            if(data.success){
+                                $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
+
+                                contact.email = contact.requestedEmail;
+                                $scope.updateContactStatus(contact, status);
+                            }
+                        })
+                        .error(function(error){
+                            $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
+                            console.log(error.error);
+                            $scope.stopSpin('contact-spinner-' + contact.id);
+                        });
+                }
+            })
+            .error(function (error, status) {
+                $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
+            });
     };
 
     $scope.updateContactStatus = function(contact, status) {

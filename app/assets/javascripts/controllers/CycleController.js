@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "InvitationService", "NetworkService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AuthService, InvitationService, NetworkService, SessionService, DEFAULT_VALUES){
+iuvare.controller('CycleController', ["$scope", "$rootScope", "$modal", "AuthService", "InvitationService", "NetworkService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $modal, AuthService, InvitationService, NetworkService, SessionService, DEFAULT_VALUES){
 
     $scope.DOWNLINE_LENGTH_LIMIT = DEFAULT_VALUES.DOWNLINE_LENGTH_LIMIT;
 
@@ -94,14 +94,29 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "AuthService", "In
             });
     };
 
-    $scope.detachDownline = function(downline){
+    $scope.confirmDetachDownline = function() {
+        $scope.confirmDetachModal = $modal({
+            backdrop: true,
+            placement: 'center',
+            prefixEvent: 'confirmDetachModal',
+            scope: $scope,
+            show: true,
+            templateUrl: 'modal/cycle_confirm_delete_modal.tpl.html'
+        });
+    };
+
+    $scope.detachDownline = function(){
+        $scope.confirmDetachModal.hide();
+
         $scope.startSpin('container-spinner');
-        NetworkService.detachDownline(downline)
+
+        NetworkService.detachDownline($scope.currentDownline)
             .success(function(data){
                 if(data.success){
                     $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
-                    $scope.stopSpin('container-spinner');
+                    $scope.stopSpin('container-spinner')
+                    $scope.currentDownline = undefined;
                 }
             })
             .error(function(error){

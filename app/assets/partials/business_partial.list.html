@@ -2,7 +2,7 @@
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content contact-container">
-        <form class="form" ng-show="isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
+        <form class="form" ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
             <input type="text" placeholder="Busca un contacto: Ej. Jorge Hernández" ng-model="contactQuery">
         </form>
 
@@ -15,10 +15,35 @@
 
         <div ng-show="!isContactListEmpty() && !isAddingContact() && !isEditingContact() && !isSelectedContact()">
             <div class="contact-list">
-                <div class="actions">
+                <div class="contact-filters">
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['to_invite']" >
+                        <span class="checkbox-label-span">Prospecto</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['contacted']" >
+                        <span class="checkbox-label-span">Invitado</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['to_close']" >
+                        <span class="checkbox-label-span">Plan visto</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['to_register']" >
+                        <span class="checkbox-label-span">Por inscribir</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['registered']" >
+                        <span class="checkbox-label-span">Inscrito</span>
+                    </label>
+                </div>
+                <div class="contact-actions">
                     <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>
                 </div>
-                <div ng-repeat="contact in contactList | filter:contactQuery | orderBy:['name']"  class="contact">
+                <div ng-show="!filteredContactList.length">
+                    No existen contactos que cumplan con esos filtros
+                </div>
+                <div ng-repeat="contact in (filteredContactList = (contactList | filter:filterByContactStatus | filter:contactQuery | orderBy:[sortByContactStatus, 'name']) )"  class="contact">
                     <div class="contact-profile">
                         <span us-spinner spinner-key="contact-spinner-{{contact.id}}"></span>
                         <div class="contact-image">
@@ -34,7 +59,7 @@
                         </div>
                         <div class="actions">
                             <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
-                            <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="deleteContact(contact.id)"></span>
+                            <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="confirmDeleteContact(contact)"></span>
                         </div>
                     </div>
                     <div class="contact-progress">
@@ -196,7 +221,7 @@
                     <div class="required-message" ng-show="newContactForm.$submitted || newContactForm.contactName.$touched">
                         <span ng-show="newContactForm.contactName.$error.required">El nombre de contacto es requerido.</span>
                     </div>
-                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="newContact.email" required>
+                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="newContact.email">
                     <div class="required-message" ng-show="newContactForm.$submitted || newContactForm.contactMail.$touched">
                         <span ng-show="newContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
                         <span ng-show="newContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
@@ -219,7 +244,7 @@
                     <div class="required-message" ng-show="editContactForm.$submitted || editContactForm.contactName.$touched">
                         <span ng-show="editContactForm.contactName.$error.required">El nombre de contacto es requerido.</span>
                     </div>
-                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email" required>
+                    <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.email">
                     <div class="required-message" ng-show="editContactForm.$submitted || editContactForm.contactMail.$touched">
                         <span ng-show="editContactForm.contactMail.$error.required">El correo electrónico es requerido.</span>
                         <span ng-show="editContactForm.contactMail.$error.email">El correo electrónico no es válido.</span>
@@ -234,5 +259,57 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal de solicitud de correo electrónico de contacto -->
+    <script type="text/ng-template" id="modal/mail_request_modal.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <h3>Email de registro</h3>
+                        <p>
+                            Este contacto no tiene registrado un correo electrónico, por favor ingresa uno para poder enviarle la invitación de registro a tu prospecto.
+                        </p>
+                        <form novalidate name="mailRequestForm" class="form" ng-submit="mailRequestForm.$valid && retryCompleteStep(selectedContact, CONTACT_STATUS.REGISTERED.code)" form-autofill-fix>
+                            <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.requestedEmail" required>
+                            <div class="required-message" ng-show="mailRequestForm.$submitted || mailRequestForm.contactMail.$touched">
+                                <span ng-show="mailRequestForm.contactMail.$error.required">El correo electrónico es requerido.</span>
+                                <span ng-show="mailRequestForm.contactMail.$error.email">El correo electrónico no es válido.</span>
+                            </div>
+                            <fieldset class="actions-container">
+                                <button class="action-button-forgot">Registrar</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!-- Modal de confirmación de borrado de contacto -->
+    <script type="text/ng-template" id="modal/list_confirm_delete_modal.tpl.html">
+        <div class="modal delete-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <h3>Eliminar prospecto </h3>
+                        <p>
+                            Estás por eliminar un prospecto y no podrá ser recuperado una vez que confirmes esta acción.
+                            <br><br>
+                            ¿Estás seguro que deseas eliminar a {{ clickedContact.name }}?
+                        </p>
+                        <form novalidate class="form" ng-submit="deleteContact(clickedContact.id)">
+                            <fieldset class="actions-container">
+                                <button class="action-button action-button-delete-medium">Sí, eliminar</button>
+                                <input type="button" class="action-button action-button-cancel-medium" ng-click="$hide()" value="No, cancelar" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 
 </div>
