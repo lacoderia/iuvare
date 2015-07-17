@@ -116,6 +116,30 @@ h2.section-title
   text-transform: uppercase
   width: 100%
 
+.action-button-cancel-medium
+  background-color: $color_blue_fb
+  border: none
+  border-radius: 0
+  color: white
+  +rem(font-size, $medium-font)
+  font-weight: 400
+  +rem(padding, 0.6rem)
+  text-transform: uppercase
+  vertical-align: top
+  width: 48%
+
+.action-button-delete-medium
+  background-color: $color-red_1
+  border: none
+  border-radius: 0
+  color: white
+  +rem(font-size, $medium-font)
+  font-weight: 400
+  +rem(padding, 0.6rem)
+  vertical-align: top
+  text-transform: uppercase
+  width: 48%
+
 .alert
 
   outline: none
@@ -265,6 +289,27 @@ h2.section-title
       max-width: 630px
       width: 50%
       transform: translateX(-50%) translateY(-50%)
+
+  .modal-body
+    padding: 2rem 4rem
+
+    p
+      +rem(font-size, 1.6rem)
+      +rem(margin-top, 1rem)
+      font-weight: normal
+
+  .actions-container
+    font-size: 0
+    margin-top: 3rem
+    text-align: center
+
+  &.delete-modal
+
+    .action-button
+      margin-right: 4%
+
+      &:last-child
+        margin-right: 0
 
 .padding-container
   +rem(padding, 2rem)
