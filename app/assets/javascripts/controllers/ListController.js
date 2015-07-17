@@ -259,10 +259,6 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         $scope.selectedContact = contact;
     };
 
-    $scope.$on('emailRequestModal.hide', function(){
-        $scope.stopSpin('contact-spinner-' + $scope.selectedContact.id);
-    });
-
     $scope.completeStep = function(contact, status){
         $scope.startSpin('contact-spinner-' + contact.id);
 
@@ -308,28 +304,42 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
     };
 
     $scope.retryCompleteStep = function(contact, status){
+        $scope.startSpin('contact-spinner-' + contact.id);
+
         $scope.emailRequestModal.hide();
 
-        $scope.startSpin('contact-spinner-' + contact.id);
+        var contactCopy = angular.copy(contact);
+        contactCopy.email = contactCopy.requestedEmail;
 
         var invitation = {
             user_id: SessionService.$get().getId(),
-            recipient_name: contact.name,
-            recipient_email: contact.requestedEmail
+            recipient_name: contactCopy.name,
+            recipient_email: contactCopy.email
         };
 
-        InvitationService.sendInvitation(invitation)
+        ListService.updateContact(contact)
             .success(function(data){
                 if(data.success){
-                    $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
+                    $scope.contactList = angular.copy(ListService.contacts);
 
-                    $scope.updateContactStatus(contact, status);
+                    InvitationService.sendInvitation(invitation)
+                        .success(function(data){
+                            if(data.success){
+                                $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
+
+                                contact.email = contact.requestedEmail;
+                                $scope.updateContactStatus(contact, status);
+                            }
+                        })
+                        .error(function(error){
+                            $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
+                            console.log(error.error);
+                            $scope.stopSpin('contact-spinner-' + contact.id);
+                        });
                 }
             })
-            .error(function(error){
+            .error(function (error, status) {
                 $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
-                console.log(error.error);
-                $scope.stopSpin('contact-spinner-' + contact.id);
             });
     };
 
