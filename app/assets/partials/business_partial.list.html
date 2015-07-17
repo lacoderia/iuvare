@@ -267,16 +267,17 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <h3>Email de registro</h3>
+                        <p>
+                            Este contacto no tiene registrado un correo electrónico, por favor ingresa uno para poder enviarle la invitación de registro a tu prospecto.
+                        </p>
                         <form novalidate name="mailRequestForm" class="form" ng-submit="mailRequestForm.$valid && retryCompleteStep(selectedContact, CONTACT_STATUS.REGISTERED.code)" form-autofill-fix>
-                            <fieldset>
-                                <legend>Email de registro</legend>
-                                <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.requestedEmail" required>
-                                <div class="required-message" ng-show="mailRequestForm.$submitted || mailRequestForm.contactMail.$touched">
-                                    <span ng-show="mailRequestForm.contactMail.$error.required">El correo electrónico es requerido.</span>
-                                    <span ng-show="mailRequestForm.contactMail.$error.email">El correo electrónico no es válido.</span>
-                                </div>
-                            </fieldset>
-                            <fieldset>
+                            <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.requestedEmail" required>
+                            <div class="required-message" ng-show="mailRequestForm.$submitted || mailRequestForm.contactMail.$touched">
+                                <span ng-show="mailRequestForm.contactMail.$error.required">El correo electrónico es requerido.</span>
+                                <span ng-show="mailRequestForm.contactMail.$error.email">El correo electrónico no es válido.</span>
+                            </div>
+                            <fieldset class="actions-container">
                                 <button class="action-button-forgot">Registrar</button>
                             </fieldset>
                         </form>
@@ -288,18 +289,21 @@
 
     <!-- Modal de confirmación de borrado de contacto -->
     <script type="text/ng-template" id="modal/list_confirm_delete_modal.tpl.html">
-        <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal delete-modal" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <h3>Eliminar prospecto </h3>
+                        <p>
+                            Estás por eliminar un prospecto y no podrá ser recuperado una vez que confirmes esta acción.
+                            <br><br>
+                            ¿Estás seguro que deseas eliminar a {{ clickedContact.name }}?
+                        </p>
                         <form novalidate class="form" ng-submit="deleteContact(clickedContact.id)">
-                            <fieldset>
-                                <legend>¿Estás seguro que deseas eliminar?</legend>
-                            </fieldset>
-                            <fieldset>
-                                <button class="action-button-forgot">Eliminar</button>
-                                <input type="button" class="action-button-cancel" ng-click="$hide()" value="Cancelar" />
+                            <fieldset class="actions-container">
+                                <button class="action-button action-button-delete-medium">Sí, eliminar</button>
+                                <input type="button" class="action-button action-button-cancel-medium" ng-click="$hide()" value="No, cancelar" />
                             </fieldset>
                         </form>
                     </div>
