@@ -204,7 +204,7 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
             prefixEvent: 'confirmDeleteModal',
             scope: $scope,
             show: true,
-            templateUrl: 'modal/confirm_delete_modal.tpl.html'
+            templateUrl: 'modal/list_confirm_delete_modal.tpl.html'
         });
     };
 

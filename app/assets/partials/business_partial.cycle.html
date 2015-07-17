@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <span class="downline-action action-button-edit icon-swap-vert-circle" title="Cambiar socio" ng-click="showDownlineList()"></span>
-                        <span class="downline-action action-button-delete icon-circle-with-cross" title="Quitar socio" ng-click="detachDownline(downline)"></span>
+                        <span class="downline-action action-button-delete icon-circle-with-cross" title="Quitar socio" ng-click="confirmDetachDownline()"></span>
                     </div>
                 </div>
                 <div ng-if="!downline.getId()" class="downline" ng-class="{ true: 'selected' }[isCurrentDownline(downline)]">
@@ -107,4 +107,26 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal de confirmación de borrado de downline -->
+    <script type="text/ng-template" id="modal/cycle_confirm_delete_modal.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" ng-click="$hide()">&times;</button>
+                        <form novalidate class="form" ng-submit="detachDownline()">
+                            <fieldset>
+                                <legend>¿Estás seguro que deseas desasignar al socio?</legend>
+                            </fieldset>
+                            <fieldset>
+                                <button class="action-button-forgot">Desasignar</button>
+                                <input type="button" class="action-button-cancel" ng-click="$hide()" value="Cancelar" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 </div>
