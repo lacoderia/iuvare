@@ -46,12 +46,12 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' }
             ]
         },
-        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
+        { order: 3, code: 'PROFILE', title: 'Mi perfil', state: 'profile.why',
             subsections: [
-                { order:1, code: 'WHY', title: 'Mis metas', state: 'profile.why', icon: 'icon-flag-checkered' },
+                { order:1, code: 'WHY', title: 'Metas', state: 'profile.why', icon: 'icon-flag-checkered' },
                 { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage', icon: 'icon-pictures' },
                 { order:3, code: 'TEST', title: 'Test de personalidad', state: 'profile.test', icon: 'icon-chart' },
-                { order:4, code: 'PROFILE', title: 'Mis datos', state: 'profile.profile', icon: 'icon-profile' }
+                { order:4, code: 'PROFILE', title: 'Datos personales', state: 'profile.profile', icon: 'icon-profile' }
             ]
         },
         { order: 3, code: 'FAQ', title: 'FAQ', state: 'FAQ',
