@@ -217,7 +217,7 @@ iuvare.constant('DEFAULT_VALUES',{
         GREEN: {
             desc: 'Verde',
             class: 'green',
-            recommended: [{title: 'Una magnifica opción ante la crisis', material_location: 'Factor x'}],
+            recommended: [{title: 'Una magnífica opción ante la crisis', material_location: 'Factor x'}],
             traits: ['Se prepara con anticipación',
                 'Organizado y puntual',
                 'Sistemático y disciplinado sobre todo con el tiempo',
