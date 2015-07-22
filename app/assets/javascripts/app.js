@@ -46,7 +46,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' }
             ]
         },
-        { order: 3, code: 'PROFILE', title: 'Mi perfil', state: 'profile.why',
+        { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
             subsections: [
                 { order:1, code: 'WHY', title: 'Metas', state: 'profile.why', icon: 'icon-flag-checkered' },
                 { order:2, code: 'COLLAGE', title: 'Collage', state: 'profile.collage', icon: 'icon-pictures' },
