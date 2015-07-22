@@ -175,7 +175,7 @@ pt_q27_answer_3 = Answer.create(question: pt_twentyseventh_question, text: "Plan
 pt_q27_answer_4 = Answer.create(question: pt_twentyseventh_question, text: "Paciente", answer_type: "blue")
 
 pt_twentyeighth_question = Question.create(test: personality_test, text: "")
-pt_q28_answer_1 = Answer.create(question: pt_twentyeighth_question, text: "Espontaneo", answer_type: "red")
+pt_q28_answer_1 = Answer.create(question: pt_twentyeighth_question, text: "Espontáneo", answer_type: "red")
 pt_q28_answer_2 = Answer.create(question: pt_twentyeighth_question, text: "Seguro", answer_type: "yellow")
 pt_q28_answer_3 = Answer.create(question: pt_twentyeighth_question, text: "Organizado", answer_type: "green")
 pt_q28_answer_4 = Answer.create(question: pt_twentyeighth_question, text: "Tímido", answer_type: "blue")
@@ -187,7 +187,7 @@ pt_q29_answer_3 = Answer.create(question: pt_twentyninth_question, text: "Ordena
 pt_q29_answer_4 = Answer.create(question: pt_twentyninth_question, text: "Servicial", answer_type: "blue")
 
 pt_thirtieth_question = Question.create(test: personality_test, text: "")
-pt_q30_answer_1 = Answer.create(question: pt_thirtieth_question, text: "Simpatico", answer_type: "red")
+pt_q30_answer_1 = Answer.create(question: pt_thirtieth_question, text: "Simpático", answer_type: "red")
 pt_q30_answer_2 = Answer.create(question: pt_thirtieth_question, text: "Enérgico", answer_type: "yellow")
 pt_q30_answer_3 = Answer.create(question: pt_thirtieth_question, text: "Fiel", answer_type: "green")
 pt_q30_answer_4 = Answer.create(question: pt_thirtieth_question, text: "Amistoso", answer_type: "blue")
