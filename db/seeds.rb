@@ -661,3 +661,4 @@ sede_5 = Office.create(name: "Querétaro", address: "Ejército Republicano 139 I
 sede_7 = Office.create(name: "México - Corporativo", address: "Corporativo Nápoles Av. Insurgentes Sur 863 Piso 1 Col. Nápoles", latitude: "19.3881774", longitude: "-99.1748896", description: "", schedule: "Plan: Martes y Jueves 10:00am")
 sede_8 = Office.create(name: "Tepic", address: "Prisciliano Sánchez 232. Colonia San Antonio", latitude: "21.501437", longitude: "-104.89028", description: "", schedule: "Plan: Lunes a Viernes 8:00pm")
 #sede_9 = Office.create(name: "Pto. Vallarta", address: "Plaza Marina Local D-11, en Marina Vallarta", latitude: "20.672099", longitude: "-105.251222", description: "", schedule: "Plan: Lunes a Viernes 10:30am y 8:00pm")
+sede_10 = Office.create(name: "León", address: "Blvd. San Pedro 310 Col. San Isidro", latitude: "21.100674", longitude: "-101.6462318", description: "", schedule: "Plan: miércoles 7pm (los demás días con video del plan)")

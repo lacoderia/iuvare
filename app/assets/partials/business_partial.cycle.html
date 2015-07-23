@@ -115,11 +115,11 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" ng-click="$hide()">&times;</button>
-                        <h3>Remover socio de mi red directa</h3>
+                        <h3>Quitar socio</h3>
                         <p>
-                            Esta acción no elimina al socio de la red, sólamente dejará de ser tu socio directo.
+                            Esta acción no elimina al socio de la red, sólamente no aparecerá dentro de tus 4 principales.
                             <br><br>
-                            ¿Estás seguro que deseas remover a {{ currentDownline._firstName + " " + currentDownline._lastName }} ?
+                            ¿Estás seguro que deseas quitar a {{ currentDownline._firstName + " " + currentDownline._lastName }} ?
                         </p>
                         <form novalidate class="form" ng-submit="detachDownline()">
                             <fieldset class="actions-container">
