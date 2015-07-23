@@ -67,6 +67,13 @@ class User < ActiveRecord::Base
     result[:to_close] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out', 'contacted')").count
     result[:to_register] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out', 'contacted', 'to_close')").count
     result[:registered] = self.contacts.where(status: "registered").count
+
+    # Without cumulative addition
+    #result[:to_invite] = self.contacts.where(status: 'to_invite').count
+    #result[:contacted] = self.contacts.where(status: 'contacted').count
+    #result[:to_close] = self.contacts.where(status: 'to_close').count
+    #result[:to_register] = self.contacts.where(status: 'to_register').count    
+    #result[:registered] = self.contacts.where(status: 'registered').count
     return result
   end
 
