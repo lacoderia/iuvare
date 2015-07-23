@@ -80,24 +80,24 @@ feature 'UsersController' do
         visit "#{progress_users_path}.json"
         response = JSON.parse(page.body)
         funnel = response['result']
-        expect(funnel["to_invite"]).to eql 12
-        expect(funnel["contacted"]).to eql 8
-        expect(funnel["to_close"]).to eql 6
-        expect(funnel["to_register"]).to eql 4
+        expect(funnel["to_invite"]).to eql 2 
+        expect(funnel["contacted"]).to eql 2
+        expect(funnel["to_close"]).to eql 2
+        expect(funnel["to_register"]).to eql 2
         expect(funnel["registered"]).to eql 2
 
         contact_3.rule_out!
         contact_4.watch_video!
         contact_8.register!
-        contact_12.start_over! #no hace nada
+        contact_12.start_over!
 
         visit "#{progress_users_path}.json"
         response = JSON.parse(page.body)
         funnel = response['result']
-        expect(funnel["to_invite"]).to eql 12
-        expect(funnel["contacted"]).to eql 7
-        expect(funnel["to_close"]).to eql 7
-        expect(funnel["to_register"]).to eql 4
+        expect(funnel["to_invite"]).to eql 3
+        expect(funnel["contacted"]).to eql 0
+        expect(funnel["to_close"]).to eql 3
+        expect(funnel["to_register"]).to eql 1
         expect(funnel["registered"]).to eql 3
         
       end

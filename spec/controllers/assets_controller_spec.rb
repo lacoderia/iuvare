@@ -1,8 +1,8 @@
 feature 'AssetsController' do
-  let!(:test){ create(:test, name: "Prueba test") }
-  let!(:asset){ create(:asset, title: "Search Title", test: test) }
-  let!(:other_asset){ create(:asset) }
-  let!(:user){ create(:user) }
+  let!(:test){create(:test, name: "Prueba test")}
+  let!(:asset){create(:asset, title: "Search Title", test: test)}
+  let!(:other_asset){create(:asset)}
+  let!(:user){create(:user)}
   
   describe 'asset associations' do
 
@@ -19,10 +19,10 @@ feature 'AssetsController' do
 
         assets = response['result']['assets']
         expect(assets.count).to eql 2
-        expect(assets.first['id']).to eql asset.id
-        expect(assets.first['test']['name']).to eql "Prueba test"
-        expect(assets.last['id']).to eql other_asset.id
-        expect(assets.last['test']).to be nil
+        expect(assets.first['id']).to eql other_asset.id
+        expect(assets.first['test']).to be nil
+        expect(assets.last['id']).to eql asset.id
+        expect(assets.last['test']['name']).to eql "Prueba test"
       end
       
       it 'responds with empty resultset' do
@@ -39,8 +39,8 @@ feature 'AssetsController' do
 
     context 'by_keyword_and_asset_type' do
 
-      let!(:asset_description){ create(:asset, description: "Search DESCRIPTION") }
-      let!(:asset_author){ create(:asset, author: "Search author") }
+      let!(:asset_description){create(:asset, description: "Search DESCRIPTION")}
+      let!(:asset_author){create(:asset, author: "Search author")}
     
       it 'has correct associations' do
         login_with_service u = { email: user.email, password: '12345678' }

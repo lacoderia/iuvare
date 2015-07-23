@@ -16,7 +16,7 @@ class Asset < ActiveRecord::Base
   validates :asset_type, inclusion: {in: TYPES.map{ |pairs| pairs[0] } }
 
   scope :by_asset_type, -> (asset_type){where(asset_type: asset_type).order(updated_at: :desc)}
-  scope :by_keyword, -> (keyword){where("lower(title) like '%#{keyword}%' OR lower(description) like '%#{keyword}%' OR lower(author) like '%#{keyword}%'").(updated_at: :desc)}
+  scope :by_keyword, -> (keyword){where("lower(title) like '%#{keyword}%' OR lower(description) like '%#{keyword}%' OR lower(author) like '%#{keyword}%'")}
 
   def self.stream_file asset_type, source
 
