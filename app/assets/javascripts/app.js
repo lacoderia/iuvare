@@ -503,6 +503,11 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
 
 iuvare.run(function ($rootScope, $state, $log, SessionService) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+
+        if ($rootScope.alert) {
+            $rootScope.alert.hide();
+        }
+
         if(toState.data && toState.data.checkPayment){
             if(SessionService.$get().getAccessLevel() && !SessionService.$get().getAccessLevel().valid_account){
                 $state.go('payment');
