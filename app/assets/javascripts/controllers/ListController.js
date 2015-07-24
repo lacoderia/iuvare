@@ -350,6 +350,15 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         $scope.selectedInvitationOption = undefined;
     };
 
+    $scope.backToContactListView = function(){
+        $scope.showContactListView();
+
+        $scope.contactList = [];
+        $scope.plans = [];
+        $scope.planDropdown = [];
+        $scope.initController();
+    };
+
     $scope.showButton = function(contact, action){
 
         var showButton = true;
@@ -372,10 +381,10 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
     $scope.initController = function(){
 
         $scope.$emit('setCurrentSection');
-
         $scope.sectionTitle = $scope.currentSubsection.title;
 
         $scope.startSpin('container-spinner');
+        $scope.pageLoaded = false;
 
         ListService.getContactList()
             .success(function(data){
