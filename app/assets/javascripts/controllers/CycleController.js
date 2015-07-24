@@ -85,6 +85,23 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "$modal", "AuthSer
                 if(data.success){
                     $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
+
+                    var successMessage = "";
+                    switch($scope.downlinesNetworkList.length){
+                        case 1:
+                            successMessage = "¡Felicidades por tu primer socio, sigue adelante!";
+                            break;
+                        case 2:
+                            successMessage = "¡Felicidades por tu segundo socio, sigue así!";
+                            break;
+                        case 3:
+                            successMessage = "¡Felicidades por tu tercer socio, ya casi lo logras!";
+                            break;
+                        case 4:
+                            successMessage = "¡Felicidades por tu cuarto socio, lo lograste!";
+                            break;
+                    }
+                    $scope.showAlert(successMessage, 'success', false);
                     $scope.stopSpin('container-spinner');
                 }
             })
