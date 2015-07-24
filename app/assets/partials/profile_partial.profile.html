@@ -14,7 +14,7 @@
             <a class="action-button-purple size-medium" ng-click="openProfilePictureSelector($event)">Seleccionar imagen</a>
             <input type='file' accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
-        <form novalidate name="profileForm" class="form" ng-submit="updateProfile()">
+        <form novalidate name="profileForm" class="form" ng-submit="updateProfile()" form-autofill-fix>
             <fieldset>
                 <label>Nombre(s)</label>
                 <input type="text" placeholder="Nombre(s)" name="profileFirstName" ng-model="currentUser.name" required>

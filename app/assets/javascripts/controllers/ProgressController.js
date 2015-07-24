@@ -35,7 +35,9 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
         "allLabels": [],
         "balloon": {},
         "titles": [],
-        "dataProvider": []
+        "dataProvider": [],
+        angle: 30,
+        depth3D: 40
     };
 
     // Method to init the controller's default state
@@ -52,7 +54,7 @@ iuvare.controller('ProgressController', ["$scope", "$rootScope", "ProgressServic
                     funnelOptions.dataProvider = ProgressService.funnelData;
 
                     var chart = AmCharts.makeChart('chartdiv', funnelOptions, 500);
-                    chart.addListener('rendered', function(){
+                    chart.addListener('drawn', function(){
                         $('.amcharts-chart-div').find('a').hide();
                     });
 

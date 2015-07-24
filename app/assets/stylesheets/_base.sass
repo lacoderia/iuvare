@@ -203,6 +203,13 @@ h2.section-title
     +rem(padding, 0 2rem)
     width: 100%
 
+  input:read-only
+    background-color: transparent
+    height: auto !important
+
+    @media screen and (min-width: $screen-sm-max)
+      height: 50px
+
   .dropdown
     height: 50px
     width: 100%
