@@ -27,10 +27,15 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
         AuthService.logout();
     };
 
+    $rootScope.alert = undefined;
     $scope.showAlert = function(content, type, duration){
         if (duration === undefined) duration = 7;
 
-        $alert({
+        if ($rootScope.alert) {
+            $rootScope.alert.hide();
+        }
+
+        $rootScope.alert = $alert({
             animation: 'am-fade-and-slide-top',
             container: 'body',
             content: content,
