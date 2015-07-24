@@ -44,7 +44,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         contacted: false,
         to_close: false,
         to_register: false,
-        registered: false
+        registered: false,
+        ruled_out: false
     };
 
     $scope.filterByContactStatus = function (contact) {
@@ -264,38 +265,18 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
 
         if (status == $scope.CONTACT_STATUS.REGISTERED.code) {
 
-            if (contact.email) {
-                var invitation = {
-                    user_id: SessionService.$get().getId(),
-                    recipient_name: contact.name,
-                    recipient_email: contact.email
-                };
+            $scope.stopSpin('contact-spinner-' + contact.id);
 
-                InvitationService.sendInvitation(invitation)
-                    .success(function(data){
-                        if(data.success){
-                            $scope.showAlert('Se envió un correo al socio con las instrucciones para ingresar.', 'success', false);
+            $scope.selectedContact.requestedEmail = contact.email;
 
-                            $scope.updateContactStatus(contact, status);
-                        }
-                    })
-                    .error(function(error){
-                        $scope.showAlert('Ocurrió un error al enviar el correo al socio con las instrucciones para ingresar. Intenta nuevamente.', 'danger', false);
-                        console.log(error.error);
-                        $scope.stopSpin('contact-spinner-' + contact.id);
-                    });
-            } else {
-                $scope.stopSpin('contact-spinner-' + contact.id);
-
-                $scope.emailRequestModal = $modal({
-                    backdrop: true,
-                    placement: 'center',
-                    prefixEvent: 'emailRequestModal',
-                    scope: $scope,
-                    show: true,
-                    templateUrl: 'modal/mail_request_modal.tpl.html'
-                });
-            }
+            $scope.emailRequestModal = $modal({
+                backdrop: true,
+                placement: 'center',
+                prefixEvent: 'emailRequestModal',
+                scope: $scope,
+                show: true,
+                templateUrl: 'modal/mail_request_modal.tpl.html'
+            });
 
         } else {
             $scope.updateContactStatus(contact, status);
@@ -369,6 +350,15 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         $scope.selectedInvitationOption = undefined;
     };
 
+    $scope.backToContactListView = function(){
+        $scope.showContactListView();
+
+        $scope.contactList = [];
+        $scope.plans = [];
+        $scope.planDropdown = [];
+        $scope.initController();
+    };
+
     $scope.showButton = function(contact, action){
 
         var showButton = true;
@@ -391,10 +381,10 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
     $scope.initController = function(){
 
         $scope.$emit('setCurrentSection');
-
         $scope.sectionTitle = $scope.currentSubsection.title;
 
         $scope.startSpin('container-spinner');
+        $scope.pageLoaded = false;
 
         ListService.getContactList()
             .success(function(data){

@@ -36,6 +36,10 @@
                         <input type="checkbox" ng-model="filter['registered']" >
                         <span class="checkbox-label-span">Inscrito</span>
                     </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" ng-model="filter['ruled_out']" >
+                        <span class="checkbox-label-span">En seguimiento</span>
+                    </label>
                 </div>
                 <div class="contact-actions">
                     <a class="action-button-purple size-medium" title="Agregar un nuevo contacto" ng-click="createContact()">Agregar nuevo contacto</a>
@@ -208,13 +212,13 @@
 
             <form>
                 <fieldset>
-                    <input type="button" class="action-button-cancel" ng-click="showContactListView()" value="Regresar a la lista" />
+                    <input type="button" class="action-button-cancel" ng-click="backToContactListView()" value="Regresar a la lista" />
                 </fieldset>
             </form>
         </div>
 
         <div class="contact-form" ng-show="isAddingContact() && !isEditingContact()">
-            <form novalidate name="newContactForm" class="form" ng-submit="saveContact()">
+            <form novalidate name="newContactForm" class="form" ng-submit="saveContact()" form-autofill-fix>
                 <fieldset>
                     <legend>Agregar contacto</legend>
                     <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="newContact.name" required>
@@ -237,7 +241,7 @@
         </div>
 
         <div class="contact-form" ng-show="!isAddingContact() && isEditingContact()">
-            <form novalidate name="editContactForm" class="form" ng-submit="updateContact()">
+            <form novalidate name="editContactForm" class="form" ng-submit="updateContact()" form-autofill-fix>
                 <fieldset>
                     <legend>Editar contacto</legend>
                     <input type="text" placeholder="Nombre de contacto" name="contactName" ng-model="selectedContact.name" required>
@@ -268,11 +272,14 @@
                     <div class="modal-body">
                         <button type="button" class="close" ng-click="$hide()">&times;</button>
                         <h3>Email de registro</h3>
-                        <p>
+                        <p ng-show="!selectedContact.email">
                             Este contacto no tiene registrado un correo electrónico, por favor ingresa uno para poder enviarle la invitación de registro a tu prospecto.
                         </p>
+                        <p ng-show="selectedContact.email">
+                            Se le enviará un email a tu prospecto para que se registre en iuvare.mx a la siguiente dirección:
+                        </p>
                         <form novalidate name="mailRequestForm" class="form" ng-submit="mailRequestForm.$valid && retryCompleteStep(selectedContact, CONTACT_STATUS.REGISTERED.code)" form-autofill-fix>
-                            <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.requestedEmail" required>
+                            <input type="email" placeholder="Correo electrónico" name="contactMail" ng-model="selectedContact.requestedEmail" ng-readonly="selectedContact.email" required>
                             <div class="required-message" ng-show="mailRequestForm.$submitted || mailRequestForm.contactMail.$touched">
                                 <span ng-show="mailRequestForm.contactMail.$error.required">El correo electrónico es requerido.</span>
                                 <span ng-show="mailRequestForm.contactMail.$error.email">El correo electrónico no es válido.</span>
