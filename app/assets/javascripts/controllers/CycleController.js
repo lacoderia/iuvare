@@ -38,6 +38,16 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "$modal", "AuthSer
         red: '#B2002F'
     };
 
+    var getListLength = function(list){
+        var length = 0;
+        angular.forEach(list, function(item){
+            if(Object.keys(item).length > 0){
+                length++;
+            }
+        });
+        return length;
+    };
+
     $scope.resetChartData = function () {
         $scope.dataChart = {
             labels: [],
@@ -83,11 +93,13 @@ iuvare.controller('CycleController', ["$scope", "$rootScope", "$modal", "AuthSer
         NetworkService.attachDownline(downline, downlinePosition)
             .success(function(data){
                 if(data.success){
+
                     $scope.downlinesNetworkList = angular.copy(NetworkService.downlinesNetworkList);
                     $scope.downlinesList = angular.copy(NetworkService.downlinesList);
 
                     var successMessage = "";
-                    switch($scope.downlinesNetworkList.length){
+
+                    switch(getListLength($scope.downlinesList)){
                         case 1:
                             successMessage = "¡Felicidades por tu primer socio, sigue adelante!";
                             break;
