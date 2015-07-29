@@ -641,6 +641,9 @@ asset_99 = Asset.create(title: "Seminario marzo 2012 pt2", description: "Seminar
 asset_100 = Asset.create(title: "El precio del éxito no es negociable", description: "Liza Cortés El precio del éxito no es negociable", author: "Liza Cortes", source: "seminar_Liza_Cortes_El_precio_del_exito_no_es_negociable", asset_type: "seminar")
 asset_101 = Asset.create(title: "AMG", description: "Astrid de Esesarte y Leo Ayala AMG septiembre 2014", author: "Astrid y Leo", source: "seminar_Astrid_y_Leo_AMG", asset_type: "seminar")
 asset_102 = Asset.create(title: "Historia", description: "Astrid de Esesarte y Leo Ayala cuentan su historia septiembre 2014", author: "Astrid y Leo", source: "seminar_Astrid_y_Leo_Historia", asset_type: "seminar")
+asset_102_01 = Asset.create(title: "La vida es una fiesta", description: "Seminario de Marina Buzali", author: "Marina Buzali", source: "seminar_Marina_Buzali_La_vida_es_una_fiesta", asset_type: "seminar")
+asset_102_02 = Asset.create(title: "Hecho en IUVARE", description: "Seminario de Israel Galván", author: "Israel Galván", source: "seminar_Israel_Galvan_Hecho_en_iuvare", asset_type: "seminar")
+
 #asset_type = plan
 asset_103 = Asset.create(title: "Plan Jorge Arzamendi", description:"Plan de negocios presentado por Jorge Arzamendi", author:"Jorge Arzamendi", source: "plan_Jorge_Arzamendi_Plan_Jorge_Arzamendi", asset_type: "plan", test_id: test_plan.id)
 asset_104 = Asset.create(title: "Plan Jorge Arzamendi Colombia", description:"Plan de negocios para Colombia presentado por Jorge Arzamendi", author:"Jorge Arzamendi", source: "plan_Jorge_Arzamendi_Plan_Jorge_Arzamendi_Colombia", asset_type: "plan", test_id: test_plan.id)

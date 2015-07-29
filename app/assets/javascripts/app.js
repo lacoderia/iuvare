@@ -134,7 +134,7 @@ iuvare.constant('DEFAULT_VALUES',{
         YELLOW: {
             desc: 'Amarillo',
             class: 'yellow',
-            recommended: [{title: 'Nuevos profesionales de network marketing', material_location: 'Factor x'}],
+            recommended: [{title: 'Entre el arroyo y la piedra', material_location: 'La cornada del león'}],
             traits: ['Se afectan cuando existe presión',
                 'Impaciente e impulsivo',
                 'Intenta dominar al tener contacto y es directo',
@@ -157,7 +157,7 @@ iuvare.constant('DEFAULT_VALUES',{
         BLUE: {
             desc: 'Azul',
             class: 'blue',
-            recommended: [{title: 'Sé el dueño de tu vida', material_location: 'Factor x'}],
+            recommended: [{title: 'Enfrenta tus miedos', material_location: 'Creando restricción'}],
             traits: ['Metódico y organizado',
                 'Apariencia de sofisticación',
                 'Preocupado por la seguridad',
@@ -185,7 +185,7 @@ iuvare.constant('DEFAULT_VALUES',{
         RED: {
             desc: 'Rojo',
             class: 'red',
-            recommended: [{title: 'Placer y Dolor', material_location: 'Factor x'}],
+            recommended: [{title: 'Tu manera de ver las cosas hace que las cosas cambien', material_location: 'Lo grande que puedes llegar a ser'}],
             traits: ['Entusiasta y amigable',
                 'Frecuentemente desatento a los detalles',
                 'Positivo y verbal',
@@ -217,7 +217,7 @@ iuvare.constant('DEFAULT_VALUES',{
         GREEN: {
             desc: 'Verde',
             class: 'green',
-            recommended: [{title: 'Una magnífica opción ante la crisis', material_location: 'Factor x'}],
+            recommended: [{title: 'Libre al fin!', material_location: 'Líderes del Network Marketing}],
             traits: ['Se prepara con anticipación',
                 'Organizado y puntual',
                 'Sistemático y disciplinado sobre todo con el tiempo',
