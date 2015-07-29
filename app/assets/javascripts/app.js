@@ -217,7 +217,7 @@ iuvare.constant('DEFAULT_VALUES',{
         GREEN: {
             desc: 'Verde',
             class: 'green',
-            recommended: [{title: 'Libre al fin!', material_location: 'Líderes del Network Marketing}],
+            recommended: [{title: 'Libre al fin!', material_location: 'Líderes del Network Marketing'}],
             traits: ['Se prepara con anticipación',
                 'Organizado y puntual',
                 'Sistemático y disciplinado sobre todo con el tiempo',
