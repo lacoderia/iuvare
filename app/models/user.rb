@@ -129,7 +129,8 @@ class User < ActiveRecord::Base
         end
       else
         result[:valid_account] = true  
-        result[:message] = "Acceso por dos meses gratis."
+        #TODO: Cambiar no solo el mensaje
+        result[:message] = "Acceso gratis."
       end
 
     end
