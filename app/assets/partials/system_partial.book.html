@@ -1,4 +1,4 @@
-<div ng-controller="AudioController as audioCtrl">
+<div ng-controller="BookController as bookCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content audio-container">
@@ -7,7 +7,7 @@
         </form>
 
         <div ng-show="!areAssetsAvailable()" class="message-container">
-            <p class="message">No hay audios disponibles</p>
+            <p class="message">No hay libros disponibles</p>
         </div>
 
         <!-- Listado de assets  -->

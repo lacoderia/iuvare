@@ -41,3 +41,20 @@
 
     &:hover
       background-color: $color_gray_3
+
+.asset-section-title
+  +rem(font-size, 2rem)
+  font-weight: bold
+
+.latest-assets
+  +rem(margin, 4rem 0)
+
+  .latest-asset-container
+    max-height: 400px
+    text-align: center
+
+    img
+      height: 300px
+      cursor: pointer
+      object-fit: contain
+      width: 100%

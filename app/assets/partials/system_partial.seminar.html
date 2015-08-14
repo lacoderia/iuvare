@@ -10,8 +10,17 @@
             <p class="message">No hay seminarios disponibles</p>
         </div>
 
+        <!-- Listado de nuevos assets o assets destacados -->
+        <div  class="latest-assets" ng-show="areAssetsAvailable() && isThereNextEvent()">
+            <h3 class="asset-section-title">Próximos seminarios</h3>
+            <div class="latest-asset-container">
+                <img src="/assets/seminario_iuvare_2015_08.jpeg" alt="Seminario Agosto 2015" ng-click="openEventPopUp(event)">
+            </div>
+        </div>
+
         <!-- Listado de assets  -->
         <div ng-show="areAssetsAvailable()">
+            <h3 class="asset-section-title">Seminarios anteriores</h3>
             <div class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
                     <div ng-click="toggleAssetInfo(asset)">

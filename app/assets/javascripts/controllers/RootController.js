@@ -63,6 +63,21 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
         $window.scrollTo(0,0);
     };
 
+    $rootScope.openEventPopUp = function(event){
+        $('<img/>')
+            .attr("src", event.picture)
+            .load(function() {
+                $('.event-popup').attr('src', event.picture);
+
+                $(".event-popup").fancybox({
+                    'content': '<img src="' + event.picture + '" alt="" />',
+                    'showCloseButton': true
+                }).trigger('click');
+            })
+            .error(function() {
+            });
+    };
+
     $scope.isPublicView = function(){
         return $state.current.authenticationRequired;
     };

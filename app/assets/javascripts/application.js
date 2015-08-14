@@ -67,6 +67,7 @@
 // Controllers
 //= require controllers/RootController
 //= require controllers/AudioController
+//= require controllers/BookController
 //= require controllers/ConventionController
 //= require controllers/CollageController
 //= require controllers/CycleController

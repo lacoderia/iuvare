@@ -1,18 +1,16 @@
 'use strict';
 
-iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AssetService, AuthService, SessionService, DEFAULT_VALUES){
+iuvare.controller('BookController', ["$scope", "$rootScope", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AssetService, AuthService, SessionService, DEFAULT_VALUES){
 
     // Private variables
-    var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.SEMINAR;
-    var playlable = true;
+    var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.BOOK;
 
-    // Public variables
+    //Public variables
     $scope.pageLoaded = false;
 
     $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
-    $scope.event = undefined;
 
     $scope.areAssetsAvailable = function(){
         return ($scope.assetList.length)? true : false;
@@ -31,14 +29,6 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
 
     };
 
-    $scope.isThereNextEvent = function(){
-        return ($scope.event)? true : false;
-    };
-
-    $scope.isPlaylable = function () {
-        return playlable;
-    };
-
     // Method to init the controller's default state
     $scope.initController = function(){
 
@@ -47,10 +37,6 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
         $scope.sectionTitle = $scope.currentSubsection.title;
 
         $scope.startSpin('container-spinner');
-
-        $scope.event = {
-            picture: '/assets/seminario_iuvare_2015_08.jpeg'
-        };
 
         AssetService.getAssetsByType(ASSET_TYPE)
             .success(function(data){
@@ -61,8 +47,8 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
                 }
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger', false);
-                console.log('Ocurrió un error al obtener los seminarios.');
+                $scope.showAlert('Ocurrió un error al obtener los libros.', 'danger', false);
+                console.log('Ocurrió un error al obtener los libros.');
             });
     };
 

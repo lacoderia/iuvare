@@ -135,6 +135,7 @@ Rails.application.routes.draw do
   get "sistema/convenciones", :to => "display#index"
   get "sistema/capacitaciones", :to => "display#index"
   get "sistema/documentos", :to => "display#index"
+  get "sistema/libros", :to => "display#index"
   get "perfil", :to => "display#index"
   get "perfil/mis-metas", :to => "display#index"
   get "perfil/collage", :to => "display#index"
