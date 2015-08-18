@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}
   
   FREE_MONTHS = 1
-  LAUNCHING_DATE = Time.zone.local(2015,8,1,0)
+  LAUNCHING_DATE = Time.zone.local(2015,9,1,0)
 
   def role?(role)
     return !!self.roles.find_by_name(role)
