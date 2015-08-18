@@ -2,17 +2,33 @@
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content convention-container">
-        <form class="form">
-            <input type="text" placeholder="Busca en convenciones: Ej. Estela Salinas" ng-model="assetQuery">
-        </form>
 
-        <div ng-show="!areAssetsAvailable()" class="message-container">
-            <p class="message">No hay seminarios disponibles</p>
+        <aside class="tabs">
+            <ul>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próximas convenciones</a></li>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PAST_VIEW)]" ng-click="changeView(VIEWS.PAST_VIEW)">Convenciones anteriores</a></li>
+            </ul>
+        </aside>
+
+        <!-- Listado de nuevos assets o assets destacados -->
+        <div  class="latest-assets" ng-show="isSelectedView(VIEWS.NEXT_VIEW)">
+            <div ng-show="!isThereNextEvent()" class="message-container">
+                <p class="message">No hay próximos seminarios</p>
+            </div>
+            <div ng-show="isThereNextEvent()" class="latest-asset-container">
+                <img ng-src="{{ event.picture }}" alt="Seminario Agosto 2015" ng-click="openEventPopUp(event)">
+            </div>
         </div>
 
         <!-- Listado de assets  -->
-        <div ng-show="areAssetsAvailable()">
-            <div class="assets-list">
+        <div ng-show="isSelectedView(VIEWS.PAST_VIEW)">
+            <div ng-show="!areAssetsAvailable()" class="message-container">
+                <p class="message">No hay seminarios disponibles</p>
+            </div>
+            <form ng-show="areAssetsAvailable()" class="form">
+                <input type="text" placeholder="Busca en convenciones: Ej. Estela Salinas" ng-model="assetQuery">
+            </form>
+            <div ng-show="areAssetsAvailable()" class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
                     <div ng-click="toggleAssetInfo(asset)">
                         <div class="asset-name">{{ asset.title }}</div>

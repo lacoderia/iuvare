@@ -10,8 +10,19 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
     $scope.pageLoaded = false;
 
     $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
+    $scope.VIEWS = {
+        NEXT_VIEW : 'nextView',
+        PAST_VIEW : 'pastView'
+    };
+    $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
+    $scope.trainingDates = [
+        { date: '1er sábado del mes', subject: 'Sábado de puntos'},
+        { date: '3er sábado del mes', subject: 'Talleres privados'},
+        { date: '4to sábado del mes', subject: 'Talleres secundarios'}
+    ];
+
 
     $scope.areAssetsAvailable = function(){
         return ($scope.assetList.length)? true : false;
@@ -28,6 +39,18 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
 
         (assetItem.showInfo)? assetItem.showInfo = false : assetItem.showInfo = true;
 
+    };
+
+    $scope.isThereNextEvent = function(){
+        return ($scope.trainingDates)? true : false;
+    };
+
+    $scope.isSelectedView = function(viewCode){
+        return ($scope.selectedView == viewCode);
+    };
+
+    $scope.changeView = function(viewCode){
+        $scope.selectedView = viewCode;
     };
 
     $scope.isPlaylable = function () {

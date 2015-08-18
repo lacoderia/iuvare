@@ -458,6 +458,40 @@ h2.section-title
   border: 0
   height: 3px
 
+.tabs
+  +rem(margin-bottom, 4rem)
+
+  ul
+    border-bottom: 1px solid $color_blue_3
+    list-style: none
+    margin: 0
+    padding: 0
+
+    li
+      display: inline-block
+
+      &:hover
+        background-color: $color-gray_3
+
+    .tab-item
+      color: $color_blue_3
+      display: inline-block
+      +rem(padding, 0.5rem 1rem)
+      width: 100%
+
+      @media screen and (min-width: $screen-sm-max)
+        +rem(padding, 1rem 2rem)
+
+      &.selected
+        background: $color_blue_3
+        border-bottom: none
+        border-radius: 5px 5px 0 0
+        color: white
+        cursor: default
+
+      &:hover
+        text-decoration: none
+
 .test-instructions
   border: 1px solid $color_gray_3
   color: $color_gray_2

@@ -10,6 +10,11 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
     $scope.pageLoaded = false;
 
     $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
+    $scope.VIEWS = {
+        NEXT_VIEW : 'nextView',
+        PAST_VIEW : 'pastView'
+    };
+    $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
 
@@ -28,6 +33,14 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
 
         (assetItem.showInfo)? assetItem.showInfo = false : assetItem.showInfo = true;
 
+    };
+
+    $scope.isSelectedView = function(viewCode){
+        return ($scope.selectedView == viewCode);
+    };
+
+    $scope.changeView = function(viewCode){
+        $scope.selectedView = viewCode;
     };
 
     $scope.isPlaylable = function () {

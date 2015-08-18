@@ -2,17 +2,38 @@
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content training-container">
-        <form class="form">
-            <input type="text" placeholder="Busca en capacitaciones: Ej. Estela Salinas" ng-model="assetQuery">
-        </form>
 
-        <div ng-show="!areAssetsAvailable()" class="message-container">
-            <p class="message">No hay capacitaciones disponibles</p>
+        <aside class="tabs">
+            <ul>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próximos talleres</a></li>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PAST_VIEW)]" ng-click="changeView(VIEWS.PAST_VIEW)">Talleres anteriores</a></li>
+            </ul>
+        </aside>
+
+        <!-- Listado de nuevos assets o assets destacados -->
+        <div  class="latest-assets" ng-show="isSelectedView(VIEWS.NEXT_VIEW)">
+            <div ng-show="!isThereNextEvent()" class="message-container">
+                <p class="message">No hay próximas capacitaciones</p>
+            </div>
+            <div ng-show="isThereNextEvent()" class="latest-training-container">
+                <ul>
+                    <li ng-repeat="trainingDate in trainingDates">
+                        <h4>{{ trainingDate.date }}</h4>
+                        <p>{{ trainingDate.subject }}</p>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- Listado de assets  -->
-        <div ng-show="areAssetsAvailable()">
-            <div class="assets-list">
+        <div ng-show="isSelectedView(VIEWS.PAST_VIEW)">
+            <div ng-show="!areAssetsAvailable()" class="message-container">
+                <p class="message">No hay capacitaciones disponibles</p>
+            </div>
+            <form ng-show="areAssetsAvailable()" class="form">
+                <input type="text" placeholder="Busca en capacitaciones: Ej. Estela Salinas" ng-model="assetQuery">
+            </form>
+            <div ng-show="areAssetsAvailable()" class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
                     <div ng-click="toggleAssetInfo(asset)">
                         <div class="asset-name">{{ asset.title }}</div>

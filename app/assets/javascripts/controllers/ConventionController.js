@@ -10,8 +10,14 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
     $scope.pageLoaded = false;
 
     $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
+    $scope.VIEWS = {
+        NEXT_VIEW : 'nextView',
+        PAST_VIEW : 'pastView'
+    };
+    $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
+    $scope.event = undefined;
 
     $scope.areAssetsAvailable = function(){
         return ($scope.assetList.length)? true : false;
@@ -30,6 +36,18 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
 
     };
 
+    $scope.isThereNextEvent = function(){
+        return ($scope.event)? true : false;
+    };
+
+    $scope.isSelectedView = function(viewCode){
+        return ($scope.selectedView == viewCode);
+    };
+
+    $scope.changeView = function(viewCode){
+        $scope.selectedView = viewCode;
+    };
+
     $scope.isPlaylable = function () {
         return playlable;
     };
@@ -42,6 +60,10 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
         $scope.sectionTitle = $scope.currentSubsection.title;
 
         $scope.startSpin('container-spinner');
+
+        $scope.event = {
+            picture: '/assets/seminario_iuvare_2015_09.jpg'
+        };
 
         AssetService.getAssetsByType(ASSET_TYPE)
             .success(function(data){

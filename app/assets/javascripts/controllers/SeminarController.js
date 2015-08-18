@@ -10,6 +10,11 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
     $scope.pageLoaded = false;
 
     $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
+    $scope.VIEWS = {
+        NEXT_VIEW : 'nextView',
+        PAST_VIEW : 'pastView'
+    };
+    $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
     $scope.event = undefined;
@@ -33,6 +38,14 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
 
     $scope.isThereNextEvent = function(){
         return ($scope.event)? true : false;
+    };
+
+    $scope.isSelectedView = function(viewCode){
+        return ($scope.selectedView == viewCode);
+    };
+
+    $scope.changeView = function(viewCode){
+        $scope.selectedView = viewCode;
     };
 
     $scope.isPlaylable = function () {

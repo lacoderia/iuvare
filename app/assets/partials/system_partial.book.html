@@ -2,16 +2,31 @@
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content audio-container">
-        <form class="form">
-            <input type="text" placeholder="Busca en audios: Ej. Estela Salinas" ng-model="assetQuery">
-        </form>
 
+        <aside class="tabs">
+            <ul>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Todos los libros</a></li>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PAST_VIEW)]" ng-click="changeView(VIEWS.PAST_VIEW)">Libros anteriores</a></li>
+            </ul>
+        </aside>
+
+        <!-- Listado de assets nuevos o destacados  -->
         <div ng-show="!areAssetsAvailable()" class="message-container">
             <p class="message">No hay libros disponibles</p>
         </div>
 
+        <div ng-show="areAssetsAvailable() && isSelectedView(VIEWS.NEXT_VIEW)">
+            <ul>
+                <li>Libro 1</li>
+            </ul>
+        </div>
+
         <!-- Listado de assets  -->
-        <div ng-show="areAssetsAvailable()">
+        <div ng-show="areAssetsAvailable() && isSelectedView(VIEWS.PAST_VIEW)">
+            <form class="form">
+                <input type="text" placeholder="Busca en audios: Ej. Estela Salinas" ng-model="assetQuery">
+            </form>
+
             <div class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
                     <div ng-click="toggleAssetInfo(asset)">
