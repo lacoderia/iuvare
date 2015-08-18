@@ -3,12 +3,15 @@ class Payment < ActiveRecord::Base
 
   KIT_PRICE = 1000
   ONE_MONTH_PRICE = 90
-  TWELVE_MONTHS_PRICE = 900
-  FREE_MONTHS = 2
+  THREE_MONTHS_PRICE = 200
+  SIX_MONTHS_PRICE = 350
+  TWELVE_MONTHS_PRICE = 600
 
   TYPES = [
     "Kit de inicio",
     "Un mes",
+    "Tres meses",
+    "Seis meses",
     "Doce meses"
   ]
   
@@ -27,8 +30,16 @@ class Payment < ActiveRecord::Base
       item_name = "Un mes de acceso a iuvare.mx" 
       amount = ONE_MONTH_PRICE
       shipping = false
+    when "Tres meses"
+      item_name = "Tres meses de acceso a iuvare.mx" 
+      amount = THREE_MONTHS_PRICE
+      shipping = false
+    when "Seis meses"
+      item_name = "Seis meses de acceso a iuvare.mx" 
+      amount = SIX_MONTHS_PRICE
+      shipping = false
     when "Doce meses"
-      item_name = "Doce meses de acceso a iuvare.mx (sólo pagas 10 meses)" 
+      item_name = "Doce meses de acceso a iuvare.mx" 
       amount = TWELVE_MONTHS_PRICE
       shipping = false
     else
@@ -60,7 +71,7 @@ class Payment < ActiveRecord::Base
       case amount
       when KIT_PRICE
         payment_type = "Kit de inicio"
-        expiration_date = Time.zone.now + FREE_MONTHS.months
+        expiration_date = Time.zone.now + User::FREE_MONTHS.months
         user.kit_bought = true
         self.send_email_to_buyer params, user.email
       when TWELVE_MONTHS_PRICE
@@ -69,6 +80,12 @@ class Payment < ActiveRecord::Base
       when ONE_MONTH_PRICE
         payment_type = "Un mes"
         expiration_date = Time.zone.now + 1.month
+      when THREE_MONTHS_PRICE
+        payment_type = "Tres meses"
+        expiration_date = Time.zone.now + 3.month
+      when SIX_MONTHS_PRICE
+        payment_type = "Seis meses"
+        expiration_date = Time.zone.now + 6.month
       else
         raise "La cantidad pagada $ #{amount} por usuario #{user_id} no equivale a ningún producto."
       end
