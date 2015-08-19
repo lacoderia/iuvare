@@ -15,10 +15,15 @@ iuvare.controller('BookController', ["$scope", "$rootScope", "AssetService", "Au
     };
     $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
+    $scope.nextAssetList = [];
     $scope.assetQuery = undefined;
 
     $scope.areAssetsAvailable = function(){
         return ($scope.assetList.length)? true : false;
+    };
+
+    $scope.areNextAssetsAvailable = function(){
+        return ($scope.nextAssetList.length)? true : false;
     };
 
     $scope.isSelectedView = function(viewCode){
@@ -55,6 +60,7 @@ iuvare.controller('BookController', ["$scope", "$rootScope", "AssetService", "Au
             .success(function(data){
                 if(data.success){
                     $scope.assetList = AssetService.assets;
+                    $scope.nextAssetList = AssetService.assets;
                     $scope.stopSpin('container-spinner');
                     $scope.pageLoaded = true;
                 }

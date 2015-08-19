@@ -11,42 +11,35 @@
         </aside>
 
         <!-- Listado de assets nuevos o destacados  -->
-        <div ng-show="!areAssetsAvailable()" class="message-container">
-            <p class="message">No hay libros disponibles</p>
-        </div>
 
-        <div ng-show="areAssetsAvailable() && isSelectedView(VIEWS.NEXT_VIEW)">
-            <ul>
-                <li>Libro 1</li>
-            </ul>
+        <div ng-show="isSelectedView(VIEWS.NEXT_VIEW)">
+            <div ng-show="!areNextAssetsAvailable()" class="message-container">
+                <p class="message">No hay libros disponibles</p>
+            </div>
+            <div ng-show="areNextAssetsAvailable()" class="assets-list">
+                <div dir-paginate="asset in nextAssetList | filter:assetQuery | itemsPerPage:10" class="asset">
+                    <div ng-click="toggleAssetInfo(asset)">
+                        <div class="asset-name">{{ asset.title }}</div>
+                        <div class="asset-author">{{ asset.author }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Listado de assets  -->
-        <div ng-show="areAssetsAvailable() && isSelectedView(VIEWS.PAST_VIEW)">
-            <form class="form">
+        <div ng-show="isSelectedView(VIEWS.PAST_VIEW)">
+            <div ng-show="!areAssetsAvailable()" class="message-container">
+                <p class="message">No hay libros anteriores disponibles</p>
+            </div>
+            <form ng-show="areAssetsAvailable()" class="form">
                 <input type="text" placeholder="Busca en audios: Ej. Estela Salinas" ng-model="assetQuery">
             </form>
-
-            <div class="assets-list">
+            <div ng-show="areAssetsAvailable()" class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
                     <div ng-click="toggleAssetInfo(asset)">
                         <div class="asset-name">{{ asset.title }}</div>
                         <div class="asset-author">{{ asset.author }}</div>
-                        <div class="asset-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
                     </div>
-
-                    <div class="asset-info" ng-if="asset.showInfo">
-                        <div>{{ asset.description }}</div>
-                        <div ng-if="asset.source">
-                            <audio autoplay="true" controls>
-                                <!--source ng-src="{{ ASSET_PATH + asset.source }}"-->
-                                <source ng-src="{{ ASSET_PATH + '3828.mp3' }}">
-                            </audio>
-                        </div>
-                        <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>
-                    </div>
-
-
                 </div>
             </div>
             <dir-pagination-controls></dir-pagination-controls>
