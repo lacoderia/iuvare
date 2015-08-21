@@ -15,7 +15,11 @@ if @success
                   end
                 end
 		json.extract! @user, :id, :first_name, :last_name, :email, :xango_id, :iuvare_id, :sponsor_xango_id, :placement_xango_id, :xango_rank, :active, :downline_position, :picture, :upline_id, :kit_bought
-                json.payment_expiration @user.payment_expiration ? @user.payment_expiration : (@user.created_at + User::FREE_MONTHS.months)
+                if Time.zone.now < User::LAUNCHING_DATE
+                  json.payment_expiration User::LAUNCHING_DATE
+                else
+                  json.payment_expiration @user.payment_expiration ? @user.payment_expiration : (@user.created_at + User::FREE_MONTHS.months)
+                end
 		json.downline_count @user.downlines.size
 		if @user.test_scores.size > 0
 			json.set! :test_scores do
