@@ -15,25 +15,7 @@
             <div ng-show="!areNextAssetsAvailable()" class="message-container">
                 <p class="message">No hay audios disponibles</p>
             </div>
-            <div ng-show="areNextAssetsAvailable()" class="assets-list">
-                <div dir-paginate="asset in nextAssetList | filter:assetQuery | itemsPerPage:10" class="asset">
-                    <div ng-click="toggleAssetInfo(asset)">
-                        <div class="asset-name">{{ asset.title }}</div>
-                        <div class="asset-author">{{ asset.author }}</div>
-                    </div>
-
-                    <div class="asset-info" ng-if="asset.showInfo">
-                        <div>{{ asset.description }}</div>
-                        <div ng-if="asset.source">
-                            <audio autoplay="true" controls>
-                                <source ng-src="{{ ASSET_PATH + asset.source }}">
-                            </audio>
-                        </div>
-                        <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>
-                    </div>
-
-                </div>
-            </div>
+            <div ng-show="areNextAssetsAvailable()" ng-bind-html="assetsText"></div>
         </div>
 
         <!-- Listado de assets  -->

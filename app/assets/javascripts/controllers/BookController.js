@@ -15,7 +15,7 @@ iuvare.controller('BookController', ["$scope", "$rootScope", "AssetService", "Au
     };
     $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
-    $scope.nextAssetList = [];
+    $scope.assetsText = undefined;
     $scope.assetQuery = undefined;
 
     $scope.areAssetsAvailable = function(){
@@ -23,7 +23,7 @@ iuvare.controller('BookController', ["$scope", "$rootScope", "AssetService", "Au
     };
 
     $scope.areNextAssetsAvailable = function(){
-        return ($scope.nextAssetList.length)? true : false;
+        return ($scope.assetsText)? true : false;
     };
 
     $scope.isSelectedView = function(viewCode){
@@ -60,7 +60,9 @@ iuvare.controller('BookController', ["$scope", "$rootScope", "AssetService", "Au
             .success(function(data){
                 if(data.success){
                     $scope.assetList = AssetService.assets;
-                    $scope.nextAssetList = AssetService.assets;
+                    $scope.assetsText = '' +
+                        'COC 110: "Creando restricción" - Pamela Monroy <br>' +
+                        'COC 110: "Creando restricción" - Pamela Monroy';
                     $scope.stopSpin('container-spinner');
                     $scope.pageLoaded = true;
                 }

@@ -14,9 +14,9 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
         NEXT_VIEW : 'nextView',
         PAST_VIEW : 'pastView'
     };
+    $scope.assetsText = undefined;
     $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
-    $scope.nextAssetList = [];
     $scope.assetQuery = undefined;
 
     $scope.areAssetsAvailable = function(){
@@ -24,7 +24,7 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
     };
 
     $scope.areNextAssetsAvailable = function(){
-        return ($scope.nextAssetList.length)? true : false;
+        return ($scope.assetsText)? true : false;
     };
 
     // Method that toggles a goal's information form
@@ -65,7 +65,9 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
             .success(function(data){
                 if(data.success){
                     $scope.assetList = AssetService.assets;
-                    $scope.nextAssetList = AssetService.assets;
+                    $scope.assetsText = '' +
+                        'COC 110: "Creando restricción" - Pamela Monroy <br>' +
+                        'COC 110: "Creando restricción" - Pamela Monroy';
                     $scope.stopSpin('container-spinner');
                     $scope.pageLoaded = true;
                 }
