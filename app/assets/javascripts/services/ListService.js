@@ -76,13 +76,8 @@ iuvare.factory('ListService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
             name: contact.name,
             email: contact.email,
             phone: contact.phone,
-            description: contact.description,
+            description: contact.description
         };
-
-
-        if(DEFAULT_VALUES.CONTACT_STATUS.RULED_OUT.code == contact.status || DEFAULT_VALUES.CONTACT_STATUS.REGISTERED.code == contact.status){
-            tempContact.status = contact.status;
-        }
 
         return $http.put(contactServiceURL, {
             contact: tempContact
