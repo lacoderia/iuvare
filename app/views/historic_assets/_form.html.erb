@@ -1,0 +1,25 @@
+<%= form_for(@historic_asset) do |f| %>
+  <% if @historic_asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@historic_asset.errors.count, "error") %> prohibited this historic_asset from being saved:</h2>
+
+      <ul>
+      <% @historic_asset.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :historic_asset_type %><br>
+    <%= f.text_field :historic_asset_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

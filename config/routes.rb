@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :historic_assets
+
   resources :payments do
     collection do
       post 'ipn'
