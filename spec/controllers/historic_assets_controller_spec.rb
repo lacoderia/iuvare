@@ -32,6 +32,18 @@ feature 'HistoricAssetsController' do
 
       end
 
+      it 'should get no assets' do
+
+        login_with_service u = { email: user.email, password: '12345678' }
+        
+        visit "#{by_type_historic_assets_path}.json"
+        
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        expect(response['result']).to eql nil
+
+      end
+
     end
     
   end
