@@ -24,6 +24,7 @@ class Ability
       can :by_user, Collage
       can [:create, :update, :destroy, :by_user], Contact
       can :current, Event
+      can :by_type, HistoricAsset
       can [:create, :update, :destroy, :by_user], Goal
       can :create, Invitation
       can :ordered_by_name, Office

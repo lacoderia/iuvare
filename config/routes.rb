@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :historic_assets
+  resources :historic_assets do
+    collection do
+      get 'by_type'
+    end
+  end
 
   resources :payments do
     collection do
