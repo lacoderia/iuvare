@@ -52,41 +52,77 @@
   @media screen and (min-width: $screen-sm-max)
     +rem(margin, 0 10rem)
 
-.contactList
-  +rem(margin, 2.5rem 0)
-  width: 100%
+.contact-list-table
+  font-size: 0px
+  +rem(margin-top, 1.5rem)
 
-  tr
-    border-top: 1px solid $color-gray_3
-
-    &:last-child
-      border-bottom: 1px solid $color-gray_3
-
-  td
+  .table-cell
+    display: inline-block
+    +rem(font-size, 1.3rem)
     +rem(padding, 1rem)
     vertical-align: middle
 
-  .actions
-    +rem(font-size, 3rem)
-    text-align: right
+    &.table-cell-actions
+      +rem(font-size, 3rem)
+      text-align: right
 
-  .action-button-purple
-    margin: 0
+    &.table-cell-cycle
+      text-align: center
 
-  .contact-image
-    width: 40px
+      .action-button-purple
+        +rem(font-size, 1rem)
+        +rem(margin-top, 0rem)
 
-  .contact-info
+        @media screen and (min-width: $screen-sm-max)
+          +rem(font-size, 1.3rem)
 
-    .contact-name
-      +rem(font-size, 2rem)
+    &.table-cell-cycle-xs
+      text-align: right
 
-  .contact-status-title
-    color: $color-gray_2
+    &.table-cell-info
+      text-align: left
 
-  .user-image
-    text-align: center
+      .contact-name
+        +rem(font-size, 1.5rem)
 
+    &.table-cell-progress
+      text-align: center
+
+      @media screen and (min-width: $screen-sm-max)
+        text-align: left
+
+      .round-progress
+        vertical-align: middle
+
+      .round-progress-title
+        vertical-align: middle
+
+    &.table-cell-status
+      text-align: left
+
+  .table-cell-15
+    width: 30%
+
+  .table-cell-20
+    width: 40%
+
+  .table-cell-30
+    width: 60%
+
+  .table-cell-35
+    width: 70%
+
+  .table-row
+    border-bottom: 2px solid $color-gray_3
+
+  .table-row-half
+    display: block
+    vertical-align: middle
+    width: 100%
+
+    @media screen and (min-width: $screen-sm-max)
+      display: inline-block
+      width: 50%
 
 
 .contact-detail
