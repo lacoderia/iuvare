@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Historic Assets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Historic asset type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @historic_assets.each do |historic_asset| %>
+      <tr>
+        <td><%= historic_asset.description %></td>
+        <td><%= historic_asset.historic_asset_type %></td>
+        <td><%= link_to 'Show', historic_asset %></td>
+        <td><%= link_to 'Edit', edit_historic_asset_path(historic_asset) %></td>
+        <td><%= link_to 'Destroy', historic_asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Historic asset', new_historic_asset_path %>
