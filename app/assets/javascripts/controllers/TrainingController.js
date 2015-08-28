@@ -4,7 +4,7 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
 
     // Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.TRAINING;
-    var playlable = true;
+    var playable = true;
 
     // Public variables
     $scope.pageLoaded = false;
@@ -53,8 +53,8 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
         $scope.selectedView = viewCode;
     };
 
-    $scope.isPlaylable = function () {
-        return playlable;
+    $scope.isPlayable = function () {
+        return playable;
     };
 
     // Method to init the controller's default state

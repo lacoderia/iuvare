@@ -1,26 +1,73 @@
 'use strict';
 
-iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AssetService, AuthService, SessionService, DEFAULT_VALUES){
+iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService", "AuthService", "EventService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AssetService, AuthService, EventService, SessionService, DEFAULT_VALUES){
 
     // Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.CONVENTION;
-    var playlable = true;
+    var playable = true;
 
     // Public variables
-    $scope.pageLoaded = false;
+    $scope.nextEventLoaded = false;
+    $scope.assetListLoaded = false;
 
-    $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
     $scope.VIEWS = {
         NEXT_VIEW : 'nextView',
-        PAST_VIEW : 'pastView'
+        PLAY_VIEW : 'playView'
     };
     $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
+    $scope.nextEvent = undefined;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
-    $scope.event = undefined;
 
-    $scope.areAssetsAvailable = function(){
-        return ($scope.assetList.length)? true : false;
+    $scope.isAssetListEmpty = function(){
+        return ($scope.assetList.length)? false : true;
+    };
+
+    $scope.isNextEventEmpty = function(){
+        return ($scope.nextEvent != undefined) ? false : true;
+    };
+
+    $scope.resetAssetsLoaded = function(){
+        $scope.nextEventLoaded = false;
+        $scope.nextEvent = undefined;
+
+        $scope.assetListLoaded = false;
+        $scope.assetList = [];
+    };
+
+    $scope.getNextEvent = function() {
+        $scope.startSpin('container-spinner');
+        $scope.resetAssetsLoaded();
+
+        EventService.getEvent(ASSET_TYPE)
+            .success(function(data){
+                if(data.success && EventService.event) {
+                    $scope.nextEvent = angular.copy(EventService.event);
+                    $scope.stopSpin('container-spinner');
+                    $scope.nextEventLoaded = true;
+                }
+            })
+            .error(function(){
+                console.log('Ocurrió un error al obtener el siguiente seminario.') ;
+            });
+    };
+
+    $scope.getAssetList = function() {
+        $scope.startSpin('container-spinner');
+        $scope.resetAssetsLoaded();
+
+        AssetService.getAssetsByType(ASSET_TYPE)
+            .success(function(data){
+                if(data.success){
+                    $scope.assetList = AssetService.assets;
+                    $scope.stopSpin('container-spinner');
+                    $scope.assetListLoaded = true;
+                }
+            })
+            .error(function (error, status) {
+                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger', false);
+                console.log('Ocurrió un error al obtener los seminarios.');
+            });
     };
 
     // Method that toggles a goal's information form
@@ -36,47 +83,36 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
 
     };
 
-    $scope.isThereNextEvent = function(){
-        return ($scope.event)? true : false;
-    };
-
     $scope.isSelectedView = function(viewCode){
         return ($scope.selectedView == viewCode);
     };
 
     $scope.changeView = function(viewCode){
         $scope.selectedView = viewCode;
+
+        switch(viewCode) {
+            case $scope.VIEWS.NEXT_VIEW:
+                $scope.getNextEvent();
+                break;
+            case $scope.VIEWS.PLAY_VIEW:
+                $scope.getAssetList();
+                break;
+            default:
+                break;
+        }
     };
 
-    $scope.isPlaylable = function () {
-        return playlable;
+    $scope.isPlayable = function () {
+        return playable;
     };
 
     // Method to init the controller's default state
     $scope.initController = function(){
 
         $scope.$emit('setCurrentSection');
-
         $scope.sectionTitle = $scope.currentSubsection.title;
 
-        $scope.startSpin('container-spinner');
-
-        $scope.event = {
-            picture: '/assets/seminario_iuvare_2015_09.jpg'
-        };
-
-        AssetService.getAssetsByType(ASSET_TYPE)
-            .success(function(data){
-                if(data.success){
-                    $scope.assetList = AssetService.assets;
-                    $scope.stopSpin('container-spinner');
-                    $scope.pageLoaded = true;
-                }
-            })
-            .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener las convenciones.', 'danger', false);
-                console.log('Ocurrió un error al obtener las convenciones.');
-            });
+        $scope.changeView($scope.VIEWS.NEXT_VIEW);
     };
 
     $scope.initController();
