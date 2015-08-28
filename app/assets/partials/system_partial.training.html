@@ -6,7 +6,7 @@
         <aside class="tabs">
             <ul>
                 <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próximos talleres</a></li>
-                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PAST_VIEW)]" ng-click="changeView(VIEWS.PAST_VIEW)">Talleres anteriores</a></li>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PAST_VIEW)]" ng-click="changeView(VIEWS.PAST_VIEW)">Talleres grabados</a></li>
             </ul>
         </aside>
 
@@ -31,7 +31,7 @@
                 <p class="message">No hay capacitaciones disponibles</p>
             </div>
             <form ng-show="areAssetsAvailable()" class="form">
-                <input type="text" placeholder="Busca en capacitaciones: Ej. Estela Salinas" ng-model="assetQuery">
+                <input type="text" placeholder="Busca en talleres: Ej. Estela Salinas" ng-model="assetQuery">
             </form>
             <div ng-show="areAssetsAvailable()" class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
