@@ -1,3 +1,6 @@
+.assets-actions
+  text-align: right
+
 .assets-list
   +rem(margin-top, 1rem)
   min-height: 400px
@@ -41,3 +44,52 @@
 
     &:hover
       background-color: $color_gray_3
+
+.asset-section-title
+  +rem(font-size, 2rem)
+  font-weight: bold
+
+.latest-assets
+  +rem(margin, 4rem 0)
+
+  .latest-training-container
+    max-height: 400px
+
+    ul
+      font-size: 0
+      list-style: none
+      padding: 0
+
+      li
+        background: $color-gray_1
+        border: 1px solid $color-gray-4
+        +border-radius(5px)
+        +rem(padding, 2rem 4rem)
+        +rem(font-size, 2rem)
+
+        h4
+          +rem(margin, 0 0 0.4rem 0)
+          +rem(font-size, 1.5rem)
+
+        p
+          margin: 0
+          +rem(font-size, 2rem)
+
+        @media screen and (min-width: $screen-sm-max)
+          display: inline-block
+          margin-right: 0.5%
+          width: 33%
+
+          &:last-child
+            margin-right: 0%
+
+
+  .latest-asset-container
+    max-height: 400px
+    text-align: center
+
+    img
+      height: 300px
+      cursor: pointer
+      object-fit: contain
+      width: 100%

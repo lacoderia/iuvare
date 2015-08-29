@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @historic_asset.description %>
+</p>
+
+<p>
+  <strong>Historic asset type:</strong>
+  <%= @historic_asset.historic_asset_type %>
+</p>
+
+<%= link_to 'Edit', edit_historic_asset_path(@historic_asset) %> |
+<%= link_to 'Back', historic_assets_path %>

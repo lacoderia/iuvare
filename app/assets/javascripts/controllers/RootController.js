@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "$alert", "$window", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", function($scope, $rootScope, $state, $timeout, $alert, $window, usSpinnerService, AuthService, EventService, NavigationService, SessionService){
+iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "$alert", "$window", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $state, $timeout, $alert, $window, usSpinnerService, AuthService, EventService, NavigationService, SessionService, DEFAULT_VALUES){
 
     $scope.currentSection = undefined;
     $scope.currentSubsection = undefined;
@@ -63,6 +63,21 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
         $window.scrollTo(0,0);
     };
 
+    $rootScope.openEventPopUp = function(event){
+        $('<img/>')
+            .attr("src", event.picture)
+            .load(function() {
+                $('.event-popup').attr('src', event.picture);
+
+                $(".event-popup").fancybox({
+                    'content': '<img src="' + event.picture + '" alt="" />',
+                    'showCloseButton': true
+                }).trigger('click');
+            })
+            .error(function() {
+            });
+    };
+
     $scope.isPublicView = function(){
         return $state.current.authenticationRequired;
     };
@@ -70,18 +85,19 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
     // Event popup
 
     $rootScope.$on('getMonthlyEvent' ,function(){
-        EventService.getEvent()
+        EventService.getEvent(DEFAULT_VALUES.ASSETS.TYPES.SEMINAR)
             .success(function(data){
                 if(data.success){
+                    var event = angular.copy(EventService.event);
 
-                    if (EventService.event) {
+                    if (event) {
                         $('<img/>')
-                            .attr("src", EventService.event.picture)
+                            .attr("src", event.picture)
                             .load(function() {
-                                $('.event-popup').attr('src', EventService.event.picture);
+                                $('.event-popup').attr('src', event.picture);
 
                                 $(".event-popup").fancybox({
-                                    'content': '<img src="' + EventService.event.picture + '" alt="" />',
+                                    'content': '<img src="' + event.picture + '" alt="" />',
                                     'showCloseButton': true
                                 }).trigger('click');
                             })

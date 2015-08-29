@@ -43,7 +43,8 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:2, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar', icon: 'icon-conferencias' },
                 { order:3, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention', icon: 'icon-convenciones' },
                 { order:4, code: 'TRAINING', title: 'Talleres', state: 'system.training', icon: 'icon-mortar-board' },
-                { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' }
+                { order:5, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' },
+                { order:6, code: 'BOOK', title: 'Libros', state: 'system.book', icon: 'icon-books' }
             ]
         },
         { order: 3, code: 'PROFILE', title: 'Perfil', state: 'profile.why',
@@ -127,7 +128,12 @@ iuvare.constant('DEFAULT_VALUES',{
             SEMINAR: 'seminar',
             CONVENTION: 'convention',
             TRAINING: 'training',
+            BOOK: 'book',
             FAQ: 'FAQ'
+        },
+        HISTORIC_TYPES: {
+            AUDIO: 'audio',
+            BOOK: 'book'
         }
     },
     COLOR_DESC: {
@@ -483,6 +489,13 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             defaultState: 'login',
             section: 'SYSTEM',
             subsection: 'DOCUMENT',
+            authenticationRequired: true
+        }).state('system.book',{
+            url: "/libros",
+            templateUrl: '/assets/system_partial.book.html',
+            defaultState: 'login',
+            section: 'SYSTEM',
+            subsection: 'BOOK',
             authenticationRequired: true
         }).state('FAQ',{
             url: "/FAQ",
