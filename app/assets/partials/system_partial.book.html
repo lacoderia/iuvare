@@ -1,0 +1,15 @@
+<div ng-controller="BookController as bookCtrl">
+    <h2 class="section-title">{{ sectionTitle }}</h2>
+
+    <div ng-show="pageLoaded" class="section-content">
+
+        <!-- Listado de assets nuevos o destacados  -->
+
+        <div ng-show="!isAssetTextAvailable()" class="message-container">
+            <p class="message">No hay libros disponibles</p>
+        </div>
+        <div ng-show="isAssetTextAvailable()" ng-bind-html="assetText"></div>
+
+    </div>
+
+</div>
