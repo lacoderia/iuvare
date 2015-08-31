@@ -1,34 +1,34 @@
 <div ng-controller="SeminarController as seminarCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <div ng-show="pageLoaded" class="section-content seminar-container">
+    <div class="section-content seminar-container">
 
         <aside class="tabs">
             <ul>
                 <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próximos seminarios</a></li>
-                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PAST_VIEW)]" ng-click="changeView(VIEWS.PAST_VIEW)">Seminarios pasados</a></li>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PLAY_VIEW)]" ng-click="changeView(VIEWS.PLAY_VIEW)">Seminarios grabados</a></li>
             </ul>
         </aside>
 
         <!-- Listado de nuevos assets o assets destacados -->
         <div  class="latest-assets" ng-show="isSelectedView(VIEWS.NEXT_VIEW)">
-            <div ng-show="!isThereNextEvent()" class="message-container">
+            <div ng-show="isNextEventEmpty()" class="message-container">
                 <p class="message">No hay próximos seminarios</p>
             </div>
-            <div ng-show="isThereNextEvent()" class="latest-asset-container">
-                <img ng-src="{{ event.picture }}" alt="Seminario" ng-click="openEventPopUp(event)">
+            <div ng-show="!isNextEventEmpty()" class="latest-asset-container">
+                <img ng-src="{{ nextEvent.picture }}" alt="{{ nextEvent.title }}" ng-click="openEventPopUp(nextEvent)">
             </div>
         </div>
 
         <!-- Listado de assets  -->
-        <div ng-show="isSelectedView(VIEWS.PAST_VIEW)">
-            <div ng-show="!areAssetsAvailable()" class="message-container">
+        <div ng-show="isSelectedView(VIEWS.PLAY_VIEW)">
+            <div ng-show="isAssetListEmpty()" class="message-container">
                 <p class="message">No hay seminarios disponibles</p>
             </div>
-            <form class="form" ng-show="areAssetsAvailable()">
+            <form class="form" ng-show="!isAssetListEmpty()">
                 <input type="text" placeholder="Busca en seminarios: Ej. Estela Salinas" ng-model="assetQuery">
             </form>
-            <div class="assets-list" ng-show="areAssetsAvailable()">
+            <div class="assets-list" ng-show="!isAssetListEmpty()">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
                     <div ng-click="toggleAssetInfo(asset)">
                         <div class="asset-name">{{ asset.title }}</div>

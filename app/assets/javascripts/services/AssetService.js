@@ -41,9 +41,27 @@ iuvare.factory('AssetService', ['$http', '$q', '$sce', '$state', 'SessionService
             });
     };
 
+    var getHistoricAssetsByType = function(assetType){
+
+        var assetsServiceURL = '/historic_assets/by_type.json?historic_asset_type=' + assetType;
+        service.assets = [];
+        service.historicAssets = '';
+
+        return $http.get(assetsServiceURL, {})
+            .success(function(data){
+                if(data.success){
+                    if(data.result){
+                        service.historicAssets = data.result[0].description;
+                    }
+                }
+            });
+    };
+
     var service = {
         assets: [],
-        getAssetsByType: getAssetsByType
+        historicAsset: '',
+        getAssetsByType: getAssetsByType,
+        getHistoricAssetsByType: getHistoricAssetsByType
     };
 
     return service;

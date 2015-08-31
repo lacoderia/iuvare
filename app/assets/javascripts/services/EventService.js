@@ -9,8 +9,8 @@ iuvare.factory('EventService', ['$http', '$q', 'DEFAULT_VALUES', function($http,
     };
     return service;
 
-    function getEvent() {
-        var eventServiceURL = '/events/current.json';
+    function getEvent(eventType) {
+        var eventServiceURL = '/events/current.json?event_type=' + eventType;
 
         return $http.get(eventServiceURL)
             .success(function(data){
