@@ -47,7 +47,20 @@
             <div ng-show="isAssetTextEmpty()" class="message-container">
                 <p class="message">No hay audios disponibles</p>
             </div>
-            <div ng-show="!isAssetTextEmpty()" ng-bind-html="assetText"></div>
+            <div ng-show="!isAssetTextEmpty()">
+                <ul class="audio-list">
+                    <li ng-repeat="asset in assetText">
+                        <div class="number">{{ asset.number }}</div>
+                        <div class="color">
+                            <span ng-class="asset.color"></span>
+                        </div>
+                        <div class="audio-info">
+                            <span class="name">{{ asset.name }}</span>
+                            <span class="author">{{ asset.author }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
 
