@@ -4,7 +4,7 @@ iuvare.controller('DocumentController', ["$scope", "$rootScope", "AssetService",
 
     // Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.DOCUMENT;
-    var playlable = true;
+    var playable = true;
 
     // Public variables
     $scope.pageLoaded = false;
@@ -30,8 +30,8 @@ iuvare.controller('DocumentController', ["$scope", "$rootScope", "AssetService",
 
     };
 
-    $scope.isPlaylable = function () {
-        return playlable;
+    $scope.isPlayable = function () {
+        return playable;
     };
 
     // Method to init the controller's default state

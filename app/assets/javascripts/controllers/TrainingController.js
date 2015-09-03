@@ -4,14 +4,25 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
 
     // Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.TRAINING;
-    var playlable = true;
+    var playable = true;
 
     // Public variables
     $scope.pageLoaded = false;
 
     $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
+    $scope.VIEWS = {
+        NEXT_VIEW : 'nextView',
+        PAST_VIEW : 'pastView'
+    };
+    $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
+    $scope.trainingDates = [
+        { date: '1er sábado del mes', subject: 'Sábado de puntos'},
+        { date: '3er sábado del mes', subject: 'Talleres privados'},
+        { date: '4to sábado del mes', subject: 'Talleres secundarios'}
+    ];
+
 
     $scope.areAssetsAvailable = function(){
         return ($scope.assetList.length)? true : false;
@@ -30,8 +41,20 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
 
     };
 
-    $scope.isPlaylable = function () {
-        return playlable;
+    $scope.isThereNextEvent = function(){
+        return ($scope.trainingDates)? true : false;
+    };
+
+    $scope.isSelectedView = function(viewCode){
+        return ($scope.selectedView == viewCode);
+    };
+
+    $scope.changeView = function(viewCode){
+        $scope.selectedView = viewCode;
+    };
+
+    $scope.isPlayable = function () {
+        return playable;
     };
 
     // Method to init the controller's default state

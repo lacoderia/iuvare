@@ -1,18 +1,24 @@
 <div ng-controller="AudioController as audioCtrl">
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
-    <div ng-show="pageLoaded" class="section-content audio-container">
-        <form class="form">
-            <input type="text" placeholder="Busca en audios: Ej. Estela Salinas" ng-model="assetQuery">
-        </form>
+    <div class="section-content audio-container">
 
-        <div ng-show="!areAssetsAvailable()" class="message-container">
-            <p class="message">No hay audios disponibles</p>
-        </div>
+        <aside class="tabs">
+            <ul>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.TEXT_VIEW)]" ng-click="changeView(VIEWS.TEXT_VIEW)">Lista de audios</a></li>
+                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PLAY_VIEW)]" ng-click="changeView(VIEWS.PLAY_VIEW)">Audios grabados</a></li>
+            </ul>
+        </aside>
 
-        <!-- Listado de assets  -->
-        <div ng-show="areAssetsAvailable()">
-            <div class="assets-list">
+        <!-- Listado de assets nuevos o destacados  -->
+        <div ng-show="isSelectedView(VIEWS.PLAY_VIEW) && isAssetListLoaded()">
+            <div ng-show="isAssetListEmpty()" class="message-container">
+                <p class="message">No hay audios anteriores disponibles</p>
+            </div>
+            <form ng-show="!isAssetListEmpty()" class="form">
+                <input type="text" placeholder="Busca en audios: Ej. Estela Salinas" ng-model="assetQuery">
+            </form>
+            <div ng-show="!isAssetListEmpty()" class="assets-list">
                 <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
                     <div ng-click="toggleAssetInfo(asset)">
                         <div class="asset-name">{{ asset.title }}</div>
@@ -24,18 +30,26 @@
                         <div>{{ asset.description }}</div>
                         <div ng-if="asset.source">
                             <audio autoplay="true" controls>
-                                <!--source ng-src="{{ ASSET_PATH + asset.source }}"-->
-                                <source ng-src="{{ ASSET_PATH + '3828.mp3' }}">
+                                <source ng-src="{{ ASSET_PATH + asset.source }}">
                             </audio>
                         </div>
                         <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>
                     </div>
 
-
                 </div>
             </div>
             <dir-pagination-controls></dir-pagination-controls>
         </div>
+
+        <!-- Listado de assets  -->
+        <div ng-show="isSelectedView(VIEWS.TEXT_VIEW) && isAssetTextLoaded()">
+
+            <div ng-show="isAssetTextEmpty()" class="message-container">
+                <p class="message">No hay audios disponibles</p>
+            </div>
+            <div ng-show="!isAssetTextEmpty()" ng-bind-html="assetText"></div>
+        </div>
+
 
     </div>
 

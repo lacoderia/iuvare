@@ -130,6 +130,10 @@ iuvare.constant('DEFAULT_VALUES',{
             TRAINING: 'training',
             BOOK: 'book',
             FAQ: 'FAQ'
+        },
+        HISTORIC_TYPES: {
+            AUDIO: 'audio',
+            BOOK: 'book'
         }
     },
     COLOR_DESC: {

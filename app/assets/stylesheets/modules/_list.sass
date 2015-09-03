@@ -52,153 +52,77 @@
   @media screen and (min-width: $screen-sm-max)
     +rem(margin, 0 10rem)
 
-.contact-list
-  +rem(margin-top, 1rem)
-  min-height: 400px
+.contact-list-table
+  font-size: 0px
+  +rem(margin-top, 1.5rem)
 
-  .actions
-    text-align: right
+  .table-cell
+    display: inline-block
+    +rem(font-size, 1.3rem)
+    +rem(padding, 1rem)
+    vertical-align: middle
 
-  .contact-actions
-    text-align: right
+    &.table-cell-actions
+      +rem(font-size, 3rem)
+      text-align: right
 
-    @media screen and (min-width: $screen-sm-max)
-      display: inline-block
-      margin-top: 0
-      width: 19.5%
-
-    .action-button-purple
-      margin: 0 !important
-
-  .contact
-    background-color: $color_gray_1
-    border: 1px solid $color_gray_4
-    +border-radius(5px)
-    font-size: 0
-    +rem(margin, 2rem 0rem)
-    padding: 0
-
-    @media screen and (min-width: $screen-sm-max)
-      display: inline-block
-      min-height: 260px
-      margin-right: 0
-      vertical-align: top
-      width: 49%
-
-      &:nth-child(2n+2)
-        margin-right: 2%
-
-    .contact-profile
-      +rem(font-size, 0)
-      +rem(padding, 3rem)
-      position: relative
+    &.table-cell-cycle
       text-align: center
-      z-index: 0
 
-      @media screen and (min-width: $screen-sm-max)
-        display: inline-block
-        vertical-align: top
-        width: 50%
-
-      .contact-image
-        +rem(margin-bottom, 1.2rem)
-        text-align: left
-
-        .contact-name
-          display: inline-block
-          +rem(font-size, 2rem)
-          +rem(margin, 0 0 0 1rem)
-          vertical-align: middle
-
-        .user-image
-          text-align: center
-          vertical-align: middle
-
-      .contact-info
-        text-align: left
-
-        .contact-email, .contact-phone
-          +rem(font-size, 1.3rem)
-          line-height: 20px
-          margin: 0
-          padding: 0
-
-      .actions
-        +rem(margin-top, 1rem)
-        text-align: right
-
-        span
-          +rem(font-size, 3rem)
-
-
-    .contact-progress
-      +rem(font-size, 0)
-      min-height: 200px
-      position: relative
-      +rem(padding, 3rem 2rem)
-      text-align: center
-      z-index: 0
-
-      @media screen and (min-width: $screen-sm-max)
-        display: inline-block
-        min-height: 260px
-        vertical-align: top
-        width: 50%
-
-        &:after
-          background-color: red
-          bottom: 10%
-          content: ''
-          height: 80%
-          left: -2px
-          position: absolute
-          width: 2px
-          z-index: 2
-
-      .contact-status
-        +rem(font-size, 1.5rem)
-        +rem(margin, 1rem 0)
-        text-align: center
-
-      .progress-wrapper
-        position: relative
-
-        .progress
-          background-color: transparent
-          border: none
-          box-shadow: none
-          +rem(font-size, 2rem)
-          font-weight: 300
-          display: inline-block
-          height: 40px
-          left: 0
-          margin: 0
-          position: absolute
-          text-align: center
-          top: 50%
-          width: 100%
-          transform: translate(0%, -50%)
-
-      &:after
-        background-color: $color-gray_3
-        top: -2px
-        content: ''
-        height: 2px
-        left: 10%
-        position: absolute
-        width: 80%
-        z-index: 2
+      .action-button-purple
+        +rem(font-size, 1rem)
+        +rem(margin-top, 0rem)
 
         @media screen and (min-width: $screen-sm-max)
-          background-color: $color-gray_3
-          top: 10%
-          content: ''
-          height: 80%
-          left: -2px
-          position: absolute
-          width: 2px
-          z-index: 2
+          +rem(font-size, 1.3rem)
 
+    &.table-cell-cycle-xs
+      text-align: right
+
+    &.table-cell-info
+      text-align: left
+
+      .contact-name
+        +rem(font-size, 1.5rem)
+
+    &.table-cell-progress
+      text-align: center
+
+      @media screen and (min-width: $screen-sm-max)
+        text-align: left
+
+      .round-progress
+        vertical-align: middle
+
+      .round-progress-title
+        vertical-align: middle
+
+    &.table-cell-status
+      text-align: left
+
+  .table-cell-15
+    width: 30%
+
+  .table-cell-20
+    width: 40%
+
+  .table-cell-30
+    width: 60%
+
+  .table-cell-35
+    width: 70%
+
+  .table-row
+    border-bottom: 2px solid $color-gray_3
+
+  .table-row-half
+    display: block
+    vertical-align: middle
+    width: 100%
+
+    @media screen and (min-width: $screen-sm-max)
+      display: inline-block
+      width: 50%
 
 
 .contact-detail

@@ -47,47 +47,87 @@
                 <div ng-show="!filteredContactList.length">
                     No existen contactos que cumplan con esos filtros
                 </div>
-                <div ng-repeat="contact in (filteredContactList = (contactList | filter:filterByContactStatus | filter:contactQuery | orderBy:[sortByContactStatus, 'name']) )"  class="contact">
-                    <div class="contact-profile">
-                        <span us-spinner spinner-key="contact-spinner-{{contact.id}}"></span>
-                        <div class="contact-image">
-                            <span class="user-image">
-                                <span class="icon-user" ng-if="!contact.picture"></span>
-                                <div class="image-container"><img ng-src="{{ contact.picture }}" alt="{{ contact.name }}" ng-if="contact.picture"></div>
+
+                <div class="contact-list-table visible-sm visible-xs">
+                    <div class="table-row" ng-repeat="contact in filteredContactList = (contactList | filter:filterByContactStatus | filter:contactQuery | orderBy:[sortByContactStatus, 'name'])" class="contact">
+                        <div class="table-row-half">
+                            <span class="table-cell table-cell-30 table-cell-info">
+                                <div class="contact-name">{{ contact.name }}</div>
+                                <a class="contact-mail" href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a>
                             </span>
-                            <p class="contact-name">{{ contact.name }}</p>
+                            <span class="table-cell table-cell-20 table-cell-cycle table-cell-cycle-xs">
+                                <button ng-if="contact.status != CONTACT_STATUS.RULED_OUT.code && contact.status != CONTACT_STATUS.REGISTERED.code" class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="selectContact(contact)">Siguiente paso</button>
+                                <button ng-if="contact.status == CONTACT_STATUS.RULED_OUT.code" class="action-button-purple size-medium all-space" title="Comenzar el proceso nuevamente" ng-click="completeStep(contact, CONTACT_STATUS.TO_INVITE.code)">Comienza nuevamente</button>
+                            </span>
                         </div>
-                        <div class="contact-info">
-                            <p class="contact-email" ng-if="contact.email"><a href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a></p>
-                            <p class="contact-phone" ng-if="contact.phone">{{ contact.phone }}</p>
+                        <div class="table-row-half">
+                            <span class="table-cell table-cell-15 table-cell-status">
+                                <div>{{ getContactStatus(contact.status).title }}</div>
+                            </span>
+                            <span class="table-cell table-cell-20 table-cell-progress">
+                                <span round-progress
+                                      max="5"
+                                      current="getContactStatus(contact.status).order"
+                                      color="{{getContactStatus(contact.status).color}}"
+                                      bgcolor="#eaeaea"
+                                      radius="18"
+                                      stroke="8"
+                                      semi="false"
+                                      rounded="false"
+                                      clockwise="true"
+                                      iterations="50"
+                                      animation="easeInOutQuart"
+                                      states="CONTACT_STATUS_COLORS"></span>
+                                <span class="round-progress-title">{{ ((getContactStatus(contact.status).order/5)*100) | number:0 }}%</span>
+                            </span>
+                            <span class="table-cell table-cell-15 table-cell-actions">
+                                <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
+                                <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="confirmDeleteContact(contact)"></span>
+                            </span>
                         </div>
-                        <div class="actions">
-                            <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
-                            <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="confirmDeleteContact(contact)"></span>
-                        </div>
-                    </div>
-                    <div class="contact-progress">
-                        <h3 class="contact-status">{{ getContactStatus(contact.status).title }}</h3>
-                        <div class="progress-wrapper">
-                            <div class="progress">{{ ((getContactStatus(contact.status).order/5)*100) | number:0 }}%</div>
-                            <div round-progress
-                                 max="5"
-                                 current="getContactStatus(contact.status).order"
-                                 color="{{getContactStatus(contact.status).color}}"
-                                 bgcolor="#eaeaea"
-                                 radius="45"
-                                 stroke="12"
-                                 semi="false"
-                                 rounded="false"
-                                 clockwise="true"
-                                 iterations="50"
-                                 animation="easeInOutQuart"
-                                 states="CONTACT_STATUS_COLORS"></div>
-                        </div>
-                        <button ng-if="contact.status != CONTACT_STATUS.RULED_OUT.code && contact.status != CONTACT_STATUS.REGISTERED.code" class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="selectContact(contact)">Siguiente paso</button>
-                        <button ng-if="contact.status == CONTACT_STATUS.RULED_OUT.code" class="action-button-purple size-medium all-space" title="Comenzar el proceso nuevamente" ng-click="completeStep(contact, CONTACT_STATUS.TO_INVITE.code)">Comienza nuevamente</button>
                     </div>
                 </div>
+
+                <div class="contact-list-table hidden-sm hidden-xs">
+                    <div class="table-row" ng-repeat="contact in filteredContactList = (contactList | filter:filterByContactStatus | filter:contactQuery | orderBy:[sortByContactStatus, 'name'])" class="contact">
+                        <div class="table-row-half">
+                            <span class="table-cell table-cell-35 table-cell-info">
+                                <div class="contact-name">{{ contact.name }}</div>
+                                <a class="contact-mail" href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a>
+                            </span>
+                            <span class="table-cell table-cell-15 table-cell-progress">
+                                <span round-progress
+                                      max="5"
+                                      current="getContactStatus(contact.status).order"
+                                      color="{{getContactStatus(contact.status).color}}"
+                                      bgcolor="#eaeaea"
+                                      radius="18"
+                                      stroke="8"
+                                      semi="false"
+                                      rounded="false"
+                                      clockwise="true"
+                                      iterations="50"
+                                      animation="easeInOutQuart"
+                                      states="CONTACT_STATUS_COLORS"></span>
+                                <span class="round-progress-title">{{ ((getContactStatus(contact.status).order/5)*100) | number:0 }}%</span>
+                            </span>
+                        </div>
+                        <div class="table-row-half">
+                            <span class="table-cell table-cell-15 table-cell-status">
+                                <div>{{ getContactStatus(contact.status).title }}</div>
+                            </span>
+                            <span class="table-cell table-cell-20 table-cell-cycle">
+                                <button ng-if="contact.status != CONTACT_STATUS.RULED_OUT.code && contact.status != CONTACT_STATUS.REGISTERED.code" class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="selectContact(contact)">Siguiente paso</button>
+                                <button ng-if="contact.status == CONTACT_STATUS.RULED_OUT.code" class="action-button-purple size-medium all-space" title="Comenzar el proceso nuevamente" ng-click="completeStep(contact, CONTACT_STATUS.TO_INVITE.code)">Comienza nuevamente</button>
+                            </span>
+                            <span class="table-cell table-cell-15 table-cell-actions">
+                                <span class="action-button-edit icon-edit" title="Editar Contacto" ng-click="editContact(contact)"></span>
+                                <span class="action-button-delete icon-circle-with-cross" title="Eliminar Contacto" ng-click="confirmDeleteContact(contact)"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
