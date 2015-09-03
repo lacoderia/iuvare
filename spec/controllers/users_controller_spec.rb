@@ -105,14 +105,12 @@ feature 'UsersController' do
 
     context 'user deletion' do
 
-      it 'should error if upline that has downlines tries to be destroyed' do
-         up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
+      it 'should not allow an upline with downlines to be deleted' do
+        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
         down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", xango_id: "111111", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
-
-        expect{up.destroy}.to raise_error
-
+        expect{ up.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
       end
-      
+
     end
 
     context 'user downlines' do
