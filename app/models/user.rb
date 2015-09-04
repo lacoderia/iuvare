@@ -110,39 +110,38 @@ class User < ActiveRecord::Base
       result[:payment_options] << Payment.paypal_pay_object("Kit de inicio", user)
     else
 
-      months_free_date = user.created_at + FREE_MONTHS.months
+      time_now = Time.zone.now
 
-      #TODO: remove after launching
-      if Time.zone.now < LAUNCHING_DATE
-          result[:valid_account] = true  
-          result[:message] = "Acceso gratis por lanzamiento."
+      if user.iuvare_id.to_i >= 33231
+        months_free_date = user.created_at + FREE_MONTHS.months
       else
-        if Time.zone.now > months_free_date
-          if user.payment_expiration
-            if Time.zone.now > user.payment_expiration
-              result[:valid_account] = false  
-              result[:message] = "Tu acceso pagado ha finalizado."
-              result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
-              result[:payment_options] << Payment.paypal_pay_object("Tres meses", user)
-              result[:payment_options] << Payment.paypal_pay_object("Seis meses", user)
-              result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
-            else
-              result[:valid_account] = true  
-              result[:message] = "Acceso pagado."
-            end
-          else
+        months_free_date = time_now
+      end
+
+      if time_now >= months_free_date
+        if user.payment_expiration
+          if time_now > user.payment_expiration
             result[:valid_account] = false  
-            result[:message] = "Tu acceso gratis ha finalizado."
+            result[:message] = "Tu acceso pagado ha finalizado."
             result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
             result[:payment_options] << Payment.paypal_pay_object("Tres meses", user)
             result[:payment_options] << Payment.paypal_pay_object("Seis meses", user)
             result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
+          else
+            result[:valid_account] = true  
+            result[:message] = "Acceso pagado."
           end
         else
-          result[:valid_account] = true  
-          result[:message] = "Acceso gratis."
+          result[:valid_account] = false  
+          result[:message] = "Tu acceso gratis ha finalizado."
+          result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
+          result[:payment_options] << Payment.paypal_pay_object("Tres meses", user)
+          result[:payment_options] << Payment.paypal_pay_object("Seis meses", user)
+          result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
         end
-
+      else
+        result[:valid_account] = true  
+        result[:message] = "Acceso gratis."
       end
 
     end

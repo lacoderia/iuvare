@@ -9,7 +9,7 @@ feature 'RegistrationsController' do
       it 'successfully creates user, logout, valid and invalid login, existing and non-existing session' do
         upline = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
         invitation = Invitation.create(user: upline, recipient_email: "usertest@whatever.mx", token: "token-test-string")
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "123456", placement_xango_id: "123456", upline_id: upline.id, kit_bought: true }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "34000", sponsor_xango_id: "123456", placement_xango_id: "123456", upline_id: upline.id, kit_bought: true }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
@@ -40,7 +40,7 @@ feature 'RegistrationsController' do
       end
 
       it 'checks for error on duplicate users' do
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "12066412", placement_xango_id: "12066412"  }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "34000", sponsor_xango_id: "12066412", placement_xango_id: "12066412"  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
@@ -55,7 +55,7 @@ feature 'RegistrationsController' do
       end
 
       it 'checks for error on an invitation tried to be used twice' do
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "12066412", placement_xango_id: "12066412"  }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "34000", sponsor_xango_id: "12066412", placement_xango_id: "12066412"  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
@@ -63,7 +63,7 @@ feature 'RegistrationsController' do
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['email']).to eql invitation.recipient_email
         logout
-        another_user = { first_name: "test", last_name: "user", email: "another_user@test.com", password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "7665", sponsor_xango_id: "12066412", placement_xango_id: "12066412"  }
+        another_user = { first_name: "test", last_name: "user", email: "another_user@test.com", password: "12345678", password_confirmation: "12345678", xango_id: "12066488", iuvare_id: "34000", sponsor_xango_id: "12066412", placement_xango_id: "12066412"  }
         page = register_with_service another_user, invitation.token 
         response = JSON.parse(page.body)
         expect(response['success']).to be false 
@@ -71,14 +71,14 @@ feature 'RegistrationsController' do
       end
 
       it 'checks for error on a registration with the same Xango ID than the one that is inviting' do
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066412", iuvare_id: "7665", sponsor_xango_id: "12066412", placement_xango_id: "12066413"  }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066412", iuvare_id: "34000", sponsor_xango_id: "12066412", placement_xango_id: "12066413"  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
         expect(response['success']).to be false 
         expect(response['error']).to eql "Tu ID de Xango no puede ser igual que el de tu auspiciador." 
 
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066412", iuvare_id: "7665", sponsor_xango_id: "12066413", placement_xango_id: "12066412"  }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066412", iuvare_id: "34000", sponsor_xango_id: "12066413", placement_xango_id: "12066412"  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
@@ -87,14 +87,14 @@ feature 'RegistrationsController' do
       end
       
       it 'checks for error on a registration with sponsor ID different than the one that is inviting' do
-         new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066410", iuvare_id: "7665", sponsor_xango_id: "12066413", placement_xango_id: "12066413"  }
+         new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066410", iuvare_id: "34000", sponsor_xango_id: "12066413", placement_xango_id: "12066413"  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
         expect(response['success']).to be false 
         expect(response['error']).to eql "El ID Xango en patrocinio o colocación debe el de la persona que te mandó la invitación."
 
-        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066410", iuvare_id: "7665", sponsor_xango_id: "12066412", placement_xango_id: "12066413"  }
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", xango_id: "12066410", iuvare_id: "34000", sponsor_xango_id: "12066412", placement_xango_id: "12066413"  }
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824221731) do
+ActiveRecord::Schema.define(version: 20150903230418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,10 +95,13 @@ ActiveRecord::Schema.define(version: 20150824221731) do
   add_index "goals", ["user_id", "goal_type"], name: "index_goals_on_user_id_and_type", unique: true, using: :btree
 
   create_table "historic_assets", force: :cascade do |t|
-    t.text     "description"
     t.string   "historic_asset_type"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "number"
+    t.string   "name"
+    t.string   "author"
+    t.string   "color"
   end
 
   create_table "invitations", force: :cascade do |t|
