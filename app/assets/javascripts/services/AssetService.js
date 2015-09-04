@@ -51,7 +51,7 @@ iuvare.factory('AssetService', ['$http', '$q', '$sce', '$state', 'SessionService
             .success(function(data){
                 if(data.success){
                     if(data.result){
-                        service.historicAssets = data.result[0].description;
+                        service.historicAssets = data.result;
                     }
                 }
             });
