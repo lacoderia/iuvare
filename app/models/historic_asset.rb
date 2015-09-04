@@ -22,7 +22,7 @@ class HistoricAsset < ActiveRecord::Base
   end
 
   def self.by_type historic_asset_type
-    HistoricAsset.where("historic_asset_type = ?", historic_asset_type)
+    HistoricAsset.where("historic_asset_type = ?", historic_asset_type).order(created_at: :desc)
   end
 
 end
