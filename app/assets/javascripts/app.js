@@ -42,8 +42,8 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:1, code: 'AUDIO', title: 'Audios', state: 'system.audio', icon: 'icon-headphones' },
                 { order:2, code: 'BOOK', title: 'Libros', state: 'system.book', icon: 'icon-books' },
                 { order:3, code: 'SEMINAR', title: 'Seminarios', state: 'system.seminar', icon: 'icon-conferencias' },
-                { order:4, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention', icon: 'icon-convenciones' },
-                { order:5, code: 'TRAINING', title: 'Talleres', state: 'system.training', icon: 'icon-mortar-board' },
+                { order:4, code: 'TRAINING', title: 'Talleres', state: 'system.training', icon: 'icon-mortar-board' },
+                { order:5, code: 'CONVENTION', title: 'Convenciones', state: 'system.convention', icon: 'icon-convenciones' },
                 { order:6, code: 'DOCUMENT', title: 'Documentos', state: 'system.document', icon: 'icon-file' }
 
             ]
