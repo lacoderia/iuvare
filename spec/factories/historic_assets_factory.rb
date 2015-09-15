@@ -1,16 +1,25 @@
 FactoryGirl.define do
   factory :historic_asset, class: HistoricAsset do
-    description "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      
     historic_asset_type "audio"
+    name "audio name"
+    author 'author name'
+    color 'yellow'
+    number 'COC33'
     
     trait :audio do
       historic_asset_type "audio"
-      description "audios list"
+      name "audio name"
+      author 'author name'
+      color 'yellow'
+      number 'COC33'
     end
 
     trait :book do
       historic_asset_type "book"
-      description "books list"
+      name "book name"
+      author 'author name'
+      number '2013-05-02'
     end
   end
 end

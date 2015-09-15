@@ -8,7 +8,17 @@
         <div ng-show="!isAssetTextAvailable()" class="message-container">
             <p class="message">No hay libros disponibles</p>
         </div>
-        <div ng-show="isAssetTextAvailable()" ng-bind-html="assetText"></div>
+        <div ng-show="isAssetTextAvailable()">
+            <ul class="book-list">
+                <li ng-repeat="asset in assetText">
+                    <div class="number">{{ asset.number }}</div>
+                    <div class="audio-info">
+                        <span class="name">{{ asset.name }}</span>
+                        <span class="author">{{ asset.author }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
     </div>
 

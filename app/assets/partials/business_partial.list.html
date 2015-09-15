@@ -53,7 +53,7 @@
                         <div class="table-row-half">
                             <span class="table-cell table-cell-30 table-cell-info">
                                 <div class="contact-name">{{ contact.name }}</div>
-                                <a class="contact-mail" href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a>
+                                <div class="contact-mail" title="{{ contact.phone }}" ng-if="contact.phone"><span class="icon-phone"></span> {{ contact.phone }}</div>
                             </span>
                             <span class="table-cell table-cell-20 table-cell-cycle table-cell-cycle-xs">
                                 <button ng-if="contact.status != CONTACT_STATUS.RULED_OUT.code && contact.status != CONTACT_STATUS.REGISTERED.code" class="action-button-purple size-medium all-space" title="Cambiar estatus" ng-click="selectContact(contact)">Siguiente paso</button>
@@ -93,7 +93,7 @@
                         <div class="table-row-half">
                             <span class="table-cell table-cell-35 table-cell-info">
                                 <div class="contact-name">{{ contact.name }}</div>
-                                <a class="contact-mail" href="mailto:{{ contact.email }}" title="Enviar correo">{{ contact.email }}</a>
+                                <div class="contact-mail" title="{{ contact.phone }}" ng-if="contact.phone"><span class="icon-phone"></span> {{ contact.phone }}</div>
                             </span>
                             <span class="table-cell table-cell-15 table-cell-progress">
                                 <span round-progress
@@ -144,7 +144,7 @@
                     </div>
                     <div class="contact-info">
                         <p class="contact-email" ng-if="selectedContact.email"><a href="mailto:{{ selectedContact.email }}" title="Enviar correo">{{ selectedContact.email }}</a></p>
-                        <p class="contact-phone" ng-if="selectedContact.phone">{{ selectedContact.phone }}</p>
+                        <p class="contact-phone" ng-if="selectedContact.phone"><span class="icon-phone"></span> {{ selectedContact.phone }}</p>
                     </div>
                 </div>
                 <div class="contact-progress">

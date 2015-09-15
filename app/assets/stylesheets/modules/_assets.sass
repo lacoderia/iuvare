@@ -1,3 +1,73 @@
+.audio-list, .book-list
+  list-style: none
+  margin: 0
+  padding: 0
+
+  li
+    border-bottom: 1px solid $color_gray_3
+    border-collapse: separate
+    +rem(border-spacing, 0.8rem)
+    display: table
+    +rem(padding, 1rem)
+    position: relative
+    width: 100%
+
+    .color
+      display: table-cell
+      vertical-align: middle
+      width: 30px
+
+      span
+        display: inline-block
+        border-radius: 50%
+        height: 20px
+        left: 85px
+        top: 50%
+        width: 20px
+
+        &.yellow
+          background: $color_yellow_1
+          border: 1px solid $color-orange_1
+
+        &.red
+          background: $color_red_1
+          border: 1px solid $color-red_2
+
+        &.green
+          background: $color_green_1
+          border: 1px solid $color-green_2
+
+        &.blue
+          background: $color_blue_2
+          border: 1px solid $color-blue_3
+
+        &.purple
+          background: $color_purple_1
+          border: 1px solid $color_purple_3
+
+
+
+    span
+      display: block
+
+    .number
+      display: table-cell
+      +rem(font-size, 1.5rem)
+      vertical-align: middle
+      width: 80px
+
+    .audio-info
+      display: table-cell
+
+      .author
+        color: $color_gray_4
+        +rem(font-size, 1.4rem)
+
+      .name
+        color: $color_gray_2
+        +rem(font-size, 1.8rem)
+
+
 .assets-actions
   text-align: right
 
