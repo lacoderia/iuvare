@@ -89,6 +89,26 @@ feature 'TestsController' do
 
   describe 'Evaluate percentage test_type' do
 
+    it 'evaluates correctly questions and answers without user' do
+
+      answers = [{id: fq_answer_1.id}, {id: sq_answer_1.id}]
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { test_code: personality_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be true
+      expect(response['result']['id']).to eql personality_test.id
+      test_scores = response['result']['scores']
+      
+      expect(test_scores.count).to eql 4
+      yellow = test_scores.select{|ts| ts['description'] == "yellow"}[0]
+      expect(yellow["score"]).to eql 50.0
+      red = test_scores.select{|ts| ts['description'] == "red"}[0]
+      expect(red["score"]).to eql 50.0
+
+    end
+
     it 'evaluates correctly questions and answers' do
       
       login_with_service u = { email: user.email, password: '12345678' }
@@ -241,6 +261,19 @@ feature 'TestsController' do
   end
 
   describe 'error handling' do
+
+    it 'should raise error for non percentage tests without user' do
+
+      answers = [{id: tq_answer_4.id}, {id: cq_answer_1.id}, {id: qq_answer_3.id}]      
+      with_rack_test_driver do
+        page.driver.post "/test_scores/grade_test.json", { test_code: module1_test.code, answers: answers}
+      end
+
+      response = JSON.parse(page.body)
+      expect(response['success']).to be false
+      expect(response['error']).to eql "Test que no es de porcentaje sin usuario para evaluar"
+
+    end
 
     it 'should raise errors for test questions without answers' do
       

@@ -5,20 +5,33 @@ class TestScore < ActiveRecord::Base
 
   def self.grade_test user_id, test, answers, contact_id = nil
 
-    user = User.find(user_id)
 
     if answers.uniq.count == test.questions.count and validate_answers(answers, test) 
 
-      if test.test_type == "percentage"
-        return grade_percentage_test answers, user, test
-      elsif test.test_type == "correct_incorrect"
-        return grade_correct_incorrect_test answers, user, test
-      elsif test.test_type == "multiple"
-        if not contact_id
-          raise "Falta contact_id para este tipo de test"
+      if user_id
+
+        user = User.find(user_id)
+
+        if test.test_type == "percentage"
+          return grade_percentage_test answers, user, test
+        elsif test.test_type == "correct_incorrect"
+          return grade_correct_incorrect_test answers, user, test
+        elsif test.test_type == "multiple"
+          if not contact_id
+            raise "Falta contact_id para este tipo de test"
+          end
+          contact = Contact.find(contact_id)        
+          return grade_multiple_test answers, user, test, contact
         end
-        contact = Contact.find(contact_id)        
-        return grade_multiple_test answers, user, test, contact
+
+      else
+
+        if test.test_type == "percentage"
+          return grade_percentage_test answers, nil, test
+        else
+          raise "Test que no es de porcentaje sin usuario para evaluar"
+        end
+
       end
             
     else
@@ -69,9 +82,13 @@ class TestScore < ActiveRecord::Base
 
       test_scores = []
       percentage_types_with_count.each do |key, value|
-        ts = TestScore.find_or_initialize_by(user_id: user.id, test_id: test.id, description: key)
-        ts.score = (value/total*100).round(2)
-        ts.save!
+        if user
+          ts = TestScore.find_or_initialize_by(user_id: user.id, test_id: test.id, description: key)
+          ts.score = (value/total*100).round(2)
+          ts.save!
+        else
+          ts = TestScore.new(test_id: test.id, description: key, score: (value/total*100).round(2))
+        end
         test_scores << ts
       end
 
