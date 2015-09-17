@@ -1,0 +1,76 @@
+<div class="row" ng-controller="TestController as testCtrl">
+    <div class="col-lg-12 section-container">
+        <h2 class="section-title">Test de personalidad</h2>
+
+        <!-- Sección de resultados test de personalidad -->
+        <div ng-show="!showTest && !loadingPage">
+            <div class="score">
+                <h3 class="title">Mis resultados:</h3>
+                <div class="chart">
+                    <canvas id="pie" class="chart chart-doughnut" data="dataChart.data" labels="dataChart.labels" colours="dataChart.colours" ng-if="isChartLoaded()"></canvas>
+                </div>
+                <div class="legend">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td ng-repeat="result in colorTestResult.test_scores | orderBy : '-score'">
+                                <div>{{ result.description_spanish.toUpperCase() }}</div>
+                                <div><strong>{{ result.score }} %</strong></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="score-explanation">
+                    <table>
+                        <caption ng-class="mainColorDesc.class">Eres {{ mainColorDesc.desc }}</caption>
+                        <thead>
+                        <tr>
+                            <th>Material recomendado</th>
+                            <th>Características de personalidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {{ mainColorDesc.recommended[0].title }} <br>
+                                {{ mainColorDesc.recommended[0].material_location }}
+                            </td>
+                            <td>
+                                <ul>
+                                    <li ng-repeat="trait in mainColorDesc.traits">{{ trait }}</li>
+                                </ul>
+                                <ul class="other-traits">
+                                    <li ng-repeat="other_trait in mainColorDesc.other_traits"><strong>{{ other_trait.title }}:</strong> {{ other_trait.desc }}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="actions">
+                    <a class="action-button-purple size-medium" title="Volver a tomar el test" ng-click="createTest()">Volver a tomar el test</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Forma para nuevo test -->
+        <div class="test-form" ng-show="showTest">
+            <form novalidate name="testForm" class="form" ng-submit="gradeTest()">
+                <p class="test-instructions"> <span class="instructions-title">Instrucciones</span> {{ colorTest.instructions }} </p>
+                <fieldset ng-repeat="question in colorTest.questions">
+                    <p>{{ ($index+1) + ". " + question.text }}</p>
+                    <label ng-repeat="answer in question.answers" class="profile-tests">
+                        <div>{{ answer.text }}</div>
+                        <input type="radio" ng-model="question.selectedAnswer" value="{{ answer.id }}" required>
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <button class="action-button-forgot">Enviar</button>
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+</div>

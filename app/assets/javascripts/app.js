@@ -56,7 +56,7 @@ iuvare.constant('DEFAULT_VALUES',{
                 { order:4, code: 'PROFILE', title: 'Datos personales', state: 'profile.profile', icon: 'icon-profile' }
             ]
         },
-        { order: 3, code: 'FAQ', title: 'Ayuda', state: 'FAQ',
+        { order: 4, code: 'FAQ', title: 'Ayuda', state: 'FAQ',
             subsections: []
         }
     ],
@@ -328,6 +328,11 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
         }).state('plan',{
             url: "/plan",
             templateUrl: '/assets/plan.html',
+            defaultState: 'login',
+            authenticationRequired: false
+        }).state('test',{
+            url: "/test",
+            templateUrl: '/assets/test.html',
             defaultState: 'login',
             authenticationRequired: false
         }).state('payment',{
