@@ -86,6 +86,7 @@
 //= require controllers/SeminarController
 //= require controllers/SubmenuController
 //= require controllers/TrainingController
+// = require controllers/TestController
 //= require controllers/WhyController
 
 // Services

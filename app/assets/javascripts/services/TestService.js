@@ -26,12 +26,12 @@ iuvare.factory('TestService', ['$http', '$q', "$state", 'SessionService', 'DEFAU
     }
 
     // Function that grades a test and returns the test results
-    function gradeTest(code, answers) {
+    function gradeTest(code, answers, userId) {
 
         var testsServiceURL = 'test_scores/grade_test.json';
 
         return $http.post(testsServiceURL, {
-            user_id: SessionService.$get().getId(),
+            user_id: userId,
             test_code: code,
             answers: answers
         });

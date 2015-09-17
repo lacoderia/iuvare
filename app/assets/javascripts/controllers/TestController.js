@@ -1,11 +1,11 @@
 /*
- *   ProfileController as profileCtrl
- *   Description: Controller for Profile section view
+ *   TestController as testCtrl
+ *   Description: Controller for the public personality test
  * */
 
 'use strict';
 
-iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", "AuthService", "TestService", "SessionService", "UserService", "DEFAULT_VALUES", function($scope, $rootScope, $timeout, AuthService, TestService, SessionService, UserService, DEFAULT_VALUES){
+iuvare.controller('TestController', ["$scope", "$rootScope", "$timeout", "AuthService", "TestService", "SessionService", "UserService", "DEFAULT_VALUES", function ($scope, $rootScope, $timeout, AuthService, TestService, SessionService, UserService, DEFAULT_VALUES) {
 
     $scope.TEST_CODES = DEFAULT_VALUES.TEST_CODES;
     var chartColours = {
@@ -31,17 +31,18 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
 
     // Variables privadas
     $scope.showTest = false;
+    $scope.loadingPage = true;
     var chartLoaded = false;
 
     // Method that shows the new goal form
-    $scope.showTestForm = function(){
+    $scope.showTestForm = function () {
         $scope.showTest = true;
         chartLoaded = true;
         $rootScope.scrollToTop();
     };
 
     // Method that hides the new goal form
-    $scope.hideTestForm = function(){
+    $scope.hideTestForm = function () {
         $scope.resetTestForm();
         $scope.showTest = false;
         chartLoaded = false;
@@ -53,25 +54,26 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
         $rootScope.scrollToTop();
     };
 
-    $scope.isChartLoaded = function(){
+    $scope.isChartLoaded = function () {
         return chartLoaded;
     };
 
-    $scope.createTest = function(){
+    $scope.createTest = function () {
 
         $scope.startSpin('container-spinner');
 
         TestService.getTestByCode($scope.TEST_CODES.COLOR)
-            .success(function(data){
-                if(data.success){
+            .success(function (data) {
+                if (data.success) {
                     $scope.colorTest = data.result;
                     $scope.showTestForm();
+                    $scope.loadingPage = false;
                 } else {
                     console.log(data.error);
                 }
                 $scope.stopSpin('container-spinner');
             })
-            .error(function(error, status){
+            .error(function (error, status) {
                 $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger', false);
                 console.log('Ocurrió un error al obtener los resultados del test de color.');
             });
@@ -79,13 +81,13 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
     };
 
     // Method that resets the test form
-    $scope.resetTestForm = function(){
+    $scope.resetTestForm = function () {
         $scope.colorTest = undefined;
         $scope.testForm.$setPristine();
         $scope.testForm.$setUntouched();
     };
 
-    $scope.setChart = function(testScores){
+    $scope.setChart = function (testScores) {
         $scope.dataChart.labels = [];
         $scope.dataChart.data = [];
         $scope.dataChart.colours = [];
@@ -96,9 +98,9 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
             $scope.dataChart.colours.push(chartColours[score.description]);
         });
 
-        $timeout(function(){
+        $timeout(function () {
             chartLoaded = true;
-        },0);
+        }, 0);
     };
 
     // Method that saves a new goal
@@ -117,13 +119,12 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
                 answers.push(question);
             });
 
-            TestService.gradeTest($scope.TEST_CODES.COLOR, answers, SessionService.$get().getId())
+            TestService.gradeTest($scope.TEST_CODES.COLOR, answers, null)
                 .success(function (data) {
                     if (data.success) {
                         $scope.colorTestResult = data.result;
                         $scope.hideTestForm();
                         $scope.setChart($scope.colorTestResult.scores);
-                        SessionService.$get().setTestScores([$scope.colorTestResult]);
 
                         $scope.mainColorDesc = DEFAULT_VALUES.COLOR_DESC[(getMainColor().description).toUpperCase()];
                     } else {
@@ -152,40 +153,12 @@ iuvare.controller('ProfileTestController', ["$scope", "$rootScope", "$timeout", 
     };
 
     // Method to init the controller's default state
-    $scope.initController = function(){
-        $scope.$emit('setCurrentSection');
+    $scope.initController = function () {
 
-        $scope.sectionTitle = $scope.currentSubsection.title;
-
-        $scope.startSpin('container-spinner');
-
-        // Obtenemos las metas del usuario
-        TestService.getTestResultByCode($scope.TEST_CODES.COLOR)
-            .success(function(data){
-                if(data.result){
-                    if(data.success){
-                        $scope.colorTestResult = data.result;
-                        $scope.setChart($scope.colorTestResult.scores);
-                        $scope.mainColorDesc = DEFAULT_VALUES.COLOR_DESC[(getMainColor().description).toUpperCase()];
-
-                    } else {
-                        $scope.colorTestResult = {};
-                        $scope.showAlert(data.error, 'danger', false);
-                        console.log(data.error);
-                    }
-                } else {
-                    $scope.colorTestResult = {};
-                    console.log(data.error);
-                }
-
-                $scope.stopSpin('container-spinner');
-            })
-            .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener los resultados del test de color. Intenta nuevamente.', 'danger', false);
-                console.log('Ocurrió un error al obtener los resultados del test de color.');
-            });
+        $scope.createTest();
 
     };
 
     $scope.initController();
+
 }]);
