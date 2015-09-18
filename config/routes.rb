@@ -105,7 +105,7 @@ Rails.application.routes.draw do
 
   resources :invitations do
     collection do
-      post 'send_contact'
+      get 'send_contact'
     end
   end
 

@@ -5,15 +5,9 @@ feature 'InvitationsController' do
   describe 'send contact from webpage' do
     context 'send_contact' do
       it 'successfully sends contact email' do
-          
-        contact_request = {nombre: "Jorge", ocupacion: "", telefono: "", email: "test@test.com", enteraste: "", comentarios: ""}
         
         mail_count = ActionMailer::Base.deliveries.count
-          
-        # Validates request creation
-        with_rack_test_driver do
-          page.driver.post "/invitations/send_contact.json", { contact: contact_request}
-        end
+        visit "#{send_contact_invitations_path}.json?contact%5Bnombre%5D=test&contact%5Btelefono%5D=4353453&contact%5Bemail%5D=tonklis%40gmail.com&contact%5Benteraste%5D=&contact%5Bcomentarios%5D=&_=1442606277769"
         
         response = JSON.parse(page.body)
         expect(response['success']).to be true
