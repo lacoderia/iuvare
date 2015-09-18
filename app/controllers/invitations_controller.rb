@@ -2,19 +2,17 @@ class InvitationsController < ApplicationController
   authorize_resource
 
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
-  respond_to :js, :html, :json
+  respond_to :html, :json
 
   def send_contact
     @contact = params[:contact]
     begin
       IuvareMailer.send_contact(@contact).deliver_now
       @success = true
-      respond_to do |format|
-        if params[:callback]
-          return format.js {render 'send_contact.json', callback: params[:callback]}
-        else
-          return render 'send_contact.json'
-        end
+      if params[:callback]
+        return render 'send_contact.json', callback: params[:callback]
+      else
+        return render 'send_contact.json'
       end
     rescue Exception => e
       @success = false

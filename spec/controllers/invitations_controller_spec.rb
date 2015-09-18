@@ -7,7 +7,7 @@ feature 'InvitationsController' do
       it 'successfully sends contact email' do
         
         mail_count = ActionMailer::Base.deliveries.count
-        visit "#{send_contact_invitations_path}.json?contact%5Bnombre%5D=test&contact%5Btelefono%5D=4353453&contact%5Bemail%5D=tonklis%40gmail.com&contact%5Benteraste%5D=&contact%5Bcomentarios%5D=&_=1442606277769"
+        visit "#{send_contact_invitations_path}.json?callback=jQuery19101328918649815023_1442606277767&contact%5Bnombre%5D=test&contact%5Btelefono%5D=4353453&contact%5Bemail%5D=tonklis%40gmail.com&contact%5Benteraste%5D=&contact%5Bcomentarios%5D=&_=1442606277769"
         
         response = JSON.parse(page.body)
         expect(response['success']).to be true
