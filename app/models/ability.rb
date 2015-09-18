@@ -16,6 +16,7 @@ class Ability
     can :stream, Asset
     can :by_code, Test
     can :grade_test, TestScore
+    can :send_contact, Invitation
 
     if user.instance_of? User
       #answers, no individual use of it

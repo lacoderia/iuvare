@@ -4,6 +4,19 @@ class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
 
+  def send_contact
+    @contact = params[:contact]
+    begin
+      IuvareMailer.send_contact(@contact).deliver_now
+      @success = true
+      render 'send_contact.json'
+    rescue Exception => e
+      @success = false
+      @error = e.message
+      render 'send_contact.json', status: 500
+    end
+  end
+
   def index
     @invitations = Invitation.all
     respond_with(@invitations)

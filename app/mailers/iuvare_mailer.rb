@@ -25,4 +25,9 @@ class IuvareMailer < ActionMailer::Base
     mail(to: email, subject: "Kit IUVARE - Comprado")
   end
 
+  def send_contact(contact)
+    @contact = contact
+    mail(to: "contacto@iuvare.com.mx", subject: "Contacto desde IUVARE.MX")
+  end
+
 end

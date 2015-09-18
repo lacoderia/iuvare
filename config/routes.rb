@@ -103,7 +103,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :invitations
+  resources :invitations do
+    collection do
+      post 'send_contact'
+    end
+  end
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :passwords => "passwords"}#, :skip => [:registrations]
 
