@@ -1,7 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
 
-  KIT_PRICE = 1000
+  KIT_PRICE = 1500 
   ONE_MONTH_PRICE = 90
   THREE_MONTHS_PRICE = 200
   SIX_MONTHS_PRICE = 350
