@@ -11,7 +11,7 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
     $scope.assetTextLoaded = false;
     $scope.assetListLoaded = false;
 
-    $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.PATH;
+    $scope.ASSET_PATH = DEFAULT_VALUES.ASSETS.FULL_PATH;
     $scope.VIEWS = {
         TEXT_VIEW : 'textView',
         PLAY_VIEW : 'playView'
