@@ -30,7 +30,7 @@
                         <div>{{ asset.description }}</div>
                         <div ng-if="asset.source">
                             <audio autoplay="true" controls>
-                                <source ng-src="{{ ASSET_PATH + asset.source }}">
+                                <source ng-src="{{ ASSET_PATH + asset.source | trustAsResourceUrl }}">
                             </audio>
                         </div>
                         <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>
