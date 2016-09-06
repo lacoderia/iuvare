@@ -113,7 +113,7 @@ iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout
     });
 
     var initController = function(){
-
+        console.log('WebView debug')
     };
 
     initController();
