@@ -31,8 +31,6 @@ iuvareDirectives.directive('iuvareMobileMenu', ['$rootScope', '$window', '$docum
                 }else{
                     angular.element(element[0].parentNode).removeClass('mobile');
                 }
-
-                console.log('WebView debug')
             };
 
             init();
