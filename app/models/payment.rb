@@ -5,7 +5,7 @@ class Payment < ActiveRecord::Base
   ONE_MONTH_PRICE = 90
   THREE_MONTHS_PRICE = 200
   SIX_MONTHS_PRICE = 350
-  TWELVE_MONTHS_PRICE = 600
+  TWELVE_MONTHS_PRICE = 600 #revisar
 
   TYPES = [
     "Kit de inicio",
@@ -117,7 +117,7 @@ class Payment < ActiveRecord::Base
     body += "<p>Receptor: #{address_name} </p>"
     body += "<p>#{address_street} #{address_state} #{address_city} #{address_zip} #{address_country}</p>"
     
-    IuvareMailer.send_delivery_info("contacto@iuvare.com.mx", body).deliver_now
+    IuvareMailer.send_delivery_info("contacto@iuvare.mx", body).deliver_now
   end
   
 end

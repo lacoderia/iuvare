@@ -1,5 +1,5 @@
 class IuvareMailer < ActionMailer::Base
-  default from: "\"Iuvare\" <contacto@iuvare.com.mx>"
+  default from: "\"Iuvare\" <contacto@iuvare.mx>"
 
   def send_invitation(invitation)
   	@user = invitation.user.first_name
@@ -27,7 +27,7 @@ class IuvareMailer < ActionMailer::Base
 
   def send_contact(contact)
     @contact = contact
-    mail(to: "contacto@iuvare.com.mx", subject: "Contacto desde IUVARE.MX")
+    mail(to: "contacto@iuvare.mx", subject: "Contacto desde IUVARE.MX")
   end
 
 end
