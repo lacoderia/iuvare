@@ -10,7 +10,8 @@ class HistoricAsset < ActiveRecord::Base
     'green',
     'blue',
     'red',
-    'purple'
+    'purple',
+    'orange'
   ]
 
   validates :historic_asset_type, inclusion: {in: TYPES.map{ |pairs| pairs[0] } }
