@@ -7,12 +7,12 @@ class AssetsController < ApplicationController
   def by_keyword_and_asset_type
     keyword = params[:keyword].downcase
     asset_type = params[:asset_type]
-    @assets = Asset.by_keyword(keyword).by_asset_type(asset_type)
+    @assets = Asset.by_keyword(keyword).by_asset_type(asset_type).order(id: :desc)
   end
 
   def by_asset_type
     asset_type = params[:asset_type]
-    @assets = Asset.by_asset_type(asset_type)
+    @assets = Asset.by_asset_type(asset_type).order(id: :desc)
   end
 
   def stream
