@@ -5,14 +5,14 @@ FactoryGirl.define do
     name "audio name"
     author 'author name'
     color 'yellow'
-    number 'COC33'
+    number '33'
     
     trait :audio do
       historic_asset_type "audio"
       name "audio name"
       author 'author name'
       color 'yellow'
-      number 'COC33'
+      number '33'
     end
 
     trait :book do
