@@ -126,6 +126,7 @@ class User < ActiveRecord::Base
             result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
             result[:payment_options] << Payment.paypal_pay_object("Tres meses", user)
             result[:payment_options] << Payment.paypal_pay_object("Seis meses", user)
+            result[:payment_options] << Payment.paypal_pay_object("Nueve meses", user)
             result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
           else
             result[:valid_account] = true  
@@ -137,6 +138,7 @@ class User < ActiveRecord::Base
           result[:payment_options] << Payment.paypal_pay_object("Un mes", user)
           result[:payment_options] << Payment.paypal_pay_object("Tres meses", user)
           result[:payment_options] << Payment.paypal_pay_object("Seis meses", user)
+          result[:payment_options] << Payment.paypal_pay_object("Nueve meses", user)
           result[:payment_options] << Payment.paypal_pay_object("Doce meses", user)
         end
       else
