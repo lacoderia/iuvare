@@ -19,7 +19,7 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
     $scope.assetQuery = undefined;
     $scope.trainingDates = [
         { date: '1er sábado del mes', subject: 'Sábado de puntos'},
-        { date: '3er sábado del mes', subject: 'Talleres privados'},
+        { date: '3er sábado del mes', subject: 'Talleres primarios'},
         { date: '4to sábado del mes', subject: 'Talleres secundarios'}
     ];
 
