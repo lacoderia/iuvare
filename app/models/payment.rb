@@ -41,7 +41,7 @@ class Payment < ActiveRecord::Base
       amount = SIX_MONTHS_PRICE
       shipping = false
     when "Nueve meses"
-      item_name = "Seis meses de acceso a iuvare.mx" 
+      item_name = "Nueve meses de acceso a iuvare.mx" 
       amount = NINE_MONTHS_PRICE
       shipping = false
     when "Doce meses"
