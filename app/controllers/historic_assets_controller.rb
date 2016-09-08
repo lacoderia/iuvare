@@ -5,7 +5,7 @@ class HistoricAssetsController < InheritedResources::Base
   def by_type
     historic_asset_type = params[:historic_asset_type]
 
-    @historic_assets = HistoricAsset.by_type(historic_asset_type).order(id: :desc)
+    @historic_assets = HistoricAsset.by_type(historic_asset_type).order(number: :desc)
   end
 
   private
