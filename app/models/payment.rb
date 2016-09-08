@@ -3,15 +3,17 @@ class Payment < ActiveRecord::Base
 
   KIT_PRICE = 1500 
   ONE_MONTH_PRICE = 90
-  THREE_MONTHS_PRICE = 200
-  SIX_MONTHS_PRICE = 350
-  TWELVE_MONTHS_PRICE = 600 #revisar
+  THREE_MONTHS_PRICE = 220
+  SIX_MONTHS_PRICE = 430
+  NINE_MONTHS_PRICE = 650
+  TWELVE_MONTHS_PRICE = 790
 
   TYPES = [
     "Kit de inicio",
     "Un mes",
     "Tres meses",
     "Seis meses",
+    "Nueve meses",
     "Doce meses"
   ]
   
@@ -37,6 +39,10 @@ class Payment < ActiveRecord::Base
     when "Seis meses"
       item_name = "Seis meses de acceso a iuvare.mx" 
       amount = SIX_MONTHS_PRICE
+      shipping = false
+    when "Nueve meses"
+      item_name = "Seis meses de acceso a iuvare.mx" 
+      amount = NINE_MONTHS_PRICE
       shipping = false
     when "Doce meses"
       item_name = "Doce meses de acceso a iuvare.mx" 
@@ -86,6 +92,9 @@ class Payment < ActiveRecord::Base
       when SIX_MONTHS_PRICE
         payment_type = "Seis meses"
         expiration_date = Time.zone.now + 6.month
+      when NINE_MONTHS_PRICE
+        payment_type = "Nueve meses"
+        expiration_date = Time.zone.now + 9.month
       else
         raise "La cantidad pagada $ #{amount} por usuario #{user_id} no equivale a ningún producto."
       end

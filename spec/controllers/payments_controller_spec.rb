@@ -154,7 +154,7 @@ feature 'PaymentsController' do
         paypal_ipn_object = {
           item_name: "Compra de tres meses",
           custom: User.last.id,
-          mc_gross: 200,
+          mc_gross: 220,
           txn_id: "txn_id_04",
           mc_currency: "MXN",
           payment_status: "Completed"
@@ -199,7 +199,7 @@ feature 'PaymentsController' do
         paypal_ipn_object = {
           item_name: "Compra de cinco meses",
           custom: User.last.id,
-          mc_gross: 350,
+          mc_gross: 430,
           txn_id: "txn_id_05",
           mc_currency: "MXN",
           payment_status: "Completed"
@@ -244,7 +244,7 @@ feature 'PaymentsController' do
         paypal_ipn_object = {
           item_name: "Compra de doce mes",
           custom: User.last.id,
-          mc_gross: 600,
+          mc_gross: 790,
           txn_id: "txn_id_03",
           mc_currency: "MXN",
           payment_status: "Completed"
