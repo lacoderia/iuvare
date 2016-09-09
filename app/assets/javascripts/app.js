@@ -121,7 +121,7 @@ iuvare.constant('DEFAULT_VALUES',{
     },
     CONTACT_STATUS_COLORS : ['#FF0000', '#E0E0E0', '#E0F3DB', '#B1F3A2', '#8EF375', '#07F33A'],
     ASSETS:{
-        FULL_PATH: 'http://pruebas.iuvare.mx/assets/',
+        FULL_PATH: 'http://socios.iuvare.mx/assets/',
         PATH: '/assets/',
         TYPES: {
             AUDIO: 'audio',
