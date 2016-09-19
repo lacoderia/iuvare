@@ -141,6 +141,7 @@
 				image    : '<img class="fancybox-image" src="{href}" alt="" />',
 				iframe   : '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" frameborder="0" vspace="0" hspace="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen' + (IE ? ' allowtransparency="true"' : '') + '></iframe>',
 				error    : '<p class="fancybox-error">The requested content cannot be loaded.<br/>Please try again later.</p>',
+                                //closeBtn :'true', 
 				closeBtn : '<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>',
 				next     : '<a title="Next" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
 				prev     : '<a title="Previous" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
@@ -182,9 +183,18 @@
 			// Callbacks
 			onCancel     : $.noop, // If canceling
 			beforeLoad   : $.noop, // Before loading
-			afterLoad    : $.noop, // After loading
+			//afterLoad    : $.noop, // After loading
+                        afterLoad:function(curr, prev) {
+                          if(!jQuery('a.fancybox-close').length) {
+                            jQuery('.fancybox-outer').after('<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>');
+                            jQuery('.fancybox-close').css('background-image','url(fancybox_sprite.png)');
+                          }
+                        },
 			beforeShow   : $.noop, // Before changing in current item
 			afterShow    : $.noop, // After opening
+                        //afterShow: function () {
+                        //  $('.fancybox-close').attr('id', 'fancybox-close');
+                        //},
 			beforeChange : $.noop, // Before changing gallery item
 			beforeClose  : $.noop, // Before closing
 			afterClose   : $.noop  // After closing
