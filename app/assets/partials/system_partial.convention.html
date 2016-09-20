@@ -13,7 +13,7 @@
         <!-- Listado de nuevos assets o assets destacados -->
         <div  class="latest-assets" ng-show="isSelectedView(VIEWS.NEXT_VIEW)">
             <div ng-show="isNextEventEmpty()" class="message-container">
-                <p class="message">No hay próximos seminarios</p>
+                <p class="message">No hay próximas convenciones</p>
             </div>
             <div ng-show="!isNextEventEmpty()" class="latest-asset-container">
                 <img ng-src="{{ nextEvent.picture }}" alt="{{ nextEvent.title }}" ng-click="openEventPopUp(nextEvent)">
@@ -23,7 +23,7 @@
         <!-- Listado de assets  -->
         <div ng-show="isSelectedView(VIEWS.PLAY_VIEW)">
             <div ng-show="isAssetListEmpty()" class="message-container">
-                <p class="message">No hay seminarios disponibles</p>
+                <p class="message">No hay convenciones disponibles</p>
             </div>
             <form class="form" ng-show="!isAssetListEmpty()">
                 <input type="text" placeholder="Busca en convenciones: Ej. Estela Salinas" ng-model="assetQuery">
