@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   
   has_attached_file :picture, :styles => { :original => "300x300#" }, :default_url => ""
   validates_attachment_content_type :picture, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_size :picture, :less_than => 5.megabytes, :unless => Proc.new {|m| m[:picture].nil?}
 
   scope :all_downlines, -> (id) {where("upline_id = ?", id).includes(:test_scores => :test)}
   scope :cycle_downlines, -> (id) {where("upline_id = ?", id).order(:downline_position)}
