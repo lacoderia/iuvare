@@ -27,7 +27,7 @@ iuvare.factory('AssetService', ['$http', '$q', '$sce', '$state', 'SessionService
                                             {src: $sce.trustAsResourceUrl(asset.stream_url + ".webm"), type: "video/webm"},
                                             //{src: $sce.trustAsResourceUrl(DEFAULT_VALUES.ASSETS.PATH + asset.source + '.ogv'), type: "video/ogg"}
                                         ],
-                                        theme : "/assets/videogular.css"
+                                        theme : "/assets/bower_components/videogular-themes-default/videogular.css"
                                     };
 
                                     break;
