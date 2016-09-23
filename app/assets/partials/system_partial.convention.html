@@ -38,7 +38,7 @@
 
                     <div class="asset-info" ng-if="asset.showInfo">
                         <div>{{ asset.description }}</div>
-                        <videogular vg-theme="/assets/videogular.css">
+                        <videogular vg-theme="asset.config.theme">
                             <vg-media vg-src="asset.config.sources">
                             </vg-media>
 
