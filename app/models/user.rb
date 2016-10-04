@@ -113,11 +113,14 @@ class User < ActiveRecord::Base
 
       time_now = Time.zone.now
 
-      if (user.iuvare_id.to_i >= 33231) or (user.iuvare_id.to_i >= 700 and user.iuvare_id.to_i <= 725)
-        months_free_date = user.created_at + FREE_MONTHS.months
-      else
-        months_free_date = time_now
-      end
+      #if (user.iuvare_id.to_i >= 33231) or (user.iuvare_id.to_i >= 700 and user.iuvare_id.to_i <= 725)
+      #  months_free_date = user.created_at + FREE_MONTHS.months
+      #else
+      #  months_free_date = time_now
+      #end
+      
+      #ALL USERS FREE ACCESS
+      months_free_date = user.created_at + FREE_MONTHS.months
 
       if time_now >= months_free_date
         if user.payment_expiration

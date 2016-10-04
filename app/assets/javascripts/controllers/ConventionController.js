@@ -14,7 +14,8 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
         NEXT_VIEW : 'nextView',
         PLAY_VIEW : 'playView'
     };
-    $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
+    //$scope.selectedView = $scope.VIEWS.NEXT_VIEW;
+    $scope.selectedView = $scope.VIEWS.PLAY_VIEW;
     $scope.nextEvent = undefined;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
@@ -114,7 +115,8 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
         $scope.$emit('setCurrentSection');
         $scope.sectionTitle = $scope.currentSubsection.title;
 
-        $scope.changeView($scope.VIEWS.NEXT_VIEW);
+        //$scope.changeView($scope.VIEWS.NEXT_VIEW);
+        $scope.changeView($scope.VIEWS.PLAY_VIEW);
     };
 
     $scope.initController();

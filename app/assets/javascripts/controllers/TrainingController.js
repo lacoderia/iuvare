@@ -14,7 +14,8 @@ iuvare.controller('TrainingController', ["$scope", "$rootScope", "AssetService",
         NEXT_VIEW : 'nextView',
         PAST_VIEW : 'pastView'
     };
-    $scope.selectedView = $scope.VIEWS.NEXT_VIEW;
+    //$scope.selectedView = $scope.VIEWS.NEXT_VIEW;
+    $scope.selectedView = $scope.VIEWS.PAST_VIEW;
     $scope.assetList = [];
     $scope.assetQuery = undefined;
     $scope.trainingDates = [

@@ -1,16 +1,17 @@
 <div ng-controller="ConventionController as conventionCtrl">
+<link rel="stylesheet" type="text/css" href="/assets/bower_components/videogular-themes-default/videogular.css" />
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div class="section-content convention-container">
 
         <aside class="tabs">
             <ul>
-                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próxima convención</a></li>
+              <!--<li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próxima convención</a></li>-->
                 <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PLAY_VIEW)]" ng-click="changeView(VIEWS.PLAY_VIEW)">Convenciones grabadas</a></li>
             </ul>
         </aside>
 
-        <!-- Listado de nuevos assets o assets destacados -->
+        <!-- Listado de nuevos assets o assets destacados
         <div  class="latest-assets" ng-show="isSelectedView(VIEWS.NEXT_VIEW)">
             <div ng-show="isNextEventEmpty()" class="message-container">
                 <p class="message">No hay próximas convenciones</p>
@@ -18,7 +19,7 @@
             <div ng-show="!isNextEventEmpty()" class="latest-asset-container">
                 <img ng-src="{{ nextEvent.picture }}" alt="{{ nextEvent.title }}" ng-click="openEventPopUp(nextEvent)">
             </div>
-        </div>
+        </div> -->
 
         <!-- Listado de assets  -->
         <div ng-show="isSelectedView(VIEWS.PLAY_VIEW)">

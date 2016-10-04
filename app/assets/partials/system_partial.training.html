@@ -1,16 +1,17 @@
 <div ng-controller="TrainingController as trainingCtrl">
+<link rel="stylesheet" type="text/css" href="/assets/bower_components/videogular-themes-default/videogular.css" />
     <h2 class="section-title">{{ sectionTitle }}</h2>
 
     <div ng-show="pageLoaded" class="section-content training-container">
 
         <aside class="tabs">
             <ul>
-                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próximos talleres</a></li>
+              <!--<li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.NEXT_VIEW)]" ng-click="changeView(VIEWS.NEXT_VIEW)">Próximos talleres</a></li>-->
                 <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PAST_VIEW)]" ng-click="changeView(VIEWS.PAST_VIEW)">Talleres grabados</a></li>
             </ul>
         </aside>
 
-        <!-- Listado de nuevos assets o assets destacados -->
+        <!-- Listado de nuevos assets o assets destacados
         <div  class="latest-assets" ng-show="isSelectedView(VIEWS.NEXT_VIEW)">
             <div ng-show="!isThereNextEvent()" class="message-container">
                 <p class="message">No hay próximas capacitaciones</p>
@@ -23,7 +24,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
 
         <!-- Listado de assets  -->
         <div ng-show="isSelectedView(VIEWS.PAST_VIEW)">
