@@ -43,12 +43,13 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
             .success(function(data){
                 if(data.success && EventService.event) {
                     $scope.nextEvent = angular.copy(EventService.event);
-                    $scope.stopSpin('container-spinner');
                     $scope.nextEventLoaded = true;
                 }
+                $scope.stopSpin('container-spinner');
             })
             .error(function(){
-                console.log('Ocurrió un error al obtener el siguiente seminario.') ;
+                console.log('Ocurrió un error al obtener el siguiente seminario.');
+                $scope.stopSpin('container-spinner');
             });
     };
 
@@ -60,13 +61,14 @@ iuvare.controller('SeminarController', ["$scope", "$rootScope", "AssetService", 
             .success(function(data){
                 if(data.success){
                     $scope.assetList = AssetService.assets;
-                    $scope.stopSpin('container-spinner');
                     $scope.assetListLoaded = true;
                 }
+                $scope.stopSpin('container-spinner');
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger', false);
                 console.log('Ocurrió un error al obtener los seminarios.');
+                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger', false);
+                $scope.stopSpin('container-spinner');
             });
     };
 
