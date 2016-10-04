@@ -49,6 +49,7 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
             })
             .error(function(){
                 console.log('Ocurrió un error al obtener el siguiente seminario.') ;
+                $scope.stopSpin('container-spinner');
             });
     };
 
@@ -65,8 +66,9 @@ iuvare.controller('ConventionController', ["$scope", "$rootScope", "AssetService
                 $scope.stopSpin('container-spinner');
             })
             .error(function (error, status) {
-                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger', false);
                 console.log('Ocurrió un error al obtener los seminarios.');
+                $scope.showAlert('Ocurrió un error al obtener los seminarios.', 'danger', false);
+                $scope.stopSpin('container-spinner');
             });
     };
 
