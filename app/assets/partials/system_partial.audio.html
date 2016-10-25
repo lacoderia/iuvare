@@ -29,7 +29,7 @@
                             <div>
                                 <span class="name">{{ ::asset.name }}</span>
                                 <span class="author">{{ ::asset.author }}</span>
-                                <span class="description">{{ ::asset.description }}</span>
+                                <span class="description" ng-if="asset.description">Tipo: {{ ::asset.description }}</span>
                             </div>
                             <div>
                                 <iu-audio asset-path="{{ ASSET_PATH }}" source="{{ asset.source }}"></iu-audio>
