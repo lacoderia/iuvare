@@ -5,22 +5,38 @@
 
         <aside class="tabs">
             <ul>
-                <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.TEXT_VIEW)]" ng-click="changeView(VIEWS.TEXT_VIEW)">Lista de audios</a></li>
+                <!--li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.TEXT_VIEW)]" ng-click="changeView(VIEWS.TEXT_VIEW)">Lista de audios</a></li-->
                 <li><a class="tab-item" ng-class="{true: 'selected', false:''}[isSelectedView(VIEWS.PLAY_VIEW)]" ng-click="changeView(VIEWS.PLAY_VIEW)">Audios grabados</a></li>
             </ul>
         </aside>
 
         <!-- Listado de assets nuevos o destacados  -->
-        <div ng-show="isSelectedView(VIEWS.PLAY_VIEW) && isAssetListLoaded()">
-            <div ng-show="isAssetListEmpty()" class="message-container">
-                <p class="message">No hay audios anteriores disponibles</p>
+        <div>
+            <div ng-show="isAssetTextEmpty()" class="message-container">
+                <p class="message">No hay audios disponibles</p>
             </div>
-            <form ng-show="!isAssetListEmpty()" class="form">
+            <form ng-show="!isAssetTextEmpty()" class="form">
                 <input type="text" placeholder="Busca en audios: Ej. Estela Salinas" ng-model="assetQuery">
             </form>
-            <div ng-show="!isAssetListEmpty()" class="assets-list">
-                <div dir-paginate="asset in assetList | filter:assetQuery | itemsPerPage:10" class="asset">
-                    <div ng-click="toggleAssetInfo(asset)">
+            <div ng-show="!isAssetTextEmpty()" class="assets-list">
+                <ul class="audio-list">
+                    <li dir-paginate="asset in assetText | filter:assetQuery | itemsPerPage:10">
+                        <div class="number">{{ ::asset.number }}</div>
+                        <div class="color">
+                            <span ng-class="asset.color"></span>
+                        </div>
+                        <div class="audio-info">
+                            <div>
+                                <span class="name">{{ ::asset.name }}</span>
+                                <span class="author">{{ ::asset.author }}</span>
+                            </div>
+                            <div>
+                                <iu-audio asset-path="{{ ASSET_PATH }}" source="{{ asset.source }}"></iu-audio>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                    <!--div ng-click="toggleAssetInfo(asset)">
                         <div class="asset-name">{{ asset.title }}</div>
                         <div class="asset-author">{{ asset.author }}</div>
                         <div class="asset-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
@@ -34,7 +50,7 @@
                             </audio>
                         </div>
                         <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>
-                    </div>
+                    </div-->
 
                 </div>
             </div>

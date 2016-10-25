@@ -58,6 +58,18 @@
 
     .audio-info
       display: table-cell
+      min-width: 200px
+
+      div
+        display: inline-block
+        margin-top: 1rem
+        width: 100%
+
+        @media screen and (min-width: $screen-sm-max)
+          height: 100%
+          margin-top: 0
+          vertical-align: super
+          width: 49%
 
       .author
         color: $color_gray_4
