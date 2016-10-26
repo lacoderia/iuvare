@@ -5,21 +5,15 @@
 
   li
     border-bottom: 1px solid $color_gray_3
-    border-collapse: separate
-    +rem(border-spacing, 0.8rem)
-    display: table
     +rem(padding, 1rem)
     position: relative
     width: 100%
 
     .color
-      display: block
+      display: inline-block
       margin-top: 0.2rem
-      vertical-align: middle
+      vertical-align: top
       width: 30px
-
-      @media screen and (min-width: $screen-sm-max)
-        display: table-cell
 
       span
         display: inline-block
@@ -55,32 +49,15 @@
       display: block
 
     .number
-      display: block
+      display: inline-block
       +rem(font-size, 1.5rem)
-      vertical-align: middle
-      width: 100%
+      vertical-align: top
+      width: 80px
 
-      @media screen and (min-width: $screen-sm-max)
-        display: table-cell
-        width: 80px
 
     .audio-info
-      display: block
+      display: inline-block
       min-width: 200px
-
-      @media screen and (min-width: $screen-sm-max)
-        display: table-cell
-
-      div
-        display: inline-block
-        margin-top: 0.4rem
-        width: 100%
-
-        @media screen and (min-width: $screen-sm-max)
-          height: 100%
-          margin-top: 0
-          vertical-align: super
-          width: 49%
 
       .author
         color: $color_gray_4
@@ -93,6 +70,16 @@
       .description
         color: $color_gray_4
         +rem(font-size, 1.3rem)
+
+    .audio
+      display: inline-block
+      +rem(margin, 1rem 0rem)
+      text-align: center
+      vertical-align: top
+      width: 100%
+
+      @media screen and (min-width: $screen-sm-max)
+        width: auto
 
 
 .assets-actions

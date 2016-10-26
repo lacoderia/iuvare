@@ -26,61 +26,41 @@
                             <span ng-class="asset.color"></span>
                         </div>
                         <div class="audio-info">
-                            <div>
-                                <span class="name">{{ ::asset.name }}</span>
-                                <span class="author">{{ ::asset.author }}</span>
-                                <span class="description" ng-if="asset.description">Tipo: {{ ::asset.description }}</span>
-                            </div>
-                            <div>
-                                <iu-audio asset-path="{{ ASSET_PATH }}" source="{{ asset.source }}"></iu-audio>
-                            </div>
+                            <span class="name">{{ ::asset.name }}</span>
+                            <span class="author">{{ ::asset.author }}</span>
+                            <span class="description" ng-if="asset.description">Tipo: {{ ::asset.description }}</span>
                         </div>
-                    </li>
-                </ul>
-                    <!--div ng-click="toggleAssetInfo(asset)">
-                        <div class="asset-name">{{ asset.title }}</div>
-                        <div class="asset-author">{{ asset.author }}</div>
-                        <div class="asset-detail-toggle-icon"><span ng-class="{ true:'icon-circle-down', false:'icon-circle-right'}[asset.showInfo]"></span></div>
-                    </div>
-
-                    <div class="asset-info" ng-if="asset.showInfo">
-                        <div>{{ asset.description }}</div>
-                        <div ng-if="asset.source">
-                            <audio autoplay="true" controls>
-                                <source ng-src="{{ ASSET_PATH + asset.source }}">
-                            </audio>
-                        </div>
-                        <div ng-if="!asset.source">Lo sentimos, actualmente no se enucentra disponible este audio.</div>
-                    </div-->
-
-                </div>
-            </div>
-            <dir-pagination-controls></dir-pagination-controls>
-        </div>
-
-        <!-- Listado de assets  -->
-        <div ng-show="isSelectedView(VIEWS.TEXT_VIEW) && isAssetTextLoaded()">
-
-            <div ng-show="isAssetTextEmpty()" class="message-container">
-                <p class="message">No hay audios disponibles</p>
-            </div>
-            <div ng-show="!isAssetTextEmpty()">
-                <ul class="audio-list">
-                    <li ng-repeat="asset in assetText">
-                        <div class="number">{{ asset.number }}</div>
-                        <div class="color">
-                            <span ng-class="asset.color"></span>
-                        </div>
-                        <div class="audio-info">
-                            <span class="name">{{ asset.name }}</span>
-                            <span class="author">{{ asset.author }}</span>
-                        </div>
+                        <iu-audio asset-path="{{ ASSET_PATH }}" source="{{ asset.source }}"></iu-audio>
                     </li>
                 </ul>
             </div>
         </div>
-
-
+        <dir-pagination-controls></dir-pagination-controls>
     </div>
+
+    <!-- Listado de assets  -->
+    <div ng-show="isSelectedView(VIEWS.TEXT_VIEW) && isAssetTextLoaded()">
+
+        <div ng-show="isAssetTextEmpty()" class="message-container">
+            <p class="message">No hay audios disponibles</p>
+        </div>
+        <div ng-show="!isAssetTextEmpty()">
+            <ul class="audio-list">
+                <li ng-repeat="asset in assetText">
+                    <div class="number">{{ asset.number }}</div>
+                    <div class="color">
+                        <span ng-class="asset.color"></span>
+                    </div>
+                    <div class="audio-info">
+                        <span class="name">{{ asset.name }}</span>
+                        <span class="author">{{ asset.author }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
 
 </div>

@@ -5,7 +5,7 @@ iuvareDirectives.directive('iuAudio', ['$rootScope', '$timeout', function($rootS
     return{
         restrict: 'E',
         replace: true,
-        template:   '<div>' +
+        template:   '<div class="audio">' +
                         '<audio style="display: none;" controls><source></audio>' +
                         '<div class="no-audio" style="display: block;">No disponible.</div>' +
                     '</div>',
