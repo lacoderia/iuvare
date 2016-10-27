@@ -57,7 +57,14 @@
 
     .audio-info
       display: inline-block
-      min-width: 200px
+      +rem(margin-right, 2rem)
+      max-width: 165px
+      min-width: 165px
+      word-wrap: break-word
+
+      @media screen and (min-width: $screen-sm-max)
+        max-width: 350px
+        min-width: 350px
 
       .author
         color: $color_gray_4
@@ -74,11 +81,11 @@
     .audio
       display: inline-block
       +rem(margin, 1rem 0rem)
-      text-align: center
       vertical-align: top
       width: 100%
 
       @media screen and (min-width: $screen-sm-max)
+        text-align: center
         width: auto
 
 
