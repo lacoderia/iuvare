@@ -1,6 +1,6 @@
 'use strict';
 
-iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, AssetService, AuthService, SessionService, DEFAULT_VALUES){
+iuvare.controller('AudioController', ["$scope", "$rootScope", "$timeout", "AssetService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $timeout, AssetService, AuthService, SessionService, DEFAULT_VALUES){
 
     // Private variables
     var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.AUDIO;
@@ -106,7 +106,8 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
                 $scope.getAssetText();
                 break;
             case $scope.VIEWS.PLAY_VIEW:
-                $scope.getAssetList();
+                //$scope.getAssetList();
+                $scope.getAssetText();
                 break;
             default:
                 break;
@@ -124,7 +125,7 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "AssetService", "A
         $scope.$emit('setCurrentSection');
         $scope.sectionTitle = $scope.currentSubsection.title;
 
-        $scope.changeView($scope.VIEWS.TEXT_VIEW);
+        $scope.changeView($scope.VIEWS.PLAY_VIEW);
     };
 
     $scope.initController();

@@ -5,16 +5,14 @@
 
   li
     border-bottom: 1px solid $color_gray_3
-    border-collapse: separate
-    +rem(border-spacing, 0.8rem)
-    display: table
     +rem(padding, 1rem)
     position: relative
     width: 100%
 
     .color
-      display: table-cell
-      vertical-align: middle
+      display: inline-block
+      margin-top: 0.2rem
+      vertical-align: top
       width: 30px
 
       span
@@ -51,13 +49,22 @@
       display: block
 
     .number
-      display: table-cell
+      display: inline-block
       +rem(font-size, 1.5rem)
-      vertical-align: middle
+      vertical-align: top
       width: 80px
 
+
     .audio-info
-      display: table-cell
+      display: inline-block
+      +rem(margin-right, 2rem)
+      max-width: 165px
+      min-width: 165px
+      word-wrap: break-word
+
+      @media screen and (min-width: $screen-sm-max)
+        max-width: 350px
+        min-width: 350px
 
       .author
         color: $color_gray_4
@@ -66,6 +73,20 @@
       .name
         color: $color_gray_2
         +rem(font-size, 1.8rem)
+
+      .description
+        color: $color_gray_4
+        +rem(font-size, 1.3rem)
+
+    .audio
+      display: inline-block
+      +rem(margin, 1rem 0rem)
+      vertical-align: top
+      width: 100%
+
+      @media screen and (min-width: $screen-sm-max)
+        text-align: center
+        width: auto
 
 
 .assets-actions

@@ -19,6 +19,12 @@
 /tmp
 coverage/
 profiles/
+/app/assets/audios/*
+/app/assets/conventions/*
+/app/assets/seminars/*
+/app/assets/documents/*
+/app/assets/trainings/*
+/app/assets/plans/*
 
 #Local temp files
 /.sass-cache
