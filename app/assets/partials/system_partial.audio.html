@@ -31,7 +31,8 @@
                             <span class="description" ng-if="asset.description">Tipo: {{ ::asset.description }}</span>
                         </div>
                         <div class="audio" ng-if="asset.source">
-                            <audio preload="none" controls>
+                            <button class="action-button-purple size-medium" ng-click="showAudio(asset)" ng-if="!asset.display">Escuchar</button>
+                            <audio preload="none" controls ng-if="asset.display">
                                 <source ng-src="{{ ASSET_PATH + asset.source | trustAsResourceUrl }}">
                             </audio>
                         </div>

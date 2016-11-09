@@ -119,6 +119,10 @@ iuvare.controller('AudioController', ["$scope", "$rootScope", "$timeout", "Asset
         return playable;
     };
 
+    $scope.showAudio = function(asset) {
+      asset.display = true;
+    };
+
     // Method to init the controller's default state
     $scope.initController = function(){
 
