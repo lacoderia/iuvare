@@ -32,7 +32,7 @@
                         </div>
                         <div class="audio" ng-if="asset.source">
                             <button class="action-button-purple size-medium" ng-click="showAudio(asset)" ng-if="!asset.display">Escuchar</button>
-                            <audio autoplay="true" controls ng-if="asset.display">
+                            <audio preload="metadata" controls ng-if="asset.display">
                                 <source ng-src="{{ ASSET_PATH + asset.source | trustAsResourceUrl }}">
                             </audio>
                         </div>
