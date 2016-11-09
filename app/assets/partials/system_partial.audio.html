@@ -30,8 +30,11 @@
                             <span class="author">{{ ::asset.author }}</span>
                             <span class="description" ng-if="asset.description">Tipo: {{ ::asset.description }}</span>
                         </div>
-                        <iu-audio asset-path="{{ ASSET_PATH }}" source="{{ asset.source }}"></iu-audio>
-                        <!--iu-audio asset-path="http://www.soundhelix.com/examples/mp3/" source="SoundHelix-Song-1.mp3"></iu-audio-->
+                        <div class="audio" ng-if="asset.source">
+                            <audio preload="none" controls>
+                                <source ng-src="{{ ASSET_PATH + asset.source | trustAsResourceUrl }}">
+                            </audio>
+                        </div>
                     </li>
                 </ul>
             </div>
