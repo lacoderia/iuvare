@@ -32,8 +32,8 @@
                         </div>
                         <div class="audio" ng-if="asset.source">
                             <button class="action-button-purple size-medium" ng-click="showAudio(asset)" ng-if="!asset.display">Escuchar</button>
-                            <audio preload="metadata" controls ng-if="asset.display">
-                                <source ng-src="{{ ASSET_PATH + asset.source | trustAsResourceUrl }}">
+                            <audio preload="metadata" controls autobuffer ng-if="asset.display">
+                                <source ng-src="{{ asset.stream_url | trustAsResourceUrl }}">
                             </audio>
                         </div>
                     </li>

@@ -3,6 +3,7 @@ if not @historic_assets.empty?
   json.set! :result do
     json.array!(@historic_assets) do |ha|
       json.extract! ha, :id, :number, :color, :author, :name, :historic_asset_type, :source, :description
+      json.stream_url "/stream?asset_type=#{ha.historic_asset_type}&source=#{ha.source}"
     end
   end
 else
