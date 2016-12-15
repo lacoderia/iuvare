@@ -17,6 +17,7 @@ class AssetsController < ApplicationController
 
   def stream
     stream_params = Asset.stream_file params[:asset_type], params[:source]
+    
     send_file stream_params[0],
       filename: File.basename(stream_params[0]),
       type: Mime::Type.lookup_by_extension(stream_params[1]),
