@@ -41,25 +41,21 @@
                         <div class="required-message" ng-show="signupForm.$submitted || signupForm.signupIuvareId.$touched">
                             <span ng-show="signupForm.signupIuvareId.$error.required">El ID Iuvare es requerido.</span>
                         </div>
-                        <input type="text" placeholder="ID Xango" name="signupXangoId" ng-model="newUser.xangoId" required>
-                        <div class="required-message" ng-show="signupForm.$submitted || signupForm.signupXangoId.$touched">
-                            <span ng-show="signupForm.signupXangoId.$error.required">El ID Xango es requerido.</span>
+                        <div class="loading-container">
+                            <input type="text" placeholder="ID Iuvare del patrocinador" name="signupIuvareSponsorId" ng-model="newUser.sponsorIuvare.id" ng-model-options="{ updateOn: 'default blur', debounce: 500 }" ng-change="getIuvareUser(newUser.sponsorIuvare, signupForm.signupIuvareSponsorId)" required>
+                            <span class="icon-spinner loading" ng-show="signupForm.signupIuvareSponsorId.$pending"></span>
+                        </div>
+                        <div ng-show="newUser.sponsorIuvare.message"><span ng-hide="signupForm.signupIuvareSponsorId.$error.userExists">Patrocinador Iuvare: </span>{{ newUser.sponsorIuvare.message }}</div>
+                        <div class="required-message" ng-show="signupForm.$submitted || signupForm.signupIuvareSponsorId.$touched">
+                            <span ng-show="signupForm.signupIuvareSponsorId.$error.required">El ID Iuvare del patrocinador es requerido.</span>
                         </div>
                         <div class="loading-container">
-                            <input type="text" placeholder="ID Xango del patrocinador" name="signupXangoSponsorId" ng-model="newUser.sponsorXango.id" ng-model-options="{ updateOn: 'default blur', debounce: 500 }" ng-change="getXangoUser(newUser.sponsorXango, signupForm.signupXangoSponsorId)" required>
-                            <span class="icon-spinner loading" ng-show="signupForm.signupXangoSponsorId.$pending"></span>
+                            <input type="text" placeholder="ID Iuvare de colocación" name="signupIuvarePlacementId" ng-model="newUser.placementIuvare.id" ng-model-options="{ updateOn: 'default blur', debounce: 500 }" ng-change="getIuvareUser(newUser.placementIuvare, signupForm.signupIuvarePlacementId)" required>
+                            <span class="icon-spinner loading" ng-show="signupForm.signupIuvarePlacementId.$pending"></span>
                         </div>
-                        <div ng-show="newUser.sponsorXango.message"><span ng-hide="signupForm.signupXangoSponsorId.$error.userExists">Patrocinador Xango: </span>{{ newUser.sponsorXango.message }}</div>
-                        <div class="required-message" ng-show="signupForm.$submitted || signupForm.signupXangoSponsorId.$touched">
-                            <span ng-show="signupForm.signupXangoSponsorId.$error.required">El ID Xango del patrocinador es requerido.</span>
-                        </div>
-                        <div class="loading-container">
-                            <input type="text" placeholder="ID Colocación de Xango" name="signupXangoPlacementId" ng-model="newUser.placementXango.id" ng-model-options="{ updateOn: 'default blur', debounce: 500 }" ng-change="getXangoUser(newUser.placementXango, signupForm.signupXangoPlacementId)" required>
-                            <span class="icon-spinner loading" ng-show="signupForm.signupXangoPlacementId.$pending"></span>
-                        </div>
-                        <div ng-show="newUser.placementXango.message"><span ng-hide="signupForm.signupXangoPlacementId.$error.userExists">Colocación Xango: </span>{{ newUser.placementXango.message }}</div>
-                        <div class="required-message" ng-show="signupForm.$submitted || signupForm.signupXangoPlacementId.$touched">
-                            <span ng-show="signupForm.signupXangoPlacementId.$error.required">El ID Colocación de Xango es requerido.</span>
+                        <div ng-show="newUser.placementIuvare.message"><span ng-hide="signupForm.signupIuvarePlacementId.$error.userExists">Colocación Iuvare: </span>{{ newUser.placementIuvare.message }}</div>
+                        <div class="required-message" ng-show="signupForm.$submitted || signupForm.signupIuvarePlacementId.$touched">
+                            <span ng-show="signupForm.signupIuvarePlacementId.$error.required">El ID Iuvare de colocación es requerido.</span>
                         </div>
                     </fieldset>
                     <fieldset>

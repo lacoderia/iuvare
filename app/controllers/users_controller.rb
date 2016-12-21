@@ -88,12 +88,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def by_xango_id 
-    @user = User.by_xango_id(params[:xango_id]).first
-    if not @user
-      @error = "No se encontró usuario con este ID de Xango"
+  def by_iuvare_id
+     users = User.by_iuvare_id(params[:iuvare_id])
+    if users.empty?
+      @error = "No se encontró usuario con este ID de IUVARE"
+    elsif users.count > 1
+      @error = "Hay varios usuarios asociados a ese ID de IUVARE, favor de escribirnos a contacto@iuvare.mx"
     end
-    render "by_xango_id.json"
+    @user = users.first
+    render "by_iuvare_id.json"
   end
 
   def progress

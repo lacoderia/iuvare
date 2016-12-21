@@ -11,7 +11,7 @@ class Ability
     can [:create, :get], :session
     can [:create, :update], :password
     can :ipn, Payment
-    can :by_xango_id, User
+    can :by_iuvare_id, User
     can [:finish_video, :watch_video], Plan
     can :stream, Asset
     can :by_code, Test

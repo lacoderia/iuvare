@@ -30,8 +30,6 @@
                 <input type="email" placeholder="Correo electrónico" name="profileEmail" ng-model="currentUser.email" readonly required>
                 <label>ID Iuvare</label>
                 <input type="text" placeholder="ID Iuvare" name="profileIuvareId" ng-model="currentUser.iuvareId" ng-readonly="currentUser.isIuvareId" required>
-                <label>ID Xango</label>
-                <input type="text" placeholder="ID Xango" name="profileXangoId" ng-model="currentUser.xangoId" readonly required>
                 <label>Estatus de suscripción</label>
                 <span class="suscription">{{currentUser.accessLevel.message}} Vigente hasta el {{currentUser.expirationDate | amDateFormat:'D/MM/YYYY'}}</span>
                 

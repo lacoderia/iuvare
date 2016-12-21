@@ -16,7 +16,6 @@ iuvare.factory('SessionService', ['UserService', function(UserService){
         return Session;
     };
 
-
     return{
         destroySession: destroySession,
         createSession: createSession,

@@ -104,7 +104,7 @@
 // = require services/ProgressService
 //= require services/TestService
 //= require services/UserService
-//= require services/XangoUserService
+//= require services/IuvareUserService
 //= require services/SessionService
 
 // Directives

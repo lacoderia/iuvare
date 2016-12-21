@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   scope :all_downlines, -> (id) {where("upline_id = ?", id).includes(:test_scores => :test)}
   scope :cycle_downlines, -> (id) {where("upline_id = ?", id).order(:downline_position)}
   scope :downline_at_position, -> (id, position) {where(upline_id: id, downline_position: position)}
-  scope :by_xango_id, -> (xango_id){where(xango_id: xango_id)}
+  scope :by_iuvare_id, -> (iuvare_id){where(iuvare_id: iuvare_id)}
   
   FREE_MONTHS = 1
   LAUNCHING_DATE = Time.zone.local(2015,9,1,0)
@@ -33,14 +33,14 @@ class User < ActiveRecord::Base
   def register token
     user = User.find_by_email(self.email)
     unless user
-      if self.xango_id == self.sponsor_xango_id or self.xango_id == self.placement_xango_id
-        self.errors.add(:registration, "Tu ID de Xango no puede ser igual que el de tu auspiciador.")
+      if self.iuvare_id == self.sponsor_iuvare_id or self.iuvare_id == self.placement_iuvare_id
+        self.errors.add(:registration, "Tu ID de IUVARE no puede ser igual que el de tu auspiciador.")
         false
       else
         invitations = Invitation.where("token = ? and used = ?", token, false)
         if invitations.size == 1
-          if not (invitations.first.user.xango_id == self.sponsor_xango_id or invitations.first.user.xango_id == self.placement_xango_id)
-            self.errors.add(:registration, "El ID Xango en patrocinio o colocación debe el de la persona que te mandó la invitación.")
+          if not (invitations.first.user.iuvare_id == self.sponsor_iuvare_id or invitations.first.user.iuvare_id == self.placement_iuvare_id)
+            self.errors.add(:registration, "El ID IUVARE en patrocinio o colocación debe ser el de la persona que te mandó la invitación.")
             false
           else
             if self.upline_id
@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
         end
       end
     else
+      #TODO: add error for duplicate iuvare_id field
       self.errors.add(:registration, "Ya existe un usuario registrado con ese correo electrónico.")
       false
     end

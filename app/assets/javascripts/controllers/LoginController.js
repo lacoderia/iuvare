@@ -5,7 +5,7 @@
 
 'use strict';
 
-iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", "InvitationService", "XangoUserService", function($scope, $rootScope, $location, AuthService, InvitationService, XangoUserService){
+iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "AuthService", "InvitationService", "IuvareUserService", function($scope, $rootScope, $location, AuthService, InvitationService, IuvareUserService){
 
     // Object that holds
     $scope.VIEW = {
@@ -139,31 +139,31 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     };
 
     // Method to get a xango user
-    $scope.getXangoUser = function(xangoUser, formField) {
+    $scope.getIuvareUser = function(iuvareUser, formField) {
 
         formField.$pending = true;
 
-        if(xangoUser.id){
-            XangoUserService.getXangoUser(xangoUser.id)
+        if(iuvareUser.id){
+            IuvareUserService.getIuvareUser(iuvareUser.id)
                 .success(function(data){
                     if(data.success){
-                        xangoUser.dbId = data.result.id;
-                        xangoUser.message = data.result.first_name + ' ' + data.result.last_name;
+                        iuvareUser.dbId = data.result.id;
+                        iuvareUser.message = data.result.first_name + ' ' + data.result.last_name;
                         formField.$setValidity('userExists', true);
                     } else {
-                        xangoUser.dbId = undefined;
-                        xangoUser.message = 'No existe un usuario con ese id';
+                        iuvareUser.dbId = undefined;
+                        iuvareUser.message = 'No existe un usuario con ese id';
                         formField.$setValidity('userExists', false);
                     }
                 })
                 .error(function(error, status){
-                    xangoUser.dbId = undefined;
-                    xangoUser.message = 'Ocurrió un error al obtener el usuario con ese id';
+                    iuvareUser.dbId = undefined;
+                    iuvareUser.message = 'Ocurrió un error al obtener el usuario con ese id';
                     formField.$setValidity('userExists', false);
                 });
         } else {
-            xangoUser.dbId = undefined;
-            xangoUser.message = undefined;
+            iuvareUser.dbId = undefined;
+            iuvareUser.message = undefined;
             formField.$setValidity('userExists', true);
         }
 
@@ -181,7 +181,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
     // Method to register a new user
     $scope.signUp = function () {
         if($scope.invitationToken){
-            if($scope.signupForm.$valid && !$scope.signupForm.signupXangoSponsorId.$pending && !$scope.signupForm.signupXangoPlacementId.$pending){
+            if($scope.signupForm.$valid && !$scope.signupForm.signupIuvareSponsorId.$pending && !$scope.signupForm.signupIuvarePlacementId.$pending){
 
                 var user = {
                     first_name: $scope.newUser.firstName,
@@ -192,11 +192,11 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                     xango_id: $scope.newUser.xangoId,
                     iuvare_id: $scope.requireIuvareId ? $scope.newUser.iuvareId : null,
                     kit_bought: $scope.requireIuvareId,
-                    sponsor_xango_id: $scope.newUser.sponsorXango.id,
+                    //sponsor_xango_id: $scope.newUser.sponsorXango.id,
                     sponsor_iuvare_id: $scope.newUser.sponsorIuvareId,
-                    placement_xango_id: $scope.newUser.placementXango.id,
+                    //placement_xango_id: $scope.newUser.placementXango.id,
                     placement_iuvare_id: $scope.newUser.placementIuvareId,
-                    upline_id: $scope.newUser.placementXango.dbId
+                    upline_id: $scope.newUser.placementIuvareId.dbId
                 };
 
                 AuthService.signUp(user, $scope.invitationToken)
