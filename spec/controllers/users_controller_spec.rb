@@ -1,29 +1,29 @@
 feature 'UsersController' do
   describe 'user services' do
 
-    context 'by_xango_id' do
-      let!(:user){ create(:user, xango_id: "12066412") }
+    context 'by_iuvare_id' do
+      let!(:user){ create(:user, iuvare_id: "12066412") }
 
       it 'should get user' do
-        visit("#{by_xango_id_users_path}.json?xango_id=12066412")
+        visit("#{by_iuvare_id_users_path}.json?iuvare_id=12066412")
         response = JSON.parse(page.body)
         expect(response['success']).to be true
         expect(response['result']['id']).to eql user.id
-        expect(response['result']['xango_id']).to eql "12066412"
+        expect(response['result']['iuvare_id']).to eql "12066412"
         
-        visit("#{by_xango_id_users_path}.json?xango_id=12066415")
+        visit("#{by_iuvare_id_users_path}.json?iuvare_id=12066415")
         response = JSON.parse(page.body)
         expect(response['success']).to be false
-        expect(response['error']).to eql "No se encontró usuario con este ID de Xango"
+        expect(response['error']).to eql "No se encontró usuario con este ID de IUVARE"
       end
     end
 
     context 'user update' do
-      let!(:user){ create(:user, xango_id: "12066412", first_name: "Ricardo") }
+      let!(:user){ create(:user, iuvare_id: "12066412", first_name: "Ricardo") }
 
       it 'should update user' do
 
-        visit("#{by_xango_id_users_path}.json?xango_id=12066412")
+        visit("#{by_iuvare_id_users_path}.json?iuvare_id=12066412")
         response = JSON.parse(page.body)
         expect(response['success']).to be true
         expect(response['result']['id']).to eql user.id
@@ -60,7 +60,7 @@ feature 'UsersController' do
 
     context 'progress' do
       
-      let!(:user){create(:user, xango_id: "12066412", first_name: "Ricardo")}
+      let!(:user){create(:user, iuvare_id: "12066412", first_name: "Ricardo")}
       let!(:contact_1){create(:contact, user: user, status: "to_invite")}
       let!(:contact_2){create(:contact, user: user, status: "to_invite")}
       let!(:contact_3){create(:contact, user: user, status: "contacted")}
@@ -106,8 +106,8 @@ feature 'UsersController' do
     context 'user deletion' do
 
       it 'should not allow an upline with downlines to be deleted' do
-        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", xango_id: "111111", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
+        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
+        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
         expect{ up.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
       end
 
@@ -117,8 +117,8 @@ feature 'UsersController' do
 
       it 'successfully logins, gets all downlines, logs out, invalid gets all downlines' do
         #login 
-        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-        down = User.create(first_name: "Mucho", last_name: "Premier", email: "downline@xango.com", xango_id: "654321", iuvare_id: "4321", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
+        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
+        down = User.create(first_name: "Mucho", last_name: "Premier", email: "downline@xango.com", iuvare_id: "4321", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
         page = login_with_service user = { email: "diospremier@xango.com", password: 'xangoxango' }
         response = JSON.parse(page.body)
         expect(response['success']).to be true 
@@ -143,10 +143,10 @@ feature 'UsersController' do
 
       it 'successfully logins, gets cycle downlines, logs out, invalid gets cycle downlines' do
         #login 
-        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", xango_id: "111111", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
-        down2 = User.create(first_name: "Reina", last_name: "Premier", email: "downline2@xango.com", xango_id: "222222", iuvare_id: "222", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 1)
-        down3 = User.create(first_name: "Conde", last_name: "Premier", email: "downline3@xango.com", xango_id: "333333", iuvare_id: "333", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 3)
+        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", iuvare_id: "1234", active: true, password:"xangoxango")
+        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", iuvare_id: "111", active: true, password:"xangoxango", upline_id: up.id, downline_position: 2)
+        down2 = User.create(first_name: "Reina", last_name: "Premier", email: "downline2@xango.com", iuvare_id: "222", active: true, password:"xangoxango", upline_id: up.id, downline_position: 1)
+        down3 = User.create(first_name: "Conde", last_name: "Premier", email: "downline3@xango.com", iuvare_id: "333", active: true, password:"xangoxango", upline_id: up.id, downline_position: 3)
         page = login_with_service user = { email: "diospremier@xango.com", password: 'xangoxango' }
         response = JSON.parse(page.body)
         expect(response['success']).to be true 
@@ -172,11 +172,11 @@ feature 'UsersController' do
 
       it 'successfully logins, changes downline position, logs out' do
         #login
-        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", xango_id: "111111", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
-        down2 = User.create(first_name: "Reina", last_name: "Premier", email: "downline2@xango.com", xango_id: "222222", iuvare_id: "222", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 1)
-        down3 = User.create(first_name: "Conde", last_name: "Premier", email: "downline3@xango.com", xango_id: "333333", iuvare_id: "333", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 3)
-        down4 = User.create(first_name: "Condesa", last_name: "Premier", email: "downline4@xango.com", xango_id: "444444", iuvare_id: "444", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
+        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
+        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
+        down2 = User.create(first_name: "Reina", last_name: "Premier", email: "downline2@xango.com", iuvare_id: "222", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 1)
+        down3 = User.create(first_name: "Conde", last_name: "Premier", email: "downline3@xango.com", iuvare_id: "333", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 3)
+        down4 = User.create(first_name: "Condesa", last_name: "Premier", email: "downline4@xango.com", iuvare_id: "444", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
         page = login_with_service user = { email: "diospremier@xango.com", password: 'xangoxango' }
         response = JSON.parse(page.body)
         expect(response['success']).to be true 
@@ -190,11 +190,11 @@ feature 'UsersController' do
       end
 
       it 'errors because user is not logged in' do
-        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", xango_id: "123456", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
-        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", xango_id: "111111", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
-        down2 = User.create(first_name: "Reina", last_name: "Premier", email: "downline2@xango.com", xango_id: "222222", iuvare_id: "222", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 1)
-        down3 = User.create(first_name: "Conde", last_name: "Premier", email: "downline3@xango.com", xango_id: "333333", iuvare_id: "333", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 3)
-        down4 = User.create(first_name: "Condesa", last_name: "Premier", email: "downline4@xango.com", xango_id: "444444", iuvare_id: "444", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
+        up = User.create(first_name: "Dios", last_name: "Premier", email: "diospremier@xango.com", iuvare_id: "1234", active: true, xango_rank: "DIOS", password:"xangoxango")
+        down1 = User.create(first_name: "Rey", last_name: "Premier", email: "downline1@xango.com", iuvare_id: "111", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 2)
+        down2 = User.create(first_name: "Reina", last_name: "Premier", email: "downline2@xango.com", iuvare_id: "222", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 1)
+        down3 = User.create(first_name: "Conde", last_name: "Premier", email: "downline3@xango.com", iuvare_id: "333", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id, downline_position: 3)
+        down4 = User.create(first_name: "Condesa", last_name: "Premier", email: "downline4@xango.com", iuvare_id: "444", active: true, xango_rank: "Premier", password:"xangoxango", upline_id: up.id)
         
         begin
           with_rack_test_driver do
