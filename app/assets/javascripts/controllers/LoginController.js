@@ -196,7 +196,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                     sponsor_iuvare_id: $scope.newUser.sponsorIuvare.id,
                     //placement_xango_id: $scope.newUser.placementXango.id,
                     placement_iuvare_id: $scope.newUser.placementIuvare.id,
-                    upline_id: $scope.newUser.placementIuvare.id
+                    upline_id: $scope.newUser.placementIuvare.dbId
                 };
 
                 AuthService.signUp(user, $scope.invitationToken)
