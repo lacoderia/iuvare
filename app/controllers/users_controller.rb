@@ -92,11 +92,14 @@ class UsersController < ApplicationController
      users = User.by_iuvare_id(params[:iuvare_id])
     if users.empty?
       @error = "No se encontró usuario con este ID de IUVARE"
+      render "by_iuvare_id.json", status: 500
     elsif users.count > 1
       @error = "Hay varios usuarios asociados a ese ID de IUVARE, favor de escribirnos a contacto@iuvare.mx"
+      render "by_iuvare_id.json", status: 500
+    else
+      @user = users.first
+      render "by_iuvare_id.json"
     end
-    @user = users.first
-    render "by_iuvare_id.json"
   end
 
   def progress
