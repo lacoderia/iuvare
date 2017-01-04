@@ -158,7 +158,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                 })
                 .error(function(error, status){
                     iuvareUser.dbId = undefined;
-                    iuvareUser.message = 'Ocurrió un error al obtener el usuario con ese id';
+                    iuvareUser.message = error.error;
                     formField.$setValidity('userExists', false);
                 });
         } else {
@@ -193,10 +193,10 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
                     iuvare_id: $scope.requireIuvareId ? $scope.newUser.iuvareId : null,
                     kit_bought: $scope.requireIuvareId,
                     //sponsor_xango_id: $scope.newUser.sponsorXango.id,
-                    sponsor_iuvare_id: $scope.newUser.sponsorIuvareId,
+                    sponsor_iuvare_id: $scope.newUser.sponsorIuvare.id,
                     //placement_xango_id: $scope.newUser.placementXango.id,
-                    placement_iuvare_id: $scope.newUser.placementIuvareId,
-                    upline_id: $scope.newUser.placementIuvareId.dbId
+                    placement_iuvare_id: $scope.newUser.placementIuvare.id,
+                    upline_id: $scope.newUser.placementIuvare.id
                 };
 
                 AuthService.signUp(user, $scope.invitationToken)
