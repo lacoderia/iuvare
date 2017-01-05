@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
         self.errors.add(:registration, "Tu ID de IUVARE no puede ser igual que el de tu auspiciador.")
         false
       elsif User.where("iuvare_id = ?", self.iuvare_id).count >= 1
-        self.errors.add(:registration, "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx.")
+        self.errors.add(:registration, "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx")
         false
       else
         invitations = Invitation.where("token = ? and used = ?", token, false)

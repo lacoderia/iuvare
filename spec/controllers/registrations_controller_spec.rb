@@ -59,7 +59,7 @@ feature 'RegistrationsController' do
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
         expect(response['success']).to be false 
-        expect(response['error']).to eql "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx."
+        expect(response['error']).to eql "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx"
 
       end
 
