@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
       if self.iuvare_id == self.sponsor_iuvare_id or self.iuvare_id == self.placement_iuvare_id
         self.errors.add(:registration, "Tu ID de IUVARE no puede ser igual que el de tu auspiciador.")
         false
+      elsif User.where("iuvare_id = ?", self.iuvare_id).count >= 1
+        self.errors.add(:registration, "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx.")
+        false
       else
         invitations = Invitation.where("token = ? and used = ?", token, false)
         if invitations.size == 1

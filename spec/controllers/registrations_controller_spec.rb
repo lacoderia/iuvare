@@ -53,7 +53,14 @@ feature 'RegistrationsController' do
         expect(response['success']).to be false 
         expect(response['error']).to eql "Ya existe un usuario registrado con ese correo electrónico."
 
-        #TODO: CHECK FOR DUPLICATE IUVARE ID
+        # CHECK FOR DUPLICATE IUVARE ID
+        new_user = { first_name: "test", last_name: "user", email: "email@email.com", password: "12345678", password_confirmation: "12345678",  iuvare_id: "34000", sponsor_iuvare_id: "12066413", placement_iuvare_id: "12066413"  }
+        # Validates user creation
+        page = register_with_service new_user, invitation.token 
+        response = JSON.parse(page.body)
+        expect(response['success']).to be false 
+        expect(response['error']).to eql "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx."
+
       end
 
       it 'checks for error on an invitation tried to be used twice' do
@@ -65,7 +72,7 @@ feature 'RegistrationsController' do
         expect(response['result']['first_name']).to eql "test"
         expect(response['result']['email']).to eql invitation.recipient_email
         logout
-        another_user = { first_name: "test", last_name: "user", email: "another_user@test.com", password: "12345678", password_confirmation: "12345678", iuvare_id: "34000", sponsor_iuvare_id: "12066412", placement_iuvare_id: "12066412"  }
+        another_user = { first_name: "test", last_name: "user", email: "another_user@test.com", password: "12345678", password_confirmation: "12345678", iuvare_id: "34001", sponsor_iuvare_id: "12066412", placement_iuvare_id: "12066412"  }
         page = register_with_service another_user, invitation.token 
         response = JSON.parse(page.body)
         expect(response['success']).to be false 
@@ -86,6 +93,7 @@ feature 'RegistrationsController' do
         response = JSON.parse(page.body)
         expect(response['success']).to be false 
         expect(response['error']).to eql "Tu ID de IUVARE no puede ser igual que el de tu auspiciador."
+
       end
       
       it 'checks for error on a registration with sponsor ID different than the one that is inviting' do
