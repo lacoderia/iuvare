@@ -41,6 +41,7 @@ feature 'AssetsController' do
 
       let!(:asset_description){create(:asset, description: "Search DESCRIPTION")}
       let!(:asset_author){create(:asset, author: "Search author")}
+      let!(:asset_inactive){create(:asset, author: "Inactive author", active: false)}
     
       it 'has correct associations' do
         login_with_service u = { email: user.email, password: '12345678' }
@@ -98,6 +99,7 @@ feature 'AssetsController' do
     let!(:test_plan){ create(:test, name: "Plan test", code: "plan") }
     let!(:asset_plan_jorge){ create(:asset, title: "Plan Jorge", test: test_plan, asset_type: "plan") }
     let!(:asset_plan_circe){ create(:asset, title: "Plan Circe", test: test_plan, asset_type: "plan") }
+    let!(:asset_plan_inactive){ create(:asset, title: "Plan Inactive", test: test_plan, asset_type: "plan", active: false) }
       
     context 'correct relationship' do
       it 'should return same test from diferent plans' do
