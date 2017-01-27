@@ -9,6 +9,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+
+    if (current_user)
+      sign_out current_user
+    end
+    
     build_resource(sign_up_params)
     @user = resource
     saved = @user.register(params[:token])
