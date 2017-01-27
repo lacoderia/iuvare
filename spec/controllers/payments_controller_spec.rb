@@ -74,7 +74,7 @@ feature 'PaymentsController' do
         paypal_ipn_object = {
           item_name: "Compra de KIT",
           custom: User.last.id,
-          mc_gross: 1500,
+          mc_gross: 1000,
           txn_id: "txn_id_01",
           mc_currency: "MXN",
           payment_status: "Completed",
