@@ -8,6 +8,10 @@ class SessionsController < Devise::SessionsController
 
     @user = User.find_by_email(params[:user][:email])
     if @user
+        if (current_user)
+          sign_out current_user
+        end
+        
     	if @user.valid_password?(params[:user][:password])
     		sign_in @user
     		success
