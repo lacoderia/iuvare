@@ -25,7 +25,7 @@ class Payment < ActiveRecord::Base
 
     case payment_type
     when "Kit de inicio"
-      item_name = "Membresía y kit de inicio IUVARE + 2 meses gratis a iuvare.mx"
+      item_name = "Membresía y kit de inicio IUVARE + 1 mes gratis a iuvare.mx"
       amount = KIT_PRICE
       shipping = true
     when "Un mes"

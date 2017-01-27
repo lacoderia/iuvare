@@ -32,6 +32,9 @@ class UsersController < ApplicationController
 
   def update
     begin
+      if User.where("iuvare_id = ?", user_params[:iuvare_id]).count >= 1
+        raise "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx"
+      end
       @user.update!(user_params)
       if user_params[:password]
         signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))

@@ -19,7 +19,8 @@ feature 'UsersController' do
     end
 
     context 'user update' do
-      let!(:user){ create(:user, iuvare_id: "12066412", first_name: "Ricardo") }
+      let!(:user){ create(:user, iuvare_id: '12066412', first_name: "Ricardo") }
+      let!(:user_with_iuvare_id){ create(:user, iuvare_id: "123123", first_name: "Benja") }
 
       it 'should update user' do
 
@@ -54,6 +55,16 @@ feature 'UsersController' do
         end
         response = JSON.parse(page.body)
         expect(response['success']).to be false
+
+        #Error, el iuvare_id ya está siendo usado por otra persona
+        update_user_request = {user:{iuvare_id: '123123'} }
+        with_rack_test_driver do
+          page.driver.put "#{users_path}/#{user.id}.json", update_user_request 
+        end
+        response = JSON.parse(page.body)
+        expect(response['error']).to eql "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx"
+        expect(response['success']).to be false
+        
       end
 
     end
