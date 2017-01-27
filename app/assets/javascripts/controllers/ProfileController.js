@@ -128,12 +128,17 @@ iuvare.controller('ProfileController', ["$http", "$scope", "$rootScope", "AuthSe
                         $scope.currentUser.isIuvareId = SessionService.$get().getIuvareId();
 
                         $scope.showAlert('Los datos fueron actualizados con éxito.', 'success');
-                        $scope.stopSpin('container-spinner');
+                    }else{
+                      $scope.showAlert(data.error, 'danger', false);
+                      console.log(data.error);
                     }
                 })
                 .error(function(response){
                     $scope.showAlert('Ocurrió un error al actualizar tus datos. Intenta nuevamente.', 'danger', false);
                     console.log('Ocurrió un error al actualizar tus datos.');
+                })
+                .finally(function(){
+                  $scope.stopSpin('container-spinner');
                 });
 
         }

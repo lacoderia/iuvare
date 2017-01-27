@@ -31,20 +31,22 @@ class UsersController < ApplicationController
   end
 
   def update
-    begin
-      if User.where("iuvare_id = ?", user_params[:iuvare_id]).count >= 1
-        raise "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx"
-      end
-      @user.update!(user_params)
-      if user_params[:password]
-        signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
-        @csrf = form_authenticity_token
-        sign_in(:user, @user)
-      end
+    if User.where("iuvare_id = ?", user_params[:iuvare_id]).count >= 1
+      @error = "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx"
       render "update.json"
-    rescue Exception => e
-      @error = e.message
-      render "update.json", status: 500
+    else
+      begin
+        @user.update!(user_params)
+        if user_params[:password]
+          signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+          @csrf = form_authenticity_token
+          sign_in(:user, @user)
+        end
+        render "update.json"
+      rescue Exception => e
+        @error = e.message
+        render "update.json", status: 500
+      end
     end
   end
 
