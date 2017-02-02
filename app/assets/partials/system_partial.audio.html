@@ -23,7 +23,7 @@
                     <li dir-paginate="asset in assetText | filter:assetQuery | itemsPerPage:10">
                         <div class="number">{{ ::asset.number }}</div>
                         <div class="color">
-                            <span ng-class="asset.color"></span>
+                            <span ng-repeat="color in asset.colors" ng-class="color"></span>
                         </div>
                         <div class="audio-info">
                             <span class="name">{{ ::asset.name }}</span>
@@ -54,7 +54,7 @@
                 <li ng-repeat="asset in assetText">
                     <div class="number">{{ asset.number }}</div>
                     <div class="color">
-                        <span ng-class="asset.color"></span>
+                        <span ng-repeat="color in asset.colors" ng-class="color"></span>
                     </div>
                     <div class="audio-info">
                         <span class="name">{{ asset.name }}</span>

@@ -16,7 +16,7 @@ class HistoricAsset < ActiveRecord::Base
 
   validates :historic_asset_type, inclusion: {in: TYPES.map{ |pairs| pairs[0] } }
 
-  validates :color, inclusion: {in: COLORS}, if: :audio_type?
+  #validates :color, inclusion: {in: COLORS}, if: :audio_type?
 
   def audio_type?
     historic_asset_type == "audio"

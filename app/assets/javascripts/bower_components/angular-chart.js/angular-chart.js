@@ -23,7 +23,9 @@
     '#46BFBD', // green
     '#FDB45C', // yellow
     '#949FB1', // grey
-    '#4D5360'  // dark grey
+    '#4D5360', // dark grey
+    '#F3871B', // orange
+
   ];
 
   angular.module('chart.js', [])
