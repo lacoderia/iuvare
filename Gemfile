@@ -5,12 +5,14 @@ source 'http://rubygems.org'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
+#gem 'mysql2'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
 # Base
 gem 'state_machine'
 gem 'devise'
+gem 'devise_security_extension'
 gem 'js-routes'
 gem 'paperclip'
 gem 'bootstrap-sass'
