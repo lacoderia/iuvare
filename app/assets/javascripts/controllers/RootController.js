@@ -7,6 +7,7 @@
 
 iuvare.controller('RootController', ["$scope", "$rootScope", "$state", "$timeout", "$alert", "$window", "usSpinnerService", "AuthService", "EventService", "NavigationService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $state, $timeout, $alert, $window, usSpinnerService, AuthService, EventService, NavigationService, SessionService, DEFAULT_VALUES){
 
+    $rootScope.showUnauthorizedError = false;
     $scope.currentSection = undefined;
     $scope.currentSubsection = undefined;
     $scope.subsections = [];

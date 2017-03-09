@@ -81,6 +81,13 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         } else {
             $scope.currentView = $scope.VIEW.LOGIN;
         }
+
+        if($rootScope.showUnauthorizedError) {
+            $scope.loginFormMessage = 'Tus credenciales fueron usadas en otro navegador. Por favor inicia sesión para continuar en este navegador.';
+            $rootScope.showUnauthorizedError = false;
+        } else {
+            $scope.loginFormMessage = '';
+        }
     };
 
     // Method that returns if the parameter view is the current view
