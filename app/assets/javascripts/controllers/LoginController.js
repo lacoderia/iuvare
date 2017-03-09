@@ -83,7 +83,7 @@ iuvare.controller('LoginController', ["$scope", "$rootScope", "$location", "Auth
         }
 
         if($rootScope.showUnauthorizedError) {
-            $scope.loginFormMessage = 'Tus credenciales fueron usadas en otro navegador. Por favor inicia sesión para continuar en este navegador.';
+            $scope.loginFormMessage = 'Tus credenciales fueron usadas en otro navegador. Por favor inicia sesión para continuar.';
             $rootScope.showUnauthorizedError = false;
         } else {
             $scope.loginFormMessage = '';
