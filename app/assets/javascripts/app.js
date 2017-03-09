@@ -269,13 +269,16 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
     var authenticated = ['$rootScope', '$state', '$q', 'AuthService', 'SessionService', function ($rootScope, $state, $q, AuthService, SessionService) {
         var deferred = $q.defer();
 
-        if(!AuthService.isAuthenticated()){
             AuthService.getCurrentSession().then(
                 function(data){
                     if(data.data.success){
-                        var result = data.data.result;
-                        SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count, result.access_level);
-                        $rootScope.$broadcast('getMonthlyEvent');
+
+                        if(!AuthService.isAuthenticated()) {
+                            var result = data.data.result;
+                            SessionService.createSession(result.id, result.first_name, result.last_name, result.email, result.xango_id, result.xango_rank, result.iuvare_id, result.sponsor_xango_id, result.sponsor_iuvare_id, result.placemente_xango_id, result.placemente_iuvare_id, result.active, result.downline_position, result.payment_expiration, result.picture, result.upline_id, result.test_scores, result.downline_count, result.access_level);
+                            $rootScope.$broadcast('getMonthlyEvent');
+                        }
+
                         deferred.resolve();
                     }else{
                         deferred.reject('Not logged in');
@@ -285,9 +288,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
                     deferred.reject('Not logged in');
                 }
             );
-        } else {
-            deferred.resolve();
-        }
 
         return deferred.promise;
     }];
