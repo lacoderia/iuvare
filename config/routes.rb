@@ -153,6 +153,6 @@ Rails.application.routes.draw do
   get "perfil/test", :to => "display#index"
   get "perfil/mis-datos", :to => "display#index"
   get "FAQ", :to => "display#index"
-  get "pago_imagine", :to => "display#index"
+  #get "pago_imagine", :to => "display#index"
 
 end

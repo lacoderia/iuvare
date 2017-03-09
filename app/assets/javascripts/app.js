@@ -349,11 +349,6 @@ iuvare.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', func
             resolve: {
                 authenticated: authenticated
             }
-        }).state('payment_imagine',{
-            url: "/pago_imagine",
-            templateUrl: '/assets/payment_imagine.html',
-            defaultState: 'login',
-            authenticationRequired: false    
         }).state('payment-success',{
             url: "/pagos-exito",
             templateUrl: '/assets/payment_success.html',
