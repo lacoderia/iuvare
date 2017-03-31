@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if User.where("iuvare_id = ?", user_params[:iuvare_id]).count >= 1
+    if User.where("iuvare_id = ?", user_params[:iuvare_id]).count > 1
       @error = "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx"
       render "update.json"
     else
