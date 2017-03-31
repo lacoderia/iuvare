@@ -20,7 +20,7 @@ feature 'UsersController' do
 
     context 'user update' do
       let!(:user){ create(:user, iuvare_id: '12066412', first_name: "Ricardo") }
-      let!(:user_with_iuvare_id){ create(:user, iuvare_id: "123123", first_name: "Benja") }
+      let!(:user_without_iuvare_id){ create(:user, iuvare_id: nil, first_name: "Benja") }
 
       it 'should update user' do
 
@@ -34,7 +34,7 @@ feature 'UsersController' do
         
         test_file = "moto.jpg" 
         picture = Rack::Test::UploadedFile.new(Rails.root + "spec/images/#{test_file}", 'image/jpg')
-        update_user_request = {user:{first_name: "Arturo", picture: picture, password: 'ABCDEFG123', password_confirmation: 'ABCDEFG123'} }
+        update_user_request = {user:{first_name: "Arturo", picture: picture, password: 'ABCDEFG123', password_confirmation: 'ABCDEFG123', iuvare_id: "12066412"} }
         with_rack_test_driver do
           page.driver.put "#{users_path}/#{user.id}.json", update_user_request 
         end
@@ -55,11 +55,14 @@ feature 'UsersController' do
         end
         response = JSON.parse(page.body)
         expect(response['success']).to be false
+        logout
+
+        login_with_service u = { email: user_without_iuvare_id.email, password: '12345678' }
 
         #Error, el iuvare_id ya está siendo usado por otra persona
-        update_user_request = {user:{iuvare_id: '123123'} }
+        update_user_request = {user:{iuvare_id: '12066412'} }
         with_rack_test_driver do
-          page.driver.put "#{users_path}/#{user.id}.json", update_user_request 
+          page.driver.put "#{users_path}/#{user_without_iuvare_id.id}.json", update_user_request 
         end
         response = JSON.parse(page.body)
         expect(response['error']).to eql "Tu ID de IUVARE ya está siendo usado por alguien más, por favor escríbenos a contacto@iuvare.mx"
