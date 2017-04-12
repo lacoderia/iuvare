@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   scope :by_iuvare_id, -> (iuvare_id){where(iuvare_id: iuvare_id)}
   
   FREE_MONTHS = 1
+  NEW_FREE_MONTHS = 6
   LAUNCHING_DATE = Time.zone.local(2015,9,1,0)
 
   def role?(role)
@@ -108,6 +109,7 @@ class User < ActiveRecord::Base
   def self.validate_access user
     result = {}
     result[:payment_options] = []
+    result[:free_date] = nil
 
     if not user.kit_bought?
       result[:valid_account] = false  
@@ -117,14 +119,13 @@ class User < ActiveRecord::Base
 
       time_now = Time.zone.now
 
-      #if (user.iuvare_id.to_i >= 33231) or (user.iuvare_id.to_i >= 700 and user.iuvare_id.to_i <= 725)
-      #  months_free_date = user.created_at + FREE_MONTHS.months
-      #else
-      #  months_free_date = time_now
-      #end
-      
-      #ALL USERS FREE ACCESS
-      months_free_date = user.created_at + FREE_MONTHS.months
+      if user.iuvare_id.to_i >= 36487
+        months_free_date = user.created_at + NEW_FREE_MONTHS.months
+      else
+        #months_free_date = time_now
+        #ALL USERS FREE ACCESS
+        months_free_date = user.created_at + FREE_MONTHS.months
+      end
 
       if time_now >= months_free_date
         if user.payment_expiration
@@ -152,6 +153,7 @@ class User < ActiveRecord::Base
       else
         result[:valid_account] = true  
         result[:message] = "Acceso gratis."
+        result[:free_date] = months_free_date
       end
 
     end

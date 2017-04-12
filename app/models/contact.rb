@@ -23,7 +23,7 @@ class Contact < ActiveRecord::Base
     transition ['to_invite', 'contacted', 'to_close', 'to_register'] => 'ruled_out', on: :rule_out
     transition 'to_close' => 'to_register', on: :is_interested
     transition 'to_register' => 'registered', on: :register
-    transition 'ruled_out' => 'to_invite', on: :start_over
+    transition ['contacted', 'ruled_out'] => 'to_invite', on: :start_over
   end
 
   def update_with_status_check contact_params

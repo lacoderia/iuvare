@@ -2,14 +2,18 @@ feature 'RegistrationsController' do
   
   let!(:user){create(:user, iuvare_id: "12066412")}
   let!(:invitation){create(:invitation, user: user)}
-  
+
   describe 'registration process' do
     context 'user creation' do 
+      
+      OLD_FREE_MONTHS = 1
+      NEW_FREE_MONTHS = 6  
 
       it 'successfully creates user, logout, valid and invalid login, existing and non-existing session' do
         upline = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", iuvare_id: "123456", active: true, xango_rank: "DIOS", password:"xangoxango")
         invitation = Invitation.create(user: upline, recipient_email: "usertest@whatever.mx", token: "token-test-string")
         new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", iuvare_id: "34000", sponsor_iuvare_id: "123456", placement_iuvare_id: "123456", upline_id: upline.id, kit_bought: true }
+        
         # Validates user creation
         page = register_with_service new_user, invitation.token 
         response = JSON.parse(page.body)
@@ -33,10 +37,52 @@ feature 'RegistrationsController' do
         response = JSON.parse(page.body)
         expect(response['success']).to be true
         expect(response['result']['first_name']).to eql "test"
+      
         page = get_session 
         response = JSON.parse(page.body)
         expect(response['success']).to be true 
         expect(response['result']['first_name']).to eql "test"
+        
+      end
+
+      it 'validates free months for new users' do
+
+        upline = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", iuvare_id: "123456", active: true, xango_rank: "DIOS", password:"xangoxango")
+        invitation = Invitation.create(user: upline, recipient_email: "usertest@whatever.mx", token: "token-test-string")
+        invitation_new_kit = Invitation.create(user: upline, recipient_email: "usertest02@whatever.mx", token: "token-test-string-02")
+
+        new_user = { first_name: "test", last_name: "user", email: invitation.recipient_email, password: "12345678", password_confirmation: "12345678", iuvare_id: "34000", sponsor_iuvare_id: "123456", placement_iuvare_id: "123456", upline_id: upline.id, kit_bought: true }       
+        new_user_new_kit = { first_name: "new", last_name: "kit", email: invitation_new_kit.recipient_email, password: "12345678", password_confirmation: "12345678", iuvare_id: "36487", sponsor_iuvare_id: "123456", placement_iuvare_id: "123456", upline_id: upline.id, kit_bought: true }
+        # New user creation
+        page = register_with_service new_user, invitation.token 
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        expect(response['result']['access_level']['valid_account']).to eql true
+        expect(response['result']['first_name']).to eql "test"
+        expect(response['result']['email']).to eql invitation.recipient_email
+        expect(response['result']['downline_position']).to eql 1
+        
+        # Validates 1 month for old users
+        one_month_free_expiration_date = DateTime.parse(response['result']['payment_expiration']).to_i
+        one_month_validated_free_expiration_date = (User.find(response['result']['id']).created_at + OLD_FREE_MONTHS.months).to_i
+        expect(one_month_free_expiration_date).to eql one_month_validated_free_expiration_date
+        logout
+
+        # New user with new kit creation
+        page = register_with_service new_user_new_kit, invitation_new_kit.token 
+        response = JSON.parse(page.body)
+        expect(response['success']).to be true
+        expect(response['result']['access_level']['valid_account']).to eql true
+        expect(response['result']['first_name']).to eql "new"
+        expect(response['result']['email']).to eql invitation_new_kit.recipient_email
+        expect(response['result']['downline_position']).to eql 2
+        
+        # Validates 6 month for old users
+        six_month_free_expiration_date = DateTime.parse(response['result']['payment_expiration']).to_i
+        six_month_validated_free_expiration_date = (User.find(response['result']['id']).created_at + NEW_FREE_MONTHS.months).to_i
+        expect(six_month_free_expiration_date).to eql six_month_validated_free_expiration_date
+        logout
+
       end
 
       it 'checks for error on duplicate users' do
