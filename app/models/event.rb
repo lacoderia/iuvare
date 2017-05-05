@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   
-  has_attached_file :picture, :styles => { :original => "1000x", :thumb => "50x"}, :default_url => ""
+  has_attached_file :picture, :styles => { :original => "400x", :thumb => "50x"}, :default_url => ""
   validates_attachment_content_type :picture, :content_type => /\Aimage\/.*\Z/
   validates_attachment_size :picture, :less_than => 5.megabytes, :unless => Proc.new {|m| m[:picture].nil?}
 
