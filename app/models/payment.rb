@@ -25,7 +25,7 @@ class Payment < ActiveRecord::Base
 
     case payment_type
     when "Kit de inicio"
-      item_name = "Membresía y kit de inicio IUVARE + 1 mes gratis a iuvare.mx"
+      item_name = "Membresía y kit de inicio IUVARE + 6 meses gratis a iuvare.mx"
       amount = KIT_PRICE
       shipping = true
     when "Un mes"
@@ -77,7 +77,7 @@ class Payment < ActiveRecord::Base
       case amount
       when KIT_PRICE
         payment_type = "Kit de inicio"
-        expiration_date = Time.zone.now + User::FREE_MONTHS.months
+        expiration_date = Time.zone.now + User::NEW_FREE_MONTHS.months
         user.kit_bought = true
         self.send_email_to_buyer params, user.email
       when TWELVE_MONTHS_PRICE
@@ -126,7 +126,8 @@ class Payment < ActiveRecord::Base
     body += "<p>Receptor: #{address_name} </p>"
     body += "<p>#{address_street} #{address_state} #{address_city} #{address_zip} #{address_country}</p>"
     
-    IuvareMailer.send_delivery_info("contacto@iuvare.mx", body).deliver_now
+    IuvareMailer.send_delivery_info("contacto@iuvare.mx", body.encode!('UTF-8', 'UTF-8', :invalid => :replace)).deliver_now
+
   end
   
 end

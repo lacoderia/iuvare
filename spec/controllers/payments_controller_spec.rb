@@ -101,8 +101,8 @@ feature 'PaymentsController' do
         logout
 
         # No puede entrar despues de 1 mes
-        one_month_after = starting_datetime + 1.month + 1.minute
-        Timecop.travel(one_month_after)
+        six_months_after = starting_datetime + 6.months + 1.minute
+        Timecop.travel(six_months_after)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
@@ -134,9 +134,9 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-        # No puede entrar despues de 1 mes y un minuto
-        two_months_after = one_month_after + 1.month
-        Timecop.travel(two_months_after + 1.minute)
+        # No puede entrar despues de 1 mes (+5 meses por el nuevo precio de 1700) y un minuto
+        seven_months_after = six_months_after + 1.month
+        Timecop.travel(seven_months_after + 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
@@ -147,8 +147,8 @@ feature 'PaymentsController' do
         expect(payment_object["shipping"]).to be false 
         logout
         
-        # Quitamos el minuto que invalida los 3 meses para realizar la compra de los 3 meses
-        Timecop.travel(two_months_after)        
+        # Quitamos el minuto que invalida los 3 meses (+5 meses por el nuevo precio de 1700) para realizar la compra de los 3 meses
+        Timecop.travel(seven_months_after)        
 
         # PAGO DE TRES MESES
         paypal_ipn_object = {
@@ -171,9 +171,9 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-         # Puede entrar después de 3 meses
-        five_months_after = two_months_after + 3.months
-        Timecop.travel(five_months_after - 1.minute)
+         # Puede entrar después de 3 meses (+5 meses por el nuevo precio de 1700) 
+        ten_months_after = seven_months_after + 3.months
+        Timecop.travel(ten_months_after - 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
@@ -182,8 +182,8 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
         
-        # No puede entrar despues de 3 meses y un minuto
-        Timecop.travel(five_months_after + 1.minute)
+        # No puede entrar despues de 3 (+5 meses por el nuevo precio de 1700) meses y un minuto
+        Timecop.travel(ten_months_after + 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
@@ -192,8 +192,8 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql false
         logout
 
-        # Quitamos el minuto que invalida los 3 meses para realizar la compra de los 6 meses
-        Timecop.travel(five_months_after)        
+        # Quitamos el minuto que invalida los 3 meses (+5 meses por el nuevo precio de 1700) para realizar la compra de los 6 meses
+        Timecop.travel(ten_months_after)        
 
         # PAGO DE SEIS MESES
         paypal_ipn_object = {
@@ -216,9 +216,9 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-         # Puede entrar después de 6 meses
-        eleven_months_after = five_months_after + 6.months
-        Timecop.travel(eleven_months_after - 1.minute)
+         # Puede entrar después de 6 meses (+5 meses por el nuevo precio de 1700) 
+        sixteen_months_after = ten_months_after + 6.months
+        Timecop.travel(sixteen_months_after - 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
@@ -227,8 +227,8 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
         
-        # No puede entrar despues de 6 meses y un minuto
-        Timecop.travel(eleven_months_after + 1.minute)
+        # No puede entrar despues de 6 meses (+5 meses por el nuevo precio de 1700) y un minuto
+        Timecop.travel(sixteen_months_after + 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
@@ -237,8 +237,8 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql false
         logout
 
-        # Quitamos el minuto que invalida los 6 meses para realizar la compra de los 12 meses
-        Timecop.travel(eleven_months_after)
+        # Quitamos el minuto que invalida los 6 meses (+5 meses por el nuevo precio de 1700) para realizar la compra de los 12 meses
+        Timecop.travel(sixteen_months_after)
         
         # PAGO DE DOCE MESES
         paypal_ipn_object = {
@@ -261,9 +261,9 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-        # Puede entrar después de 12 meses
-        twenty_three_months_after = eleven_months_after + 12.months
-        Timecop.travel(twenty_three_months_after - 1.minute)
+        # Puede entrar después de 12 meses (+5 meses por el nuevo precio de 1700) 
+        twenty_eight_months_after = sixteen_months_after + 12.months
+        Timecop.travel(twenty_eight_months_after - 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
@@ -272,8 +272,8 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
         
-        # No puede entrar despues de 12 meses y un minuto
-        Timecop.travel(twenty_three_months_after + 1.minute)
+        # No puede entrar despues de 12 meses (+5 meses por el nuevo precio de 1700) y un minuto
+        Timecop.travel(twenty_eight_months_after + 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
         response = JSON.parse(page.body)
