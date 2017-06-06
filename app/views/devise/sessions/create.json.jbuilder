@@ -18,7 +18,15 @@ if @success
                 if Time.zone.now < User::LAUNCHING_DATE
                   json.payment_expiration User::LAUNCHING_DATE
                 else
-                  json.payment_expiration @user.payment_expiration ? @user.payment_expiration : (@user.created_at + User::FREE_MONTHS.months)
+                  if @user.payment_expiration
+                    json.payment_expiration @user.payment_expiration
+                  else
+                    if @user.iuvare_id.to_i >= 36487
+                      json.payment_expiration @user.created_at + User::NEW_FREE_MONTHS.months 
+                    else
+                      json.payment_expiration @user.created_at + User::FREE_MONTHS.months 
+                    end
+                  end
                 end
 		json.downline_count @user.downlines.size
 		if @user.test_scores.size > 0
