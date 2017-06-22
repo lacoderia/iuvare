@@ -183,7 +183,7 @@
                                     <span ng-if="selectedPlan">{{ selectedPlan.title }}</span>
                                     <span class="caret"></span>
                                 </button>
-                                <button class="action-button-purple size-medium all-space" title="Enviar plan" ng-click="sendVideo(selectedContact)" ng-disabled="!selectedPlan" ng-class="{ 'disabled' : !selectedPlan }">Enviar y continuar el proceso</button>
+                                <button class="action-button-purple size-medium all-space" title="Enviar plan" ng-click="sendPlan(selectedContact)" ng-disabled="!selectedPlan" ng-class="{ 'disabled' : !selectedPlan }">Enviar y continuar el proceso</button>
                             </div>
                         </div>
 
@@ -220,6 +220,16 @@
                         <div class="action">
                             <div class="send-video-actions">
                                 <button class="action-button-purple size-medium all-space" title="Continuar" ng-click="completeStep(selectedContact, CONTACT_STATUS.TO_REGISTER.code)">Sí, continuar con el proceso</button>
+                                <p>o</p>
+                                <div class="send-video-actions">
+                                  <p>Me gustaría enviarle más información:</p>
+                                  <button type="button" name="videoList" class="btn btn-default dropdown" data-animation="am-flip-x" bs-dropdown="videoDropdown">
+                                    <span ng-if="!selectedVideo">Selecciona un video</span>
+                                    <span ng-if="selectedVideo">{{ selectedVideo.title }}</span>
+                                    <span class="caret"></span>
+                                  </button>
+                                  <button class="action-button-purple size-medium all-space" title="Enviar video" ng-click="sendVideo(selectedContact)" ng-disabled="!selectedVideo" ng-class="{ 'disabled' : !selectedVideo }">Enviar</button>
+                                </div>
                                 <p>o</p>
                                 <button class="action-button-orange size-medium all-space" title="Enviar a seguimiento" ng-click="completeStep(selectedContact, CONTACT_STATUS.RULED_OUT.code)">Enviar a seguimiento</button>
                             </div>

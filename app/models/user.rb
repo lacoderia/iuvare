@@ -69,11 +69,6 @@ class User < ActiveRecord::Base
 
   def progress
     result = {}
-    #result[:to_invite] = self.contacts.count
-    #result[:contacted] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out')").count
-    #result[:to_close] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out', 'contacted')").count
-    #result[:to_register] = self.contacts.where("status NOT IN ('to_invite', 'ruled_out', 'contacted', 'to_close')").count
-    #result[:registered] = self.contacts.where(status: "registered").count
 
     # Without cumulative addition
     result[:to_invite] = self.contacts.where(status: 'to_invite').count

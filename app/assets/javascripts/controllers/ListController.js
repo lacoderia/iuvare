@@ -3,7 +3,8 @@
 iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "AssetService", "AuthService", "InvitationService", "ListService", "SessionService", "DEFAULT_VALUES", function($scope, $log, $rootScope, $modal, AssetService, AuthService, InvitationService, ListService, SessionService, DEFAULT_VALUES){
 
     //Private variables
-    var ASSET_TYPE = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
+    var ASSET_TYPE_PLAN = DEFAULT_VALUES.ASSETS.TYPES.PLAN;
+    var ASSET_TYPE_VIDEO = DEFAULT_VALUES.ASSETS.TYPES.TRAINING;
     var addingContact = false;
     var editingContact = false;
     var audioGuideVisible = false;
@@ -28,6 +29,10 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
     $scope.plans = [];
     $scope.planDropdown = [];
     $scope.selectedPlan = undefined;
+
+    $scope.videos = [];
+    $scope.videoDropdown = [];
+    $scope.selectedVideo = undefined;
 
     // Object that holds the new contact values
     $scope.newContact = {
@@ -235,11 +240,11 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         $scope.selectedInvitationOption = $scope.inviteOptionsDropdown[selectedOptionIndex];
     };
 
-    $scope.setVideo = function (index) {
+    $scope.setPlan = function (index) {
         $scope.selectedPlan = $scope.plans[index];
     };
 
-    $scope.sendVideo = function (contact) {
+    $scope.sendPlan = function (contact) {
         if($scope.selectedPlan){
             $scope.startSpin('contact-spinner-' + contact.id);
 
@@ -248,6 +253,27 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
                     $scope.refreshContacts();
                     $scope.stopSpin('contact-spinner-' + contact.id);
                     $scope.showAlert('El mail con el enlace al plan ha sido enviado a tu correo. Asegúrate de reenviárselo a tu prospecto.', 'success', false);
+                })
+                .error(function (error, status) {
+                    $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger', false);
+                    console.log('Ocurrió un error al enviar el video');
+                });
+        }
+    };
+
+    $scope.setVideo = function (index) {
+        $scope.selectedVideo = $scope.videos[index];
+    };
+
+    $scope.sendVideo = function (contact) {
+        if($scope.selectedVideo){
+            $scope.startSpin('contact-spinner-' + contact.id);
+
+            ListService.sendVideo(contact.id, $scope.selectedVideo.id)
+                .success(function (data) {
+                    $scope.refreshContacts();
+                    $scope.stopSpin('contact-spinner-' + contact.id);
+                    $scope.showAlert('El mail con el enlace al video ha sido enviado a tu correo. Asegúrate de reenviárselo a tu prospecto.', 'success', false);
                 })
                 .error(function (error, status) {
                     $scope.showAlert('Ocurrió un error al enviar el video. Intenta nuevamente.', 'danger', false);
@@ -356,26 +382,10 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
         $scope.contactList = [];
         $scope.plans = [];
         $scope.planDropdown = [];
+        $scope.videos = [];
+        $scope.videoDropdown = [];
         $scope.initController();
     };
-
-    $scope.showButton = function(contact, action){
-
-        var showButton = true;
-
-        switch (action){
-            case 'send-video':
-                showButton = (contact.status == DEFAULT_VALUES.CONTACT_STATUS.RULED_OUT.code || contact.status == DEFAULT_VALUES.CONTACT_STATUS.REGISTERED.code)? false : true;
-                break;
-            case 'close-workflow':
-                showButton = (contact.status == DEFAULT_VALUES.CONTACT_STATUS.TO_CLOSE.code)? true : false;
-                break;
-        }
-
-        return showButton;
-
-    };
-
 
     // Method to init the controller's default state
     $scope.initController = function(){
@@ -391,12 +401,32 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
                 if(data.success){
                     $scope.contactList = angular.copy(ListService.contacts);
 
-                    AssetService.getAssetsByType(ASSET_TYPE)
+                      AssetService.getAssetsByType(ASSET_TYPE_PLAN)
+                        .success(function (data) {
+                            if(data.success){
+                                angular.forEach(data.result.assets, function (plan, index) {
+                                    $scope.plans.push(plan);
+                                    $scope.planDropdown.push({
+                                        text: plan.title,
+                                        click: 'setPlan(' + index + ')'
+                                    });
+                                });
+
+                                $scope.stopSpin('container-spinner');
+                                $scope.pageLoaded = true;
+                            }
+                        })
+                        .error(function (error, status) {
+                            $scope.showAlert('Ocurrió un error al obtener los planes. Intenta nuevamente.', 'danger', false);
+                            console.log('Ocurrió un error al obtener los planes.');
+                        });
+
+                      AssetService.getAssetsByType(ASSET_TYPE_VIDEO)
                         .success(function (data) {
                             if(data.success){
                                 angular.forEach(data.result.assets, function (video, index) {
-                                    $scope.plans.push(video);
-                                    $scope.planDropdown.push({
+                                    $scope.videos.push(video);
+                                    $scope.videoDropdown.push({
                                         text: video.title,
                                         click: 'setVideo(' + index + ')'
                                     });
@@ -407,8 +437,8 @@ iuvare.controller('ListController', ["$scope", "$log", "$rootScope", "$modal", "
                             }
                         })
                         .error(function (error, status) {
-                            $scope.showAlert('Ocurrió un error al obtener los contactos. Intenta nuevamente.', 'danger', false);
-                            console.log('Ocurrió un error al obtener los planes.');
+                            $scope.showAlert('Ocurrió un error al obtener los videos. Intenta nuevamente.', 'danger', false);
+                            console.log('Ocurrió un error al obtener los videos.');
                         });
 
                 }

@@ -6,18 +6,24 @@ class Plan < ActiveRecord::Base
   validates :token, :asset_id, :contact_id, :expiration, presence: true
   
   def self.send_video contact_id, user_id, asset_id
+
+    asset = Asset.find(asset_id)
     expiration = Time.zone.now + 120.minutes
     sender_user = User.find(user_id)
 
-    plan = Plan.create!(token: SecureRandom.urlsafe_base64, asset_id: asset_id, contact_id: contact_id, expiration: expiration)
+    video = Plan.create!(token: SecureRandom.urlsafe_base64, asset_id: asset_id, contact_id: contact_id, expiration: expiration)
 
-    IuvareMailer.send_video(plan, sender_user).deliver_now
-    contact = Contact.find(contact_id)
-    if contact.status?(:to_invite)
-      contact.invite!
+    if asset.asset_type == "plan"
+      IuvareMailer.send_plan(video, sender_user).deliver_now
+      contact = Contact.find(contact_id)
+      if contact.status?(:to_invite)
+        contact.invite!
+      end
+    else
+      IuvareMailer.send_video(video, sender_user).deliver_now
     end
 
-    return plan
+    return video 
   end
 
   def self.finish_video plan

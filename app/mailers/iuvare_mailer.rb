@@ -2,16 +2,22 @@ class IuvareMailer < ActionMailer::Base
   default from: "\"Iuvare\" <contacto@iuvare.mx>"
 
   def send_invitation(invitation)
-  	@user = invitation.user.first_name
-  	@recipient = invitation.recipient_name
-  	@token = invitation.token
-  	mail(to: invitation.recipient_email, subject: "Te invitamos a formar parte de Iuvare")
+    @user = invitation.user.first_name
+    @recipient = invitation.recipient_name
+    @token = invitation.token
+    mail(to: invitation.recipient_email, subject: "Te invitamos a formar parte de Iuvare")
   end
 
-  def send_video(plan, sender_user)
+  def send_plan(plan, sender_user)
     @plan = plan
     @sender_user = sender_user
-    mail(to: sender_user.email, subject: "Invitacion a IUVARE - Confidencial")     
+    mail(to: sender_user.email, subject: "Invitación a IUVARE - Confidencial")     
+  end
+
+  def send_video(video, sender_user)
+    @video = video
+    @sender_user = sender_user
+    mail(to: sender_user.email, subject: "Invitación a IUVARE - Más información")     
   end
 
   def send_answers(user, test_score)
