@@ -23,7 +23,7 @@ class IuvareMailer < ActionMailer::Base
   def send_answers(user, test_score)
     @user = user
     @test_score = test_score
-    mail(to: user.email, subject: "Plan IUVARE - Finalizado")
+    mail(to: user.email, subject: "Video IUVARE - Visualizado")
   end
 
   def send_delivery_info(email, body)
