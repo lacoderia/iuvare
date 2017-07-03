@@ -154,5 +154,6 @@ Rails.application.routes.draw do
   get "perfil/mis-datos", :to => "display#index"
   get "FAQ", :to => "display#index"
   get "pago_braden", :to => "display#index"
+  get "pago_seminarios", :to => "display#index"
 
 end
