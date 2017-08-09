@@ -5,6 +5,10 @@ FactoryGirl.define do
     last_name 'User'
     password '12345678'
     roles {[FactoryGirl.create(:role)]}
+
+    trait :inactive do
+      active false
+    end
   end
 
   factory :premier, class: Premier do

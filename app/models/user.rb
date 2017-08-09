@@ -110,6 +110,9 @@ class User < ActiveRecord::Base
       result[:valid_account] = false  
       result[:message] = "Necesitas adquirir tu kit de IUVARE para continuar."
       result[:payment_options] << Payment.paypal_pay_object("Kit de inicio", user)
+    elsif not user.active?
+      result[:valid_account] = false  
+      result[:message] = "Tu acceso a la página ha sido suspendido."
     else
 
       time_now = Time.zone.now
