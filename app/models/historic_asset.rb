@@ -23,7 +23,7 @@ class HistoricAsset < ActiveRecord::Base
   end
 
   def self.by_type historic_asset_type
-    HistoricAsset.where("historic_asset_type = ?", historic_asset_type)
+    HistoricAsset.where("historic_asset_type = ? and active = ?", historic_asset_type, true)
   end
 
 end

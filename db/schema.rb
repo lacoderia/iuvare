@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308003832) do
+ActiveRecord::Schema.define(version: 20171016222321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,14 +97,15 @@ ActiveRecord::Schema.define(version: 20170308003832) do
 
   create_table "historic_assets", force: :cascade do |t|
     t.string   "historic_asset_type"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "number"
     t.string   "name"
     t.string   "author"
     t.string   "color"
     t.string   "source"
     t.string   "description"
+    t.boolean  "active",              default: true
   end
 
   create_table "invitations", force: :cascade do |t|

@@ -2,7 +2,7 @@ ActiveAdmin.register HistoricAsset, :as => "Lista Materiales" do
 	
   actions :all, :except => [:show]
 
-  permit_params :id, :number, :color, :author, :name, :historic_asset_type, :source
+  permit_params :id, :number, :color, :author, :name, :historic_asset_type, :source, :active
 
   config.filters = false
 
@@ -13,6 +13,7 @@ ActiveAdmin.register HistoricAsset, :as => "Lista Materiales" do
     column :historic_asset_type
     column :color
     column :source
+    column :active
     
     actions :defaults => true
   end
@@ -23,6 +24,7 @@ ActiveAdmin.register HistoricAsset, :as => "Lista Materiales" do
       f.input :name
       f.input :author
       f.input :source
+      f.input :active
       f.input :color, as: :select, collection: HistoricAsset::COLORS
       f.input :historic_asset_type, as: :select, collection: HistoricAsset::TYPES.map{|t| t[0]}
     end
