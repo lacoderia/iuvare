@@ -1,7 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
 
-  KIT_PRICE = 1700 
+  KIT_PRICE = 1000 
   ONE_MONTH_PRICE = 90
   THREE_MONTHS_PRICE = 220
   SIX_MONTHS_PRICE = 430
@@ -25,7 +25,7 @@ class Payment < ActiveRecord::Base
 
     case payment_type
     when "Kit de inicio"
-      item_name = "Membresía y kit de inicio IUVARE + 6 meses gratis a iuvare.mx"
+      item_name = "Membresía y kit de inicio IUVARE + 3 meses gratis a iuvare.mx"
       amount = KIT_PRICE
       shipping = true
     when "Un mes"

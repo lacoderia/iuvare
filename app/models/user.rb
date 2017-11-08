@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   scope :by_iuvare_id, -> (iuvare_id){where(iuvare_id: iuvare_id)}
   
   FREE_MONTHS = 1
-  NEW_FREE_MONTHS = 6
+  NEW_FREE_MONTHS = 3
   LAUNCHING_DATE = Time.zone.local(2015,9,1,0)
 
   def role?(role)

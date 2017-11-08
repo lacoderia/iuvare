@@ -7,7 +7,7 @@ feature 'RegistrationsController' do
     context 'user creation' do 
       
       OLD_FREE_MONTHS = 1
-      NEW_FREE_MONTHS = 6  
+      NEW_FREE_MONTHS = 3  
 
       it 'successfully creates user, logout, valid and invalid login, existing and non-existing session' do
         upline = User.create(first_name: "Dios", last_name: "Premier", email: "dios@xango.com", iuvare_id: "123456", active: true, xango_rank: "DIOS", password:"xangoxango")
@@ -77,10 +77,10 @@ feature 'RegistrationsController' do
         expect(response['result']['email']).to eql invitation_new_kit.recipient_email
         expect(response['result']['downline_position']).to eql 2
         
-        # Validates 6 month for old users
-        six_month_free_expiration_date = DateTime.parse(response['result']['payment_expiration']).to_i
-        six_month_validated_free_expiration_date = (User.find(response['result']['id']).created_at + NEW_FREE_MONTHS.months).to_i
-        expect(six_month_free_expiration_date).to eql six_month_validated_free_expiration_date
+        # Validates 3 month for old users
+        three_month_free_expiration_date = DateTime.parse(response['result']['payment_expiration']).to_i
+        three_month_validated_free_expiration_date = (User.find(response['result']['id']).created_at + NEW_FREE_MONTHS.months).to_i
+        expect(three_month_free_expiration_date).to eql three_month_validated_free_expiration_date
         logout
 
       end
