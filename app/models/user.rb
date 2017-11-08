@@ -24,8 +24,12 @@ class User < ActiveRecord::Base
   scope :by_iuvare_id, -> (iuvare_id){where(iuvare_id: iuvare_id)}
   
   FREE_MONTHS = 1
+  OUTDATED_FREE_MONTHS = 6
   NEW_FREE_MONTHS = 3
   LAUNCHING_DATE = Time.zone.local(2015,9,1,0)
+
+  OUTDATED_ID = 36487
+  NEW_ID = 36813
 
   def role?(role)
     return !!self.roles.find_by_name(role)
@@ -117,8 +121,10 @@ class User < ActiveRecord::Base
 
       time_now = Time.zone.now
 
-      if user.iuvare_id.to_i >= 36487
+      if user.iuvare_id.to_i >= NEW_ID
         months_free_date = user.created_at + NEW_FREE_MONTHS.months
+      elsif user.iuvare_id.to_i >= OUTDATED_ID and user.iuvare_id.to_i < NEW_ID 
+        months_free_date = user.created_at + OUTDATED_FREE_MONTHS.months
       else
         #months_free_date = time_now
         #ALL USERS FREE ACCESS
