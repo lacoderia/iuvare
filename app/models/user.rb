@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   LAUNCHING_DATE = Time.zone.local(2015,9,1,0)
 
   OUTDATED_ID = 36487
-  NEW_ID = 36813
+  NEW_ID = 37033
 
   def role?(role)
     return !!self.roles.find_by_name(role)
