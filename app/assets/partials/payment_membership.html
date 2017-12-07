@@ -1,0 +1,34 @@
+<div class="row" ng-controller="PaymentController as paymentCtrl">
+    <div class="col-lg-12 section-container">
+        <h2 class="section-title">Pagos</h2>
+        <p class="payment-description">Membresía IUVARE</p>
+        <div class="payment-container">
+          <div>
+            <p> Para recoger su compra:
+              <li> En Salón el Ruedo el día 11 de diciembre 2017</li>
+              <li> con horario de entrega de 6:00 PM  a 9:30 PM</li>
+            </p>
+          </div>
+            <div class="payment-items-table" >
+                <h3 class="item-title">Membresia IUVARE</h3>
+                <div class="payment-info">
+                    <div class="item-total">
+                        <span class="total-desc">Total</span>
+                        <span class="total-amount">MXN $1,000.00</span>
+                        <span class="total-security"><span class="icon-locked"></span> <img src="/assets/paypal-logo.jpg" alt="PayPal"></span>
+                        <script src="assets/lib/paypal-button.min.js?merchant=US2BWLTEARVJA"
+                                data-amount="1000.00"
+                                data-button="buynow"
+                                data-currency="MXN"
+                                data-host="www.paypal.com"
+                                data-lc="es_ES"
+                                data-name="1 membresía IUVARE"
+                                data-no_shipping="1"
+                                async>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
