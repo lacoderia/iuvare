@@ -17,7 +17,7 @@ feature 'PaymentsController' do
         paypal_ipn_object = {
           item_name: "Compra de KIT",
           custom: User.last.id,
-          mc_gross: 1000,
+          mc_gross: 1196,
           txn_id: "txn_id_01",
           mc_currency: "MXN",
           payment_status: "Created"
@@ -74,7 +74,7 @@ feature 'PaymentsController' do
         paypal_ipn_object = {
           item_name: "Compra de KIT",
           custom: User.last.id,
-          mc_gross: 1000,
+          mc_gross: 1196,
           txn_id: "txn_id_01",
           mc_currency: "MXN",
           payment_status: "Completed",
@@ -134,7 +134,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-        # No puede entrar despues de 1 mes (+3 meses por el nuevo precio de 1000) y un minuto
+        # No puede entrar despues de 1 mes (+3 meses por el nuevo precio de 1196) y un minuto
         four_months_after = three_months_after + 1.month
         Timecop.travel(four_months_after + 1.minute)
 
@@ -147,7 +147,7 @@ feature 'PaymentsController' do
         expect(payment_object["shipping"]).to be false 
         logout
         
-        # Quitamos el minuto que invalida los 3 meses (+1 mes por el nuevo precio de 1000) para realizar la compra de los 3 meses
+        # Quitamos el minuto que invalida los 3 meses (+1 mes por el nuevo precio de 1196) para realizar la compra de los 3 meses
         Timecop.travel(four_months_after)        
 
         # PAGO DE TRES MESES
@@ -171,7 +171,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-         # Puede entrar después de 3 meses (+4 meses por el nuevo precio de 1000) 
+         # Puede entrar después de 3 meses (+4 meses por el nuevo precio de 1196) 
         seven_months_after = four_months_after + 3.months
         Timecop.travel(seven_months_after - 1.minute)
 
@@ -182,7 +182,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
         
-        # No puede entrar despues de 3 meses (+4 meses por el nuevo precio de 1000) y un minuto
+        # No puede entrar despues de 3 meses (+4 meses por el nuevo precio de 1196) y un minuto
         Timecop.travel(seven_months_after + 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
@@ -192,7 +192,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql false
         logout
 
-        # Quitamos el minuto que invalida los 3 meses (+4 meses por el nuevo precio de 1000) para realizar la compra de los 6 meses
+        # Quitamos el minuto que invalida los 3 meses (+4 meses por el nuevo precio de 1196) para realizar la compra de los 6 meses
         Timecop.travel(seven_months_after)        
 
         # PAGO DE SEIS MESES
@@ -216,7 +216,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-         # Puede entrar después de 6 meses (+7 meses por el nuevo precio de 1000) 
+         # Puede entrar después de 6 meses (+7 meses por el nuevo precio de 1196) 
         thirteen_months_after = seven_months_after + 6.months
         Timecop.travel(thirteen_months_after - 1.minute)
 
@@ -227,7 +227,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
         
-        # No puede entrar despues de 6 meses (+7 meses por el nuevo precio de 1000) y un minuto
+        # No puede entrar despues de 6 meses (+7 meses por el nuevo precio de 1196) y un minuto
         Timecop.travel(thirteen_months_after + 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
@@ -237,7 +237,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql false
         logout
 
-        # Quitamos el minuto que invalida los 6 meses (+7 meses por el nuevo precio de 1000) para realizar la compra de los 12 meses
+        # Quitamos el minuto que invalida los 6 meses (+7 meses por el nuevo precio de 1196) para realizar la compra de los 12 meses
         Timecop.travel(thirteen_months_after)
         
         # PAGO DE DOCE MESES
@@ -261,7 +261,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
 
-        # Puede entrar después de 12 meses (+13 meses por el nuevo precio de 1000) 
+        # Puede entrar después de 12 meses (+13 meses por el nuevo precio de 1196) 
         twenty_five_months_after = thirteen_months_after + 12.months
         Timecop.travel(twenty_five_months_after - 1.minute)
 
@@ -272,7 +272,7 @@ feature 'PaymentsController' do
         expect(response['result']['access_level']['valid_account']).to eql true
         logout
         
-        # No puede entrar despues de 12 meses (+13 meses por el nuevo precio de 1000) y un minuto
+        # No puede entrar despues de 12 meses (+13 meses por el nuevo precio de 1196) y un minuto
         Timecop.travel(twenty_five_months_after + 1.minute)
 
         page = login_with_service user = { email: new_user[:email], password: new_user[:password] }
