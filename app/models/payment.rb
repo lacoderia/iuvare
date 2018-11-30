@@ -2,6 +2,7 @@ class Payment < ActiveRecord::Base
   belongs_to :user
 
   KIT_PRICE = 1196 
+  KIT_PRICE_NO_SHIPPING = 1000
   ONE_MONTH_PRICE = 90
   THREE_MONTHS_PRICE = 220
   SIX_MONTHS_PRICE = 430
@@ -9,7 +10,8 @@ class Payment < ActiveRecord::Base
   TWELVE_MONTHS_PRICE = 790
 
   TYPES = [
-    "Kit de inicio",
+    "Kit de inicio con envío",
+    "Kit de inicio, entrega presencial",
     "Un mes",
     "Tres meses",
     "Seis meses",
@@ -24,10 +26,14 @@ class Payment < ActiveRecord::Base
     result = {}
 
     case payment_type
-    when "Kit de inicio"
+    when "Kit de inicio con envío"
       item_name = "Membresía y kit de inicio IUVARE + 3 meses gratis a iuvare.mx"
       amount = KIT_PRICE
       shipping = true
+    when "Kit de inicio, entrega presencial"
+      item_name = "Membresía y kit de inicio IUVARE + 3 meses gratis a iuvare.mx"
+      amount = KIT_PRICE_NO_SHIPPING
+      shipping = false 
     when "Un mes"
       item_name = "Un mes de acceso a iuvare.mx" 
       amount = ONE_MONTH_PRICE
@@ -76,7 +82,12 @@ class Payment < ActiveRecord::Base
 
       case amount
       when KIT_PRICE
-        payment_type = "Kit de inicio"
+        payment_type = "Kit de inicio con envío"
+        expiration_date = Time.zone.now + User::NEW_FREE_MONTHS.months
+        user.kit_bought = true
+        self.send_email_to_buyer params, user.email
+      when KIT_PRICE_NO_SHIPPING
+        payment_type = "Kit de inicio, entrega presencial"
         expiration_date = Time.zone.now + User::NEW_FREE_MONTHS.months
         user.kit_bought = true
         self.send_email_to_buyer params, user.email
