@@ -1,0 +1,32 @@
+<div class="row" ng-controller="PaymentController as paymentCtrl">
+    <div class="col-lg-12 section-container">
+        <h2 class="section-title">Pago diplomado</h2>
+        <p class="payment-description">Diplomado Iuvare</p>
+        <div class="payment-container">
+          <div>
+            <p> Fecha del evento: 21 a 25 de enero del 2019 <p/>
+            <p> Confirmar con Martha Soto: <a href="mailto:marthasoto@iuvare.mx">marthasoto@iuvare.mx"</a><p/>
+          </div>
+            <div class="payment-items-table" >
+                <h3 class="item-title">1 acceso a diplomado IUVARE</h3>
+                <div class="payment-info">
+                    <div class="item-total">
+                        <span class="total-desc">Total</span>
+                        <span class="total-amount">MXN $500</span>
+                        <span class="total-security"><span class="icon-locked"></span> <img src="/assets/paypal-logo.jpg" alt="PayPal"></span>
+                        <script src="assets/lib/paypal-button.min.js?merchant=US2BWLTEARVJA"
+                                data-amount="500.00"
+                                data-button="buynow"
+                                data-currency="MXN"
+                                data-host="www.paypal.com"
+                                data-lc="es_ES"
+                                data-name="1 acceso a diplomado IUVARE"
+                                data-no_shipping="1"
+                                async>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

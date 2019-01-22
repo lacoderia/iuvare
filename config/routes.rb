@@ -155,5 +155,6 @@ Rails.application.routes.draw do
   get "FAQ", :to => "display#index"
   get "pago_membresia", :to => "display#index"
   get "pago_seminarios", :to => "display#index"
+  get "pago_diplomado", :to => "display#index"
 
 end
