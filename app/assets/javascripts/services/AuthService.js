@@ -5,7 +5,7 @@ iuvare.factory('AuthService', ['$http', '$q', "$state", "$rootScope", 'SessionSe
     var signIn = function (credentials) {
         var loginServiceURL = '/users/sign_in.json';
         return $http.post(loginServiceURL, {
-            user: credentials
+            user: {email: credentials.email.toLowerCase(), password: credentials.password} 
         }).then(
             function(data){
                 if(data){
