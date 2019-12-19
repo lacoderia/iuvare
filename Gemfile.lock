@@ -123,6 +123,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_security_extension (0.10.0)
+      devise (>= 3.0.0, < 4.0)
+      railties (>= 3.2.6, < 5.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
     em-websocket (0.5.1)
@@ -227,7 +230,7 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    rack (1.6.1)
+    rack (1.6.12)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -346,6 +349,7 @@ DEPENDENCIES
   compass-rails!
   database_cleaner
   devise
+  devise_security_extension
   factory_girl_rails
   guard-livereload
   jbuilder (~> 2.0)
