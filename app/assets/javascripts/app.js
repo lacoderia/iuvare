@@ -142,7 +142,7 @@ iuvare.constant('DEFAULT_VALUES',{
             desc: 'Amarillo',
             class: 'yellow',
             recommended: [{title: 'Entre el arroyo y la piedra', material_location: 'La cornada del león'}],
-            traits: ['Se afectan cuando existe presión',
+            traits: ['No se afectan cuando existe presión',
                 'Impaciente e impulsivo',
                 'Intenta dominar al tener contacto y es directo',
                 'Usa preguntas desafiantes',
