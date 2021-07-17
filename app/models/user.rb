@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   
   FREE_MONTHS = 1
   OUTDATED_FREE_MONTHS = 6
-  NEW_FREE_MONTHS = 3
+  NEW_FREE_MONTHS = 6
   LAUNCHING_DATE = Time.zone.local(2015,9,1,0)
 
   OUTDATED_ID = 36487

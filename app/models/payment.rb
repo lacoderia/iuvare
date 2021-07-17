@@ -26,10 +26,10 @@ class Payment < ActiveRecord::Base
     result = {}
 
     case payment_type
-    when "Kit de inicio con envío"
-      item_name = "Membresía y kit de inicio IUVARE + 3 meses gratis a iuvare.mx (envío dentro de la República Mexicana)"
-      amount = KIT_PRICE
-      shipping = true
+    #when "Kit de inicio con envío"
+    #  item_name = "Membresía y kit de inicio IUVARE + 3 meses gratis a iuvare.mx (envío dentro de la República Mexicana)"
+    #  amount = KIT_PRICE
+    #  shipping = true
     when "Kit de inicio, entrega presencial"
       item_name = "Membresía y kit de inicio IUVARE + 3 meses gratis a iuvare.mx (entrega presencial)"
       amount = KIT_PRICE_NO_SHIPPING
