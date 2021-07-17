@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     if not user.kit_bought?
       result[:valid_account] = false  
       result[:message] = "Necesitas adquirir tu kit de IUVARE para continuar."
-      result[:payment_options] << Payment.paypal_pay_object("Kit de inicio con envío", user)
+      #result[:payment_options] << Payment.paypal_pay_object("Kit de inicio con envío", user)
       result[:payment_options] << Payment.paypal_pay_object("Kit de inicio, entrega presencial", user)
     elsif not user.active?
       result[:valid_account] = false  
